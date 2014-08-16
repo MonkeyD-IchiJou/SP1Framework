@@ -40,10 +40,10 @@ void shutdown()
 
 void getInput()
 {    
-    keyPressed[K_UP] = isKeyPressed(VK_UP);
-    keyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
-    keyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
-    keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
+    keyPressed[K_UP] = isKeyPressed(VkKeyScan('w'));
+    keyPressed[K_DOWN] = isKeyPressed(VkKeyScan('s'));
+    keyPressed[K_LEFT] = isKeyPressed(VkKeyScan('a'));
+    keyPressed[K_RIGHT] = isKeyPressed(VkKeyScan('d'));
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 }
 
@@ -91,7 +91,7 @@ void render()
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
 	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
 	                        };
 	
 	for (int i = 0; i < 12; ++i)
