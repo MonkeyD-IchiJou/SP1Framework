@@ -115,7 +115,11 @@ void render()
     gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;
+<<<<<<< 69dce917810cc7b6ed40caf5d43919a2fbf02269
 <<<<<<< Updated upstream
+=======
+<<<<<<< afd44fb3a24d9aef1b63b27ae553a11b193998f6
+>>>>>>> 44e5f8461889afdada0f5d4bb3f6fdfc65624464
     */
 
     char tetris_map[22][23] = {
@@ -162,4 +166,49 @@ void render()
         gotoXY(30, 22);
         std::cout << "Your score is: ";
         getch();
+<<<<<<< 69dce917810cc7b6ed40caf5d43919a2fbf02269
 }
+=======
+
+=======
+	*/
+	char block = '*';
+
+	char tetris_map[22][23] = {
+		"*******************",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*******************",
+	};
+
+    int x = 2, y = 10;
+    tetris_map[x][y] = block;
+
+	for(int i = 0; i < 22; i++)
+	{
+        gotoXY(30,2 + i);
+		for(int j = 0; j < 20; j++)
+		{
+			std::cout << tetris_map[i][j];
+		}
+		std::cout << std::endl;
+		
+	}getch();
+>>>>>>> 2da22f87c850f74a7261186d7ecfa7e8322d9be9
+}
+>>>>>>> 44e5f8461889afdada0f5d4bb3f6fdfc65624464
