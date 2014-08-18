@@ -105,7 +105,7 @@ void render()
     gotoXY(3*i,i+1);
     colour(colors[i]);
     std::cout << "WOW";
-    }
+    }*/
 
     // render time taken to calculate this frame
     gotoXY(70, 0);
@@ -115,12 +115,35 @@ void render()
     gotoXY(0, 0);
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
-	
-    // render character
+	colour(0x0C);
+
+    char block[4][3] = {
+        "A ",
+        "A ",
+        "AA",
+    };
+
+    /*// render character
     gotoXY(charLocation);
+<<<<<<< 9141443717d364d44d195b656c751a06dba826c4
     colour(0x0C);
     std::cout << (char)1;*/
     
+=======
+    std::cout << (char)2;*/
+
+    
+    for(int i = 0; i < 4; i++)
+    {
+        gotoXY(45, 4+i);
+        for(int j = 0; j < 3; j++)
+        { 
+            std::cout << block[i][j];
+        }
+        std::cout << std::endl;
+        
+    }
+>>>>>>> 946bd60a0ca59adc07f592de91c3a56f5f58506f
 
     char tetris_map[22][23] = {
         "**********************",
@@ -147,6 +170,7 @@ void render()
         "**********************"
 
     };
+
     for(int i = 0; i < 22; i++)
     {
 		gotoXY(0, 4 + i); 
@@ -157,10 +181,17 @@ void render()
         }
         std::cout << std::endl;
 
+<<<<<<< 6a1f873c3d17254e241c2c98978e635633c3fd2d
     }
 	
 	gotoXY(18,0);
 	std::cout << "ICHIproduction";
+=======
+    } 
+
+        gotoXY(60,4);
+        std::cout << "Next in line Block";  
+>>>>>>> ebfc41788c213aaf4ffc33269e8495b997520e16
 
 	gotoXY(8, 3);
 	std::cout << "TETRIS";
@@ -168,6 +199,7 @@ void render()
 	gotoXY(30,6);
 	std::cout << "Next in line Block";  
 
+<<<<<<< 6a1f873c3d17254e241c2c98978e635633c3fd2d
 	gotoXY(30,16);
 	std::cout << "Hold Block"; 
 
@@ -177,4 +209,8 @@ void render()
 	getch();
 
 	char block = '*';
+=======
+        gotoXY(30, 22);
+        std::cout << "Your score is: "; getch();//Sleep(100);
+>>>>>>> ebfc41788c213aaf4ffc33269e8495b997520e16
 }
