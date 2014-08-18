@@ -121,8 +121,7 @@ void render()
     colour(0x0C);
     std::cout << (char)1;
     */
-    
-    std::cout << std::endl << "IchiProduction" <<std::endl << "TETRIS";
+
     char tetris_map[22][23] = {
         "**********************",
         "*                    *",
@@ -147,7 +146,8 @@ void render()
     };
     for(int i = 0; i < 22; i++)
     {
-        gotoXY(0,4 + i);
+		gotoXY(0, 4 + i); 
+
         for(int j = 0; j < 23; j++)
         {
             std::cout << tetris_map[i][j];
@@ -155,19 +155,23 @@ void render()
         std::cout << std::endl;
 
     }
-    
-    
-        gotoXY(30,6);
-        std::cout << "Next in line Block";  
+	
+	gotoXY(18,0);
+	std::cout << "ICHIproduction";
 
-        gotoXY(30,16);
-        std::cout << "Hold Block"; 
+	gotoXY(8, 3);
+	std::cout << "TETRIS";
+	
+	gotoXY(30,6);
+	std::cout << "Next in line Block";  
+
+	gotoXY(30,16);
+	std::cout << "Hold Block"; 
 
 
-        gotoXY(0, 23);
-        std::cout << "Your score is: ";
-        getch();
-
+	gotoXY(0, 23);
+	std::cout << "Your score is: ";
+	getch();
 
 	char block = '*';
 }
