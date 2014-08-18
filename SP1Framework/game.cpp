@@ -5,6 +5,7 @@
 #include "Framework\console.h"
 #include <iostream>
 #include <iomanip>
+#include <conio.h>
 
 double elapsedTime;
 double deltaTime;
@@ -94,7 +95,7 @@ void render()
 	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
 	                        };
 	
-	for (int i = 0; i < 12; ++i)
+	/*for (int i = 0; i < 12; ++i)
 	{
 		gotoXY(3*i,i+1);
 		colour(colors[i]);
@@ -114,6 +115,38 @@ void render()
     gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;
+	*/
+	
+	char tetris_map[22][20] = {
+		"*******************",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*                 *",
+		"*******************"
 
-    
+	};
+	for(int i = 0; i < 22; i++)
+	{
+			gotoXY(30,2 + i);
+		for(int j = 0; j < 20; j++)
+		{
+			std::cout << tetris_map[i][j];
+		}
+		std::cout << std::endl;
+		
+	}getch();
 }
