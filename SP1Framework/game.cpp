@@ -57,22 +57,22 @@ void update(double dt)
     // Updating the location of the character based on the key press
     if (keyPressed[K_UP] && charLocation.Y > 0)
     {
-        Beep(1440, 30);
+        Beep(1000, 30);
         charLocation.Y--; 
     }
     if (keyPressed[K_LEFT] && charLocation.X > 0)
     {
-        Beep(1440, 30);
+        Beep(1000, 30);
         charLocation.X--; 
     }
     if (keyPressed[K_DOWN] && charLocation.Y < consoleSize.Y - 1)
     {
-        Beep(1440, 30);
+        Beep(1000, 30);
         charLocation.Y++; 
     }
     if (keyPressed[K_RIGHT] && charLocation.X < consoleSize.X - 1)
     {
-        Beep(1440, 30);
+        Beep(1000, 30);
         charLocation.X++; 
     }
 
@@ -110,39 +110,40 @@ void render()
     gotoXY(0, 0);
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
-
+	
     // render character
     gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;
+<<<<<<< Updated upstream
     */
 
-    char tetris_map[22][20] = {
-        "*******************",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*                 *",
-        "*******************"
+    char tetris_map[22][23] = {
+        "**********************",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "**********************"
 
     };
     for(int i = 0; i < 22; i++)
     {
         gotoXY(30,2 + i);
-        for(int j = 0; j < 20; j++)
+        for(int j = 0; j < 23; j++)
         {
             std::cout << tetris_map[i][j];
         }
@@ -161,5 +162,4 @@ void render()
         gotoXY(60, 16);
         std::cout << "Your score is: ";
         getch();
-
 }
