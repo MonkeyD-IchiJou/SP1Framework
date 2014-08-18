@@ -3,9 +3,9 @@
 //
 #include "game.h"
 #include "Framework\console.h"
-#include <iostream>
-#include <iomanip>
-#include <conio.h>
+#include "tetris.h"
+//#include <iostream>
+//#include <iomanip>
 
 double elapsedTime;
 double deltaTime;
@@ -91,8 +91,16 @@ void render()
     // clear previous screen
     colour(0x0F);
     cls();
+    
+    //render time taken to calculate this frame
+    gotoXY(40, 0);
+    colour(0x1A);
+    std::cout << 1.0 / deltaTime << "fps" << std::endl;
 
-    //render the game
+    gotoXY(0, 0);
+    colour(0x59);
+    std::cout << elapsedTime << "secs" << std::endl;
+	colour(0x0C);
 
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
@@ -100,87 +108,15 @@ void render()
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
 
-   /* for (int i = 0; i < 12; ++i)
-    {
-    gotoXY(3*i,i+1);
-    colour(colors[i]);
-    std::cout << "WOW";
-    }*/
-    /*
-    // render time taken to calculate this frame
-    gotoXY(70, 0);
-    colour(0x1A);
-    std::cout << 1.0 / deltaTime << "fps" << std::endl;
+    tetris_screen();    //Gameplay Map is here
+    tetris_info();      //Info is here
 
-    gotoXY(0, 0);
-    colour(0x59);
-    std::cout << elapsedTime << "secs" << std::endl;
-<<<<<<< Updated upstream
-	colour(0x0C);
-    */
-=======
-	colour(0x0C);*/
+	//_getch();
 
->>>>>>> Stashed changes
+	//colour(0x0C);
 
-    /*// render character
-    gotoXY(charLocation);
+    // render character
+    /*gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;*/
-
-    char tetris_map[22][23] = {
-        "**********************",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "**********************"
-
-    };
-
-    for(int i = 0; i < 22; i++)
-    {
-		gotoXY(0, 4 + i); 
-
-        for(int j = 0; j < 23; j++)
-        {
-            std::cout << tetris_map[i][j];
-        }
-        std::cout << std::endl;
-    }
-	
-	gotoXY(18,0);
-	std::cout << "ICHIproduction"; 
-
-	gotoXY(8, 3);
-	std::cout << "TETRIS";
-	
-	gotoXY(30,6);
-	std::cout << "Next in line Block";  
-
-	gotoXY(30,16);
-	std::cout << "Hold Block"; 
-
-
-	gotoXY(0, 26);
-	std::cout << "Your score is: ";
-	getch();
-
-	char block = '*';
 }
