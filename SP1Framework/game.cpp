@@ -115,8 +115,13 @@ void render()
     gotoXY(0, 0);
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
+<<<<<<< Updated upstream
 	colour(0x0C);
     */
+=======
+	colour(0x0C);*/
+
+>>>>>>> Stashed changes
 
     /*// render character
     gotoXY(charLocation);
@@ -161,11 +166,7 @@ void render()
     }
 	
 	gotoXY(18,0);
-	std::cout << "ICHIproduction";
-    
-
-        gotoXY(60,4);
-        std::cout << "Next in line Block"; 
+	std::cout << "ICHIproduction"; 
 
 	gotoXY(8, 3);
 	std::cout << "TETRIS";
