@@ -21,7 +21,7 @@ void init()
     SetConsoleTitle(L"SP1 Framework");
 
     // Sets the console size, this is the biggest so far.
-    setConsoleSize(79, 28);
+    setConsoleSize(50, 28);
 
     // Get console width and height
     CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */     
@@ -81,7 +81,7 @@ void update(double dt)
         charLocation.X++; 
     }
 
-    // quits the game if player hits the escape key
+    // Pauses the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
         system("pause");
 }
@@ -121,7 +121,8 @@ void render()
     colour(0x0C);
     std::cout << (char)1;
     */
-
+    
+    std::cout << std::endl << "IchiProduction" <<std::endl << "TETRIS";
     char tetris_map[22][23] = {
         "**********************",
         "*                    *",
@@ -146,7 +147,7 @@ void render()
     };
     for(int i = 0; i < 22; i++)
     {
-        gotoXY(30,2 + i);
+        gotoXY(0,4 + i);
         for(int j = 0; j < 23; j++)
         {
             std::cout << tetris_map[i][j];
@@ -156,14 +157,14 @@ void render()
     }
     
     
-        gotoXY(60,4);
+        gotoXY(30,6);
         std::cout << "Next in line Block";  
 
-        gotoXY(60,14);
+        gotoXY(30,16);
         std::cout << "Hold Block"; 
 
 
-        gotoXY(30, 22);
+        gotoXY(0, 23);
         std::cout << "Your score is: ";
         getch();
 
