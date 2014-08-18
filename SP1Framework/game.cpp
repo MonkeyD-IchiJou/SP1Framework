@@ -78,7 +78,7 @@ void update(double dt)
 
     // quits the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
-        g_quitGame = true;
+        system("pause");
 }
 
 void render()
@@ -155,11 +155,11 @@ void render()
         gotoXY(60,4);
         std::cout << "Next in line Block";  
 
-        gotoXY(60,10);
+        gotoXY(60,14);
         std::cout << "Hold Block"; 
 
 
-        gotoXY(60, 16);
+        gotoXY(30, 22);
         std::cout << "Your score is: ";
         getch();
 }
