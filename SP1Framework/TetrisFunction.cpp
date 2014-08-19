@@ -140,8 +140,15 @@ void tetris_screen ()
             }
         }
 
+<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
 /*/////ENDLOOP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
         
+=======
+		//Pauses the game
+		if(GetAsyncKeyState(VK_ESCAPE))
+        system("pause");
+
+>>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
         //map screen
         for(int i = 0; i < 22; i++)
         {
@@ -195,6 +202,11 @@ void welcome_screen()
 	while(NEWGAME != EXITGAME)
 	{
         //PlaySound(menu_music(), NULL, menu_music());
+<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
+=======
+		//Title of the game
+		cout << endl;
+>>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
 		cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
 		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "  *    *" << endl;
 		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "   *      " << endl;
@@ -202,37 +214,41 @@ void welcome_screen()
 		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "     *    "<< endl;
 		cout << "   *   " << " *      " << "    *   " << " *      * "  << "    *    " << " *    * "<< endl;
 		cout << "   *   " << " *******" << "    *   " << " *       *"  << " ******* " << " ***** "<< endl;
+
+		//Start game function
 		gotoXY(20, 10);
 		cout << "(1)New Game" << endl;
+		
+		//Credit function
 		gotoXY(20, 12);
 		cout << "(2)Credit" << endl;
+
+		//Exiting the game function
 		gotoXY(20, 14);
 		cout << "(3)Exit Game" << endl << endl;
+
+		//Function for players to choose
 		gotoXY(14, 16);
-		cout << "Press a number to start!" << endl;
+		cout << "Pick a number to start!" << endl;
+		gotoXY(25,18);
 		cin >> choice;
 		cout << endl;
+
+		//How the function works
 		switch(choice)
 		{
-		case NEWGAME: cout << "Let's start playing!" << endl << endl << endl;
-			system("cls");
+		case NEWGAME: system("cls");
 			return;
-		case CREDITS: cout << "No credits. Fooled you. HAHA" << endl << endl << endl;
-			break;
-		case EXITGAME: cout <<		"Thank you playing! Please buy the game!" << endl;
-					   cout <<		"              $          " << endl;
-				       cout <<		"           ,$$$$$,       " << endl;
-				       cout <<		"         ,$$$'$'$$$      " << endl;
-				       cout <<		"         $$$  $   '      " << endl;
-				       cout <<		"         '$$$,$          " << endl;
-				       cout << 		"            $$$$,        " << endl;
-				       cout <<		"             '$$$$,      " << endl;
-				       cout <<		"              $ $$$,     " << endl;
-				       cout <<		"          ,   $  $$$     " << endl;
-				       cout <<		"          $$$ $.$$$      " << endl;
-				       cout <<		"            $$$$$        " << endl;
-				       cout <<		"              $          " << endl;
-			break;
+
+		case CREDITS: system("cls");
+			gotoXY(25, 9);
+			cout <<"No credits. Fooled you. HAHA" << endl << endl;
+			exit(0);
+
+		case EXITGAME: system("cls");
+			gotoXY(25, 9);
+			cout << "Thank you playing!" << endl << endl;
+			exit(0);
 		}
 	}
 }

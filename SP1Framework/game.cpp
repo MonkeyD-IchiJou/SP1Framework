@@ -83,7 +83,7 @@ void update(double dt)
 
     // Pauses the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
-        system("pause");
+        system("pause.exe");
 }
 
 void render()
@@ -111,6 +111,10 @@ void render()
     /*
     // render time taken to calculate this frame
     gotoXY(70, 0);
+<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
+=======
+
+>>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
     colour(0x1A);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 
@@ -118,6 +122,7 @@ void render()
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
 	colour(0x0C);
+<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
     colour(0x0C);
     */
 
@@ -126,16 +131,15 @@ void render()
     gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;*/
-
-    /*// render character
 =======
+>>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
 
-    // render character
->>>>>>> Stashed changes
-    gotoXY(charLocation);
     colour(0x0C);
-    std::cout << (char)1;*/
 
+<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
+=======
+	*/
+>>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
     //render test screen code (not efficient at all)
 
     const WORD colors[] =   {
@@ -150,4 +154,17 @@ void render()
     
 
 	_getch();
+<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
 }
+=======
+	//_getch();
+
+	//colour(0x0C);
+
+    // render character
+    /*gotoXY(charLocation);
+    colour(0x0C);
+    std::cout << (char)1;*/
+
+}
+>>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
