@@ -142,11 +142,12 @@ void render()
     };
 
 	welcome_screen();   //Welcome Screen of the game is here
-    tetris_info();      //Info is here 
-    tetris_screen();    //Gameplay Map is here
 	pause_screen();     //Pause Screen is here
+<<<<<<< 5d802e8b7bf21de03bceb0e872a9762bf3831b2f
     
 
 	_getch();
 
+=======
+>>>>>>> d0d820cf331d0e8fea9fcb05afbb5316e6fdbe6d
 }
