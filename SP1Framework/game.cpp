@@ -121,5 +121,6 @@ void render()
 	welcome_screen();   //Welcome Screen of the game is here
     tetris_info();      //Info is here 
     tetris_screen();    //Gameplay Map is here
+	pause_screen();     //Pause Screen is here
 
 }

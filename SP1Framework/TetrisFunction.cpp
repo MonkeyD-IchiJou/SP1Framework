@@ -252,6 +252,11 @@ void tetris_screen ()
             }
             cout << endl;
         }
+		if(GetAsyncKeyState(VK_ESCAPE))
+		{
+			pause_screen();
+			system("pause");
+		}
     }
 }
 
@@ -364,3 +369,57 @@ void welcome_screen()
 
 }
 
+void pause_screen()
+{
+	const int p_mX = 22;
+    const int p_mY = 23;
+
+	//pause table
+	gotoXY(15,10);
+	char pause_screen[p_mX][p_mY];
+
+    for(int i = 0; i < 22; i++)
+    {
+        for(int j = 0; j < 23; j++)
+        {
+            pause_screen[0][j] = '*';
+            pause_screen[21][j] = '*';
+            pause_screen[i][0] = '*';
+            pause_screen[i][22] = '*';
+
+            if (j > 0 && j < 22 && i > 0 && i < 21)
+            {
+               pause_screen[i][j] = ' '; 
+            }
+        }
+    }
+
+	enum Pause
+	{
+		CONTINUE = 1,
+		ENDGAME
+	};
+
+	{
+		int choice = 0;
+			while (CONTINUE != ENDGAME)
+			{
+				gotoXY(20,10);
+				cout << "(1)Continue Game" << endl;
+				gotoXY(20,12);
+				cout << "(2)End Game" << endl;
+				cin >> choice;
+				cout << endl;
+				switch(choice)
+				{
+				case CONTINUE:
+					return;
+
+				case ENDGAME: cout << "ThankYou" << endl;
+					system("cls");
+					break;
+				}
+			}
+	}
+
+}
