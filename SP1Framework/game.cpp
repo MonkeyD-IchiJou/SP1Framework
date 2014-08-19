@@ -30,13 +30,10 @@ void init()
     GetConsoleScreenBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ), &csbi );
     consoleSize.X = csbi.srWindow.Right + 1;
     consoleSize.Y = csbi.srWindow.Bottom + 1;
-    /*
+    
     // set the character to be in the center of the screen.
     charLocation.X = consoleSize.X / 2;
-    charLocation.Y = consoleSize.Y / 2;*/
-
-    charLocation.X = 4;
-    charLocation.Y = 4;
+    charLocation.Y = consoleSize.Y / 2;
 
     elapsedTime = 0.0;
 }
@@ -92,7 +89,6 @@ void update(double dt)
 void render()
 {
     // clear previous screen
-    colour(0x0F);
     cls();
     
     //render time taken to calculate this frame
@@ -147,13 +143,11 @@ void render()
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
 
-    //tetris_screen();    //Gameplay Map is here
-    tetris_info();      //Info is here
+    tetris_info();      //Info is here 
+    tetris_screen();    //Gameplay Map is here
+    
 
 	_getch();
 
 	//colour(0x0C);
-
-    // render character
-    
 }
