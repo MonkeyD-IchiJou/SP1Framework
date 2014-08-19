@@ -140,15 +140,12 @@ void tetris_screen ()
             }
         }
 
-<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
 /*/////ENDLOOP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
         
-=======
 		//Pauses the game
 		if(GetAsyncKeyState(VK_ESCAPE))
         system("pause");
 
->>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
         //map screen
         for(int i = 0; i < 22; i++)
         {
@@ -202,11 +199,8 @@ void welcome_screen()
 	while(NEWGAME != EXITGAME)
 	{
         //PlaySound(menu_music(), NULL, menu_music());
-<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
-=======
 		//Title of the game
 		cout << endl;
->>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
 		cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
 		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "  *    *" << endl;
 		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "   *      " << endl;

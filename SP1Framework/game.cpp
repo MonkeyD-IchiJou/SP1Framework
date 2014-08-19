@@ -131,15 +131,9 @@ void render()
     gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;*/
-=======
->>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
 
     colour(0x0C);
 
-<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
-=======
-	*/
->>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
     //render test screen code (not efficient at all)
 
     const WORD colors[] =   {
@@ -154,17 +148,5 @@ void render()
     
 
 	_getch();
-<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
-}
-=======
-	//_getch();
-
-	//colour(0x0C);
-
-    // render character
-    /*gotoXY(charLocation);
-    colour(0x0C);
-    std::cout << (char)1;*/
 
 }
->>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
