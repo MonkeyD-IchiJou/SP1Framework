@@ -20,6 +20,8 @@ void welcome_screen();
 void tetris_info();
 void tetris_gameplay();
 void pause_screen();
+void menu_music();
+void sound();
 
 void square_block();
 void z_block();

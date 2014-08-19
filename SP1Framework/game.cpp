@@ -130,64 +130,12 @@ void render()
     colour(0x0C);
 >>>>>>> af96d7de8fa614280f7ed60ecd1bbfcc6897b878
     */
->>>>>>> 322836128c2e9e032f86392a4f19c3e9746f554a
+
 
     /*// render character
     gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;*/
-<<<<<<< 27e02543647d8ea5c055cd1ac49d6cef4390ac2d
-<<<<<<< cc4bda5f82abbb0790f6ba5dddf5ebf05e6715dc
-=======
-<<<<<<< b3647aec69e1d9ae5ef24331a85837610e0fce0b
-	
-	colour(0x00D);
-    char tetris_map[22][23] = {
-        "**********************",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-=======
-
-    char tetris_map[22][23] = {
-        "**********************",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
->>>>>>> af96d7de8fa614280f7ed60ecd1bbfcc6897b878
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "**********************"
-<<<<<<< b3647aec69e1d9ae5ef24331a85837610e0fce0b
->>>>>>> 6742002588d4dd56b365fefd1fb3d941971c5e3a
-=======
->>>>>>> af96d7de8fa614280f7ed60ecd1bbfcc6897b878
->>>>>>> 322836128c2e9e032f86392a4f19c3e9746f554a
-=======
->>>>>>> 1dfde5a30aefb9ebee7e11b3ab62b7841cee9095
 
     /*// render character
     gotoXY(charLocation);
@@ -199,12 +147,7 @@ void render()
 	welcome_screen();   //Welcome Screen of the game is here
     tetris_info();      //Info is here 
     tetris_screen();    //Gameplay Map is here
-<<<<<<< bea628f4462ab4601181be17794cf4911b7b7c7e
 	pause_screen();     //Pause Screen is here
-=======
-<<<<<<< cc4bda5f82abbb0790f6ba5dddf5ebf05e6715dc
-
-=======
     
 
 	_getch();
@@ -217,72 +160,6 @@ void render()
     colour(0x0C);
     std::cout << (char)1;*/
 
-<<<<<<< 130905f902ea7997ab473ee811e2576ce16b54cb
->>>>>>> af96d7de8fa614280f7ed60ecd1bbfcc6897b878
-        for(int j = 0; j < 23; j++)
-        {
-            std::cout << tetris_map[i][j];
-        }
-        std::cout << std::endl;
-    }
-
-<<<<<<< b3647aec69e1d9ae5ef24331a85837610e0fce0b
-	colour(0x00E);
-	gotoXY(18,0);
-	std::cout << "ICHIproduction";
-
-	gotoXY(60,4);
-	std::cout << "Next in line Block"; 
-
-	gotoXY(8, 3);
-	std::cout << "TETRIS";
-
-	gotoXY(30,6);
-	std::cout << "Next in line Block";  
-
-	gotoXY(30,16);
-	std::cout << "Hold Block"; 
 
 
-	gotoXY(0, 26);
-	std::cout << "Your score is: ";
-	getch();
-
-	char block = '*';
->>>>>>> 6742002588d4dd56b365fefd1fb3d941971c5e3a
->>>>>>> 8713d293563d28b08034e2ad6cf23375b5c66b01
->>>>>>> ea2d4a382fce1ccde880b03d8604f8205b95d1f9
-=======
-    gotoXY(18,0);
-    std::cout << "ICHIproduction";
-
-
-    gotoXY(60,4);
-    std::cout << "Next in line Block"; 
-
-    gotoXY(8, 3);
-    std::cout << "TETRIS";
-
-    gotoXY(30,6);
-    std::cout << "Next in line Block";  
-
-    gotoXY(30,16);
-    std::cout << "Hold Block"; 
-
-
-    gotoXY(0, 26);
-    std::cout << "Your score is: ";
-    getch();
->>>>>>> 27e02543647d8ea5c055cd1ac49d6cef4390ac2d
-=======
->>>>>>> 84b31542689cb8c10e17e7366a4b0b03c7a2f5ff
-
-    char block = '*';
-<<<<<<< 27e02543647d8ea5c055cd1ac49d6cef4390ac2d
->>>>>>> e874a60569dae7117757fa9ac54b20f817537940
->>>>>>> 67e3a62cde6a0c223f72d4a0309a4a73e39abefc
->>>>>>> af96d7de8fa614280f7ed60ecd1bbfcc6897b878
->>>>>>> 322836128c2e9e032f86392a4f19c3e9746f554a
-=======
->>>>>>> 1dfde5a30aefb9ebee7e11b3ab62b7841cee9095
 }
