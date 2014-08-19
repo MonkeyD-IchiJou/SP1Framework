@@ -4,10 +4,12 @@
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
-
+#include <stdlib.h>
+#include <exception>
 using std::cout;
 using std::cin;
 using std::endl;
+using std::string;
 
 const size_t blocksize = 4;
 
@@ -28,6 +30,7 @@ void tetris_gameplay();
 void pause_screen();
 void menu_music();
 void sound();
+void exit();
 
 blocks getSquareBlocks();
 blocks DelSquareBlocks();
