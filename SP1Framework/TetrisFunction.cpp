@@ -273,6 +273,7 @@ void pause_screen()
 
 				gotoXY(20,12);
 				cout << "(2)End Game" << endl;
+				gotoXY(25,18);
 				cin >> choice;
 				cout << endl;
 
