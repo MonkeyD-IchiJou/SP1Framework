@@ -104,6 +104,42 @@ void render()
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
 	colour(0x0C);
+<<<<<<< Updated upstream
+=======
+    */
+
+
+
+
+    /*// render character
+    gotoXY(charLocation);
+    colour(0x0C);
+    std::cout << (char)1;*/
+
+    char tetris_map[22][23] = {
+        "**********************",
+		"*                    *",
+		"*                    *",
+		"*                    *",
+		"*                    *",
+		"*                    *",
+		"*                    *",
+		"*                    *",
+		"*                    *",
+		"*                    *",
+		"*                    *",
+		"*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "*                    *",
+        "**********************"
+>>>>>>> Stashed changes
 
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
