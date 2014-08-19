@@ -2,161 +2,116 @@
 #include "Framework\console.h"
 #include "tetris.h"
 
-const int t_mX = 22;
-const int t_mY = 23;
-
 void tetris_screen ()
 {
     blocks axis;
     blocks niceshape;
 
-    niceshape.blockshape = 'o';
-    axis.sq_x = 2;
-    axis.sq_y = 2;
-	
+    axis.coord_x = 1;
+    axis.coord_y = 9;
 
-    const int t_mX = 22;
-    const int t_mY = 23;
+    blocks tmap = tetris_game_map();        //tetris map
 
-    blocks square = getSquareBlocks();
-    blocks delsquare = DelSquareBlocks();
+    blocks square = getSquareBlocks();      //square blocks
+    blocks delsquare = DelSquareBlocks();   //delete square blocks
 
-    //Tetris map
-    char tetris_map[t_mX][t_mY];
-
-    for(int i = 0; i < 22; i++)
-    {
-        for(int j = 0; j < 23; j++)
-        {
-            tetris_map[0][j] = '*';
-            tetris_map[21][j] = '*';
-            tetris_map[i][0] = '*';
-            tetris_map[i][22] = '*';
-
-            if (j > 0 && j < 22 && i > 0 && i < 21)
-            {
-                tetris_map[i][j] = ' '; 
-            }
-        }
-    }
-    
-    for(int i = 0; i < 22; i++)
-    {
-        gotoXY(0, 4 + i); 
-
-        for(int j = 0; j < 23; j++)
-        {
-            cout << tetris_map[i][j];
-        }
-        cout << endl;
-    }
+    int block_h = 3;
+    int block_width = 3;
 
 /*/////START LOOP/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     for(;;)
     {
         //updating
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < block_h; i++)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < block_width; j++)
             {
-                tetris_map[axis.sq_x+i][axis.sq_y+j] = square.square_block[i][j];
+                tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];
             }
         }
 
 /*------DOWNWARD ANIMATION------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-     
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         //animation downward
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < block_h; i++)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < block_width; j++)
             {
-                tetris_map[axis.sq_x+i][axis.sq_y+j] = delsquare.square_block[i][j];
+                tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = delsquare.square_block[i][j];
             }
         }
 
-        axis.sq_x += 1;
-        axis.sq_y += 0;
+        axis.coord_x += 1;
+        axis.coord_y += 0;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < block_h; i++)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < block_width; j++)
             {
-                tetris_map[axis.sq_x+i][axis.sq_y+j] = square.square_block[i][j];
+                tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];
             }
 
-            Sleep(150);
-        }
-
-        
+            Sleep(100);
+        }        
         
 /*------PRESS RIGHT-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
         if(GetAsyncKeyState(VK_RIGHT))
         {
             sound();
             //animation to the right
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < block_h; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < block_width; j++)
                 {
-                    tetris_map[axis.sq_x+i][axis.sq_y+j] = delsquare.square_block[i][j];
+                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = delsquare.square_block[i][j];
                 }
             }
 
-            axis.sq_x += 0;
-            axis.sq_y += 1;
+            axis.coord_x += 0;
+            axis.coord_y += 1;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < block_h; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < block_width; j++)
                 {
-                    tetris_map[axis.sq_x+i][axis.sq_y+j] = square.square_block[i][j];
+                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];
                 }
             }
         }
 
 
 /*------PRESS LEFT--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-        
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if(GetAsyncKeyState(VK_LEFT))
         {
             sound();
             //animation to the left
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < block_h; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < block_width; j++)
                 {
-                    tetris_map[axis.sq_x+i][axis.sq_y+j] = delsquare.square_block[i][j];
+                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = delsquare.square_block[i][j];
                 }
             }
 
-            axis.sq_x += 0;
-            axis.sq_y -= 1;
+            axis.coord_x += 0;
+            axis.coord_y -= 1;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < block_h; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < block_width; j++)
                 {
-                    tetris_map[axis.sq_x+i][axis.sq_y+j] = square.square_block[i][j];
+                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];
                 }
             }
         }
 
-/*/////ENDLOOP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*------UPDATE MAP--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
         //map screen
         for(int i = 0; i < 22; i++)
@@ -165,7 +120,7 @@ void tetris_screen ()
 
             for(int j = 0; j < 23; j++)
             {
-                cout << tetris_map[i][j];
+                cout << tmap.tetris_map[i][j];
             }
             cout << endl;
         }
@@ -176,11 +131,9 @@ void tetris_screen ()
 		{
 			pause_screen();
 		}
-        if(GetAsyncKeyState(VK_ESCAPE))
-        {
-            pause_screen();
-            system("pause");
-        }
+
+/*/////LOOP WILL REPEAT FROM STARTING AGAIN//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+    
     }
 }
 
@@ -270,7 +223,6 @@ void welcome_screen()
 	}
 }
 
-
 void pause_screen()
 {
 
@@ -281,11 +233,11 @@ void pause_screen()
 		ENDGAME
 	};
 
-	//{
+	    {
 		int choice = 0;
 
-			/*while (CONTINUE != ENDGAME)
-			{*/
+			while (CONTINUE != ENDGAME)
+			{
 				cls();
 				gotoXY(20,10);
 				cout << "(1)Continue Game" << endl;
@@ -309,10 +261,8 @@ void pause_screen()
 					return welcome_screen();
 
 				}
-			//}
-	//}
-    
-
+			}
+	}
 }
 
 void sound()

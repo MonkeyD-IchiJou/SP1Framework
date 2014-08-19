@@ -79,7 +79,7 @@
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="printoutBlocks.cpp" />
+    <ClCompile Include="printout.cpp" />
     <ClCompile Include="TetrisFunction.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -11,16 +11,27 @@ using std::cin;
 using std::endl;
 using std::string;
 
-const size_t blocksize = 4;
+const int t_mX = 22;
+const int t_mY = 23;
+
+const size_t blocksizeX = 3;
+const size_t blocksizeY = 4;
 
 struct blocks
 {
-    char square_block[blocksize][blocksize];
-    char z_block[blocksize][blocksize];
+    char tetris_map[t_mX][t_mY];
+
+    char square_block[blocksizeX][blocksizeY];
+    char z_block[blocksizeX][blocksizeY];
+
+    char boundaries;
+    char insideB;
 
     char blockshape;
-    int sq_x;
-    int sq_y;
+    char collisioncheck;
+
+    int coord_x;
+    int coord_y;
 };
 
 void tetris_screen();
@@ -32,6 +43,7 @@ void menu_music();
 void sound();
 void exit();
 
+blocks tetris_game_map();
 blocks getSquareBlocks();
 blocks DelSquareBlocks();
 

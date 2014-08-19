@@ -36,7 +36,7 @@
     <ClCompile Include="TetrisFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="printoutBlocks.cpp">
+    <ClCompile Include="printout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

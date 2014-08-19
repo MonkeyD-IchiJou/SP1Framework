@@ -90,6 +90,7 @@ void render()
 {
     // clear previous screen
     cls();
+
     /*
     //render time taken to calculate this frame
     gotoXY(40, 0);
@@ -111,10 +112,7 @@ void render()
     /*
     // render time taken to calculate this frame
     gotoXY(70, 0);
-<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
-=======
 
->>>>>>> 9dd5a61807001244493e021ffa1eeab6d25ff64f
     colour(0x1A);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 
@@ -122,7 +120,6 @@ void render()
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
 	colour(0x0C);
-<<<<<<< ff1c53a4a679a8acdc886c7cd1b63cf91ce840bf
     colour(0x0C);
     */
 
@@ -132,16 +129,16 @@ void render()
     colour(0x0C);
     std::cout << (char)1;*/
 
-    colour(0x0C);
+    //colour(0x0C);
 
     //render test screen code (not efficient at all)
-
+    /*
     const WORD colors[] =   {
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
-
+    */
 	welcome_screen();   //Welcome Screen of the game is here
 
-	_getch();
+	//_getch();
 }
