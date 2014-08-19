@@ -306,3 +306,61 @@ void square_block()
         cout << endl;
     }
 }
+
+void welcome_screen()
+{
+	enum Sequence
+	{
+		NEWGAME = 1,
+		CREDITS,
+		EXITGAME
+	};
+
+{
+	int choice = 0;
+	while(NEWGAME != EXITGAME)
+	{
+		cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
+		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "  *    *" << endl;
+		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "   *      " << endl;
+		cout << "   *   " << " *******" << "    *   " << " ******   "  << "    *    " << "    *     " << endl;
+		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "     *    "<< endl;
+		cout << "   *   " << " *      " << "    *   " << " *      * "  << "    *    " << " *    * "<< endl;
+		cout << "   *   " << " *******" << "    *   " << " *       *"  << " ******* " << " ***** "<< endl;
+		gotoXY(20, 10);
+		cout << "(1)New Game" << endl;
+		gotoXY(20, 12);
+		cout << "(2)Credit" << endl;
+		gotoXY(20, 14);
+		cout << "(3)Exit Game" << endl << endl;
+		gotoXY(14, 16);
+		cout << "Press a number to start!" << endl;
+		cin >> choice;
+		cout << endl;
+		switch(choice)
+		{
+		case NEWGAME: cout << "Let's start playing!" << endl << endl << endl;
+			system("cls");
+			return;
+		case CREDITS: cout << "No credits. Fooled you. HAHA" << endl << endl << endl;
+			break;
+		case EXITGAME: cout <<		"Thank you playing! Please buy the game!" << endl;
+					   cout <<		"              $          " << endl;
+				       cout <<		"           ,$$$$$,       " << endl;
+				       cout <<		"         ,$$$'$'$$$      " << endl;
+				       cout <<		"         $$$  $   '      " << endl;
+				       cout <<		"         '$$$,$          " << endl;
+				       cout << 		"            $$$$,        " << endl;
+				       cout <<		"             '$$$$,      " << endl;
+				       cout <<		"              $ $$$,     " << endl;
+				       cout <<		"          ,   $  $$$     " << endl;
+				       cout <<		"          $$$ $.$$$      " << endl;
+				       cout <<		"            $$$$$        " << endl;
+				       cout <<		"              $          " << endl;
+			break;
+		}
+	}
+}
+
+}
+

@@ -100,40 +100,11 @@ void render()
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
 	colour(0x0C);
-<<<<<<< 0bd2a6a8efe758294cede3307fe50fdbe99aaa28
-=======
-    */
 
     /*// render character
     gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;*/
-	
-	colour(0x00D);
-    char tetris_map[22][23] = {
-        "**********************",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-		"*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "*                    *",
-        "**********************"
->>>>>>> 6742002588d4dd56b365fefd1fb3d941971c5e3a
 
     /*// render character
     gotoXY(charLocation);
@@ -147,59 +118,8 @@ void render()
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
 
+	welcome_screen();   //Welcome Screen of the game is here
     tetris_info();      //Info is here 
     tetris_screen();    //Gameplay Map is here
-    
 
-<<<<<<< 1ccf3a0e5f3d1119a3fe5bd3c9f3f434b2fd88c4
-	_getch();
-=======
-<<<<<<< 0bd2a6a8efe758294cede3307fe50fdbe99aaa28
-	//_getch();
->>>>>>> 8713d293563d28b08034e2ad6cf23375b5c66b01
-
-	//colour(0x0C);
-<<<<<<< ab4bafbca8a531a53f3ed3c66f3a0cb405b23de2
-=======
-
-    // render character
-<<<<<<< 1ccf3a0e5f3d1119a3fe5bd3c9f3f434b2fd88c4
-    
-=======
-    /*gotoXY(charLocation);
-    colour(0x0C);
-    std::cout << (char)1;*/
-=======
-        for(int j = 0; j < 23; j++)
-        {
-            std::cout << tetris_map[i][j];
-        }
-        std::cout << std::endl;
-    }
-
-	colour(0x00E);
-	gotoXY(18,0);
-	std::cout << "ICHIproduction";
-
-	gotoXY(60,4);
-	std::cout << "Next in line Block"; 
-
-	gotoXY(8, 3);
-	std::cout << "TETRIS";
-
-	gotoXY(30,6);
-	std::cout << "Next in line Block";  
-
-	gotoXY(30,16);
-	std::cout << "Hold Block"; 
-
-
-	gotoXY(0, 26);
-	std::cout << "Your score is: ";
-	getch();
-
-	char block = '*';
->>>>>>> 6742002588d4dd56b365fefd1fb3d941971c5e3a
->>>>>>> 8713d293563d28b08034e2ad6cf23375b5c66b01
->>>>>>> ea2d4a382fce1ccde880b03d8604f8205b95d1f9
 }

@@ -6,6 +6,7 @@
 #include <conio.h>
 
 using std::cout;
+using std::cin;
 using std::endl;
 
 struct blocks
@@ -15,6 +16,7 @@ struct blocks
 };
 
 void tetris_screen();
+void welcome_screen();
 void tetris_info();
 void tetris_gameplay();
 
