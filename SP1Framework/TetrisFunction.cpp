@@ -196,9 +196,6 @@ void welcome_screen()
 	};
 
 	int choice = 0;
-	while(NEWGAME != EXITGAME)
-	{
-        //PlaySound(menu_music(), NULL, menu_music());
 		//Title of the game
 		cout << endl;
 		cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
@@ -208,6 +205,10 @@ void welcome_screen()
 		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "     *    "<< endl;
 		cout << "   *   " << " *      " << "    *   " << " *      * "  << "    *    " << " *    * "<< endl;
 		cout << "   *   " << " *******" << "    *   " << " *       *"  << " ******* " << " ***** "<< endl;
+
+	while(NEWGAME != EXITGAME)
+	{
+        //PlaySound(menu_music(), NULL, menu_music());
 
 		//Start game function
 		gotoXY(20, 10);
@@ -242,6 +243,10 @@ void welcome_screen()
 		case EXITGAME: system("cls");
 			gotoXY(25, 9);
 			cout << "Thank you playing!" << endl << endl;
+			exit(0);
+
+		default: system("cls");
+			cout << "This game will shut down." << endl;
 			exit(0);
 		}
 	}
