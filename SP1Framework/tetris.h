@@ -9,10 +9,16 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+const size_t blocksize = 4;
+
 struct blocks
 {
-    char square_block[4][4];
-    char z_block[4][4];
+    char square_block[blocksize][blocksize];
+    char z_block[blocksize][blocksize];
+
+    char blockshape;
+    int sq_x;
+    int sq_y;
 };
 
 void tetris_screen();
@@ -23,7 +29,7 @@ void pause_screen();
 void menu_music();
 void sound();
 
-void square_block();
-void z_block();
+blocks getSquareBlocks();
+blocks DelSquareBlocks();
 
 #endif //_MAIN_H

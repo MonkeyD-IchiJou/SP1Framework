@@ -111,25 +111,14 @@ void render()
     /*
     // render time taken to calculate this frame
     gotoXY(70, 0);
->>>>>>> Stashed changes
     colour(0x1A);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 
     gotoXY(0, 0);
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
-<<<<<<< Updated upstream
 	colour(0x0C);
-<<<<<<< Updated upstream
-<<<<<<< cc4bda5f82abbb0790f6ba5dddf5ebf05e6715dc
-=======
-<<<<<<< b3647aec69e1d9ae5ef24331a85837610e0fce0b
-<<<<<<< 0bd2a6a8efe758294cede3307fe50fdbe99aaa28
-=======
-=======
-=======
     colour(0x0C);
->>>>>>> af96d7de8fa614280f7ed60ecd1bbfcc6897b878
     */
 
 
@@ -147,37 +136,18 @@ void render()
     colour(0x0C);
     std::cout << (char)1;*/
 
-
-<<<<<<< Updated upstream
-=======
     //render test screen code (not efficient at all)
 
     const WORD colors[] =   {
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
->>>>>>> Stashed changes
 
 	welcome_screen();   //Welcome Screen of the game is here
     tetris_info();      //Info is here 
     tetris_screen();    //Gameplay Map is here
-<<<<<<< Updated upstream
 	pause_screen();     //Pause Screen is here
     
 
 	_getch();
-	//_getch();
-
-	//colour(0x0C);
-
-    // render character
-    /*gotoXY(charLocation);
-    colour(0x0C);
-    std::cout << (char)1;*/
-
-
-
-=======
-   
->>>>>>> Stashed changes
 }

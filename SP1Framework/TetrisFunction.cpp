@@ -2,13 +2,20 @@
 #include "Framework\console.h"
 #include "tetris.h"
 
+const int t_mX = 22;
+const int t_mY = 23;
+
 void tetris_screen ()
 {
-    const int t_mX = 22;
-    const int t_mY = 23;
+    blocks axis;
+    blocks niceshape;
 
-    int sq_X = 2;
-    int sq_Y = 2;
+    niceshape.blockshape = 'o';
+    axis.sq_x = 2;
+    axis.sq_y = 2;
+
+    blocks square = getSquareBlocks();
+    blocks delsquare = DelSquareBlocks();
 
     //Tetris map
     char tetris_map[t_mX][t_mY];
@@ -28,28 +35,7 @@ void tetris_screen ()
             }
         }
     }
-
-    //square block
-    blocks square;
-
-    square.square_block;
-
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            square.square_block[0][j] = ' ';
-            square.square_block[3][j] = ' ';
-            square.square_block[i][0] = ' ';
-            square.square_block[i][3] = ' ';
-
-            if (j > 0 && j < 3 && i > 0 && i < 3)
-            {
-                square.square_block[i][j] = '*';
-            }
-        }
-    }
-
+    
     for(int i = 0; i < 22; i++)
     {
         gotoXY(0, 4 + i); 
@@ -61,191 +47,101 @@ void tetris_screen ()
         cout << endl;
     }
 
+/*/////START LOOP/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
     for(;;)
     {
-
         //updating
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                tetris_map[sq_X+i][sq_Y+j] = square.square_block[i][j];
+                tetris_map[axis.sq_x+i][axis.sq_y+j] = square.square_block[i][j];
             }
         }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*------DOWNWARD ANIMATION------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+        
         //animation downward
 
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                square.square_block[0][j] = ' ';
-                square.square_block[3][j] = ' ';
-                square.square_block[i][0] = ' ';
-                square.square_block[i][3] = ' ';
-
-                if (j > 0 && j < 3 && i > 0 && i < 3)
-                {
-                    square.square_block[i][j] = ' ';
-                }
+                tetris_map[axis.sq_x+i][axis.sq_y+j] = delsquare.square_block[i][j];
             }
         }
+
+        axis.sq_x += 1;
+        axis.sq_y += 0;
 
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                tetris_map[sq_X+i][sq_Y+j] = square.square_block[i][j];
+                tetris_map[axis.sq_x+i][axis.sq_y+j] = square.square_block[i][j];
             }
-        }
 
-        sq_X += 1;
-        sq_Y += 0;
-
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                square.square_block[0][j] = ' ';
-                square.square_block[3][j] = ' ';
-                square.square_block[i][0] = ' ';
-                square.square_block[i][3] = ' ';
-
-                if (j > 0 && j < 3 && i > 0 && i < 3)
-                {
-                    square.square_block[i][j] = '*';
-                }
-            }
-        }
-
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                tetris_map[sq_X+i][sq_Y+j] = square.square_block[i][j];
-            }
             Sleep(150);
         }
         
         
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*------PRESS RIGHT-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
         if(GetAsyncKeyState(VK_RIGHT))
         {
             sound();
             //animation to the right
+
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    square.square_block[0][j] = ' ';
-                    square.square_block[3][j] = ' ';
-                    square.square_block[i][0] = ' ';
-                    square.square_block[i][3] = ' ';
-
-                    if (j > 0 && j < 3 && i > 0 && i < 3)
-                    {
-                        square.square_block[i][j] = ' ';
-                    }
+                    tetris_map[axis.sq_x+i][axis.sq_y+j] = delsquare.square_block[i][j];
                 }
             }
 
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    tetris_map[sq_X+i][sq_Y+j] = square.square_block[i][j];
-                }
-            }
-
-            sq_X += 0;
-            sq_Y += 1;
+            axis.sq_x += 0;
+            axis.sq_y += 1;
 
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    square.square_block[0][j] = ' ';
-                    square.square_block[3][j] = ' ';
-                    square.square_block[i][0] = ' ';
-                    square.square_block[i][3] = ' ';
-
-                    if (j > 0 && j < 3 && i > 0 && i < 3)
-                    {
-                        square.square_block[i][j] = '*';
-                    }
-                }
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    tetris_map[sq_X+i][sq_Y+j] = square.square_block[i][j];
+                    tetris_map[axis.sq_x+i][axis.sq_y+j] = square.square_block[i][j];
                 }
             }
         }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*------PRESS LEFT--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
         
         if(GetAsyncKeyState(VK_LEFT))
         {
             sound();
             //animation to the left
+
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    square.square_block[0][j] = ' ';
-                    square.square_block[3][j] = ' ';
-                    square.square_block[i][0] = ' ';
-                    square.square_block[i][3] = ' ';
-
-                    if (j > 0 && j < 3 && i > 0 && i < 3)
-                    {
-                        square.square_block[i][j] = ' ';
-                    }
+                    tetris_map[axis.sq_x+i][axis.sq_y+j] = delsquare.square_block[i][j];
                 }
             }
 
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    tetris_map[sq_X+i][sq_Y+j] = square.square_block[i][j];
-                }
-            }
-
-            sq_X += 0;
-            sq_Y -= 1;
+            axis.sq_x += 0;
+            axis.sq_y -= 1;
 
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    square.square_block[0][j] = ' ';
-                    square.square_block[3][j] = ' ';
-                    square.square_block[i][0] = ' ';
-                    square.square_block[i][3] = ' ';
-
-                    if (j > 0 && j < 3 && i > 0 && i < 3)
-                    {
-                        square.square_block[i][j] = '*';
-                    }
-                }
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    tetris_map[sq_X+i][sq_Y+j] = square.square_block[i][j];
+                    tetris_map[axis.sq_x+i][axis.sq_y+j] = square.square_block[i][j];
                 }
             }
         }
 
+/*/////ENDLOOP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+        
         //map screen
         for(int i = 0; i < 22; i++)
         {
@@ -257,6 +153,7 @@ void tetris_screen ()
             }
             cout << endl;
         }
+
 		if(GetAsyncKeyState(VK_ESCAPE))
 		{
 			pause_screen();
@@ -285,42 +182,8 @@ void tetris_info ()
     char block = '*';
 }
 
-void square_block()
-{
-    blocks square;
-
-    square.square_block;
-
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            square.square_block[0][j] = ' ';
-            square.square_block[3][j] = ' ';
-            square.square_block[i][0] = ' ';
-            square.square_block[i][3] = ' ';
-
-            if (j > 0 && j < 3 && i > 0 && i < 3)
-            {
-                square.square_block[i][j] = '*';
-            }
-        }
-    }
-
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            cout << square.square_block[i][j];
-        }
-        cout << endl;
-    }
-}
-
-
 void welcome_screen()
 {
-    
 	enum Sequence
 	{
 		NEWGAME = 1,
@@ -328,12 +191,10 @@ void welcome_screen()
 		EXITGAME
 	};
 
-{
-    
 	int choice = 0;
 	while(NEWGAME != EXITGAME)
 	{
-        PlaySound(menu_music(), NULL, menu_music());
+        //PlaySound(menu_music(), NULL, menu_music());
 		cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
 		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "  *    *" << endl;
 		cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "   *      " << endl;
@@ -375,9 +236,6 @@ void welcome_screen()
 		}
 	}
 }
-
-}
-
 
 void pause_screen()
 {
