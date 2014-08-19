@@ -135,6 +135,8 @@ void tetris_screen ()
 
         if(GetAsyncKeyState(VK_RIGHT))
         {
+            Beep(1000, 100);
+            //animation to the right
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -186,9 +188,12 @@ void tetris_screen ()
                 }
             }
         }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         if(GetAsyncKeyState(VK_LEFT))
         {
+            Beep(1000, 100);
+            //animation to the left
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -312,6 +317,7 @@ void square_block()
     }
 }
 
+<<<<<<< 27e02543647d8ea5c055cd1ac49d6cef4390ac2d
 void welcome_screen()
 {
 	enum Sequence
@@ -369,6 +375,7 @@ void welcome_screen()
 
 }
 
+<<<<<<< 130905f902ea7997ab473ee811e2576ce16b54cb
 void pause_screen()
 {
 	const int p_mX = 22;
@@ -423,3 +430,7 @@ void pause_screen()
 	}
 
 }
+=======
+=======
+>>>>>>> 1dfde5a30aefb9ebee7e11b3ab62b7841cee9095
+>>>>>>> 84b31542689cb8c10e17e7366a4b0b03c7a2f5ff

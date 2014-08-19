@@ -63,8 +63,8 @@ void update(double dt)
     if (keyPressed[K_UP] && charLocation.Y > 0)
     {
         Beep(1000, 100);
-        charLocation.Y--; 
-    }
+        charLocation.Y--;
+    } 
     if (keyPressed[K_LEFT] && charLocation.X > 0)
     {
         Beep(1000, 100);
@@ -136,6 +136,7 @@ void render()
     gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;*/
+<<<<<<< 27e02543647d8ea5c055cd1ac49d6cef4390ac2d
 <<<<<<< cc4bda5f82abbb0790f6ba5dddf5ebf05e6715dc
 =======
 <<<<<<< b3647aec69e1d9ae5ef24331a85837610e0fce0b
@@ -185,6 +186,8 @@ void render()
 =======
 >>>>>>> af96d7de8fa614280f7ed60ecd1bbfcc6897b878
 >>>>>>> 322836128c2e9e032f86392a4f19c3e9746f554a
+=======
+>>>>>>> 1dfde5a30aefb9ebee7e11b3ab62b7841cee9095
 
     /*// render character
     gotoXY(charLocation);
@@ -192,11 +195,6 @@ void render()
     std::cout << (char)1;*/
 
 
-    //render test screen code (not efficient at all)
-    const WORD colors[] =   {
-        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
-    };
 
 	welcome_screen();   //Welcome Screen of the game is here
     tetris_info();      //Info is here 
@@ -209,31 +207,17 @@ void render()
 =======
     
 
-<<<<<<< 1ccf3a0e5f3d1119a3fe5bd3c9f3f434b2fd88c4
 	_getch();
-=======
-<<<<<<< 0bd2a6a8efe758294cede3307fe50fdbe99aaa28
 	//_getch();
->>>>>>> 8713d293563d28b08034e2ad6cf23375b5c66b01
 
 	//colour(0x0C);
-<<<<<<< ab4bafbca8a531a53f3ed3c66f3a0cb405b23de2
-=======
 
     // render character
-<<<<<<< 1ccf3a0e5f3d1119a3fe5bd3c9f3f434b2fd88c4
-    
-=======
     /*gotoXY(charLocation);
     colour(0x0C);
     std::cout << (char)1;*/
-<<<<<<< b3647aec69e1d9ae5ef24331a85837610e0fce0b
-=======
-=======
-    for(int i = 0; i < 22; i++)
-    {
-        gotoXY(0, 4 + i); 
 
+<<<<<<< 130905f902ea7997ab473ee811e2576ce16b54cb
 >>>>>>> af96d7de8fa614280f7ed60ecd1bbfcc6897b878
         for(int j = 0; j < 23; j++)
         {
@@ -290,10 +274,15 @@ void render()
     std::cout << "Your score is: ";
     getch();
 >>>>>>> 27e02543647d8ea5c055cd1ac49d6cef4390ac2d
+=======
+>>>>>>> 84b31542689cb8c10e17e7366a4b0b03c7a2f5ff
 
     char block = '*';
+<<<<<<< 27e02543647d8ea5c055cd1ac49d6cef4390ac2d
 >>>>>>> e874a60569dae7117757fa9ac54b20f817537940
 >>>>>>> 67e3a62cde6a0c223f72d4a0309a4a73e39abefc
 >>>>>>> af96d7de8fa614280f7ed60ecd1bbfcc6897b878
 >>>>>>> 322836128c2e9e032f86392a4f19c3e9746f554a
+=======
+>>>>>>> 1dfde5a30aefb9ebee7e11b3ab62b7841cee9095
 }
