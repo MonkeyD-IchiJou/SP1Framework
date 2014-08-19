@@ -7,19 +7,16 @@ const int t_mY = 23;
 
 void tetris_screen ()
 {
-<<<<<<< 5d802e8b7bf21de03bceb0e872a9762bf3831b2f
     blocks axis;
     blocks niceshape;
 
     niceshape.blockshape = 'o';
     axis.sq_x = 2;
     axis.sq_y = 2;
-=======
 	
 
     const int t_mX = 22;
     const int t_mY = 23;
->>>>>>> d0d820cf331d0e8fea9fcb05afbb5316e6fdbe6d
 
     blocks square = getSquareBlocks();
     blocks delsquare = DelSquareBlocks();
@@ -148,10 +145,6 @@ void tetris_screen ()
         }
 
 /*/////ENDLOOP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-        
-		//Pauses the game
-		if(GetAsyncKeyState(VK_ESCAPE))
-        system("pause");
 
         //map screen
         for(int i = 0; i < 22; i++)
@@ -164,11 +157,8 @@ void tetris_screen ()
             }
             cout << endl;
         }
-<<<<<<< 5d802e8b7bf21de03bceb0e872a9762bf3831b2f
-=======
-		
+
 		tetris_info ();
->>>>>>> d0d820cf331d0e8fea9fcb05afbb5316e6fdbe6d
 
 		if(GetAsyncKeyState(VK_ESCAPE))
 		{
@@ -243,9 +233,8 @@ void welcome_screen()
 		//How the function works
 		switch(choice)
 		{
-<<<<<<< 5d802e8b7bf21de03bceb0e872a9762bf3831b2f
 		case NEWGAME: system("cls");
-			return;
+			return tetris_screen();
 
 		case CREDITS: system("cls");
 			gotoXY(25, 9);
@@ -260,29 +249,6 @@ void welcome_screen()
 		default: system("cls");
 			cout << "This game will shut down." << endl;
 			exit(0);
-=======
-		case NEWGAME: cout << "Let's start playing!" << endl << endl << endl;
-			system("cls");
-			return tetris_screen ();
-
-		case CREDITS: cout << "No credits. Fooled you. HAHA" << endl << endl << endl;
-			break;
-
-		case EXITGAME: cout <<		"Thank you for playing! Please buy the game!" << endl;
-					   cout <<		"              $          " << endl;
-				       cout <<		"           ,$$$$$,       " << endl;
-				       cout <<		"         ,$$$'$'$$$      " << endl;
-				       cout <<		"         $$$  $   '      " << endl;
-				       cout <<		"         '$$$,$          " << endl;
-				       cout << 		"            $$$$,        " << endl;
-				       cout <<		"             '$$$$,      " << endl;
-				       cout <<		"              $ $$$,     " << endl;
-				       cout <<		"          ,   $  $$$     " << endl;
-				       cout <<		"          $$$ $.$$$      " << endl;
-				       cout <<		"            $$$$$        " << endl;
-				       cout <<		"              $          " << endl;
-			break;
->>>>>>> d0d820cf331d0e8fea9fcb05afbb5316e6fdbe6d
 		}
 	}
 }
@@ -292,18 +258,16 @@ void pause_screen()
 	//pause table
 	enum Pause
 	{
-		PAUSE,
-		CONTINUE,
+		CONTINUE = 1,
 		ENDGAME
 	};
 
-	{
+	//{
 		int choice = 0;
 
 			/*while (CONTINUE != ENDGAME)
 			{*/
-				cout << system("cls") << endl;
-
+				cls();
 				gotoXY(20,10);
 				cout << "(1)Continue Game" << endl;
 
@@ -314,18 +278,19 @@ void pause_screen()
 
 				switch(choice)
 				{
-					system("cls");
+					cls();
 
 				case CONTINUE:
 					cls();
 					return;
 
-				case ENDGAME: system("cls");
+				case ENDGAME: 
+					cls();
 					return welcome_screen();
 
 				}
 			//}
-	}
+	//}
     
 
 }
