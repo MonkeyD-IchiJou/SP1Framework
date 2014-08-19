@@ -30,10 +30,13 @@ void init()
     GetConsoleScreenBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ), &csbi );
     consoleSize.X = csbi.srWindow.Right + 1;
     consoleSize.Y = csbi.srWindow.Bottom + 1;
-
+    /*
     // set the character to be in the center of the screen.
     charLocation.X = consoleSize.X / 2;
-    charLocation.Y = consoleSize.Y / 2;
+    charLocation.Y = consoleSize.Y / 2;*/
+
+    charLocation.X = 4;
+    charLocation.Y = 4;
 
     elapsedTime = 0.0;
 }
@@ -108,15 +111,13 @@ void render()
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
 
-    tetris_screen();    //Gameplay Map is here
+    //tetris_screen();    //Gameplay Map is here
     tetris_info();      //Info is here
 
-	//_getch();
+	_getch();
 
 	//colour(0x0C);
 
     // render character
-    /*gotoXY(charLocation);
-    colour(0x0C);
-    std::cout << (char)1;*/
+    
 }

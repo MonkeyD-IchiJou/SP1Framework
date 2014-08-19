@@ -17,6 +17,12 @@ enum Keys
     K_COUNT
 };
 
+struct blocks
+{
+    char square_block[5][5];
+    char z_block[5][5];
+};
+
 void init();                // initialize your variables, allocate memory, etc
 void getInput();            // get input from player
 void update(double dt);     // update the game and the state of the game
