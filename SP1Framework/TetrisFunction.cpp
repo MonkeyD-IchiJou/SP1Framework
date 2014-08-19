@@ -209,8 +209,7 @@ void welcome_screen()
 
 	while(NEWGAME != EXITGAME)
 	{
-        //PlaySound(menu_music(), NULL, menu_music());
-
+        //PlaySound(menu_music(), NULL, menu_music()); 
 		//Start game function
 		gotoXY(20, 10);
 		cout << "(1)New Game" << endl;
@@ -237,9 +236,9 @@ void welcome_screen()
 			return tetris_screen();
 
 		case CREDITS: system("cls");
-			gotoXY(25, 9);
-			cout <<"No credits. Fooled you. HAHA" << endl << endl;
-			exit(0);
+				gotoXY(25, 9);
+				cout <<"No credits. Fooled you. HAHA" << endl << endl;
+				exit(0);
 
 		case EXITGAME: system("cls");
 			gotoXY(25, 9);
@@ -249,6 +248,7 @@ void welcome_screen()
 		default: system("cls");
 			cout << "This game will shut down." << endl;
 			exit(0);
+
 		}
 	}
 }
