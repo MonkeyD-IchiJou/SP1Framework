@@ -3,16 +3,10 @@
 //
 #include "game.h"
 #include "Framework\console.h"
-<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
-
-//#include <iostream>
-//#include <iomanip>
-=======
 #include "tetris.h"
 
 #include <iostream>
 #include <iomanip>
->>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
 
 double elapsedTime;
 double deltaTime;
@@ -28,7 +22,7 @@ void init()
     SetConsoleTitle(L"SP1 Framework");
 
     // Sets the console size, this is the biggest so far.
-    setConsoleSize(50, 28);
+    setConsoleSize(79, 28);
 
     // Get console width and height
     CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */     
@@ -48,23 +42,20 @@ void init()
 void shutdown()
 {
     // Reset to white text on black background
-    colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+	colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
 }
 
 void getInput()
 {    
-    keyPressed[K_UP] = isKeyPressed(VkKeyScan('w'));
-    keyPressed[K_DOWN] = isKeyPressed(VkKeyScan('s'));
-    keyPressed[K_LEFT] = isKeyPressed(VkKeyScan('a'));
-    keyPressed[K_RIGHT] = isKeyPressed(VkKeyScan('d'));
-    keyPressed[K_ONE] = isKeyPressed(VkKeyScan('x'));
-
+    keyPressed[K_UP] = isKeyPressed(VK_UP);
+    keyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
+    keyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
+    keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 }
 
 void update(double dt)
 {
-    
     // get the delta time
     elapsedTime += dt;
     deltaTime = dt;
@@ -72,65 +63,44 @@ void update(double dt)
     // Updating the location of the character based on the key press
     if (keyPressed[K_UP] && charLocation.Y > 0)
     {
-<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
-    Beep(1000, 100);
-    charLocation.Y--;
-    } 
-=======
         Beep(1440, 30);
         charLocation.Y--; 
     }
->>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
 
     if (keyPressed[K_LEFT] && charLocation.X > 0)
     {
-    Beep(1000, 100);
-    charLocation.X--; 
+        Beep(1440, 30);
+        charLocation.X--; 
     }
 
     if (keyPressed[K_DOWN] && charLocation.Y < consoleSize.Y - 1)
     {
-    Beep(1000, 100);
-    charLocation.Y++; 
+        Beep(1440, 30);
+        charLocation.Y++; 
     }
 
     if (keyPressed[K_RIGHT] && charLocation.X < consoleSize.X - 1)
     {
-    Beep(1000, 100);
-    charLocation.X++; 
+        Beep(1440, 30);
+        charLocation.X++; 
     }
 
-    // Pauses the game if player hits the escape key
+    // quits the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
-<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
-    {
-        system("pause.exe");
-    }
-
-=======
         g_quitGame = true;    
     
->>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
 }
 
 void render()
 {
     // clear previous screen
+    colour(0x0F);
     cls();
-
-    
-    //render time taken to calculate this frame
-    gotoXY(40, 0);
 
     //render the game
 
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
-<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
-    0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-    0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
-    };
-=======
 	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
 	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	                        };
@@ -142,35 +112,18 @@ void render()
 		std::cout << "WOW";
         y = i;
 	}
->>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
 
-    for (int i = 0; i < 12; ++i)
-    {
-        gotoXY(3*i,i+1);
-        colour(colors[i]);
-        std::cout << "WOW";
-    }
-    
     // render time taken to calculate this frame
     gotoXY(70, 0);
-
     colour(0x1A);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
-
+  
     gotoXY(0, 0);
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
 
-    //_getch();// render character
+    // render character
     gotoXY(charLocation);
-<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
-    colour(0x0C);
-    std::cout << (char)1;
-}
-
-
-
-=======
     charLocation.Y++;
     cout << (char)1;
     Sleep(200);
@@ -245,4 +198,3 @@ void WaitKey()
    _getch(); // Wait for a key
    while (_kbhit()) _getch(); // Empty the input buffer (some keys sends two messages)
 }
->>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
