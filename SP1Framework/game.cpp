@@ -3,9 +3,16 @@
 //
 #include "game.h"
 #include "Framework\console.h"
+<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
 
 //#include <iostream>
 //#include <iomanip>
+=======
+#include "tetris.h"
+
+#include <iostream>
+#include <iomanip>
+>>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
 
 double elapsedTime;
 double deltaTime;
@@ -33,7 +40,7 @@ void init()
 
     // set the character to be in the center of the screen.
     charLocation.X = consoleSize.X / 2;
-    charLocation.Y = consoleSize.Y / 2;
+    charLocation.Y = 0;
 
     elapsedTime = 0.0;
 }
@@ -65,9 +72,15 @@ void update(double dt)
     // Updating the location of the character based on the key press
     if (keyPressed[K_UP] && charLocation.Y > 0)
     {
+<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
     Beep(1000, 100);
     charLocation.Y--;
     } 
+=======
+        Beep(1440, 30);
+        charLocation.Y--; 
+    }
+>>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
 
     if (keyPressed[K_LEFT] && charLocation.X > 0)
     {
@@ -89,10 +102,15 @@ void update(double dt)
 
     // Pauses the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
+<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
     {
         system("pause.exe");
     }
 
+=======
+        g_quitGame = true;    
+    
+>>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
 }
 
 void render()
@@ -108,9 +126,23 @@ void render()
 
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
+<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
     0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
     0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
+=======
+	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+	                        };
+    int y = 0;
+	for (int i = 0; i < 12; ++i)
+	{
+		gotoXY(3*i,i+1);
+		colour(colors[i]);
+		std::cout << "WOW";
+        y = i;
+	}
+>>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
 
     for (int i = 0; i < 12; ++i)
     {
@@ -131,9 +163,86 @@ void render()
 
     //_getch();// render character
     gotoXY(charLocation);
+<<<<<<< d424e59c80c4a5e5ee3591644886a4ce5d49be02
     colour(0x0C);
     std::cout << (char)1;
 }
 
 
 
+=======
+    charLocation.Y++;
+    cout << (char)1;
+    Sleep(200);
+
+    int x = charLocation.Y ;
+    if (x == y)
+    {
+        charLocation.Y--;
+        gotoXY(0, 0);
+    }
+
+    gotoXY(charLocation);
+    
+}
+
+void testing ()
+{
+    int x = 1;// Column 1
+    int y = 5;// Row 5
+    // Start position of the text 
+
+    gotoXY(24,2); // Placing title
+
+    cout <<   "gotoXY(x,y) Demonstration..";
+
+    for (x=1;x<27;x++)  // Moves the text to the right
+    {
+        gotoXY(x,y);
+        cout << "* column " << x <<  ", row " << y << "!";
+
+        Sleep(200);
+        gotoXY(x,y); // Locate the asterisk
+	    cout << " "; // Remove it from screen, so we don't have a trail of asterisks
+    }
+    x--; // Remove 1 from x, so we start where the text is now located
+
+    for (y=5;y<23;y++) // Moves the text down the screen
+    {
+        Sleep(200);
+        gotoXY(x,y);
+	    cout << "                                   "; // Remove the line of text
+
+        Sleep(200);
+
+        gotoXY(x,y+1);
+        cout << "* column " << x << ", row " << y+1 << "!"; // Print new text line
+    }
+    Sleep(800);
+
+    for (y=23;y>8;y--) // Moves text up the screen to row 8
+    {
+        Sleep(200);
+
+        gotoXY(x,y);
+	    cout << "                                   ";
+        Sleep(200);
+
+        gotoXY(x,y-1);
+        cout << "* column " << x << ", row " << y-1 << "!";
+    }
+
+    Sleep(1000); // Program finished, wait 1 second
+    gotoXY(23,24);
+    cout << "Press any key to continue . . ."; // Let user know we're done
+    gotoXY(23,24); // Cursor to blink on the letter 'P' of 'Press.. ', above
+    WaitKey();  // Wait for a keypress
+}
+
+void WaitKey()
+{
+   while (_kbhit()) _getch(); // Empty the input buffer
+   _getch(); // Wait for a key
+   while (_kbhit()) _getch(); // Empty the input buffer (some keys sends two messages)
+}
+>>>>>>> 1cde7b25c2b20c2d421e9d2235298c997a49c4f4
