@@ -10,6 +10,7 @@ extern bool g_quitGame;
 enum Keys
 {
     K_UP,
+	K_ONE,
     K_DOWN,
     K_LEFT,
     K_RIGHT,
@@ -23,6 +24,7 @@ void update(double dt);     // update the game and the state of the game
 void render();              // renders the current state of the game to the console
 void shutdown();            // do clean up, free memory
 
+void run();
 
 void clearscreen();
 

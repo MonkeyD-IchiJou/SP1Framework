@@ -5,6 +5,8 @@
 #include "tetris.h"
 
 
+
+
 StopWatch g_timer;            // Timer function to keep track of time and the frame rate
 bool g_quitGame = false;      // Set to true if you want to quit the game
 const unsigned char FPS = 25; // FPS of this game
@@ -29,16 +31,21 @@ int main()
 // This main loop calls functions to get input, update and render the game
 // at a specific frame rate
 void mainLoop()
-{
-    welcome_screen();
-
-    g_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
-    while (!g_quitGame)      // run this loop until user wants to quit 
+{	
+	g_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
+	while (!g_quitGame)      // run this loop until user wants to quit 
 	{        
-        getInput();                         // get keyboard input
-        update(g_timer.getElapsedTime());   // update the game
-        render();                           // render the graphics output to screen
-        g_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.      
+		getInput();                         // get keyboard input
+		update(g_timer.getElapsedTime());   // update the game
+		render();                           // render the graphics output to screen2
+		break;
+		g_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.
+		if(GetAsyncKeyState(K_ONE) == 'a')
+		{
+			break;
+		}
 	} 
+	tetris_screen();
+
 	getch();
 }

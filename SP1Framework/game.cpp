@@ -50,11 +50,14 @@ void getInput()
     keyPressed[K_DOWN] = isKeyPressed(VkKeyScan('s'));
     keyPressed[K_LEFT] = isKeyPressed(VkKeyScan('a'));
     keyPressed[K_RIGHT] = isKeyPressed(VkKeyScan('d'));
+	keyPressed[K_ONE] = isKeyPressed(VkKeyScan('x'));
+
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 }
 
 void update(double dt)
 {
+	/*
     // get the delta time
     elapsedTime += dt;
     deltaTime = dt;
@@ -80,10 +83,25 @@ void update(double dt)
         Beep(1000, 100);
         charLocation.X++; 
     }
-
     // Pauses the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
-        system("pause.exe");
+        system("pause.exe");*/
+
+	// get the delta time
+    elapsedTime += dt;
+    deltaTime = dt;
+
+    // Updating the location of the character based on the key press
+	if(keyPressed[K_ONE])
+	{
+		tetris_screen();
+	}
+
+    if (keyPressed[K_UP] && charLocation.Y > 0)
+    {
+        Beep(1000, 100);
+        charLocation.Y--;
+    } 
 }
 
 void render()
@@ -136,9 +154,72 @@ void render()
     };
     */
 	//welcome_screen();   //Welcome Screen of the game is here
-    /*
+    enum Sequence
+{
+	NEWGAME = 'a',
+	CREDITS,
+	EXITGAME
+};
+
+char choice = 0;
+//Title of the game
+cout << endl;
+cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
+cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "  *    *" << endl;
+cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "   *      " << endl;
+cout << "   *   " << " *******" << "    *   " << " ******   "  << "    *    " << "    *     " << endl;
+cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "     *    "<< endl;
+cout << "   *   " << " *      " << "    *   " << " *      * "  << "    *    " << " *    * "<< endl;
+cout << "   *   " << " *******" << "    *   " << " *       *"  << " ******* " << " ***** "<< endl;
+
+while(NEWGAME != EXITGAME)
+{
+	//PlaySound(menu_music(), NULL, menu_music()); 
+	//Start game function
+	gotoXY(20, 10);
+	cout << "(1)New Game" << endl;
+
+	//Credit function
+	gotoXY(20, 12);
+	cout << "(2)Credit" << endl;
+
+	//Exiting the game function
+	gotoXY(20, 14);
+	cout << "(3)Exit Game" << endl << endl;
+
+	//Function for players to choose
+	gotoXY(14, 16);
+	cout << "Pick a number to start!" << endl;
+
+	//Function for players to give answer
+	gotoXY(25,18);
+	cin >> choice;
+	cout << endl;
+
+	//How the function works
+	switch(choice)
+	{
+	case NEWGAME: system("cls");
+
+			return tetris_screen();
+
+	case CREDITS: system("cls");
+		gotoXY(25, 9);
+		cout <<"No credits. Fooled you. HAHA" << endl << endl;
+		exit(0);
+
+	case EXITGAME: system("cls");
+		gotoXY(25, 9);
+		exit(0);
+
+	default: system("cls");
+		cout << "This game will shut down." << endl;
+		exit(0);
+
+	}
+}
 	//_getch();// render character
     gotoXY(charLocation);
     colour(0x0C);
-    std::cout << (char)1;*/
+    std::cout << (char)1;
 }

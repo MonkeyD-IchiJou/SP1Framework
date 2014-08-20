@@ -287,6 +287,7 @@ void welcome_screen()
 		switch(choice)
 		{
 		case NEWGAME: system("cls");
+
 			return tetris_screen();
 
 		case CREDITS: system("cls");
