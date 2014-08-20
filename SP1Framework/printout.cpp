@@ -826,6 +826,7 @@ blocks getRNrot1blocks()
 
 	return RNrot1;
 }
+
 blocks getRNrot2blocks()
 {
 	blocks RNrot2;
