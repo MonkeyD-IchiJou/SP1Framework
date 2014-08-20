@@ -1,19 +1,19 @@
 blocks tetris_game_map()
 {
 	blocks tmap;
-    blocks wall;
+    	blocks wall;
 
-    tmap.tetris_map;
+    	tmap.tetris_map;
 
 	wall.boundaries1 = 186; // ||
-    wall.boundaries2 = 201; // top left corner
-    wall.boundaries3 = 200; // bot left corner
-    wall.boundaries4 = 187; // top right corner
-    wall.boundaries5 = 188; // bot right corner
-    wall.boundaries6 = 205; //	=
+    	wall.boundaries2 = 201; // top left corner
+    	wall.boundaries3 = 200; // bot left corner
+    	wall.boundaries4 = 187; // top right corner
+    	wall.boundaries5 = 188; // bot right corner
+    	wall.boundaries6 = 205; //	=
 
-    wall.insideB = '.';
-    wall.stop = '+';
+    	wall.insideB = '.';
+    	wall.stop = '+';
 
 	tmap.tetris_map[0][0] = wall.stop;
 	tmap.tetris_map[0][1] = wall.boundaries2;

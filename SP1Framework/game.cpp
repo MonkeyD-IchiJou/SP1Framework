@@ -5,15 +5,13 @@
 #include "Framework\console.h"
 #include "tetris.h"
 
-#include <iostream>
-#include <iomanip>
-
 double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 COORD charLocation;
 COORD consoleSize;
 
+bool press = false;
 void init()
 {
     // Set precision for floating point output
@@ -22,7 +20,7 @@ void init()
     SetConsoleTitle(L"SP1 Framework");
 
     // Sets the console size, this is the biggest so far.
-    setConsoleSize(79, 28);
+    setConsoleSize(68, 30);
 
     // Get console width and height
     CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */     
@@ -33,8 +31,8 @@ void init()
     consoleSize.Y = csbi.srWindow.Bottom + 1;
 
     // set the character to be in the center of the screen.
-    charLocation.X = consoleSize.X / 2;
-    charLocation.Y = 0;
+    charLocation.X = 22;
+    charLocation.Y = 4;
 
     elapsedTime = 0.0;
 }
@@ -52,6 +50,7 @@ void getInput()
     keyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
     keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+    keyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
 }
 
 void update(double dt)
@@ -60,8 +59,10 @@ void update(double dt)
     elapsedTime += dt;
     deltaTime = dt;
 
+    FindCoordinates (2, 3);
+
     // Updating the location of the character based on the key press
-    if (keyPressed[K_UP] && charLocation.Y > 0)
+    if (keyPressed[K_UP] && charLocation.Y > 10)
     {
         Beep(1440, 30);
         charLocation.Y--; 
@@ -82,61 +83,63 @@ void update(double dt)
     if (keyPressed[K_RIGHT] && charLocation.X < consoleSize.X - 1)
     {
         Beep(1440, 30);
-        charLocation.X++; 
+        charLocation.X++;
     }
 
     // quits the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
+    {
         g_quitGame = true;    
+    }
     
+    if (keyPressed[K_ENTER])
+    {
+        press = true;
+    }
 }
 
 void render()
 {
     // clear previous screen
-    colour(0x0F);
-    cls();
-
+    
+    Standard();
+    
     //render the game
-
+    MenuScreen();
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
-	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+	                            0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+	                            0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	                        };
-    int y = 0;
-	for (int i = 0; i < 12; ++i)
-	{
-		gotoXY(3*i,i+1);
-		colour(colors[i]);
-		std::cout << "WOW";
-        y = i;
-	}
-
-    // render time taken to calculate this frame
-    gotoXY(70, 0);
-    colour(0x1A);
-    std::cout << 1.0 / deltaTime << "fps" << std::endl;
-  
-    gotoXY(0, 0);
-    colour(0x59);
-    std::cout << elapsedTime << "secs" << std::endl;
-
-    // render character
-    gotoXY(charLocation);
-    charLocation.Y++;
-    cout << (char)1;
-    Sleep(200);
-
-    int x = charLocation.Y ;
-    if (x == y)
-    {
-        charLocation.Y--;
-        gotoXY(0, 0);
-    }
-
-    gotoXY(charLocation);
     
+    // render time taken to calculate this frame
+
+    FPSInfo();
+    TIMINGInfo();
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/*Put function here*/
+    
+    if (press == true)
+    {
+        Standard();
+
+        TIMINGInfo();
+        FPSInfo();
+
+        TetrisGameplay();
+    }
+}
+
+COORD FindCoordinates (short n1, short n2)
+{
+    COORD location;
+
+    location.X = n1; 
+    location.Y = n2;
+
+    return location;
 }
 
 void testing ()
@@ -189,12 +192,32 @@ void testing ()
     gotoXY(23,24);
     cout << "Press any key to continue . . ."; // Let user know we're done
     gotoXY(23,24); // Cursor to blink on the letter 'P' of 'Press.. ', above
-    WaitKey();  // Wait for a keypress
 }
 
-void WaitKey()
+void TetrisGameplay()
 {
-   while (_kbhit()) _getch(); // Empty the input buffer
-   _getch(); // Wait for a key
-   while (_kbhit()) _getch(); // Empty the input buffer (some keys sends two messages)
+    TetrisUI();
+    gotoXY(charLocation);
+    charLocation.Y++;
+    cout << (char)1;//cls();
+}
+
+void FPSInfo()
+{
+    gotoXY(70, 0);
+    colour(0x1A);
+    std::cout << 1.0 / deltaTime << "fps" << std::endl;
+}
+
+void TIMINGInfo()
+{
+    gotoXY(0, 0);
+    colour(0x59);
+    std::cout << elapsedTime << "secs" << std::endl;
+}
+
+void Standard()
+{
+    colour(0x0F);
+    cls();
 }
