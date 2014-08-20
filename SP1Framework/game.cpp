@@ -30,7 +30,7 @@ void init()
     GetConsoleScreenBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ), &csbi );
     consoleSize.X = csbi.srWindow.Right + 1;
     consoleSize.Y = csbi.srWindow.Bottom + 1;
-    
+
     // set the character to be in the center of the screen.
     charLocation.X = consoleSize.X / 2;
     charLocation.Y = consoleSize.Y / 2;
@@ -50,14 +50,14 @@ void getInput()
     keyPressed[K_DOWN] = isKeyPressed(VkKeyScan('s'));
     keyPressed[K_LEFT] = isKeyPressed(VkKeyScan('a'));
     keyPressed[K_RIGHT] = isKeyPressed(VkKeyScan('d'));
-	keyPressed[K_ONE] = isKeyPressed(VkKeyScan('x'));
+    keyPressed[K_ONE] = isKeyPressed(VkKeyScan('x'));
 
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 }
 
 void update(double dt)
 {
-	/*
+    /*
     // get the delta time
     elapsedTime += dt;
     deltaTime = dt;
@@ -65,50 +65,48 @@ void update(double dt)
     // Updating the location of the character based on the key press
     if (keyPressed[K_UP] && charLocation.Y > 0)
     {
-        Beep(1000, 100);
-        charLocation.Y--;
+    Beep(1000, 100);
+    charLocation.Y--;
     } 
     if (keyPressed[K_LEFT] && charLocation.X > 0)
     {
-        Beep(1000, 100);
-        charLocation.X--; 
+    Beep(1000, 100);
+    charLocation.X--; 
     }
     if (keyPressed[K_DOWN] && charLocation.Y < consoleSize.Y - 1)
     {
-        Beep(1000, 100);
-        charLocation.Y++; 
+    Beep(1000, 100);
+    charLocation.Y++; 
     }
     if (keyPressed[K_RIGHT] && charLocation.X < consoleSize.X - 1)
     {
-        Beep(1000, 100);
-        charLocation.X++; 
+    Beep(1000, 100);
+    charLocation.X++; 
     }
     // Pauses the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
-<<<<<<< 9ce71dcb091c5dbbe1a64103036669bd66440851
-        system("pause.exe");*/
+    <<<<<<< 9ce71dcb091c5dbbe1a64103036669bd66440851
+    system("pause.exe");*/
 
-	// get the delta time
+    // get the delta time
     elapsedTime += dt;
     deltaTime = dt;
 
     // Updating the location of the character based on the key press
-	if(keyPressed[K_ONE])
-	{
-		tetris_screen();
-	}
+    if(keyPressed[K_ONE])
+    {
+        tetris_screen();
+    }
 
     if (keyPressed[K_UP] && charLocation.Y > 0)
     {
         Beep(1000, 100);
         charLocation.Y--;
     } 
-=======
+
     {
         system("pause.exe");
     }
-    
->>>>>>> 6c2527efd8c250d5f5546be25255e2f7351c7eca
 }
 
 void render()
@@ -124,8 +122,8 @@ void render()
 
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
-        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
+    0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+    0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
 
     /* for (int i = 0; i < 12; ++i)
@@ -144,96 +142,92 @@ void render()
     gotoXY(0, 0);
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
-	colour(0x0C);
+    colour(0x0C);
     colour(0x0C);*/
-    
 
 
-    
+
+
 
     //colour(0x0C);
 
     //render test screen code (not efficient at all)
     /*
     const WORD colors[] =   {
-        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
+    0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+    0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
     */
-	//welcome_screen();   //Welcome Screen of the game is here
+    //welcome_screen();   //Welcome Screen of the game is here
     enum Sequence
-{
-	NEWGAME = '1',
-	CREDITS,
-	EXITGAME
-};
+    {
+        NEWGAME = '1',
+        CREDITS,
+        EXITGAME
+    };
 
-char choice = 0;
-//Title of the game
-cout << endl;
-cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
-cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "  *    *" << endl;
-cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "   *      " << endl;
-cout << "   *   " << " *******" << "    *   " << " ******   "  << "    *    " << "    *     " << endl;
-cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "     *    "<< endl;
-cout << "   *   " << " *      " << "    *   " << " *      * "  << "    *    " << " *    * "<< endl;
-cout << "   *   " << " *******" << "    *   " << " *       *"  << " ******* " << " ***** "<< endl;
+    char choice = 0;
+    //Title of the game
+    //cout << endl;
+    cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
+    cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "  *    *" << endl;
+    cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "   *      " << endl;
+    cout << "   *   " << " *******" << "    *   " << " ******   "  << "    *    " << "    *     " << endl;
+    cout << "   *   " << " *      " << "    *   " << " *     *  "  << "    *    " << "     *    "<< endl;
+    cout << "   *   " << " *      " << "    *   " << " *      * "  << "    *    " << " *    * "<< endl;
+    cout << "   *   " << " *******" << "    *   " << " *       *"  << " ******* " << " ***** "<< endl;
 
-while(NEWGAME != EXITGAME)
-{
-	//PlaySound(menu_music(), NULL, menu_music()); 
-	//Start game function
-	gotoXY(20, 10);
-	cout << "(1)New Game" << endl;
+    while(NEWGAME != EXITGAME)
+    {
+        //PlaySound(menu_music(), NULL, menu_music()); 
+        //Start game function
+        gotoXY(20, 10);
+        cout << "(1)New Game" << endl;
 
-	//Credit function
-	gotoXY(20, 12);
-	cout << "(2)Credit" << endl;
+        //Credit function
+        gotoXY(20, 12);
+        cout << "(2)Credit" << endl;
 
-	//Exiting the game function
-	gotoXY(20, 14);
-	cout << "(3)Exit Game" << endl << endl;
+        //Exiting the game function
+        gotoXY(20, 14);
+        cout << "(3)Exit Game" << endl << endl;
 
-	//Function for players to choose
-	gotoXY(14, 16);
-	cout << "Pick a number to start!" << endl;
+        //Function for players to choose
+        gotoXY(14, 16);
+        cout << "Pick a number to start!" << endl;
 
-	//Function for players to give answer
-	gotoXY(25,18);
-	cin >> choice;
-	cout << endl;
+        //Function for players to give answer
+        gotoXY(25,18);
+        cin >> choice;
+        cout << endl;
 
-	//How the function works
-	switch(choice)
-	{
-	case NEWGAME: system("cls");
+        //How the function works
+        switch(choice)
+        {
+        case NEWGAME: system("cls");
 
-			return tetris_screen();
+            return tetris_screen();
 
-	case CREDITS: system("cls");
-		gotoXY(25, 9);
-		cout <<"No credits. Fooled you. HAHA" << endl << endl;
-		exit(0);
+        case CREDITS: system("cls");
+            gotoXY(25, 9);
+            cout <<"No credits. Fooled you. HAHA" << endl << endl;
+            exit(0);
 
-	case EXITGAME: system("cls");
-		gotoXY(25, 9);
-		exit(0);
+        case EXITGAME: system("cls");
+            gotoXY(25, 9);
+            exit(0);
 
-	default: system("cls");
-		cout << "This game will shut down." << endl;
-		exit(0);
+        default: system("cls");
+            cout << "This game will shut down." << endl;
+            exit(0);
 
-	}
-}
-	//_getch();// render character
+        }
+    }
+    //_getch();// render character
     gotoXY(charLocation);
     colour(0x0C);
-<<<<<<< 9ce71dcb091c5dbbe1a64103036669bd66440851
     std::cout << (char)1;
 }
-=======
-    std::cout << (char)1;*/
 
-    
-    }
->>>>>>> 6c2527efd8c250d5f5546be25255e2f7351c7eca
+
+

@@ -243,6 +243,7 @@ void tetris_info ()
 
 void welcome_screen()
 {
+    /*
 	enum Sequence
 	{
 		NEWGAME = 1,
@@ -361,7 +362,7 @@ void pause_screen()
 
 				}
 			}
-	}
+	}*/
 }
 
 void sound()
