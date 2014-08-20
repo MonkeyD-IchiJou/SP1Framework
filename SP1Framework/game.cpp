@@ -120,14 +120,11 @@ void render()
     colour(0x59);
     std::cout << elapsedTime << "secs" << std::endl;
 	colour(0x0C);
-    colour(0x0C);
-    */
+    colour(0x0C);*/
+    
 
 
-    /*// render character
-    gotoXY(charLocation);
-    colour(0x0C);
-    std::cout << (char)1;*/
+    
 
     //colour(0x0C);
 
@@ -138,7 +135,10 @@ void render()
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6,
     };
     */
-	welcome_screen();   //Welcome Screen of the game is here
-
-	//_getch();
+	//welcome_screen();   //Welcome Screen of the game is here
+    /*
+	//_getch();// render character
+    gotoXY(charLocation);
+    colour(0x0C);
+    std::cout << (char)1;*/
 }

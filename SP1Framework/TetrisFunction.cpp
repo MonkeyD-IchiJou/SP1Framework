@@ -5,10 +5,10 @@
 void tetris_screen ()
 {
     blocks axis;
-    blocks niceshape;
+    //blocks niceshape;
 
     axis.coord_x = 1;
-    axis.coord_y = 9;
+    axis.coord_y = 3;
 
     blocks tmap = tetris_game_map();        //tetris map
 
@@ -16,48 +16,60 @@ void tetris_screen ()
     blocks delsquare = DelSquareBlocks();   //delete square blocks
 
     int block_h = 3;
-    int block_width = 3;
+    int block_width = 4;
+
+    int speed = 100;
 
 /*/////START LOOP/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
     for(;;)
     {
-        //updating
-        for (int i = 0; i < block_h; i++)
-        {
-            for (int j = 0; j < block_width; j++)
-            {
-                tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];
-            }
-        }
-
 /*------DOWNWARD ANIMATION------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
         //animation downward
-
-        for (int i = 0; i < block_h; i++)
-        {
-            for (int j = 0; j < block_width; j++)
+        
+            for (int i = 0; i < block_h; i++)
             {
-                tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = delsquare.square_block[i][j];
-            }
-        }
-
-        axis.coord_x += 1;
-        axis.coord_y += 0;
-
-        for (int i = 0; i < block_h; i++)
-        {
-            for (int j = 0; j < block_width; j++)
-            {
-                tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];
+                for (int j = 0; j < block_width; j++)
+                {
+                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = delsquare.square_block[i][j];
+                }
             }
 
-            Sleep(100);
-        }        
+            axis.coord_x += 1;
+            axis.coord_y += 0;
+
+            for (int i = 0; i < block_h; i++)
+            {
+                for (int j = 0; j < block_width; j++)
+                {
+                    //sides
+                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];           
+                    square.square_block[0][0] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[1][0] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[0][3] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[1][3] = tmap.tetris_map[axis.coord_x+i-1][axis.coord_y+i-1];        //dunno why like this, in the future will check this out
+
+                    //below
+                    square.square_block[2][0] = tmap.tetris_map[axis.coord_x+i+1][axis.coord_y+i+1];        //dunno why like this, in the future will check this out
+                    square.square_block[2][1] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[2][2] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[2][3] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+
+                    
+
+                    if (square.square_block[2][2] == '+')
+                    {
+                        system("pause");
+                    }
+                }
+                
+                Sleep(speed);
+            } 
+        
         
 /*------PRESS RIGHT-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
+            
         if(GetAsyncKeyState(VK_RIGHT))
         {
             sound();
@@ -78,12 +90,32 @@ void tetris_screen ()
             {
                 for (int j = 0; j < block_width; j++)
                 {
-                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];
+                    //sides
+                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];           
+                    square.square_block[0][0] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[1][0] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[0][3] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[1][3] = tmap.tetris_map[axis.coord_x+i-1][axis.coord_y+i-1];
+
+                    //below
+                    square.square_block[2][0] = tmap.tetris_map[axis.coord_x+i+1][axis.coord_y+i+1];        //dunno why like this, in the future will check this out
+                    square.square_block[2][1] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[2][2] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[2][3] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+
+                    
+                    if (square.square_block[1][3] == '+')
+                    {
+                        system("pause");
+                       
+                    }
                 }
             }
         }
+        
+    
 
-
+        
 /*------PRESS LEFT--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
         if(GetAsyncKeyState(VK_LEFT))
@@ -106,35 +138,70 @@ void tetris_screen ()
             {
                 for (int j = 0; j < block_width; j++)
                 {
-                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];
+                    //sides
+                    tmap.tetris_map[axis.coord_x+i][axis.coord_y+j] = square.square_block[i][j];          
+                    square.square_block[0][0] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];//
+                    square.square_block[1][0] = tmap.tetris_map[axis.coord_x+i-1][axis.coord_y+i];
+                    square.square_block[0][3] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];//
+                    square.square_block[1][3] = tmap.tetris_map[axis.coord_x+i+1][axis.coord_y+i+1];
+
+                    //below
+                    square.square_block[2][0] = tmap.tetris_map[axis.coord_x+i+1][axis.coord_y+i-1];        //dunno why like this, in the future will check this out
+                    square.square_block[2][1] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[2][2] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+                    square.square_block[2][3] = tmap.tetris_map[axis.coord_x+i][axis.coord_y+i];
+
+                    
+                    if (square.square_block[1][0] == '+')
+                    {
+                        system("pause");
+                       
+                    }
                 }
             }
+
+            Sleep(speed);
         }
+
+/*------PRESS DOWN--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*
+        if(GetAsyncKeyState(VK_DOWN))
+        {
+            sound();
+            speed = 0;
+        }
+
+        else 
+        {
+            speed = 100;
+        }*/
 
 /*------UPDATE MAP--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
         //map screen
-        for(int i = 0; i < 22; i++)
+           
+        for(int i = 0; i < t_mX; i++)
         {
             gotoXY(0, 4 + i); 
 
-            for(int j = 0; j < 23; j++)
+            for(int j = 0; j < t_mY; j++)
             {
                 cout << tmap.tetris_map[i][j];
             }
             cout << endl;
         }
-
+        
 		tetris_info ();
 
 		if(GetAsyncKeyState(VK_ESCAPE))
 		{
-			pause_screen();
+			//pause_screen();
+            system("pause");
 		}
 
 /*/////LOOP WILL REPEAT FROM STARTING AGAIN//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
     
-    }
+     } 
 }
 
 void tetris_info ()

@@ -11,8 +11,8 @@ using std::cin;
 using std::endl;
 using std::string;
 
-const int t_mX = 22;
-const int t_mY = 23;
+const int t_mX = 23;
+const int t_mY = 25;
 
 const size_t blocksizeX = 3;
 const size_t blocksizeY = 4;
@@ -24,8 +24,14 @@ struct blocks
     char square_block[blocksizeX][blocksizeY];
     char z_block[blocksizeX][blocksizeY];
 
-    char boundaries;
+    char boundaries1;
+    char boundaries2;
+    char boundaries3;
+    char boundaries4;
+    char boundaries5;
+    char boundaries6;
     char insideB;
+    char stop;
 
     char blockshape;
     char collisioncheck;
