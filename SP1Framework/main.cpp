@@ -40,7 +40,7 @@ void mainLoop()
 		render();                           // render the graphics output to screen2
 		break;
 		g_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.
-		if(GetAsyncKeyState(K_ONE) == 'a')
+		if(GetAsyncKeyState(K_ONE) == '1')
 		{
 			break;
 		}

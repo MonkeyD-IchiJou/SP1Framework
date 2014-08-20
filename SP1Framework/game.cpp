@@ -156,7 +156,7 @@ void render()
 	//welcome_screen();   //Welcome Screen of the game is here
     enum Sequence
 {
-	NEWGAME = 'a',
+	NEWGAME = '1',
 	CREDITS,
 	EXITGAME
 };
