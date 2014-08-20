@@ -276,6 +276,19 @@ void welcome_screen()
 		gotoXY(20, 14);
 		cout << "(3)Exit Game" << endl << endl;
 
+        //Menu Beep Music
+        int k;
+        gotoXY(0,20);
+        cout << "Do you want to listen to epic theme song of TETRIS? \n                Yes = '1',  No = '0' - ";
+        cin >> k;
+        if(k == 1)
+        {
+            menu_music();
+        }
+        
+        
+           
+        
 		//Function for players to choose
 		gotoXY(14, 16);
 		cout << "Pick a number to start!" << endl;
@@ -305,6 +318,7 @@ void welcome_screen()
 			exit(0);
 
 		}
+        
 	}
 }
 
@@ -357,30 +371,120 @@ void sound()
 
 void menu_music()
 {
-    Beep(0,200);
-    Beep(1650,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1250,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1650,100);Sleep(150);
-    Beep(1650,100);Sleep(150);
-    Beep(1650,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1650,100);Sleep(150);
-    Beep(1650,100);Sleep(150);
-    Beep(1650,100);Sleep(300);
-    Beep(1650,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1250,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1650,100);Sleep(150);
-    Beep(1650,100);Sleep(150);
-    Beep(1650,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1650,100);Sleep(150);
-    Beep(1500,100);Sleep(150);
-    Beep(1250,100);Sleep(150);
+    
+    Beep(0,100);
+    Beep(1320, 500);
+    Beep(990, 250);
+    Beep(1056, 250);
+    Beep(1188, 250);
+    Beep(1320, 125);
+    Beep(1188, 125);
+    Beep(1056, 250);
+    Beep(990, 250);
+    Beep(880, 500);
+    Beep(880, 250);
+    Beep(1056, 250);
+    Beep(1320, 500);
+    Beep(1188, 250);
+    Beep(1056, 250);
+    Beep(990, 750);
+    Beep(1056, 250);
+    Beep(1188, 500);
+    Beep(1320, 500);
+    Beep(1056, 500);
+    Beep(880, 500);
+    Beep(880, 500);
+    Sleep(250);
+    Beep(1188, 500);
+    Beep(1408, 250);
+    Beep(1760, 500);
+    Beep(1584, 250);
+    Beep(1408, 250);
+    Beep(1320, 750);
+    Beep(1056, 250);
+    Beep(1320, 500);
+    Beep(1188, 250);
+    Beep(1056, 250);
+    Beep(990, 500);
+    Beep(990, 250);
+    Beep(1056, 250);
+    Beep(1188, 500);
+    Beep(1320, 500);
+    Beep(1056, 500);
+    Beep(880, 500);
+    Beep(880, 500);
+    Sleep(500);
+    Beep(1320, 500);
+    Beep(990, 250);
+    Beep(1056, 250);
+    Beep(1188, 250);
+    Beep(1320, 125);
+    Beep(1188, 125);
+    Beep(1056, 250);
+    Beep(990, 250);
+    Beep(880, 500);
+    Beep(880, 250);
+    Beep(1056, 250);
+    Beep(1320, 500);
+    Beep(1188, 250);
+    Beep(1056, 250);
+    Beep(990, 750);
+    Beep(1056, 250);
+    Beep(1188, 500);
+    Beep(1320, 500);
+    Beep(1056, 500);
+    Beep(880, 500);
+    Beep(880, 500);
+    Sleep(250);
+    Beep(1188, 500);
+    Beep(1408, 250);
+    Beep(1760, 500);
+    Beep(1584, 250);
+    Beep(1408, 250);
+    Beep(1320, 750);
+    Beep(1056, 250);
+    Beep(1320, 500);
+    Beep(1188, 250);
+    Beep(1056, 250);
+    Beep(990, 500);
+    Beep(990, 250);
+    Beep(1056, 250);
+    Beep(1188, 500);
+    Beep(1320, 500);
+    Beep(1056, 500);
+    Beep(880, 500);
+    Beep(880, 500);
+    Sleep(500);
+    Beep(660, 1000);
+    Beep(528, 1000);
+    Beep(594, 1000);
+    Beep(495, 1000);
+    Beep(528, 1000);
+    Beep(440, 1000);
+    Beep(419, 1000);
+    Beep(495, 1000);
+    Beep(660, 1000);
+    Beep(528, 1000);
+    Beep(594, 1000);
+    Beep(495, 1000);
+    Beep(528, 500);
+    Beep(660, 500);
+    Beep(880, 1000);
+    Beep(838, 2000);
+    Beep(660, 1000);
+    Beep(528, 1000);
+    Beep(594, 1000);
+    Beep(495, 1000);
+    Beep(528, 1000);
+    Beep(440, 1000);
+    Beep(419, 1000);
+    Beep(495, 1000);
+    Beep(660, 1000);
+    Beep(528, 1000);
+    Beep(594, 1000);
+    Beep(495, 1000);
+    Beep(528, 500);
+    Beep(660, 500);
+    Beep(880, 1000);
+    Beep(838, 2000);
 }

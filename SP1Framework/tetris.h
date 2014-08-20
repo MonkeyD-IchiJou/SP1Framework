@@ -4,8 +4,6 @@
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
-#include <stdlib.h>
-#include <exception>
 using std::cout;
 using std::cin;
 using std::endl;
@@ -14,6 +12,14 @@ using std::string;
 const int t_mX = 23;
 const int t_mY = 16;
 
+<<<<<<< ba513675963d9d102779256a53250fbe685dd371
+=======
+const size_t blocksizeX = 3;
+const size_t blocksizeY = 4;
+
+
+
+>>>>>>> 345346cb414bc883ea1f2367a5b3b030a97b8475
 struct blocks
 {
     char tetris_map[t_mX][t_mY];

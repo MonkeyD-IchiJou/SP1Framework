@@ -85,6 +85,7 @@ void update(double dt)
     }
     // Pauses the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
+<<<<<<< 9ce71dcb091c5dbbe1a64103036669bd66440851
         system("pause.exe");*/
 
 	// get the delta time
@@ -102,6 +103,12 @@ void update(double dt)
         Beep(1000, 100);
         charLocation.Y--;
     } 
+=======
+    {
+        system("pause.exe");
+    }
+    
+>>>>>>> 6c2527efd8c250d5f5546be25255e2f7351c7eca
 }
 
 void render()
@@ -221,5 +228,12 @@ while(NEWGAME != EXITGAME)
 	//_getch();// render character
     gotoXY(charLocation);
     colour(0x0C);
+<<<<<<< 9ce71dcb091c5dbbe1a64103036669bd66440851
     std::cout << (char)1;
 }
+=======
+    std::cout << (char)1;*/
+
+    
+    }
+>>>>>>> 6c2527efd8c250d5f5546be25255e2f7351c7eca
