@@ -21,15 +21,15 @@ blocks tetris_game_map()
 
     for(int i = 1; i < 23; i++)
     {
-        for(int j = 1; j < 25; j++)
+        for(int j = 1; j < 16; j++)
         {
             tmap.tetris_map[0][j] = wall.boundaries6;
             tmap.tetris_map[21][j] = wall.boundaries6;
            
             tmap.tetris_map[i][1] = wall.boundaries1; 
-            tmap.tetris_map[i][23] = wall.boundaries1;
+            tmap.tetris_map[i][14] = wall.boundaries1;
 
-            if (j > 1 && j < 24 && i > 0 && i < 22)
+            if (j > 1 && j < 14 && i > 0 && i < 24)
             {
                 tmap.tetris_map[i][j] = wall.insideB; 
             }
@@ -40,17 +40,17 @@ blocks tetris_game_map()
 
     for (int i = 0; i < 22; i++)
     {
-        for (int j = 0; j < 24; j++)
+        for (int j = 0; j < 16; j++)
         {
             tmap.tetris_map[i][0] = '+';
-            tmap.tetris_map[i][24] = '+';
+            tmap.tetris_map[i][15] = '+';
         }
     }
 
     // + for detecting
     for (int i = 0; i < 23; i++)
     {
-        for (int j = 0; j < 25; j++)
+        for (int j = 0; j < 16; j++)
         {
             tmap.tetris_map[22][j] = wall.stop;
         }
@@ -58,8 +58,8 @@ blocks tetris_game_map()
 
     tmap.tetris_map[0][1] = wall.boundaries2;
     tmap.tetris_map[21][1] = wall.boundaries3;
-    tmap.tetris_map[0][23] = wall.boundaries4;
-    tmap.tetris_map[21][23] = wall.boundaries5;
+    tmap.tetris_map[0][14] = wall.boundaries4;
+    tmap.tetris_map[21][14] = wall.boundaries5;
 
     return tmap;
 }
@@ -84,7 +84,7 @@ blocks getSquareBlocks()
     square.square_block[1][2] = pattern.blockshape;
     square.square_block[1][3] = pattern.collisioncheck;
 
-    //square.square_block[2][0] = pattern.collisioncheck;
+    square.square_block[2][0] = pattern.collisioncheck;
     square.square_block[2][1] = pattern.collisioncheck;
     square.square_block[2][2] = pattern.collisioncheck;
     square.square_block[2][3] = pattern.collisioncheck;

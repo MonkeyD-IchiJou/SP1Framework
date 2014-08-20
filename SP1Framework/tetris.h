@@ -12,7 +12,7 @@ using std::endl;
 using std::string;
 
 const int t_mX = 23;
-const int t_mY = 25;
+const int t_mY = 16;
 
 const size_t blocksizeX = 3;
 const size_t blocksizeY = 4;
