@@ -9,7 +9,11 @@
 
 StopWatch g_timer;            // Timer function to keep track of time and the frame rate
 bool g_quitGame = false;      // Set to true if you want to quit the game
+<<<<<<< 0f564150e40f3bfc729b1c985b55412180e0cc8e
 const unsigned char FPS = 25; // FPS of this game
+=======
+const unsigned char FPS = 10; // FPS of this game
+>>>>>>> b6a3fcb9655c5f9875b8f70ed34790eda2787880
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 
 void mainLoop();
