@@ -81,7 +81,12 @@ void update(double dt)
         charLocation.Y++; 
     }
 
+<<<<<<< Updated upstream
     if (keyPressed[K_RIGHT] && charLocation.X < 26)//consoleSize.X - 1)
+=======
+    // Updating the location of the character based on the key press
+    if(keyPressed[K_ONE] && charLocation.X >0)
+>>>>>>> Stashed changes
     {
         Beep(1440, 30);
         charLocation.X++;
