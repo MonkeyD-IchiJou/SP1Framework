@@ -14,10 +14,14 @@ enum Keys
     K_RIGHT,
     K_ESCAPE,
     K_ENTER,
-    K_COUNT,
 	K_PAUSE,
 	K_MUSIC,
+<<<<<<< 6c6f07fc9b69cd14b8cb7b34e2007ca9572de110
 	K_SMUSIC
+=======
+	K_SMUSIC,
+    K_COUNT
+>>>>>>> f9ef1881b4490236f4a2bd0e2640f378f437a118
 };
 
 void init();                // initialize your variables, allocate memory, etc
@@ -26,6 +30,6 @@ void update(double dt);     // update the game and the state of the game
 void render();              // renders the current state of the game to the console
 void shutdown();            // do clean up, free memory
 void PauseData();
-void MenuData();                // file streams/file data here
+void MenuData();            // file streams/file data here
 
 #endif // _GAME_H

@@ -46,6 +46,9 @@ char BLocksShape();
 //In 8bit_music.cpp
 void menu_music();
 
+<<<<<<< 799e80efabbe725e5f8ebfbfc6cd87cab6305b66
 void testingOnly(int x, int y);
 
+=======
+>>>>>>> 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
 #endif // _TETRIS_H

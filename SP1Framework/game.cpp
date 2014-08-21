@@ -5,6 +5,22 @@
 #include "Framework\console.h"
 #include "tetris.h"
 
+<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
+=======
+#include "blocksUI.h"
+#include <fstream>
+#include <string>
+
+#include <fstream>
+#include <string>
+
+#include <fstream>
+#include <string>
+
+#include <fstream>
+#include <string>
+
+>>>>>>> e68527d2751065988e45b07b98de52f3acbda281
 double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
@@ -17,9 +33,16 @@ bool pause = false;
 bool pressmusic = false;
 bool stopmusic = false;
 
+<<<<<<< 799e80efabbe725e5f8ebfbfc6cd87cab6305b66
 int A = 0;
 
+=======
+<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
+>>>>>>> 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
 unsigned char gameState;
+=======
+
+>>>>>>> e68527d2751065988e45b07b98de52f3acbda281
 
 void init()
 {
@@ -61,9 +84,8 @@ void getInput()
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
     keyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
 	keyPressed[K_PAUSE] = isKeyPressed(VK_BACK);
-
 	keyPressed[K_MUSIC] = isKeyPressed(VK_LSHIFT);
-	keyPressed[K_SMUSIC] = isKeyPressed(VK_RSHIFT);
+	keyPressed[K_SMUSIC] = isKeyPressed(VK_SPACE);
 }
 
 void update(double dt)
@@ -118,6 +140,7 @@ void update(double dt)
 	{
 		pause = true;
 	}
+<<<<<<< 799e80efabbe725e5f8ebfbfc6cd87cab6305b66
     
     if (charLocation[A].Y > 21)
     {
@@ -125,6 +148,19 @@ void update(double dt)
         charLocation[A+=1].Y++;
         init();
     }
+=======
+
+	if(keyPressed[K_MUSIC])
+	{
+		pressmusic = true;
+	}
+
+	if(keyPressed[K_SMUSIC])
+	{
+		stopmusic = true;
+	}
+
+>>>>>>> 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
 }
 
 void PauseData()
@@ -138,17 +174,6 @@ void PauseData()
 		cout << pause << endl;
 	}
 	Paused_Screen.close ();
-
-    // plays the music if player hits the left shift key
-	if(keyPressed[K_MUSIC])
-	{
-		pressmusic = true;
-	}
-
-	if(keyPressed[K_SMUSIC])
-	{
-		stopmusic = true;
-	}
 }
 
 void render()
@@ -166,6 +191,20 @@ void render()
 
 	FPSInfo();
 	TIMINGInfo();
+<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
+=======
+    
+<<<<<<< 6c6f07fc9b69cd14b8cb7b34e2007ca9572de110
+    
+=======
+    //render the game
+
+    MenuScreen();
+	
+	// plays the music if player hits the left shift key
+	
+>>>>>>> f9ef1881b4490236f4a2bd0e2640f378f437a118
+>>>>>>> e68527d2751065988e45b07b98de52f3acbda281
 
     //render test screen code (not efficient at all)
     /*const WORD colors[] =   {
@@ -174,6 +213,82 @@ void render()
 	                        };*/
     
     // render time taken to calculate this frame
+<<<<<<< 416bdc1305871eb11dce8d153e94cd625ea60385
+=======
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/*Put function here*/
+<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
+    /*
+=======
+
+<<<<<<< 6c6f07fc9b69cd14b8cb7b34e2007ca9572de110
+    //MenuScreen();
+        
+=======
+    
+>>>>>>> f9ef1881b4490236f4a2bd0e2640f378f437a118
+>>>>>>> e68527d2751065988e45b07b98de52f3acbda281
+	if (pause == true)
+	{
+		Paused_Screen();
+    }
+
+    if(press == true)
+	{ 
+		FPSInfo();
+		TIMINGInfo();
+		TetrisGameplay();
+	}
+
+<<<<<<< 6c6f07fc9b69cd14b8cb7b34e2007ca9572de110
+	if(g_quitGame == true)
+=======
+	else if(g_quitGame == true)
+>>>>>>> f9ef1881b4490236f4a2bd0e2640f378f437a118
+	{
+		exit(0);
+	}
+<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
+
+	while(pressmusic != stopmusic)
+	{
+		if(pressmusic == true)
+		{
+			menu_music();
+			if(stopmusic == true)
+			{
+				exit(0);
+			}
+		}
+	}*/
+=======
+}
+
+void MenuData()
+{
+	std::ifstream MenuScreen;
+	std::string data;
+	MenuScreen.open("tetris_ascii.txt");
+	while(!MenuScreen.eof())
+	{
+		getline(MenuScreen, data);
+		cout << data << endl;
+	}
+
+	MenuScreen.close();
+}
+
+COORD FindCoordinates (short n1, short n2)
+{
+    COORD location;
+
+    location.X = n1; 
+    location.Y = n2;
+
+    return location;
+>>>>>>> e68527d2751065988e45b07b98de52f3acbda281
+>>>>>>> 5793cd3bf029d84fcd4f904161b137ed537d930f
 }
 
 void MenuData()
