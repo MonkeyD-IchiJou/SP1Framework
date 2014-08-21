@@ -218,6 +218,40 @@ COORD FindCoordinates (short n1, short n2)
     return location;
 }
 
+<<<<<<< 5288a9e6d20adfcbbe37f9c83bcf49e201d0702e
+=======
+<<<<<<< 416bdc1305871eb11dce8d153e94cd625ea60385
+void TetrisGameplay()
+{
+    //blocks coming down
+    if (1 == 1)
+    {
+        LONGLINE(charLocation);
+=======
+
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/*Put function here*/
+    
+	if (pause == true)
+	{
+		Paused_Screen();
+>>>>>>> be901b6ad1eb3de8de51105189ec25a7aac7fbe6
+    }
+   
+    charLocation.Y++;
+
+    int coordinfox = 0;
+    int coordinfoy = 0;
+
+    if (charLocation.Y > 24)
+    {
+        charLocation.Y--;
+    }
+}
+
+>>>>>>> 3e9df5425e1b05af8658478cff41739735356e97
 void MenuData()
 {
 	std::ifstream MenuScreen;
