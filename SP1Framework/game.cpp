@@ -4,8 +4,9 @@
 #include "game.h"
 #include "Framework\console.h"
 #include "tetris.h"
-<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
+
 #include "blocksUI.h"
+<<<<<<< 72256a3d23283431bd0b04a6210fbd77747230e1
 <<<<<<< f897789d76384a4889dc460c6c982dfab283b8bb
 #include <fstream>
 #include <string>
@@ -15,6 +16,12 @@
 #include <string>
 >>>>>>> 404fe67a56df774e032bd0fe4f2ec38fa4390284
 >>>>>>> c07aca0ed68dba55af91dd0658bf315516b717bb
+=======
+
+#include <fstream>
+#include <string>
+
+>>>>>>> df63c67d5100680ea9255f4230a0f2d347cf2529
 
 double elapsedTime;
 double deltaTime;
@@ -105,14 +112,14 @@ void update(double dt)
         charLocation.Y++; 
     }
 
-<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
     if (keyPressed[K_RIGHT] && charLocation.X < 26 && charLocation.Y != 24)
-=======
-    //if (keyPressed[K_RIGHT] && charLocation.X < 26)//consoleSize.X - 1)
+	{
+		Beep(1440, 30);
+        charLocation.X++;
+	}
 
 	// opens the game if player hits the enter key
     if (keyPressed[K_ENTER])
->>>>>>> 404fe67a56df774e032bd0fe4f2ec38fa4390284
     {
         press = true;
     }
@@ -153,6 +160,7 @@ void PauseData()
 	{
 		pressmusic = true;
 	}
+
 	if(keyPressed[K_SMUSIC])
 	{
 		stopmusic = true;
@@ -163,18 +171,16 @@ void PauseData()
 void render()
 {
     // clear previous screen
-    
-    Standard();
+	Standard();
+	FPSInfo();
+	TIMINGInfo();
     
     //render the game
-<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
-    //MenuScreen();
-=======
+
     MenuScreen();
 
 	//menu_music();
 
->>>>>>> 404fe67a56df774e032bd0fe4f2ec38fa4390284
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
 	                            0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
@@ -183,13 +189,13 @@ void render()
     
     // render time taken to calculate this frame
 
-    FPSInfo();
-    TIMINGInfo();
+
 
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*Put function here*/
 
+<<<<<<< 72256a3d23283431bd0b04a6210fbd77747230e1
 <<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
     TetrisGameplay();
     Sleep(200);    
@@ -215,6 +221,16 @@ void render()
         TetrisGameplay();
     }
 >>>>>>> 404fe67a56df774e032bd0fe4f2ec38fa4390284
+=======
+	if(press == true)
+	{ 
+		Standard();
+		FPSInfo();
+		TIMINGInfo();
+		TetrisGameplay();
+		Sleep(200); 
+	}
+>>>>>>> df63c67d5100680ea9255f4230a0f2d347cf2529
 
 	else if(g_quitGame == true)
 	{
@@ -233,6 +249,7 @@ void render()
 		}
 	}
 }
+
 void MenuData()
 {
 	std::ifstream MenuScreen;
@@ -246,7 +263,11 @@ void MenuData()
 
 	MenuScreen.close();
 }
+<<<<<<< 72256a3d23283431bd0b04a6210fbd77747230e1
 >>>>>>> c07aca0ed68dba55af91dd0658bf315516b717bb
+=======
+
+>>>>>>> df63c67d5100680ea9255f4230a0f2d347cf2529
 COORD FindCoordinates (short n1, short n2)
 {
     COORD location;
