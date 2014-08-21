@@ -81,8 +81,6 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Paused_Screen.cpp" />
-    <ClCompile Include="print_blocks.cpp" />
-    <ClCompile Include="gameplay_screen.cpp" />
     <ClCompile Include="menu_screen.cpp" />
     <ClCompile Include="Print_shapes.cpp" />
   </ItemGroup>

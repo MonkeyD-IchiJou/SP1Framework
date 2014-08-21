@@ -6,22 +6,8 @@
 #include "tetris.h"
 
 #include "blocksUI.h"
-<<<<<<< 72256a3d23283431bd0b04a6210fbd77747230e1
-<<<<<<< f897789d76384a4889dc460c6c982dfab283b8bb
 #include <fstream>
 #include <string>
-=======
-=======
-#include <fstream>
-#include <string>
->>>>>>> 404fe67a56df774e032bd0fe4f2ec38fa4390284
->>>>>>> c07aca0ed68dba55af91dd0658bf315516b717bb
-=======
-
-#include <fstream>
-#include <string>
-
->>>>>>> df63c67d5100680ea9255f4230a0f2d347cf2529
 
 double elapsedTime;
 double deltaTime;
@@ -30,12 +16,9 @@ COORD charLocation;
 COORD consoleSize;
 
 bool press = false;
-<<<<<<< f897789d76384a4889dc460c6c982dfab283b8bb
 bool pause = false;
-=======
 bool pressmusic = false;
 bool stopmusic = false;
->>>>>>> c07aca0ed68dba55af91dd0658bf315516b717bb
 
 void init()
 {
@@ -76,12 +59,10 @@ void getInput()
     keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
     keyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
-<<<<<<< f897789d76384a4889dc460c6c982dfab283b8bb
 	keyPressed[K_PAUSE] = isKeyPressed(VK_BACK);
-=======
+
 	keyPressed[K_MUSIC] = isKeyPressed(VK_LSHIFT);
 	keyPressed[K_SMUSIC] = isKeyPressed(VK_RSHIFT);
->>>>>>> c07aca0ed68dba55af91dd0658bf315516b717bb
 }
 
 void update(double dt)
@@ -129,7 +110,6 @@ void update(double dt)
     {
         g_quitGame = true;    
     }
-<<<<<<< f897789d76384a4889dc460c6c982dfab283b8bb
     
     if (keyPressed[K_ENTER])
     {
@@ -153,9 +133,8 @@ void PauseData()
 		cout << pause << endl;
 	}
 	Paused_Screen.close ();
-=======
 
-	// plays the music if player hits the left shift key
+    // plays the music if player hits the left shift key
 	if(keyPressed[K_MUSIC])
 	{
 		pressmusic = true;
@@ -165,7 +144,6 @@ void PauseData()
 	{
 		stopmusic = true;
 	}
->>>>>>> c07aca0ed68dba55af91dd0658bf315516b717bb
 }
 
 void render()
@@ -194,35 +172,14 @@ void render()
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*Put function here*/
-
-<<<<<<< 72256a3d23283431bd0b04a6210fbd77747230e1
-<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
-    TetrisGameplay();
-    Sleep(200);    
-
-        TIMINGInfo();
-        FPSInfo();
-
-        TetrisGameplay();
     
 	if (pause == true)
 	{
 		Paused_Screen();
 	
     }
-}
-=======
-        TIMINGInfo();
-        FPSInfo();
 
-<<<<<<< f897789d76384a4889dc460c6c982dfab283b8bb
-
-=======
-        TetrisGameplay();
-    }
->>>>>>> 404fe67a56df774e032bd0fe4f2ec38fa4390284
-=======
-	if(press == true)
+    else if(press == true)
 	{ 
 		Standard();
 		FPSInfo();
@@ -230,7 +187,7 @@ void render()
 		TetrisGameplay();
 		Sleep(200); 
 	}
->>>>>>> df63c67d5100680ea9255f4230a0f2d347cf2529
+
 
 	else if(g_quitGame == true)
 	{
@@ -263,11 +220,7 @@ void MenuData()
 
 	MenuScreen.close();
 }
-<<<<<<< 72256a3d23283431bd0b04a6210fbd77747230e1
->>>>>>> c07aca0ed68dba55af91dd0658bf315516b717bb
-=======
 
->>>>>>> df63c67d5100680ea9255f4230a0f2d347cf2529
 COORD FindCoordinates (short n1, short n2)
 {
     COORD location;
