@@ -4,12 +4,9 @@
 #include "game.h"
 #include "Framework\console.h"
 #include "tetris.h"
-<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
 #include "blocksUI.h"
-=======
 #include <fstream>
 #include <string>
->>>>>>> c04850209f6581973917a7b3c25c47a7d9f6a81c
 
 double elapsedTime;
 double deltaTime;
@@ -90,14 +87,8 @@ void update(double dt)
         charLocation.Y++; 
     }
 
-<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
     if (keyPressed[K_RIGHT] && charLocation.X < 26 && charLocation.Y != 24)
     {
-=======
-
-    if (keyPressed[K_RIGHT] && charLocation.X < 26)//consoleSize.X - 1)
-	{
->>>>>>> c04850209f6581973917a7b3c25c47a7d9f6a81c
         Beep(1440, 30);
         charLocation.X++;
     }
@@ -155,21 +146,21 @@ void render()
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*Put function here*/
 
-<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
     TetrisGameplay();
     Sleep(200);    
-=======
+
         TIMINGInfo();
         FPSInfo();
 
         TetrisGameplay();
-    }
+    
 	if (pause == true)
 	{
 		Paused_Screen();
-	}
->>>>>>> c04850209f6581973917a7b3c25c47a7d9f6a81c
+	
+    }
 }
+
 
 COORD FindCoordinates (short n1, short n2)
 {
