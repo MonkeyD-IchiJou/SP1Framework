@@ -1,9 +1,14 @@
+//This file mainly on return char or print map
+//
+//
+//
+
 #include "game.h"
 #include "Framework\console.h"
 #include "tetris.h"
-#include "tetris_UI.h"
+#include "blocksUI.h"
 
-void TetrisUI()
+void TetrisMap()
 {   
     //blocks tetris_game_map();
     blocks tmap;
@@ -17,9 +22,10 @@ void TetrisUI()
             if (j > 0 && j < 13)
             {
                 tmap.tetris_map[21][j] = 205;
-                tmap.tetris_map[0][j] = 205;
-                tmap.tetris_map[22][j] = '+';
+                tmap.tetris_map[0][j] = 205;    
             }
+
+            tmap.tetris_map[22][j] = '+';
 
             if (i < 22)
             {
@@ -46,4 +52,10 @@ void TetrisUI()
 
         cout << endl;
     }
+}
+
+char BLocksShape()
+{
+    const char shape = 'o'; 
+    return shape;
 }

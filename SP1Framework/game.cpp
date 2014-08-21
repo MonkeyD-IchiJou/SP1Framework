@@ -4,6 +4,7 @@
 #include "game.h"
 #include "Framework\console.h"
 #include "tetris.h"
+#include "blocksUI.h"
 
 double elapsedTime;
 double deltaTime;
@@ -63,30 +64,35 @@ void update(double dt)
     FindCoordinates (2, 3);
 
     // Updating the location of the character based on the key press
+    /*
     if (keyPressed[K_UP] && charLocation.Y > 20)
     {
         Beep(1440, 30);
         charLocation.Y--; 
-    }
+    }*/
 
-    if (keyPressed[K_LEFT] && charLocation.X > 17)
+    if (keyPressed[K_LEFT] && charLocation.X > 17 && charLocation.Y != 24)
     {
         Beep(1440, 30);
         charLocation.X--; 
     }
 
-    if (keyPressed[K_DOWN] && charLocation.Y < consoleSize.Y - 1)
+    if (keyPressed[K_DOWN] && charLocation.Y < consoleSize.Y - 1 && charLocation.Y != 24)
     {
         Beep(1440, 30);
         charLocation.Y++; 
     }
 
+<<<<<<< 337b83d21dcb80b39f941566810e16c88ec5252c
 <<<<<<< Updated upstream
     if (keyPressed[K_RIGHT] && charLocation.X < 26)//consoleSize.X - 1)
 =======
     // Updating the location of the character based on the key press
     if(keyPressed[K_ONE] && charLocation.X >0)
 >>>>>>> Stashed changes
+=======
+    if (keyPressed[K_RIGHT] && charLocation.X < 26 && charLocation.Y != 24)
+>>>>>>> 1cf6622aca2d7545ef338c603731c3612464d336
     {
         Beep(1440, 30);
         charLocation.X++;
@@ -134,7 +140,20 @@ void render()
         TIMINGInfo();
         FPSInfo();
 
-        TetrisGameplay();
+        //TetrisGameplay();
+        TetrisMap();
+
+        if (1 == 1)
+        {
+            printBlocks();
+        }
+
+    charLocation.Y++;
+
+    if (charLocation.Y > 24)
+    {
+        charLocation.Y--;
+    }
     }
 }
 
@@ -202,10 +221,19 @@ void testing ()
 
 void TetrisGameplay()
 {
-    TetrisUI();
-    gotoXY(charLocation);
+    //map is here
+    TetrisMap();
+
+    if (1 == 1)
+    {
+        gotoXY(charLocation);
+        cout << BLocksShape();
+        cout << BLocksShape();
+        cout << BLocksShape();
+        cout << BLocksShape();
+    }
+
     charLocation.Y++;
-    cout << (char)1;
 
     if (charLocation.Y > 24)
     {
@@ -231,4 +259,13 @@ void Standard()
 {
     colour(0x0F);
     cls();
+}
+
+void printBlocks()
+{
+    gotoXY(charLocation);
+    cout << BLocksShape();
+    cout << BLocksShape();
+    cout << BLocksShape();
+    cout << BLocksShape();
 }

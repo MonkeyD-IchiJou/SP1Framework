@@ -36,13 +36,10 @@
     <ClCompile Include="8bit_music.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="print_blocks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gameplay_screen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="menu_screen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Print_shapes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +56,7 @@
     <ClInclude Include="tetris.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tetris_UI.h">
+    <ClInclude Include="blocksUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
