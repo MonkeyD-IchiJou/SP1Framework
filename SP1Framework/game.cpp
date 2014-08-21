@@ -12,6 +12,7 @@ COORD charLocation;
 COORD consoleSize;
 
 bool press = false;
+
 void init()
 {
     // Set precision for floating point output
@@ -62,13 +63,13 @@ void update(double dt)
     FindCoordinates (2, 3);
 
     // Updating the location of the character based on the key press
-    if (keyPressed[K_UP] && charLocation.Y > 10)
+    if (keyPressed[K_UP] && charLocation.Y > 20)
     {
         Beep(1440, 30);
         charLocation.Y--; 
     }
 
-    if (keyPressed[K_LEFT] && charLocation.X > 0)
+    if (keyPressed[K_LEFT] && charLocation.X > 17)
     {
         Beep(1440, 30);
         charLocation.X--; 
@@ -80,7 +81,7 @@ void update(double dt)
         charLocation.Y++; 
     }
 
-    if (keyPressed[K_RIGHT] && charLocation.X < consoleSize.X - 1)
+    if (keyPressed[K_RIGHT] && charLocation.X < 26)//consoleSize.X - 1)
     {
         Beep(1440, 30);
         charLocation.X++;
@@ -118,7 +119,7 @@ void render()
     TIMINGInfo();
 
 
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*Put function here*/
     
     if (press == true)
@@ -199,12 +200,17 @@ void TetrisGameplay()
     TetrisUI();
     gotoXY(charLocation);
     charLocation.Y++;
-    cout << (char)1;//cls();
+    cout << (char)1;
+
+    if (charLocation.Y > 24)
+    {
+        charLocation.Y--;
+    }
 }
 
 void FPSInfo()
 {
-    gotoXY(70, 0);
+    gotoXY(60, 0);
     colour(0x1A);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 }
