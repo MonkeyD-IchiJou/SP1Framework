@@ -4,7 +4,12 @@
 #include "game.h"
 #include "Framework\console.h"
 #include "tetris.h"
+<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
 #include "blocksUI.h"
+=======
+#include <fstream>
+#include <string>
+>>>>>>> c04850209f6581973917a7b3c25c47a7d9f6a81c
 
 double elapsedTime;
 double deltaTime;
@@ -13,6 +18,7 @@ COORD charLocation;
 COORD consoleSize;
 
 bool press = false;
+bool pause = false;
 
 void init()
 {
@@ -53,6 +59,7 @@ void getInput()
     keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
     keyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
+	keyPressed[K_PAUSE] = isKeyPressed(VK_BACK);
 }
 
 void update(double dt)
@@ -83,8 +90,14 @@ void update(double dt)
         charLocation.Y++; 
     }
 
+<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
     if (keyPressed[K_RIGHT] && charLocation.X < 26 && charLocation.Y != 24)
     {
+=======
+
+    if (keyPressed[K_RIGHT] && charLocation.X < 26)//consoleSize.X - 1)
+	{
+>>>>>>> c04850209f6581973917a7b3c25c47a7d9f6a81c
         Beep(1440, 30);
         charLocation.X++;
     }
@@ -99,6 +112,24 @@ void update(double dt)
     {
         press = true;
     }
+
+	if (keyPressed[K_PAUSE])
+	{
+		pause = true;
+	}
+}
+
+void PauseData()
+{
+	std::ifstream Paused_Screen;
+	std::string pause;
+	Paused_Screen.open ("Pause.txt");
+	while (!Paused_Screen.eof()) 
+	{
+		getline (Paused_Screen, pause);
+		cout << pause << endl;
+	}
+	Paused_Screen.close ();
 }
 
 void render()
@@ -124,8 +155,20 @@ void render()
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*Put function here*/
 
+<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
     TetrisGameplay();
     Sleep(200);    
+=======
+        TIMINGInfo();
+        FPSInfo();
+
+        TetrisGameplay();
+    }
+	if (pause == true)
+	{
+		Paused_Screen();
+	}
+>>>>>>> c04850209f6581973917a7b3c25c47a7d9f6a81c
 }
 
 COORD FindCoordinates (short n1, short n2)

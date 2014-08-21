@@ -80,6 +80,12 @@
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
+<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
+=======
+    <ClCompile Include="Paused_Screen.cpp" />
+    <ClCompile Include="print_blocks.cpp" />
+    <ClCompile Include="gameplay_screen.cpp" />
+>>>>>>> c04850209f6581973917a7b3c25c47a7d9f6a81c
     <ClCompile Include="menu_screen.cpp" />
     <ClCompile Include="Print_shapes.cpp" />
   </ItemGroup>

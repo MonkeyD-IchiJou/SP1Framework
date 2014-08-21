@@ -4,6 +4,8 @@
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
+#include <fstream>
+#include <string>
 
 using std::cout;
 using std::cin;
@@ -20,6 +22,7 @@ void SQUARE();
 
 //In menu_screen.cpp file
 void MenuScreen();
+void Paused_Screen();
 
 
 //In 8bit_music.cpp
