@@ -24,9 +24,19 @@ void SQUARE();
 void MenuScreen();
 void Paused_Screen();
 
+<<<<<<< bd4cbfb6287179dbfd666aad9e8e624f0e06f995
+=======
+//In print_screen.cpp file
+void TetrisUI ();
+
+
+//In print_blocks.cpp file
+void SquareBlocks ();
+
+>>>>>>> 404fe67a56df774e032bd0fe4f2ec38fa4390284
 
 //In 8bit_music.cpp
-void MenuMusic ();
+void menu_music();
 
 
 #endif // _TETRIS_H
