@@ -17,7 +17,7 @@ void TIMINGInfo();
 void FPSInfo();
 void TetrisGameplay();
 void Standard();
-void SQUARE();
+void LONGLINE();
 
 
 //In menu_screen.cpp file

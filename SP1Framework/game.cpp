@@ -38,9 +38,9 @@ void init()
     consoleSize.X = csbi.srWindow.Right + 1;
     consoleSize.Y = csbi.srWindow.Bottom + 1;
 
-    // set the character to be in the center of the screen.
-    charLocation.X = 22;
-    charLocation.Y = 4;
+    // set the character to be in the center of the gameplay screen.
+    charLocation.X = 20;
+    charLocation.Y = 5;
 
     elapsedTime = 0.0;
 }
@@ -90,7 +90,7 @@ void update(double dt)
     if (keyPressed[K_DOWN] && charLocation.Y < consoleSize.Y - 1 && charLocation.Y != 24)
     {
         Beep(1440, 30);
-        charLocation.Y++; 
+        charLocation.Y++;
     }
 
     if (keyPressed[K_RIGHT] && charLocation.X < 26 && charLocation.Y != 24)
@@ -102,7 +102,12 @@ void update(double dt)
 	// opens the game if player hits the enter key
     if (keyPressed[K_ENTER])
     {
-        press = true;
+        //press = true;
+        Standard();
+		FPSInfo();
+		TIMINGInfo();
+        TetrisMap();
+		TetrisGameplay();
     }
 
     // quits the game if player hits the escape key
@@ -149,15 +154,11 @@ void PauseData()
 void render()
 {
     // clear previous screen
-	Standard();
+	//Standard();
 	FPSInfo();
 	TIMINGInfo();
     
-    //render the game
-
-    MenuScreen();
-
-	//menu_music();
+    
 
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
@@ -167,29 +168,25 @@ void render()
     
     // render time taken to calculate this frame
 
-
-
-
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*Put function here*/
-    
+
+    //MenuScreen();
+        
 	if (pause == true)
 	{
 		Paused_Screen();
-	
     }
 
-    else if(press == true)
+    if(press == true)
 	{ 
-		Standard();
+        //TetrisMap();
 		FPSInfo();
 		TIMINGInfo();
 		TetrisGameplay();
-		Sleep(200); 
 	}
 
-
-	else if(g_quitGame == true)
+	if(g_quitGame == true)
 	{
 		exit(0);
 	}
@@ -233,37 +230,26 @@ COORD FindCoordinates (short n1, short n2)
 
 void TetrisGameplay()
 {
-    TetrisMap();
-
-    gotoXY(charLocation);
     if (1 == 1)
     {
-        SQUARE();
+        gotoXY(charLocation);
+        LONGLINE();
     }
-
+   
     charLocation.Y++;
 
-    short coordinfox = 0;
-    short coordinfoy = 0;
-    
+    int coordinfox = 0;
+    int coordinfoy = 0;
+
     if (charLocation.Y > 24)
     {
-        Standard();
-        //TetrisMap();
-        FPSInfo();
-        TIMINGInfo();
-
-        
         charLocation.Y--;
-
         coordinfox = charLocation.X;
         coordinfoy = charLocation.Y;
 
-        gotoXY(coordinfox, coordinfoy);
-        SQUARE();
-
-        charLocation.X = 19;
-        charLocation.Y = 6;
+        charLocation.X = 20;
+        charLocation.Y = 5;
+        TetrisMap(coordinfox, coordinfoy);
     }
 }
 
@@ -277,17 +263,17 @@ void FPSInfo()
 void TIMINGInfo()
 {
     gotoXY(0, 0);
-    colour(0x59);
+    colour(0x1A);
     std::cout << elapsedTime << "secs" << std::endl;
 }
 
 void Standard()
 {
-    colour(0x0F);
+    colour(0000);
     cls();
 }
 
-void SQUARE()
+void LONGLINE()
 {
     cout << BLocksShape();
     cout << BLocksShape();

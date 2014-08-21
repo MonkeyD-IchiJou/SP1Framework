@@ -7,7 +7,7 @@ struct blocks
     char SqBlock[2][2];
 };
 
-void TetrisMap();
+void TetrisMap(short x = 0, short y = 0);
 char BLocksShape();
 
 #endif // _TETRIS_UI_H

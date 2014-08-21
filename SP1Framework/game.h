@@ -17,7 +17,7 @@ enum Keys
     K_COUNT,
 	K_PAUSE,
 	K_MUSIC,
-	K_SMUSIC,
+	K_SMUSIC
 };
 
 void init();                // initialize your variables, allocate memory, etc

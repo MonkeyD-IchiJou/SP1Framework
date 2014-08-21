@@ -8,7 +8,7 @@
 #include "tetris.h"
 #include "blocksUI.h"
 
-void TetrisMap()
+void TetrisMap(short x, short y)
 {   
     //blocks tetris_game_map();
     blocks tmap;
@@ -52,6 +52,12 @@ void TetrisMap()
 
         cout << endl;
     }
+
+    /*for (int i = 0; i < 1; i++)
+    {*/
+        gotoXY(x, y);
+        LONGLINE();
+    //}
 }
 
 char BLocksShape()
