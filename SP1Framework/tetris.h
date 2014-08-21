@@ -15,7 +15,7 @@ void TIMINGInfo();
 void FPSInfo();
 void TetrisGameplay();
 void Standard();
-void printBlocks();
+void SQUARE();
 
 
 //In menu_screen.cpp file
@@ -24,10 +24,6 @@ void MenuScreen();
 
 //In 8bit_music.cpp
 void MenuMusic ();
-
-
-//testing only, dun use this
-void testing();
 
 
 #endif // _TETRIS_H

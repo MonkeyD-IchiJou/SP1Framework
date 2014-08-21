@@ -83,16 +83,7 @@ void update(double dt)
         charLocation.Y++; 
     }
 
-<<<<<<< 337b83d21dcb80b39f941566810e16c88ec5252c
-<<<<<<< Updated upstream
-    if (keyPressed[K_RIGHT] && charLocation.X < 26)//consoleSize.X - 1)
-=======
-    // Updating the location of the character based on the key press
-    if(keyPressed[K_ONE] && charLocation.X >0)
->>>>>>> Stashed changes
-=======
     if (keyPressed[K_RIGHT] && charLocation.X < 26 && charLocation.Y != 24)
->>>>>>> 1cf6622aca2d7545ef338c603731c3612464d336
     {
         Beep(1440, 30);
         charLocation.X++;
@@ -117,7 +108,7 @@ void render()
     Standard();
     
     //render the game
-    MenuScreen();
+    //MenuScreen();
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
 	                            0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
@@ -132,29 +123,9 @@ void render()
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*Put function here*/
-    
-    if (press == true)
-    {
-        Standard();
 
-        TIMINGInfo();
-        FPSInfo();
-
-        //TetrisGameplay();
-        TetrisMap();
-
-        if (1 == 1)
-        {
-            printBlocks();
-        }
-
-    charLocation.Y++;
-
-    if (charLocation.Y > 24)
-    {
-        charLocation.Y--;
-    }
-    }
+    TetrisGameplay();
+    Sleep(200);    
 }
 
 COORD FindCoordinates (short n1, short n2)
@@ -167,77 +138,39 @@ COORD FindCoordinates (short n1, short n2)
     return location;
 }
 
-void testing ()
-{
-    int x = 1;// Column 1
-    int y = 5;// Row 5
-    // Start position of the text 
-
-    gotoXY(24,2); // Placing title
-
-    cout <<   "gotoXY(x,y) Demonstration..";
-
-    for (x=1;x<27;x++)  // Moves the text to the right
-    {
-        gotoXY(x,y);
-        cout << "* column " << x <<  ", row " << y << "!";
-
-        Sleep(200);
-        gotoXY(x,y); // Locate the asterisk
-	    cout << " "; // Remove it from screen, so we don't have a trail of asterisks
-    }
-    x--; // Remove 1 from x, so we start where the text is now located
-
-    for (y=5;y<23;y++) // Moves the text down the screen
-    {
-        Sleep(200);
-        gotoXY(x,y);
-	    cout << "                                   "; // Remove the line of text
-
-        Sleep(200);
-
-        gotoXY(x,y+1);
-        cout << "* column " << x << ", row " << y+1 << "!"; // Print new text line
-    }
-    Sleep(800);
-
-    for (y=23;y>8;y--) // Moves text up the screen to row 8
-    {
-        Sleep(200);
-
-        gotoXY(x,y);
-	    cout << "                                   ";
-        Sleep(200);
-
-        gotoXY(x,y-1);
-        cout << "* column " << x << ", row " << y-1 << "!";
-    }
-
-    Sleep(1000); // Program finished, wait 1 second
-    gotoXY(23,24);
-    cout << "Press any key to continue . . ."; // Let user know we're done
-    gotoXY(23,24); // Cursor to blink on the letter 'P' of 'Press.. ', above
-}
-
 void TetrisGameplay()
 {
-    //map is here
     TetrisMap();
 
+    gotoXY(charLocation);
     if (1 == 1)
     {
-        gotoXY(charLocation);
-        cout << BLocksShape();
-        cout << BLocksShape();
-        cout << BLocksShape();
-        cout << BLocksShape();
+        SQUARE();
     }
 
     charLocation.Y++;
 
+    short coordinfox = 0;
+    short coordinfoy = 0;
+    
     if (charLocation.Y > 24)
     {
+        Standard();
+        //TetrisMap();
+        FPSInfo();
+        TIMINGInfo();
+
+        
         charLocation.Y--;
+
+        coordinfox = charLocation.X;
+        coordinfoy = charLocation.Y;
+
+        gotoXY(coordinfox, coordinfoy);
+        SQUARE();
+
+        charLocation.X = 19;
+        charLocation.Y = 6;
     }
 }
 
@@ -261,9 +194,8 @@ void Standard()
     cls();
 }
 
-void printBlocks()
+void SQUARE()
 {
-    gotoXY(charLocation);
     cout << BLocksShape();
     cout << BLocksShape();
     cout << BLocksShape();
