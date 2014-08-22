@@ -1,24 +1,23 @@
-// This is the main file for the game logic and function
+﻿// This is the main file for the game logic and function
 //
 //
 #include "game.h"
 #include "Framework\console.h"
 #include "tetris.h"
 
-#include "blocksUI.h"
-#include <fstream>
-#include <string>
-
 double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 COORD charLocation;
+COORD charLocation2;
 COORD consoleSize;
 
 bool press = false;
 bool pause = false;
 bool pressmusic = false;
 bool stopmusic = false;
+
+unsigned char gameState;
 
 void init()
 {
@@ -41,6 +40,8 @@ void init()
     // set the character to be in the center of the gameplay screen.
     charLocation.X = 20;
     charLocation.Y = 5;
+    charLocation2.X = 20;
+    charLocation2.Y = 5;
 
     elapsedTime = 0.0;
 }
@@ -71,7 +72,13 @@ void update(double dt)
     elapsedTime += dt;
     deltaTime = dt;
 
-    FindCoordinates (2, 3);
+    switch (gameState)
+    {
+    case 0: MenuScreen();
+        break;
+    case 1: TetrisGameplay();
+        break;
+    };
 
     // Updating the location of the character based on the key press
     /*
@@ -84,7 +91,7 @@ void update(double dt)
     if (keyPressed[K_LEFT] && charLocation.X > 17 && charLocation.Y != 24)
     {
         Beep(1440, 30);
-        charLocation.X--; 
+        charLocation.X--;
     }
 
     if (keyPressed[K_DOWN] && charLocation.Y < consoleSize.Y - 1 && charLocation.Y != 24)
@@ -93,7 +100,7 @@ void update(double dt)
         charLocation.Y++;
     }
 
-    if (keyPressed[K_RIGHT] && charLocation.X < 26 && charLocation.Y != 24)
+    if (keyPressed[K_RIGHT] && charLocation.X < 23 && charLocation.Y != 24)
 	{
 		Beep(1440, 30);
         charLocation.X++;
@@ -102,12 +109,7 @@ void update(double dt)
 	// opens the game if player hits the enter key
     if (keyPressed[K_ENTER])
     {
-        //press = true;
-        Standard();
-		FPSInfo();
-		TIMINGInfo();
-        TetrisMap();
-		TetrisGameplay();
+        press = true;
     }
 
     // quits the game if player hits the escape key
@@ -118,8 +120,50 @@ void update(double dt)
     
     if (keyPressed[K_ENTER])
     {
-        press = true;
+        gameState = 1;
+
+        char tmap[23][14];
+        
+        for (int i = 0; i < 23; i++)
+        {
+            for (int j = 0; j < 14; j++)
+            {
+                tmap[i][j] = '.';
+
+                if (j > 0 && j < 13)
+                {
+                    tmap[21][j] = 205;
+                    tmap[0][j] = 205;    
+                }
+
+                tmap[22][j] = '+';
+
+                if (i < 22)
+                {
+                    tmap[i][1] = 186;
+                    tmap[i][12] = 186;
+                }
+            }
+        }
+
+        tmap[0][1] = 201;
+        tmap[0][12] = 187;
+
+        tmap[21][12] = 188;
+        tmap[21][1] = 200;
+
+        for (int i = 0; i < 23; i++)
+        {
+            gotoXY(15, 4+i);
+
+            for (int j = 0; j < 14; j++)
+            {
+                cout << tmap[i][j];
+            }
+            cout << endl;
+        }
     }
+    
 
 	if (keyPressed[K_PAUSE])
 	{
@@ -154,25 +198,30 @@ void PauseData()
 void render()
 {
     // clear previous screen
-	//Standard();
+    cls();
+
+    switch (gameState)
+    {
+    case 0: MenuScreen();
+        break;
+    case 1: TetrisGameplay();
+        break;
+    }
+
 	FPSInfo();
 	TIMINGInfo();
-    
-    
 
     //render test screen code (not efficient at all)
-    const WORD colors[] =   {
+    /*const WORD colors[] =   {
 	                            0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
 	                            0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-	                        };
+	                        };*/
     
     // render time taken to calculate this frame
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*Put function here*/
-
-    //MenuScreen();
-        
+    /*
 	if (pause == true)
 	{
 		Paused_Screen();
@@ -180,7 +229,6 @@ void render()
 
     if(press == true)
 	{ 
-        //TetrisMap();
 		FPSInfo();
 		TIMINGInfo();
 		TetrisGameplay();
@@ -201,7 +249,34 @@ void render()
 				exit(0);
 			}
 		}
-	}
+	}*/
+}
+
+void TetrisGameplay()
+{
+    //map
+
+    //blocks coming down
+    if (1 == 1)
+    {
+        LONGLINE(charLocation);
+    }
+   
+    charLocation.Y++;
+
+    int coordinfox = 0;
+    int coordinfoy = 0;
+
+    if (charLocation.Y > 24)
+    {
+        charLocation.Y--;
+        /*
+        coordinfox = charLocation.X;
+        coordinfoy = charLocation.Y;
+
+        charLocation.X = 20;
+        charLocation.Y = 5;*/
+    }
 }
 
 void MenuData()
@@ -218,65 +293,24 @@ void MenuData()
 	MenuScreen.close();
 }
 
-COORD FindCoordinates (short n1, short n2)
-{
-    COORD location;
-
-    location.X = n1; 
-    location.Y = n2;
-
-    return location;
-}
-
-void TetrisGameplay()
-{
-    if (1 == 1)
-    {
-        gotoXY(charLocation);
-        LONGLINE();
-    }
-   
-    charLocation.Y++;
-
-    int coordinfox = 0;
-    int coordinfoy = 0;
-
-    if (charLocation.Y > 24)
-    {
-        charLocation.Y--;
-        coordinfox = charLocation.X;
-        coordinfoy = charLocation.Y;
-
-        charLocation.X = 20;
-        charLocation.Y = 5;
-        TetrisMap(coordinfox, coordinfoy);
-    }
-}
-
 void FPSInfo()
 {
     gotoXY(60, 0);
-    colour(0x1A);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 }
 
 void TIMINGInfo()
 {
     gotoXY(0, 0);
-    colour(0x1A);
     std::cout << elapsedTime << "secs" << std::endl;
 }
 
-void Standard()
+void LONGLINE(COORD c)
 {
-    colour(0000);
-    cls();
-}
-
-void LONGLINE()
-{
+    gotoXY(c);
     cout << BLocksShape();
     cout << BLocksShape();
     cout << BLocksShape();
     cout << BLocksShape();
 }
+

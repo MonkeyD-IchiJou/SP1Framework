@@ -11,26 +11,22 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+using std::string;
+
 //In game.cpp file
-COORD FindCoordinates(short n1, short n2);
 void TIMINGInfo();
 void FPSInfo();
 void TetrisGameplay();
 void Standard();
-void LONGLINE();
+void LONGLINE(COORD c);
 
 
 //In menu_screen.cpp file
 void MenuScreen();
 void Paused_Screen();
 
-//In print_screen.cpp file
-void TetrisUI ();
-
-
-//In print_blocks.cpp file
-void SquareBlocks ();
-
+//In print_shapes.cpp file
+char BLocksShape();
 
 //In 8bit_music.cpp
 void menu_music();
