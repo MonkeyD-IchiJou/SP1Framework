@@ -17,6 +17,9 @@ bool pause = false;
 bool pressmusic = false;
 bool stopmusic = false;
 
+bool testing = false;
+bool testing2 = false;
+
 unsigned char gameState;
 
 void init()
@@ -76,7 +79,7 @@ void update(double dt)
     {
     case 0: MenuScreen();
         break;
-    case 1: TetrisGameplay(); tetris_standard_map(); 
+    case 1: tetris_standard_map(); 
         break;
     };
 
@@ -150,7 +153,7 @@ void render()
     {
     case 0: MenuScreen();
         break;
-    case 1: TetrisGameplay(); tetris_standard_map();
+    case 1: tetris_standard_map(); spawn_new_block();
         break;
     }
 
@@ -164,25 +167,6 @@ void render()
 	                        };*/
     
     // render time taken to calculate this frame
-}
-
-void TetrisGameplay()
-{
-    //blocks coming down
-    if (1 == 1)
-    {
-        LONGLINE(charLocation);
-    }
-   
-    charLocation.Y++;
-
-    int coordinfox = 0;
-    int coordinfoy = 0;
-
-    if (charLocation.Y > 24)
-    {
-        charLocation.Y--;
-    }
 }
 
 void MenuData()
@@ -211,12 +195,30 @@ void TIMINGInfo()
     std::cout << elapsedTime << "secs" << std::endl;
 }
 
-void LONGLINE(COORD c)
+void render_longline(COORD c)
 {
-    gotoXY(c);
+    gotoXY(c.X, c.Y);
     cout << BLocksShape();
     cout << BLocksShape();
     cout << BLocksShape();
     cout << BLocksShape();
+}
+
+void render_longlineR(COORD c)
+{
+    gotoXY(c.X, c.Y++);
+    cout << BLocksShape();
+    gotoXY(c.X, c.Y++);
+    cout << BLocksShape();
+    gotoXY(c.X, c.Y++);
+    cout << BLocksShape();
+    gotoXY(c.X, c.Y++);
+    cout << BLocksShape();
+}
+
+void spawn_new_block()
+{
+   render_longlineR(charLocation);
+   //render_longline(charLocation);
 }
 

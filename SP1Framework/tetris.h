@@ -28,7 +28,10 @@ void TIMINGInfo();
 void FPSInfo();
 void TetrisGameplay();
 void Standard();
-void LONGLINE(COORD c);
+
+void render_longline(COORD c);
+void render_longlineR(COORD c);
+void spawn_new_block();
 
 
 //In menu_screen.cpp file
