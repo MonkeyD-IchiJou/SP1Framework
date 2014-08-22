@@ -14,9 +14,12 @@ enum Keys
     K_RIGHT,
     K_ESCAPE,
     K_ENTER,
-	K_PAUSE,
+	K_QUIT,
+	K_RETURN,
+	K_HELP,
 	K_MUSIC,
 	K_SMUSIC,
+	K_MUSICSCR,
     K_COUNT
 };
 
@@ -25,6 +28,5 @@ void getInput();            // get input from player
 void update(double dt);     // update the game and the state of the game
 void render();              // renders the current state of the game to the console
 void shutdown();            // do clean up, free memory
-void PauseData();
 
 #endif // _GAME_H

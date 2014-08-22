@@ -3,7 +3,7 @@
 #include "tetris.h"
 
 void menu_music()
-{  
+{
 	Beep(0,100);
 	Beep(1320, 500);
 	Beep(990, 250);
@@ -119,5 +119,9 @@ void menu_music()
 	Beep(660, 500);
 	Beep(880, 1000);
 	Beep(838, 2000);
-
 }
+
+/*void Playmusic()
+{
+	g_timer.waitUntil(menu_music())
+}*/

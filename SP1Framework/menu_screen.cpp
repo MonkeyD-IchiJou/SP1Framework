@@ -16,8 +16,13 @@ void MenuScreen()
 	MenuScreen.close();
 	
 	//Menu Functions
-	gotoXY(21, 10);
-	cout << "Press Enter to play game!" << endl;
+	gotoXY(20, 10);
+	cout << "Press 'Enter' to play game!" << endl;
 	gotoXY(20, 15);
-	cout << "Press Esc to exit the game!" << endl;
+	cout << "Press 'Backspace' to exit the game!" << endl;
+	gotoXY(20, 20);
+	cout << "Press 'CTRL' to seek help in the game!" << endl;
+	gotoXY(20, 25);
+	cout << "Press 'F1' to play the game's music!" << endl;
+
 }

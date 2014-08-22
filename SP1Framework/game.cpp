@@ -68,8 +68,11 @@ void getInput()
     keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
     keyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
-	keyPressed[K_PAUSE] = isKeyPressed(VK_BACK);
-	keyPressed[K_MUSIC] = isKeyPressed(VK_LSHIFT);
+	keyPressed[K_QUIT] = isKeyPressed(VK_BACK);
+	keyPressed[K_RETURN] = isKeyPressed(VK_TAB);
+	keyPressed[K_HELP] = isKeyPressed(VK_LSHIFT);
+	keyPressed[K_MUSICSCR] = isKeyPressed(VK_F1);
+	keyPressed[K_MUSIC] = isKeyPressed(VK_F2);
 	keyPressed[K_SMUSIC] = isKeyPressed(VK_SPACE);
 }
 
@@ -81,12 +84,29 @@ void update(double dt)
     /*
     switch (gameState)
     {
-    //case 0: MenuScreen();
+    case 0: MenuScreen();
         break;
+<<<<<<< 9c93694bdeeb5340ac49fa7edd003eef7e69dd48
     case 1: //tetris_standard_map(); 
             
         break;
     };*/
+=======
+	case 1: MusicScreen();
+		break;
+	case 2: HelpScreen();
+		break;
+    case 3: TetrisGameplay(); 
+		tetris_standard_map(); 
+        break;
+	case 4: Paused_Screen();
+		system("pause");
+		break;
+	case 5: MenuScreen();
+		break;
+		update(0);
+    };
+>>>>>>> 3dc107a1e9f154c764238b05d4954d12ffbf1fb3
 
     // Updating the location of the character based on the key press
     /*
@@ -115,31 +135,26 @@ void update(double dt)
 		Beep(1440, 30);
         charLocation[A].X++;
 	}
-<<<<<<< 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
-=======
-
 	// opens the game if player hits the enter key
-    if (keyPressed[K_ENTER])
+    /*if (keyPressed[K_ENTER])
     {
         press = true;
-    }
+    }*/
 
     // quits the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
     {
-        g_quitGame = true;
-		exit(0);
+		gameState = 4;
     }
->>>>>>> a51f953a70e46089a6335beb90c3becf77a4c87a
     
     if (keyPressed[K_ENTER])
     {
-        gameState = 1;
+        gameState = 3;
     }
-   
-	if (keyPressed[K_PAUSE])
+
+	if(keyPressed[K_HELP])
 	{
-		pause = true;
+		gameState = 2;
 	}
 <<<<<<< 799e80efabbe725e5f8ebfbfc6cd87cab6305b66
     
@@ -151,16 +166,18 @@ void update(double dt)
     }
 =======
 
-	if(keyPressed[K_MUSIC])
+	if(keyPressed[K_QUIT])
 	{
-		pressmusic = true;
+		g_quitGame = true;
 	}
 
-	if(keyPressed[K_SMUSIC])
+	if(keyPressed[K_RETURN])
 	{
-		stopmusic = true;
+		gameState = 5;
+		//update(0);
 	}
 
+<<<<<<< 9c93694bdeeb5340ac49fa7edd003eef7e69dd48
 >>>>>>> 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
 }
 
@@ -170,11 +187,19 @@ void PauseData()
 	std::string pause;
 	Paused_Screen.open ("Pause.txt");
 	while (!Paused_Screen.eof()) 
+=======
+	if(keyPressed[K_MUSICSCR])
+>>>>>>> 3dc107a1e9f154c764238b05d4954d12ffbf1fb3
 	{
-		getline (Paused_Screen, pause);
-		cout << pause << endl;
+		gameState = 1;
 	}
-	Paused_Screen.close ();
+	//Music plays when left shift is pressed
+	if(keyPressed[K_MUSIC])
+	{
+		pressmusic = true;
+		menu_music();
+	}
+
 }
 
 void render()
@@ -186,15 +211,27 @@ void render()
     {
     case 0: MenuScreen();
         break;
+<<<<<<< 9c93694bdeeb5340ac49fa7edd003eef7e69dd48
     case 1: tetris_standard_map(); render_longlineR(charLocation[0]); render_longline(charLocation[1]);
+=======
+	case 1: MusicScreen();
+		break;
+	case 2: HelpScreen();
+		break;
+    case 3: TetrisGameplay();
+		tetris_standard_map();
+>>>>>>> 3dc107a1e9f154c764238b05d4954d12ffbf1fb3
         break;
+	case 4: Paused_Screen();
+		system("pause");
+		break;
+	case 5: MenuScreen();
+		update(0);
+		break;
     }
 
 	FPSInfo();
 	TIMINGInfo();
-
-    //render the game
-
 	// plays the music if player hits the left shift key
 	
 
@@ -205,8 +242,6 @@ void render()
 	                        };*/
     
     // render time taken to calculate this frame
-<<<<<<< 416bdc1305871eb11dce8d153e94cd625ea60385
-=======
 
 }
 
@@ -219,12 +254,6 @@ COORD FindCoordinates (short n1, short n2)
     location.Y = n2;
 
     return location;
-<<<<<<< 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
->>>>>>> e68527d2751065988e45b07b98de52f3acbda281
->>>>>>> 5793cd3bf029d84fcd4f904161b137ed537d930f
-=======
-
->>>>>>> a51f953a70e46089a6335beb90c3becf77a4c87a
 }
 
 <<<<<<< e9c00e68e5558d7e44dc555915560e0332c0217a
@@ -255,11 +284,10 @@ void TetrisGameplay()
 
     int coordinfox = 0;
     int coordinfoy = 0;
-
     if (charLocation.Y > 24)
     {
         charLocation.Y--;
-    }
+	}
 }
 >>>>>>> adc706446959324b0ff9ea32af013851d7aef205
 void FPSInfo()

@@ -75,6 +75,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\help_screen.cpp" />
+    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\music_screen.cpp" />
     <ClCompile Include="8bit_music.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
