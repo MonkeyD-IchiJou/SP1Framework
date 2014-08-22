@@ -21,7 +21,7 @@ void MenuScreen()
 	gotoXY(20, 15);
 	cout << "Press 'Backspace' to exit the game!" << endl;
 	gotoXY(20, 20);
-	cout << "Press 'CTRL' to seek help in the game!" << endl;
+	cout << "Press 'LShift' to seek help in the game!" << endl;
 	gotoXY(20, 25);
 	cout << "Press 'F1' to play the game's music!" << endl;
 
