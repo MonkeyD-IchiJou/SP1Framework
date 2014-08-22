@@ -76,7 +76,7 @@ void update(double dt)
     {
     case 0: MenuScreen();
         break;
-    case 1: TetrisGameplay();
+    case 1: TetrisGameplay(); tetris_standard_map(); 
         break;
     };
 
@@ -105,66 +105,12 @@ void update(double dt)
 		Beep(1440, 30);
         charLocation.X++;
 	}
-
-	// opens the game if player hits the enter key
-    if (keyPressed[K_ENTER])
-    {
-        press = true;
-    }
-
-    // quits the game if player hits the escape key
-    if (keyPressed[K_ESCAPE])
-    {
-        g_quitGame = true;    
-    }
     
     if (keyPressed[K_ENTER])
     {
         gameState = 1;
-
-        char tmap[23][14];
-        
-        for (int i = 0; i < 23; i++)
-        {
-            for (int j = 0; j < 14; j++)
-            {
-                tmap[i][j] = '.';
-
-                if (j > 0 && j < 13)
-                {
-                    tmap[21][j] = 205;
-                    tmap[0][j] = 205;    
-                }
-
-                tmap[22][j] = '+';
-
-                if (i < 22)
-                {
-                    tmap[i][1] = 186;
-                    tmap[i][12] = 186;
-                }
-            }
-        }
-
-        tmap[0][1] = 201;
-        tmap[0][12] = 187;
-
-        tmap[21][12] = 188;
-        tmap[21][1] = 200;
-
-        for (int i = 0; i < 23; i++)
-        {
-            gotoXY(15, 4+i);
-
-            for (int j = 0; j < 14; j++)
-            {
-                cout << tmap[i][j];
-            }
-            cout << endl;
-        }
     }
-    
-
+   
 	if (keyPressed[K_PAUSE])
 	{
 		pause = true;
@@ -204,7 +150,7 @@ void render()
     {
     case 0: MenuScreen();
         break;
-    case 1: TetrisGameplay();
+    case 1: TetrisGameplay(); tetris_standard_map();
         break;
     }
 
@@ -218,44 +164,10 @@ void render()
 	                        };*/
     
     // render time taken to calculate this frame
-
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-/*Put function here*/
-    /*
-	if (pause == true)
-	{
-		Paused_Screen();
-    }
-
-    if(press == true)
-	{ 
-		FPSInfo();
-		TIMINGInfo();
-		TetrisGameplay();
-	}
-
-	if(g_quitGame == true)
-	{
-		exit(0);
-	}
-
-	while(pressmusic != stopmusic)
-	{
-		if(pressmusic == true)
-		{
-			menu_music();
-			if(stopmusic == true)
-			{
-				exit(0);
-			}
-		}
-	}*/
 }
 
 void TetrisGameplay()
 {
-    //map
-
     //blocks coming down
     if (1 == 1)
     {
@@ -270,12 +182,6 @@ void TetrisGameplay()
     if (charLocation.Y > 24)
     {
         charLocation.Y--;
-        /*
-        coordinfox = charLocation.X;
-        coordinfoy = charLocation.Y;
-
-        charLocation.X = 20;
-        charLocation.Y = 5;*/
     }
 }
 

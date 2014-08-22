@@ -13,6 +13,16 @@ using std::endl;
 
 using std::string;
 
+const size_t height = 23;
+const size_t width = 14;
+
+struct SetArt
+{
+    char tetris_map[height][width];
+};
+
+SetArt tetris_standard_map ();
+
 //In game.cpp file
 void TIMINGInfo();
 void FPSInfo();
