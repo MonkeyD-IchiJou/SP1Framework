@@ -17,15 +17,8 @@ bool pause = false;
 bool pressmusic = false;
 bool stopmusic = false;
 
-<<<<<<< e9c00e68e5558d7e44dc555915560e0332c0217a
-<<<<<<< 799e80efabbe725e5f8ebfbfc6cd87cab6305b66
 int A = 0;
 
-=======
-<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
->>>>>>> 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
-=======
->>>>>>> adc706446959324b0ff9ea32af013851d7aef205
 unsigned char gameState;
 
 
@@ -81,32 +74,7 @@ void update(double dt)
     // get the delta time
     elapsedTime += dt;
     deltaTime = dt;
-    /*
-    switch (gameState)
-    {
-    case 0: MenuScreen();
-        break;
-<<<<<<< 9c93694bdeeb5340ac49fa7edd003eef7e69dd48
-    case 1: //tetris_standard_map(); 
-            
-        break;
-    };*/
-=======
-	case 1: MusicScreen();
-		break;
-	case 2: HelpScreen();
-		break;
-    case 3: TetrisGameplay(); 
-		tetris_standard_map(); 
-        break;
-	case 4: Paused_Screen();
-		system("pause");
-		break;
-	case 5: MenuScreen();
-		break;
-		update(0);
-    };
->>>>>>> 3dc107a1e9f154c764238b05d4954d12ffbf1fb3
+
 
     // Updating the location of the character based on the key press
     /*
@@ -149,14 +117,14 @@ void update(double dt)
     
     if (keyPressed[K_ENTER])
     {
-        gameState = 3;
+        gameState = 1;
     }
 
 	if(keyPressed[K_HELP])
 	{
-		gameState = 2;
+		gameState = 3;
 	}
-<<<<<<< 799e80efabbe725e5f8ebfbfc6cd87cab6305b66
+
     
     if (charLocation[A].Y > 21)
     {
@@ -164,7 +132,7 @@ void update(double dt)
         charLocation[A+=1].Y++;
         init();
     }
-=======
+
 
 	if(keyPressed[K_QUIT])
 	{
@@ -177,8 +145,7 @@ void update(double dt)
 		//update(0);
 	}
 
-<<<<<<< 9c93694bdeeb5340ac49fa7edd003eef7e69dd48
->>>>>>> 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
+
 }
 
 void PauseData()
@@ -187,9 +154,9 @@ void PauseData()
 	std::string pause;
 	Paused_Screen.open ("Pause.txt");
 	while (!Paused_Screen.eof()) 
-=======
+
 	if(keyPressed[K_MUSICSCR])
->>>>>>> 3dc107a1e9f154c764238b05d4954d12ffbf1fb3
+
 	{
 		gameState = 1;
 	}
@@ -211,17 +178,12 @@ void render()
     {
     case 0: MenuScreen();
         break;
-<<<<<<< 9c93694bdeeb5340ac49fa7edd003eef7e69dd48
     case 1: tetris_standard_map(); render_longlineR(charLocation[0]); render_longline(charLocation[1]);
-=======
-	case 1: MusicScreen();
 		break;
-	case 2: HelpScreen();
+	case 2: MusicScreen();
 		break;
-    case 3: TetrisGameplay();
-		tetris_standard_map();
->>>>>>> 3dc107a1e9f154c764238b05d4954d12ffbf1fb3
-        break;
+	case 3: HelpScreen();
+		break;
 	case 4: Paused_Screen();
 		system("pause");
 		break;
@@ -256,7 +218,6 @@ COORD FindCoordinates (short n1, short n2)
     return location;
 }
 
-<<<<<<< e9c00e68e5558d7e44dc555915560e0332c0217a
 void MenuData()
 {
 	std::ifstream MenuScreen;
@@ -271,25 +232,6 @@ void MenuData()
 	MenuScreen.close();
 }
 
-=======
-void TetrisGameplay()
-{
-    //blocks coming down
-    if (1 == 1)
-    {
-        LONGLINE(charLocation);
-    }
-   
-    charLocation.Y++;
-
-    int coordinfox = 0;
-    int coordinfoy = 0;
-    if (charLocation.Y > 24)
-    {
-        charLocation.Y--;
-	}
-}
->>>>>>> adc706446959324b0ff9ea32af013851d7aef205
 void FPSInfo()
 {
     gotoXY(60, 0);

@@ -3,10 +3,6 @@
 #include "Framework\timer.h"
 #include "game.h"
 #include "tetris.h"
-<<<<<<< 9c93694bdeeb5340ac49fa7edd003eef7e69dd48
-=======
-#include "Framework\timer.h"
->>>>>>> 3dc107a1e9f154c764238b05d4954d12ffbf1fb3
 #include <fstream>
 
 
