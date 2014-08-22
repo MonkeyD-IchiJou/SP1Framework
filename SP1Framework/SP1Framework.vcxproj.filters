@@ -42,12 +42,6 @@
     <ClCompile Include="Paused_Screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\music_screen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\help_screen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">

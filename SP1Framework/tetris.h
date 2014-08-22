@@ -40,7 +40,7 @@ void MenuScreen();
 void Paused_Screen();
 
 //In help_screen.cpp file
-void HelpScreen();
+//void HelpScreen();
 
 //In print_shapes.cpp file
 char BLocksShape();

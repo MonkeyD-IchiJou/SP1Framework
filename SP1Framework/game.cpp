@@ -180,10 +180,10 @@ void render()
         break;
     case 1: tetris_standard_map(); render_longlineR(charLocation[0]); render_longline(charLocation[1]);
 		break;
-	case 2: MusicScreen();
+	/*case 2: MusicScreen();
 		break;
 	case 3: HelpScreen();
-		break;
+		break;*/
 	case 4: Paused_Screen();
 		system("pause");
 		break;
@@ -217,18 +217,7 @@ COORD FindCoordinates (short n1, short n2)
 
     return location;
 }
-void TetrisGameplay()
-{
-    //charLocation.Y++;
 
-    int coordinfox = 0;
-    int coordinfoy = 0;
-
-    if (charLocation.Y > 24)
-    {
-        charLocation.Y--;
-    }
-}
 void MenuData()
 {
 	std::ifstream MenuScreen;
@@ -279,7 +268,6 @@ void render_longlineR(COORD c)
     cout << BLocksShape();
 }
 
-<<<<<<< 360744cdeea9933183c8391ee2251402ed18b0a8
 void spawn_new_block(COORD c)
 {
    render_longlineR(c);
@@ -347,7 +335,7 @@ void testingOnly(int x, int y)
     cout << BLocksShape();
     cout << BLocksShape();    
 }
-=======
+
 void render_L(COORD c)
 {
 	gotoXY(c.X, c.Y++);
@@ -584,5 +572,3 @@ void spawn_new_block()
 	//render_RN(charLocation);
 	//render_RNr1(charLocation);
 }	
-
->>>>>>> 1a29aecfd9ee90288cf99ccf75518755a7b8d212
