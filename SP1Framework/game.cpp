@@ -217,30 +217,9 @@ COORD FindCoordinates (short n1, short n2)
 
     return location;
 }
-
-<<<<<<< 5288a9e6d20adfcbbe37f9c83bcf49e201d0702e
-=======
-<<<<<<< 416bdc1305871eb11dce8d153e94cd625ea60385
 void TetrisGameplay()
 {
-    //blocks coming down
-    if (1 == 1)
-    {
-        LONGLINE(charLocation);
-=======
-
-
-
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-/*Put function here*/
-    
-	if (pause == true)
-	{
-		Paused_Screen();
->>>>>>> be901b6ad1eb3de8de51105189ec25a7aac7fbe6
-    }
-   
-    charLocation.Y++;
+    //charLocation.Y++;
 
     int coordinfox = 0;
     int coordinfoy = 0;
@@ -250,8 +229,6 @@ void TetrisGameplay()
         charLocation.Y--;
     }
 }
-
->>>>>>> 3e9df5425e1b05af8658478cff41739735356e97
 void MenuData()
 {
 	std::ifstream MenuScreen;
@@ -302,6 +279,7 @@ void render_longlineR(COORD c)
     cout << BLocksShape();
 }
 
+<<<<<<< 360744cdeea9933183c8391ee2251402ed18b0a8
 void spawn_new_block(COORD c)
 {
    render_longlineR(c);
@@ -369,3 +347,242 @@ void testingOnly(int x, int y)
     cout << BLocksShape();
     cout << BLocksShape();    
 }
+=======
+void render_L(COORD c)
+{
+	gotoXY(c.X, c.Y++);
+	cout <<BLocksShape();
+
+	gotoXY(c.X, c.Y++);
+	cout <<BLocksShape();
+
+	gotoXY(c.X, c.Y++);
+	cout <<BLocksShape() << BLocksShape();
+}
+
+void render_Lr1(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout <<BLocksShape();
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+	cout << BLocksShape();
+	cout << BLocksShape();
+}
+
+void render_Lr2(COORD c)
+{
+	gotoXY(c.X++,c.Y);
+	cout << BLocksShape();
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+}
+
+void render_Lr3(COORD c)
+{
+	gotoXY(c.X++,c.Y);
+	cout << BLocksShape();
+
+	gotoXY(c.X++, c.Y--);
+	cout << BLocksShape() << BLocksShape();
+
+	gotoXY(c.X++, c.Y);
+	cout << BLocksShape();
+
+}
+
+void render_N(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X++,c.Y++);
+	cout << BLocksShape();
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+}
+
+void render_Nr1(COORD c)
+{
+	gotoXY(c.X++,c.Y--);
+	cout <<BLocksShape() << BLocksShape();
+
+	gotoXY(c.X++, c.Y);
+	cout <<BLocksShape();
+
+	gotoXY(c.X++, c.Y);
+	cout <<BLocksShape();
+}
+
+void render_S(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+	cout << BLocksShape();
+}
+
+void render_T(COORD c)
+{
+	gotoXY(c.X++,c.Y);
+	cout << BLocksShape() << BLocksShape() << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+}
+
+void render_Tr1(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X--,c.Y);
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X++,c.Y);
+	gotoXY(c.X++,c.Y);
+	cout << BLocksShape();
+}
+
+void render_Tr2(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X--,c.Y);
+	gotoXY(c.X++,c.Y);
+	cout << BLocksShape() << BLocksShape() << BLocksShape();
+}
+
+void render_Tr3(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape() << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+}
+
+void render_RL(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X--,c.Y);
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+}
+
+void render_RLr1(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape() << BLocksShape() << BLocksShape();
+}
+
+void render_RLr2(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape() << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+}
+
+void render_RLr3(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape() << BLocksShape() << BLocksShape();
+
+	gotoXY(c.X++,c.Y);
+
+	gotoXY(c.X++,c.Y);
+
+	gotoXY(c.X++,c.Y);
+	cout << BLocksShape();
+}
+
+void render_RN(COORD c)
+{
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X--,c.Y) ;
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape();
+
+	gotoXY(c.X--,c.Y);
+	cout << BLocksShape();
+}
+
+void render_RNr1(COORD c)
+{
+	gotoXY(c.X++,c.Y);
+	cout << BLocksShape();
+	cout << BLocksShape();
+
+	gotoXY(c.X,c.Y++);
+
+	gotoXY(c.X,c.Y++);
+	cout << BLocksShape() << BLocksShape();
+
+
+}
+void spawn_new_block()
+{	
+	//render_longlineR(charLocation);
+	//render_longline(charLocation);
+
+	//render_L(charLocation);
+	//render_Lr1(charLocation);
+	//render_Lr2(charLocation);
+	//render_Lr3(charLocation);
+
+	//render_N(charLocation);
+	//render_Nr1(charLocation);
+
+	//render_S(charLocation);
+
+	//render_T(charLocation);
+	//render_Tr1(charLocation);
+	//render_Tr2(charLocation);
+	//render_Tr3(charLocation);
+
+	//render_RL(charLocation);
+	//render_RLr1(charLocation);
+	//render_RLr2(charLocation);
+	//render_RLr3(charLocation);
+
+	//render_RN(charLocation);
+	//render_RNr1(charLocation);
+}	
+
+>>>>>>> 1a29aecfd9ee90288cf99ccf75518755a7b8d212
