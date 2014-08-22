@@ -5,22 +5,6 @@
 #include "Framework\console.h"
 #include "tetris.h"
 
-<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
-=======
-#include "blocksUI.h"
-#include <fstream>
-#include <string>
-
-#include <fstream>
-#include <string>
-
-#include <fstream>
-#include <string>
-
-#include <fstream>
-#include <string>
-
->>>>>>> e68527d2751065988e45b07b98de52f3acbda281
 double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
@@ -33,16 +17,17 @@ bool pause = false;
 bool pressmusic = false;
 bool stopmusic = false;
 
+<<<<<<< e9c00e68e5558d7e44dc555915560e0332c0217a
 <<<<<<< 799e80efabbe725e5f8ebfbfc6cd87cab6305b66
 int A = 0;
 
 =======
 <<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
 >>>>>>> 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
-unsigned char gameState;
 =======
+>>>>>>> adc706446959324b0ff9ea32af013851d7aef205
+unsigned char gameState;
 
->>>>>>> e68527d2751065988e45b07b98de52f3acbda281
 
 void init()
 {
@@ -96,7 +81,7 @@ void update(double dt)
     /*
     switch (gameState)
     {
-    case 0: MenuScreen();
+    //case 0: MenuScreen();
         break;
     case 1: //tetris_standard_map(); 
             
@@ -130,6 +115,22 @@ void update(double dt)
 		Beep(1440, 30);
         charLocation[A].X++;
 	}
+<<<<<<< 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
+=======
+
+	// opens the game if player hits the enter key
+    if (keyPressed[K_ENTER])
+    {
+        press = true;
+    }
+
+    // quits the game if player hits the escape key
+    if (keyPressed[K_ESCAPE])
+    {
+        g_quitGame = true;
+		exit(0);
+    }
+>>>>>>> a51f953a70e46089a6335beb90c3becf77a4c87a
     
     if (keyPressed[K_ENTER])
     {
@@ -191,20 +192,11 @@ void render()
 
 	FPSInfo();
 	TIMINGInfo();
-<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
-=======
-    
-<<<<<<< 6c6f07fc9b69cd14b8cb7b34e2007ca9572de110
-    
-=======
+
     //render the game
 
-    MenuScreen();
-	
 	// plays the music if player hits the left shift key
 	
->>>>>>> f9ef1881b4490236f4a2bd0e2640f378f437a118
->>>>>>> e68527d2751065988e45b07b98de52f3acbda281
 
     //render test screen code (not efficient at all)
     /*const WORD colors[] =   {
@@ -216,68 +208,8 @@ void render()
 <<<<<<< 416bdc1305871eb11dce8d153e94cd625ea60385
 =======
 
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-/*Put function here*/
-<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
-    /*
-=======
-
-<<<<<<< 6c6f07fc9b69cd14b8cb7b34e2007ca9572de110
-    //MenuScreen();
-        
-=======
-    
->>>>>>> f9ef1881b4490236f4a2bd0e2640f378f437a118
->>>>>>> e68527d2751065988e45b07b98de52f3acbda281
-	if (pause == true)
-	{
-		Paused_Screen();
-    }
-
-    if(press == true)
-	{ 
-		FPSInfo();
-		TIMINGInfo();
-		TetrisGameplay();
-	}
-
-<<<<<<< 6c6f07fc9b69cd14b8cb7b34e2007ca9572de110
-	if(g_quitGame == true)
-=======
-	else if(g_quitGame == true)
->>>>>>> f9ef1881b4490236f4a2bd0e2640f378f437a118
-	{
-		exit(0);
-	}
-<<<<<<< 0b45fbbfee978523ccca5dbc7e3b8fa89129e49a
-
-	while(pressmusic != stopmusic)
-	{
-		if(pressmusic == true)
-		{
-			menu_music();
-			if(stopmusic == true)
-			{
-				exit(0);
-			}
-		}
-	}*/
-=======
 }
 
-void MenuData()
-{
-	std::ifstream MenuScreen;
-	std::string data;
-	MenuScreen.open("tetris_ascii.txt");
-	while(!MenuScreen.eof())
-	{
-		getline(MenuScreen, data);
-		cout << data << endl;
-	}
-
-	MenuScreen.close();
-}
 
 COORD FindCoordinates (short n1, short n2)
 {
@@ -287,10 +219,15 @@ COORD FindCoordinates (short n1, short n2)
     location.Y = n2;
 
     return location;
+<<<<<<< 21188ee6b63b1d789dfc0cedc831b39a4f8f434b
 >>>>>>> e68527d2751065988e45b07b98de52f3acbda281
 >>>>>>> 5793cd3bf029d84fcd4f904161b137ed537d930f
+=======
+
+>>>>>>> a51f953a70e46089a6335beb90c3becf77a4c87a
 }
 
+<<<<<<< e9c00e68e5558d7e44dc555915560e0332c0217a
 void MenuData()
 {
 	std::ifstream MenuScreen;
@@ -305,6 +242,26 @@ void MenuData()
 	MenuScreen.close();
 }
 
+=======
+void TetrisGameplay()
+{
+    //blocks coming down
+    if (1 == 1)
+    {
+        LONGLINE(charLocation);
+    }
+   
+    charLocation.Y++;
+
+    int coordinfox = 0;
+    int coordinfoy = 0;
+
+    if (charLocation.Y > 24)
+    {
+        charLocation.Y--;
+    }
+}
+>>>>>>> adc706446959324b0ff9ea32af013851d7aef205
 void FPSInfo()
 {
     gotoXY(60, 0);

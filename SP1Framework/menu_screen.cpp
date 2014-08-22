@@ -5,7 +5,17 @@
 void MenuScreen()
 {
     //Title of the game
-	MenuData();
+	std::ifstream MenuScreen;
+	std::string data;
+	MenuScreen.open("tetris_ascii.txt");
+	while(!MenuScreen.eof())
+	{
+		getline(MenuScreen, data);
+		cout << data << endl;
+	}
+	MenuScreen.close();
+	
+	//Menu Functions
 	gotoXY(21, 10);
 	cout << "Press Enter to play game!" << endl;
 	gotoXY(20, 15);
