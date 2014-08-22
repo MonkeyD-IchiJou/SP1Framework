@@ -6,10 +6,12 @@
 #include <conio.h>
 #include <fstream>
 #include <string>
+#include <vector>
 
 using std::cout;
 using std::cin;
 using std::endl;
+using std::vector;
 
 using std::string;
 
@@ -21,7 +23,7 @@ struct SetArt
     char tetris_map[height][width];
 };
 
-SetArt tetris_standard_map ();
+SetArt tetris_standard_map();
 
 //In game.cpp file
 void TIMINGInfo();
@@ -44,5 +46,6 @@ char BLocksShape();
 //In 8bit_music.cpp
 void menu_music();
 
+void testingOnly(int x, int y);
 
 #endif // _TETRIS_H

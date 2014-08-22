@@ -82,7 +82,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Paused_Screen.cpp" />
     <ClCompile Include="menu_screen.cpp" />
-    <ClCompile Include="Print_shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h" />

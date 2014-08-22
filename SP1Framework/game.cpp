@@ -8,8 +8,8 @@
 double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
-COORD charLocation;
-COORD charLocation2;
+
+COORD charLocation[10000];
 COORD consoleSize;
 
 bool press = false;
@@ -17,8 +17,7 @@ bool pause = false;
 bool pressmusic = false;
 bool stopmusic = false;
 
-bool testing = false;
-bool testing2 = false;
+int A = 0;
 
 unsigned char gameState;
 
@@ -41,10 +40,8 @@ void init()
     consoleSize.Y = csbi.srWindow.Bottom + 1;
 
     // set the character to be in the center of the gameplay screen.
-    charLocation.X = 20;
-    charLocation.Y = 5;
-    charLocation2.X = 20;
-    charLocation2.Y = 5;
+    charLocation[A].X = 20;
+    charLocation[A].Y = 5;
 
     elapsedTime = 0.0;
 }
@@ -74,14 +71,15 @@ void update(double dt)
     // get the delta time
     elapsedTime += dt;
     deltaTime = dt;
-
+    /*
     switch (gameState)
     {
     case 0: MenuScreen();
         break;
-    case 1: tetris_standard_map(); 
+    case 1: //tetris_standard_map(); 
+            
         break;
-    };
+    };*/
 
     // Updating the location of the character based on the key press
     /*
@@ -91,22 +89,24 @@ void update(double dt)
         charLocation.Y--; 
     }*/
 
-    if (keyPressed[K_LEFT] && charLocation.X > 17 && charLocation.Y != 24)
+    charLocation[A].Y++;
+
+    if (keyPressed[K_LEFT] && charLocation[A].X > 17 && charLocation[A].Y < 21)
     {
         Beep(1440, 30);
-        charLocation.X--;
+        charLocation[A].X--;
     }
 
-    if (keyPressed[K_DOWN] && charLocation.Y < consoleSize.Y - 1 && charLocation.Y != 24)
+    if (keyPressed[K_DOWN] && charLocation[A].Y < consoleSize.Y - 1 && charLocation[A].Y < 21)
     {
         Beep(1440, 30);
-        charLocation.Y++;
+        charLocation[A].Y++;
     }
 
-    if (keyPressed[K_RIGHT] && charLocation.X < 23 && charLocation.Y != 24)
+    if (keyPressed[K_RIGHT] && charLocation[A].X < 23 && charLocation[A].Y < 21)
 	{
 		Beep(1440, 30);
-        charLocation.X++;
+        charLocation[A].X++;
 	}
     
     if (keyPressed[K_ENTER])
@@ -118,6 +118,13 @@ void update(double dt)
 	{
 		pause = true;
 	}
+    
+    if (charLocation[A].Y > 21)
+    {
+        charLocation[A].Y--;
+        charLocation[A+=1].Y++;
+        init();
+    }
 }
 
 void PauseData()
@@ -153,7 +160,7 @@ void render()
     {
     case 0: MenuScreen();
         break;
-    case 1: tetris_standard_map(); spawn_new_block();
+    case 1: tetris_standard_map(); render_longlineR(charLocation[0]); render_longline(charLocation[1]);
         break;
     }
 
@@ -208,17 +215,81 @@ void render_longlineR(COORD c)
 {
     gotoXY(c.X, c.Y++);
     cout << BLocksShape();
+
     gotoXY(c.X, c.Y++);
     cout << BLocksShape();
+
     gotoXY(c.X, c.Y++);
     cout << BLocksShape();
+
     gotoXY(c.X, c.Y++);
     cout << BLocksShape();
 }
 
-void spawn_new_block()
+void spawn_new_block(COORD c)
 {
-   render_longlineR(charLocation);
-   //render_longline(charLocation);
+   render_longlineR(c);
 }
 
+SetArt tetris_standard_map() 
+{
+    SetArt tmap;
+
+    tmap.tetris_map[height][width];
+
+    for (int i = 0; i < 23; i++)
+    {
+        for (int j = 0; j < 14; j++)
+        {
+            tmap.tetris_map[i][j] = '.';
+
+            if (j > 0 && j < 13)
+            {
+                tmap.tetris_map[21][j] = 205;
+                tmap.tetris_map[0][j] = 205;    
+            }
+
+            tmap.tetris_map[22][j] = '+';
+
+            if (i < 22)
+            {
+                tmap.tetris_map[i][1] = 186;
+                tmap.tetris_map[i][12] = 186;
+            }
+        }
+    }
+
+    tmap.tetris_map[0][1] = 201;
+    tmap.tetris_map[0][12] = 187;
+
+    tmap.tetris_map[21][12] = 188;
+    tmap.tetris_map[21][1] = 200;
+    
+    for (int i = 0; i < 23; i++)
+    {
+        gotoXY(15, 4+i);
+
+        for (int j = 0; j < 14; j++)
+        {
+            cout << tmap.tetris_map[i][j];
+        }
+        cout << endl;
+    }
+
+    return tmap;
+}
+
+char BLocksShape()
+{
+    const char shape = 'o'; 
+    return shape;
+}
+
+void testingOnly(int x, int y)
+{   
+    gotoXY(x, y++);
+    cout << BLocksShape();
+    cout << BLocksShape();
+    cout << BLocksShape();
+    cout << BLocksShape();    
+}
