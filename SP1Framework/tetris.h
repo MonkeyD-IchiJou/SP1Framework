@@ -3,9 +3,6 @@
 
 #include <iostream>
 #include <iomanip>
-#include <conio.h>
-#include <fstream>
-#include <string>
 #include <vector>
 
 using std::cout;
@@ -13,48 +10,52 @@ using std::cin;
 using std::endl;
 using std::vector;
 
-using std::string;
-
 const size_t height = 23;
 const size_t width = 14;
 
-struct SetArt
+extern char map[20][30];
+
+struct Location
 {
-    char tetris_map[height][width];
+    COORD MmLocation;   // main menu screen
+    COORD OptLocation;  // option screen (havent done yet)
+    COORD TmLocation;   //tetris map 
 };
 
-SetArt tetris_standard_map();
+struct Blocks
+{
+    COORD Sq_shape;     // square blocks coordinate
+    COORD L_shape;      // L-shape blocks coordinate
+    COORD Z_shape;      // N-shape blocks coordinate
+    COORD l_shape;      // long-shape blocks coordinate
+};
 
-//In game.cpp file
-void TIMINGInfo();
+enum gameState
+{
+    START_SCREEN,
+    MENU_SCREEN,
+    GAMEPLAY_SCREEN,
+    OPTION_SCREEN
+};
+
 void FPSInfo();
-void Standard();
+void TIMINGInfo();
 
-void render_longline(COORD c);
-void render_longlineR(COORD c);
-void spawn_new_block();
+// in render_menu.cpp
+void renderMenu(COORD c);
 
+// in render_start_screen.cpp
+void renderStartScreen(COORD c);
 
-//In menu_screen.cpp file
-void MenuScreen();
-void Paused_Screen();
-
-//In help_screen.cpp file
-//void HelpScreen();
-
-//In print_shapes.cpp file
+// in render_gameplay.cpp
+void sqBlocks(COORD c);
+void LBlocks(COORD c);
+void ZBlocks(COORD c);
+void printTetrisMap(COORD c);
 char BLocksShape();
 
-//In music_screen.cpp file
-void MusicScreen();
-
-//In 8bit_music.cpp
-void menu_music();
-void Playmusic();
-
-
-void testingOnly(int x, int y);
-
+void DrawArray(COORD c);
+void DrawMap(COORD c);
+void Map();
 
 #endif // _TETRIS_H
-

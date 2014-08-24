@@ -75,13 +75,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="8bit_music.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Paused_Screen.cpp" />
-    <ClCompile Include="menu_screen.cpp" />
+    <ClCompile Include="render_gameplay.cpp" />
+    <ClCompile Include="render_menu.cpp" />
+    <ClCompile Include="render_start_screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h" />

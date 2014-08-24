@@ -2,7 +2,6 @@
 #define _GAME_H
 
 #include "Framework\timer.h"
-#include "tetris.h"
 
 extern StopWatch g_timer;
 extern bool g_quitGame;
@@ -14,14 +13,8 @@ enum Keys
     K_LEFT,
     K_RIGHT,
     K_ESCAPE,
-    K_ENTER,
-	K_QUIT,
-	K_RETURN,
-	K_HELP,
-	K_MUSIC,
-	K_SMUSIC,
-	K_MUSICSCR,
-    K_COUNT
+    K_COUNT,
+    K_ENTER
 };
 
 void init();                // initialize your variables, allocate memory, etc

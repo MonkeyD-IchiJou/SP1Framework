@@ -1,4 +1,4 @@
-﻿// This is the main file for the game logic and function
+// This is the main file for the game logic and function
 //
 //
 #include "game.h"
@@ -9,40 +9,53 @@ double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 
-COORD charLocation[10000];
+Location screen;
+Blocks blocks;
+
 COORD consoleSize;
 
-bool press = false;
-bool pause = false;
-bool pressmusic = false;
-bool stopmusic = false;
+gameState stage;
 
-int A = 0;
-
-unsigned char gameState;
-
+int x, y;
+int speed;
 
 void init()
 {
     // Set precision for floating point output
     std::cout << std::fixed << std::setprecision(3);
 
-    SetConsoleTitle(L"SP1 Framework");
+    SetConsoleTitle(L"Tetris");
 
     // Sets the console size, this is the biggest so far.
-    setConsoleSize(68, 30);
+    setConsoleSize(79, 28);
 
     // Get console width and height
-    CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */     
+    CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */   
 
     /* get the number of character cells in the current buffer */ 
     GetConsoleScreenBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ), &csbi );
+
+    // set the size for the game
     consoleSize.X = csbi.srWindow.Right + 1;
     consoleSize.Y = csbi.srWindow.Bottom + 1;
+    
+    // default location.
+    screen.MmLocation.X = 27;       //for main menu
+    screen.MmLocation.Y = 10;
 
-    // set the character to be in the center of the gameplay screen.
-    charLocation[A].X = 20;
-    charLocation[A].Y = 5;
+    screen.TmLocation.X = 26;       //for tetris map
+    screen.TmLocation.Y = 5;
+
+    blocks.Sq_shape.X = 36;         //for square blocks
+    blocks.Sq_shape.Y = 5;          
+
+    blocks.L_shape.X = 36;          //for L-shape
+    blocks.L_shape.Y = 5;
+
+    blocks.Z_shape.X = 36;          //for N-blocks
+    blocks.Z_shape.Y = 5;
+
+    
 
     elapsedTime = 0.0;
 }
@@ -61,12 +74,6 @@ void getInput()
     keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
     keyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
-	keyPressed[K_QUIT] = isKeyPressed(VK_BACK);
-	keyPressed[K_RETURN] = isKeyPressed(VK_TAB);
-	keyPressed[K_HELP] = isKeyPressed(VK_LSHIFT);
-	keyPressed[K_MUSICSCR] = isKeyPressed(VK_F1);
-	keyPressed[K_MUSIC] = isKeyPressed(VK_F2);
-	keyPressed[K_SMUSIC] = isKeyPressed(VK_SPACE);
 }
 
 void update(double dt)
@@ -75,98 +82,90 @@ void update(double dt)
     elapsedTime += dt;
     deltaTime = dt;
 
-
-    // Updating the location of the character based on the key press
-    /*
-    if (keyPressed[K_UP] && charLocation.Y > 20)
+    switch (stage)
     {
-        Beep(1440, 30);
-        charLocation.Y--; 
-    }*/
+    case START_SCREEN: // For start screen
 
-    charLocation[A].Y++;
+        if (keyPressed[K_ENTER])
+        {
+            stage = MENU_SCREEN;
+        }
 
-    if (keyPressed[K_LEFT] && charLocation[A].X > 17 && charLocation[A].Y < 21)
-    {
-        Beep(1440, 30);
-        charLocation[A].X--;
+        break;
+
+    case MENU_SCREEN: // For main menu screen
+
+        if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
+        {
+            Beep(1440, 30);
+            screen.MmLocation.Y-=5; 
+        }
+
+        if (keyPressed[K_DOWN] && screen.MmLocation.Y < 15)
+        {
+            Beep(1440, 30);
+            screen.MmLocation.Y += 5; 
+        }
+
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 10)
+        {
+            stage = GAMEPLAY_SCREEN;
+        }
+
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 15)
+        {
+            stage = START_SCREEN;
+        }
+
+        break;
+
+    case GAMEPLAY_SCREEN: // For gameplay screen
+        
+        speed = static_cast<int>(elapsedTime*10);
+
+        if (speed % 5  == 0)
+        {
+            blocks.Sq_shape.Y++;
+        }
+
+        // Updating Gameplay screen by pressing buttons
+        if (keyPressed[K_UP] && blocks.Sq_shape.Y > 0) // Rotation button
+        {
+            Beep(1440, 30);
+        }
+
+        if (keyPressed[K_LEFT] && blocks.Sq_shape.X > 0)
+        {
+            Beep(1440, 30);
+            blocks.Sq_shape.X--;
+        }
+        
+        if (keyPressed[K_DOWN] && blocks.Sq_shape.Y < consoleSize.Y - 1)
+        {
+            Beep(1440, 30);
+            blocks.Sq_shape.Y++; 
+        }
+
+        if (keyPressed[K_RIGHT] && blocks.Sq_shape.X < consoleSize.X - 1)
+        {
+            Beep(1440, 30);
+            blocks.Sq_shape.X++;
+        }
+
+        // quits the game if player hits the escape key
+        if (keyPressed[K_ESCAPE])
+        {
+            g_quitGame = true;
+        }
+
+        if (blocks.Sq_shape.Y > 10)
+        {
+
+            blocks.Sq_shape.X = 36;
+            blocks.Sq_shape.Y = 5;
+        }
+		break;
     }
-
-    if (keyPressed[K_DOWN] && charLocation[A].Y < consoleSize.Y - 1 && charLocation[A].Y < 21)
-    {
-        Beep(1440, 30);
-        charLocation[A].Y++;
-    }
-
-    if (keyPressed[K_RIGHT] && charLocation[A].X < 23 && charLocation[A].Y < 21)
-	{
-		Beep(1440, 30);
-        charLocation[A].X++;
-	}
-	// opens the game if player hits the enter key
-    /*if (keyPressed[K_ENTER])
-    {
-        press = true;
-    }*/
-
-    // quits the game if player hits the escape key
-    if (keyPressed[K_ESCAPE])
-    {
-		gameState = 4;
-    }
-    
-    if (keyPressed[K_ENTER])
-    {
-        gameState = 1;
-    }
-
-	if(keyPressed[K_HELP])
-	{
-		gameState = 3;
-	}
-
-    
-    if (charLocation[A].Y > 21)
-    {
-        charLocation[A].Y--;
-        charLocation[A+=1].Y++;
-        init();
-    }
-
-
-	if(keyPressed[K_QUIT])
-	{
-		g_quitGame = true;
-	}
-
-	if(keyPressed[K_RETURN])
-	{
-		gameState = 5;
-		//update(0);
-	}
-
-
-}
-
-void PauseData()
-{
-	std::ifstream Paused_Screen;
-	std::string pause;
-	Paused_Screen.open ("Pause.txt");
-	while (!Paused_Screen.eof()) 
-
-	if(keyPressed[K_MUSICSCR])
-
-	{
-		gameState = 1;
-	}
-	//Music plays when left shift is pressed
-	if(keyPressed[K_MUSIC])
-	{
-		pressmusic = true;
-		menu_music();
-	}
-
 }
 
 void render()
@@ -174,67 +173,58 @@ void render()
     // clear previous screen
     cls();
 
-    switch (gameState)
+    // render game
+    switch (stage)
     {
-    case 0: MenuScreen();
+    case START_SCREEN: 
+        // render Start screen
+        renderStartScreen(screen.MmLocation); 
         break;
-    case 1: tetris_standard_map(); render_longlineR(charLocation[0]); render_longline(charLocation[1]);
-		break;
-	/*case 2: MusicScreen();
-		break;
-	case 3: HelpScreen();
-		break;*/
-	case 4: Paused_Screen();
-		system("pause");
-		break;
-	case 5: MenuScreen();
-		update(0);
-		break;
+
+    case MENU_SCREEN:
+        // render main menu
+        renderMenu(screen.MmLocation);
+        break;
+
+    case GAMEPLAY_SCREEN: 
+        DrawMap(screen.TmLocation);
+        //DrawArray(screen.TmLocation);
+        sqBlocks(blocks.Sq_shape);
+
+        if (blocks.Sq_shape.Y > 10)
+        {
+            for(int i = 0; i < 20; i++)
+            {
+                for(int j = 0; j < 30; j++)
+                {
+                    switch(map[i][j])
+                    {
+                    case '!':
+                        map[blocks.Sq_shape.X - 30][blocks.Sq_shape.Y] = ' ';
+                        break;
+                    }
+                }
+            }
+        }
+        break;
     }
 
-	FPSInfo();
-	TIMINGInfo();
-	// plays the music if player hits the left shift key
-	
-
+    //render the game
+    /*
     //render test screen code (not efficient at all)
-    /*const WORD colors[] =   {
-	                            0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-	                            0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+    const WORD colors[] =   {
+	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	                        };*/
-    
+
     // render time taken to calculate this frame
-
-}
-
-
-COORD FindCoordinates (short n1, short n2)
-{
-    COORD location;
-
-    location.X = n1; 
-    location.Y = n2;
-
-    return location;
-}
-
-void MenuData()
-{
-	std::ifstream MenuScreen;
-	std::string data;
-	MenuScreen.open("tetris_ascii.txt");
-	while(!MenuScreen.eof())
-	{
-		getline(MenuScreen, data);
-		cout << data << endl;
-	}
-
-	MenuScreen.close();
+    FPSInfo();
+    TIMINGInfo();
 }
 
 void FPSInfo()
 {
-    gotoXY(60, 0);
+    gotoXY(71, 0);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 }
 
@@ -244,331 +234,7 @@ void TIMINGInfo()
     std::cout << elapsedTime << "secs" << std::endl;
 }
 
-void render_longline(COORD c)
+void Map()
 {
-    gotoXY(c.X, c.Y);
-    cout << BLocksShape();
-    cout << BLocksShape();
-    cout << BLocksShape();
-    cout << BLocksShape();
-}
-
-void render_longlineR(COORD c)
-{
-    gotoXY(c.X, c.Y++);
-    cout << BLocksShape();
-
-    gotoXY(c.X, c.Y++);
-    cout << BLocksShape();
-
-    gotoXY(c.X, c.Y++);
-    cout << BLocksShape();
-
-    gotoXY(c.X, c.Y++);
-    cout << BLocksShape();
-}
-
-void spawn_new_block(COORD c)
-{
-   render_longlineR(c);
-}
-
-SetArt tetris_standard_map() 
-{
-    SetArt tmap;
-
-    tmap.tetris_map[height][width];
-
-    for (int i = 0; i < 23; i++)
-    {
-        for (int j = 0; j < 14; j++)
-        {
-            tmap.tetris_map[i][j] = '.';
-
-            if (j > 0 && j < 13)
-            {
-                tmap.tetris_map[21][j] = 205;
-                tmap.tetris_map[0][j] = 205;    
-            }
-
-            tmap.tetris_map[22][j] = '+';
-
-            if (i < 22)
-            {
-                tmap.tetris_map[i][1] = 186;
-                tmap.tetris_map[i][12] = 186;
-            }
-        }
-    }
-
-    tmap.tetris_map[0][1] = 201;
-    tmap.tetris_map[0][12] = 187;
-
-    tmap.tetris_map[21][12] = 188;
-    tmap.tetris_map[21][1] = 200;
-    
-    for (int i = 0; i < 23; i++)
-    {
-        gotoXY(15, 4+i);
-
-        for (int j = 0; j < 14; j++)
-        {
-            cout << tmap.tetris_map[i][j];
-        }
-        cout << endl;
-    }
-
-    return tmap;
-}
-
-char BLocksShape()
-{
-    const char shape = 'o'; 
-    return shape;
-}
-
-void testingOnly(int x, int y)
-{   
-    gotoXY(x, y++);
-    cout << BLocksShape();
-    cout << BLocksShape();
-    cout << BLocksShape();
-    cout << BLocksShape();    
-}
-
-void render_L(COORD c)
-{
-	gotoXY(c.X, c.Y++);
-	cout <<BLocksShape();
-
-	gotoXY(c.X, c.Y++);
-	cout <<BLocksShape();
-
-	gotoXY(c.X, c.Y++);
-	cout <<BLocksShape() << BLocksShape();
-}
-
-void render_Lr1(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout <<BLocksShape();
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-	cout << BLocksShape();
-	cout << BLocksShape();
-}
-
-void render_Lr2(COORD c)
-{
-	gotoXY(c.X++,c.Y);
-	cout << BLocksShape();
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-}
-
-void render_Lr3(COORD c)
-{
-	gotoXY(c.X++,c.Y);
-	cout << BLocksShape();
-
-	gotoXY(c.X++, c.Y--);
-	cout << BLocksShape() << BLocksShape();
-
-	gotoXY(c.X++, c.Y);
-	cout << BLocksShape();
 
 }
-
-void render_N(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X++,c.Y++);
-	cout << BLocksShape();
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-}
-
-void render_Nr1(COORD c)
-{
-	gotoXY(c.X++,c.Y--);
-	cout <<BLocksShape() << BLocksShape();
-
-	gotoXY(c.X++, c.Y);
-	cout <<BLocksShape();
-
-	gotoXY(c.X++, c.Y);
-	cout <<BLocksShape();
-}
-
-void render_S(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-	cout << BLocksShape();
-}
-
-void render_T(COORD c)
-{
-	gotoXY(c.X++,c.Y);
-	cout << BLocksShape() << BLocksShape() << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-}
-
-void render_Tr1(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X--,c.Y);
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X++,c.Y);
-	gotoXY(c.X++,c.Y);
-	cout << BLocksShape();
-}
-
-void render_Tr2(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X--,c.Y);
-	gotoXY(c.X++,c.Y);
-	cout << BLocksShape() << BLocksShape() << BLocksShape();
-}
-
-void render_Tr3(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape() << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-}
-
-void render_RL(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X--,c.Y);
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-}
-
-void render_RLr1(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape() << BLocksShape() << BLocksShape();
-}
-
-void render_RLr2(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape() << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-}
-
-void render_RLr3(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape() << BLocksShape() << BLocksShape();
-
-	gotoXY(c.X++,c.Y);
-
-	gotoXY(c.X++,c.Y);
-
-	gotoXY(c.X++,c.Y);
-	cout << BLocksShape();
-}
-
-void render_RN(COORD c)
-{
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X--,c.Y) ;
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-
-	gotoXY(c.X--,c.Y);
-	cout << BLocksShape();
-}
-
-void render_RNr1(COORD c)
-{
-	gotoXY(c.X++,c.Y);
-	cout << BLocksShape();
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape() << BLocksShape();
-
-
-}
-void spawn_new_block()
-{	
-	//render_longlineR(charLocation);
-	//render_longline(charLocation);
-
-	//render_L(charLocation);
-	//render_Lr1(charLocation);
-	//render_Lr2(charLocation);
-	//render_Lr3(charLocation);
-
-	//render_N(charLocation);
-	//render_Nr1(charLocation);
-
-	//render_S(charLocation);
-
-	//render_T(charLocation);
-	//render_Tr1(charLocation);
-	//render_Tr2(charLocation);
-	//render_Tr3(charLocation);
-
-	//render_RL(charLocation);
-	//render_RLr1(charLocation);
-	//render_RLr2(charLocation);
-	//render_RLr3(charLocation);
-
-	//render_RN(charLocation);
-	//render_RNr1(charLocation);
-}	
