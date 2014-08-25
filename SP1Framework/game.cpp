@@ -248,7 +248,7 @@ void update(double dt)
 
 		break;
 
-	case PAUSE_SCREEN:
+	/*case PAUSE_SCREEN:
 
 		if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
         {
@@ -272,7 +272,7 @@ void update(double dt)
             stage = START_SCREEN;
         }
 
-        break;
+        break;*/
 
     }
 }
@@ -307,8 +307,7 @@ void render()
 
         break;
 
-	case PAUSE_SCREEN:
-		RenderPauseScreen(screen.PsLocation);
+
     }
 
     //render the game
