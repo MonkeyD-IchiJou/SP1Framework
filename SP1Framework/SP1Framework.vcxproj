@@ -75,10 +75,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< 4fc06052b7bcd30c6237aad3cf2886db1937ed1c
-    <ClCompile Include="render_music.cpp" />
-=======
->>>>>>> 5fbe9d9b14bae37b2dbaff21e55fcb17816050cf
     <ClCompile Include="8bit_music.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
@@ -86,7 +82,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="render_gameplay.cpp" />
     <ClCompile Include="render_menu.cpp" />
-    <ClCompile Include="render_pause_screen.cpp" />
     <ClCompile Include="render_start_screen.cpp" />
   </ItemGroup>
   <ItemGroup>

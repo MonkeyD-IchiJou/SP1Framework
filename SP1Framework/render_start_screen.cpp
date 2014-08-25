@@ -5,5 +5,5 @@
 void renderStartScreen (COORD c)
 {
     gotoXY(30, 10);
-    colour(0xD);
-    cout << "Priest press ENTER";
+    cout << "Press press ENTER";
+}

@@ -60,18 +60,11 @@ void DrawMap(COORD c)
 
 void DrawBorder(COORD c)
 {
-    for(int i = 0; i < 22; i++)
     for(int i = 0; i < borderheight; i++)
     {
         gotoXY(c.X, c.Y+i);
         for(int j = 0; j < borderwidth; j++)
         {
-            
-            switch(map[i][j])
-            {
-                case '=':
-                    cout << (char)205; //═
-                    break;
             border[0][j] = borderUP;
             border[22][j] = borderUP;
 
@@ -147,9 +140,6 @@ void initiate(COORD l, COORD Z, COORD L)
 
 void print_l_blocks(int change)
 {
-    
-        colour(0xE);
-    for(int i = 0; i < 4; i++)
     switch(change)
     {
     case 1:
@@ -188,8 +178,6 @@ void print_l_blocks(int change)
 
 void print_Z_blocks(int change)
 {
-    
-    for(int i = 0; i < 4; i++)
     switch(change)
     {
     case 1:
@@ -225,16 +213,3 @@ void print_Z_blocks(int change)
         break;
     }
 }
-
-/*FOR EASIER REFERENCE PLEASE DON'T DELETE (CAN MOVE) - JUNYAN
-
-O-block - Yellow
-I-block - Cyan
-J-block - Blue
-L-block - Orange
-S-block - Green
-T-block - Purple
-Z-block - Red
-
-*/
-

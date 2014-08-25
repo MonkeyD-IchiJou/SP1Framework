@@ -175,9 +175,6 @@ void update(double dt)
         // for z-shape
         if (keyPressed[K_UP] && blocks.Z_shape.Y > 0) // Rotation button
         {
-<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
-            stage = PAUSE_SCREEN;
-=======
             Beep(1440, 30);
             switchornot1++;
 
@@ -191,7 +188,6 @@ void update(double dt)
         {
             Beep(1440, 30);
             blocks.Z_shape.X--;
->>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
         }
         
         if (keyPressed[K_DOWN] && blocks.Z_shape.Y < consoleSize.Y - 1)
@@ -250,33 +246,6 @@ void update(double dt)
         }*/
 
 		break;
-
-	case PAUSE_SCREEN:
-
-		if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
-        {
-            Beep(1440, 30);
-            screen.PsLocation.Y -= 5; 
-        }
-
-        if (keyPressed[K_DOWN] && screen.PsLocation.Y < 15)
-        {
-            Beep(1440, 30);
-            screen.PsLocation.Y += 5; 
-        }
-
-        if (keyPressed[K_ENTER] && screen.PsLocation.Y == 10)
-        {
-            stage = GAMEPLAY_SCREEN;
-        }
-
-        if (keyPressed[K_ENTER] && screen.PsLocation.Y == 15)
-        {
-            stage = START_SCREEN;
-        }
-
-        break;
-
     }
 }
 
@@ -307,18 +276,16 @@ void render()
         print_Z_blocks(switchornot1);
 
         break;
-
-	case PAUSE_SCREEN:
-		RenderPauseScreen(screen.PsLocation);
     }
 
     //render the game
-    
+    /*
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
 	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
 	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-	                        };
+	                        };*/
+
     // render time taken to calculate this frame
 
     FPSInfo();
@@ -328,13 +295,11 @@ void render()
 void FPSInfo()
 {
     gotoXY(71, 0);
-    colour(0xC);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 }
 
 void TIMINGInfo()
 {
     gotoXY(0, 0);
-    colour(0x2);
     std::cout << elapsedTime << "secs" << std::endl;
 }

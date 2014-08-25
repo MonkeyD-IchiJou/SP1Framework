@@ -42,16 +42,6 @@
     <ClCompile Include="render_gameplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< 895cf72ef1dd7e6f091fbb19051b2f589ed61482
-    <ClCompile Include="render_music.cpp">
-=======
-    <ClCompile Include="8bit_music.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="render_pause_screen.cpp">
->>>>>>> 34060bbbd1053f0f8e8cd0ed85763497f14a3a7f
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">
