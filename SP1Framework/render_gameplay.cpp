@@ -60,27 +60,20 @@ void DrawMap(COORD c)
 
 void DrawBorder(COORD c)
 {
-<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
-    colour(0xF);
     for(int i = 0; i < 22; i++)
-=======
     for(int i = 0; i < borderheight; i++)
->>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
     {
         gotoXY(c.X, c.Y+i);
         for(int j = 0; j < borderwidth; j++)
         {
-<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
             
             switch(map[i][j])
             {
                 case '=':
                     cout << (char)205; //═
                     break;
-=======
             border[0][j] = borderUP;
             border[22][j] = borderUP;
->>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
 
             border[i][0] = borderSide; 
             border[i][12] = borderSide;
@@ -154,13 +147,10 @@ void initiate(COORD l, COORD Z, COORD L)
 
 void print_l_blocks(int change)
 {
-<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
     
         colour(0xE);
     for(int i = 0; i < 4; i++)
-=======
     switch(change)
->>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
     {
     case 1:
         for (int i = 0; i < 4; i++)
@@ -198,12 +188,9 @@ void print_l_blocks(int change)
 
 void print_Z_blocks(int change)
 {
-<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
     
     for(int i = 0; i < 4; i++)
-=======
     switch(change)
->>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
     {
     case 1:
         for (int i = 0; i < 4; i++)
