@@ -47,11 +47,13 @@ void DrawArray(COORD c)
 
 void DrawMap(COORD c)
 {
+    colour(0xF);
     for(int i = 0; i < 22; i++)
     {
         gotoXY(c.X, c.Y+i);
         for(int j = 0; j < 20; j++)
         {
+            
             switch(map[i][j])
             {
                 case '=':
@@ -102,6 +104,8 @@ void DrawMap(COORD c)
 
 void sqBlocks(COORD c)
 {
+    
+        colour(0xE);
     for(int i = 0; i < 4; i++)
     {
         gotoXY(c.X,c.Y++);
@@ -128,6 +132,7 @@ void sqBlocks(COORD c)
 
 void sqBlocks()
 {
+    
     for(int i = 0; i < 4; i++)
     {
         for(int j = 0; j < 6; j++)
@@ -150,3 +155,16 @@ void sqBlocks()
         }
     }
 }
+
+/*FOR EASIER REFERENCE PLEASE DON'T DELETE (CAN MOVE) - JUNYAN
+
+O-block - Yellow
+I-block - Cyan
+J-block - Blue
+L-block - Orange
+S-block - Green
+T-block - Purple
+Z-block - Red
+
+*/
+

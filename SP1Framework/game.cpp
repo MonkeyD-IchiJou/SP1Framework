@@ -201,13 +201,12 @@ void render()
     }
 
     //render the game
-    /*
+    
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
 	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
 	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-	                        };*/
-
+	                        };
     // render time taken to calculate this frame
     FPSInfo();
     TIMINGInfo();
@@ -216,12 +215,14 @@ void render()
 void FPSInfo()
 {
     gotoXY(71, 0);
+    colour(0xC);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 }
 
 void TIMINGInfo()
 {
     gotoXY(0, 0);
+    colour(0x2);
     std::cout << elapsedTime << "secs" << std::endl;
 }
 

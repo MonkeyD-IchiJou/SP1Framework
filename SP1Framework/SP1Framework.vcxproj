@@ -75,10 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< Updated upstream
-=======
-    <ClCompile Include="8bit_music.cpp" />
->>>>>>> Stashed changes
+    <ClCompile Include="render_music.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
