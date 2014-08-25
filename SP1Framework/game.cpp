@@ -250,7 +250,6 @@ void update(double dt)
             blocks.l_shape.Y = 5;
         }*/
 		break;
-<<<<<<< 29ab9069511e8d70df6eec590f86fcf3dd63ca36
 
 	/*case PAUSE_SCREEN:
 
@@ -278,7 +277,6 @@ void update(double dt)
 
         break;*/
 
-=======
 		// for options
 		case OPTION_SCREEN:
 			if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
@@ -301,7 +299,6 @@ void update(double dt)
 			{
 				stage = MENU_SCREEN;
 			}
->>>>>>> 419eecba780bd8a6dde3fb5119a0262ff40502bd
     }
 }
 
@@ -328,7 +325,6 @@ void render()
         //DrawMap(screen.TmLocation);
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape);
 
-<<<<<<< 29ab9069511e8d70df6eec590f86fcf3dd63ca36
         //print_l_blocks(switchornot);
         //print_Z_blocks(switchornot1);
 		//print_L_blocks(switchornot2);
@@ -337,14 +333,12 @@ void render()
         break;
 
 
-=======
         print_l_blocks(switchornot);
         print_Z_blocks(switchornot1);
         break;
 	case OPTION_SCREEN:
 		renderOption(screen.MmLocation);
 		break;
->>>>>>> 419eecba780bd8a6dde3fb5119a0262ff40502bd
     }
 
     //render the game
