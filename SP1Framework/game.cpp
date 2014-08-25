@@ -22,10 +22,7 @@ int speed;
 int defaultX = 32;
 int defaultY = 3;
 
-int switchornot = 1;
-int switchornot1 = 1;
-int switchornot2 = 1;
-int switchornot4 = 1;
+int rotate[7] = {1, 1, 1, 1, 1, 1, 1};
 
 void init()
 {
@@ -58,7 +55,7 @@ void init()
     screen.BdLocation.Y = 2;
 
     blocks.Sq_shape.X = defaultX;         //for square blocks
-    blocks.Sq_shape.Y = defaultY;          
+    blocks.Sq_shape.Y = defaultY+20;          
 
     blocks.L_shape.X = defaultX;          //for L-shape
     blocks.L_shape.Y = defaultY+10;
@@ -68,6 +65,9 @@ void init()
 
     blocks.l_shape.X = defaultX;          //for l-shape
     blocks.l_shape.Y = defaultY;
+
+    blocks.T_shape.X = defaultX;          //for T-shape
+    blocks.T_shape.Y = defaultY+15;
 
     elapsedTime = 0.0;
 }
@@ -150,11 +150,11 @@ void update(double dt)
         if (keyPressed[K_UP] && blocks.l_shape.Y > 0) // Rotation button
         {
             Beep(1440, 30);
-            switchornot++;
+            rotate[0]++;
 
-            if (switchornot == 5)
+            if (rotate[0] == 5)
             {
-                switchornot = 1;
+                rotate[0] = 1;
             }
         }
 
@@ -181,11 +181,11 @@ void update(double dt)
         if (keyPressed[K_UP] && blocks.Z_shape.Y > 0) // Rotation button
         {
             Beep(1440, 30);
-            switchornot1++;
+            rotate[1]++;
 
-            if (switchornot1 == 5)
+            if (rotate[1]== 5)
             {
-                switchornot1 = 1;
+                rotate[1] = 1;
             }
         }
 
@@ -211,11 +211,11 @@ void update(double dt)
         if (keyPressed[K_UP] && blocks.L_shape.Y > 0) // Rotation button
         {
             Beep(1440, 30);
-            switchornot2++;
+            rotate[2]++;
 
-            if (switchornot2 == 5)
+            if (rotate[2] == 5)
             {
-                switchornot2 = 1;
+                rotate[2] = 1;
             }
         }
 
@@ -235,6 +235,66 @@ void update(double dt)
         {
             Beep(1440, 30);
             blocks.L_shape.X++;
+        }
+
+        // For square-shape
+        if (keyPressed[K_UP] && blocks.Sq_shape.Y > 0) // Rotation button
+        {
+            Beep(1440, 30);
+            rotate[3]++;
+
+            if (rotate[3] == 5)
+            {
+                rotate[3] = 1;
+            }
+        }
+
+        if (keyPressed[K_LEFT] && blocks.Sq_shape.X > screen.TmLocation.X)
+        {
+            Beep(1440, 30);
+            blocks.Sq_shape.X--;
+        }
+        
+        if (keyPressed[K_DOWN] && blocks.Sq_shape.Y < consoleSize.Y - 1)
+        {
+            Beep(1440, 30);
+            blocks.Sq_shape.Y++; 
+        }
+
+        if (keyPressed[K_RIGHT] && blocks.Sq_shape.X < screen.TmLocation.X + 12)
+        {
+            Beep(1440, 30);
+            blocks.Sq_shape.X++;
+        }
+
+        // for T-shape
+        if (keyPressed[K_UP] && blocks.T_shape.Y > 0) // Rotation button
+        {
+            Beep(1440, 30);
+            rotate[4]++;
+
+            if (rotate[4] == 5)
+            {
+                rotate[4] = 1;
+            }
+        }
+
+        if (keyPressed[K_LEFT] && blocks.T_shape.X > screen.TmLocation.X)
+        {
+            Beep(1440, 30);
+            blocks.T_shape.X--;
+        }
+        
+        if (keyPressed[K_DOWN] && blocks.T_shape.Y < consoleSize.Y - 1)
+        {
+            Beep(1440, 30);
+            blocks.T_shape.Y++; 
+        }
+
+        if (keyPressed[K_RIGHT] && blocks.T_shape.X < screen.TmLocation.X + 12)
+        {
+            Beep(1440, 30);
+            blocks.T_shape.X++;
         }
 
         // quits the game if player hits the escape key
@@ -323,22 +383,10 @@ void render()
     case GAMEPLAY_SCREEN: 
         //DrawBorder(screen.BdLocation);
         //DrawMap(screen.TmLocation);
-        initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape);
+        initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
 
-        //print_l_blocks(switchornot);
-        //print_Z_blocks(switchornot1);
-		//print_L_blocks(switchornot2);
-		print_Sq_blocks(switchornot4);
-
+        printBlocks(L_TYPE, rotate[1]);
         break;
-
-
-        print_l_blocks(switchornot);
-        print_Z_blocks(switchornot1);
-        break;
-	case OPTION_SCREEN:
-		renderOption(screen.MmLocation);
-		break;
     }
 
     //render the game

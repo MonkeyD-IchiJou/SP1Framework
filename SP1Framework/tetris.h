@@ -40,6 +40,7 @@ struct Blocks
     COORD L_shape;      // L-shape blocks coordinate
     COORD Z_shape;      // N-shape blocks coordinate
     COORD l_shape;      // long-shape blocks coordinate
+    COORD T_shape;      // T-shape blocks coordinate
 
     char l_blocks[blocksSize];   //shape for L blocks
 };
@@ -50,6 +51,15 @@ enum gameState
     MENU_SCREEN,
     GAMEPLAY_SCREEN,
     OPTION_SCREEN
+};
+
+enum BlocksType
+{
+    LONG_TYPE,
+    Z_TYPE,
+    L_TYPE,
+    Sq_TYPE,
+    T_TYPE
 };
 
 void FPSInfo();
@@ -69,11 +79,13 @@ void printTetrisMap(COORD c);
 void DrawMap(COORD c);
 void DrawBorder(COORD c);
 
-void initiate(COORD l, COORD Z, COORD L);
+void initiate(COORD l, COORD Z, COORD L, COORD S, COORD T);
 
 void print_l_blocks(int change);
 void print_Z_blocks(int change);
 void print_L_blocks(int change);
 void print_Sq_blocks(int change);
+void print_T_blocks(int change);
 
+void printBlocks(int type, int change);
 #endif // _TETRIS_H
