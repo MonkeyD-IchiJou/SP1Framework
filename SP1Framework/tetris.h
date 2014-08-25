@@ -19,10 +19,17 @@ using std::ofstream;
 struct Location
 {
     COORD MmLocation;   // main menu screen
+<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
     COORD OptLocation;  // option screen
 	COORD PsLocation;   // pause screen
     COORD TmLocation;   // tetris map 
     COORD BdLocation;   // border location
+=======
+    COORD OptLocation;  // option screen (havent done yet)
+    COORD TmLocation;   //tetris map 
+	COORD PsLocation;   // pause screen
+    COORD BdLocation;   //border location
+>>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
 };
 
 enum gameState
@@ -34,6 +41,28 @@ enum gameState
 	PAUSE_SCREEN
 };
 
+<<<<<<< beae32c5d0bc41106470374b59bb9102ab67af32
+=======
+enum BlocksType
+{
+    LONG_TYPE,
+    Z_TYPE,
+    L_TYPE,
+    Sq_TYPE,
+    T_TYPE
+};
+
+enum colour
+{
+    White = 0xF,
+    Green = 0xA,
+    Red = 0xC,
+    Yellow = 0xE,
+    Cyan = 0xB,
+
+};
+
+>>>>>>> 4d78c908850b7c8d4ed128924b39bb047bb4e5c2
 void FPSInfo();
 void TIMINGInfo();
 
@@ -63,6 +92,12 @@ void print_Sq_blocks(int change);
 void print_T_blocks(int change);
 
 void printBlocks(int type, int change);
+<<<<<<< beae32c5d0bc41106470374b59bb9102ab67af32
 
 void lukris();
+=======
+// in render_pause_screen.cpp
+void RenderPauseScreen(COORD c);
+
+>>>>>>> 4d78c908850b7c8d4ed128924b39bb047bb4e5c2
 #endif // _TETRIS_H

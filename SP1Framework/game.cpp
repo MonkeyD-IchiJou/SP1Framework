@@ -143,8 +143,16 @@ void getInput()
 
 void update(double dt)
 {
+    if(!keyPressed[K_ESCAPE])
+    {
     // get the delta time
+<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
 
+=======
+        elapsedTime += dt;
+        deltaTime = dt;
+    }
+>>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     switch (stage)
     {
     case START_SCREEN: // For start screen
@@ -259,6 +267,7 @@ void update(double dt)
 			stage = MENU_SCREEN;
 		}
     }
+    
 }
 
 void render()
@@ -327,10 +336,10 @@ void render()
     //render the game
     
     //render test screen code (not efficient at all)
-    /*const WORD colors[] =   {
+    const WORD colors[] =   {
 	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
 	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-	                        };*/
+	                        };
     // render time taken to calculate this frame
 
     FPSInfo();
