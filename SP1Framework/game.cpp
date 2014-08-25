@@ -155,7 +155,7 @@ void update(double dt)
         // quits the game if player hits the escape key
         if (keyPressed[K_ESCAPE])
         {
-            g_quitGame = true;
+            stage = PAUSE_SCREEN;
         }
         
         if (blocks.Sq_shape.Y > 22)
@@ -172,6 +172,33 @@ void update(double dt)
             blocks.Sq_shape.Y = 5;
         }
 		break;
+
+	case PAUSE_SCREEN:
+
+		if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
+        {
+            Beep(1440, 30);
+            screen.PsLocation.Y -= 5; 
+        }
+
+        if (keyPressed[K_DOWN] && screen.PsLocation.Y < 15)
+        {
+            Beep(1440, 30);
+            screen.PsLocation.Y += 5; 
+        }
+
+        if (keyPressed[K_ENTER] && screen.PsLocation.Y == 10)
+        {
+            stage = GAMEPLAY_SCREEN;
+        }
+
+        if (keyPressed[K_ENTER] && screen.PsLocation.Y == 15)
+        {
+            stage = START_SCREEN;
+        }
+
+        break;
+
     }
 }
 
@@ -198,6 +225,9 @@ void render()
         //DrawArray(screen.TmLocation);
         sqBlocks(blocks.Sq_shape);
         break;
+
+	case PAUSE_SCREEN:
+		RenderPauseScreen(screen.PsLocation);
     }
 
     //render the game

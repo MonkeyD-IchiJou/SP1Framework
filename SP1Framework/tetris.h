@@ -21,6 +21,7 @@ struct Location
     COORD MmLocation;   // main menu screen
     COORD OptLocation;  // option screen (havent done yet)
     COORD TmLocation;   //tetris map 
+	COORD PsLocation;   // pause screen
 };
 
 struct Blocks
@@ -36,7 +37,8 @@ enum gameState
     START_SCREEN,
     MENU_SCREEN,
     GAMEPLAY_SCREEN,
-    OPTION_SCREEN
+    OPTION_SCREEN,
+	PAUSE_SCREEN
 };
 
 void FPSInfo();
@@ -58,5 +60,8 @@ void printTetrisMap(COORD c);
 void DrawArray(COORD c);
 void DrawMap(COORD c);
 void Map();
+
+// in render_pause_screen.cpp
+void RenderPauseScreen(COORD c);
 
 #endif // _TETRIS_H
