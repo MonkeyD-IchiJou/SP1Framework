@@ -45,8 +45,14 @@ void init()
     consoleSize.Y = csbi.srWindow.Bottom + 1;
     
     // default location.
-    screen.MmLocation.X = 32;       //for main menu
-    screen.MmLocation.Y = 10;
+    screen.MmLocation.X = 28;       //for main menu
+    screen.MmLocation.Y = 5;
+
+	screen.OptLocation.X = 29;      //for options
+	screen.OptLocation.Y = 10;
+
+	screen.PsLocation.X = 28;       // for pause
+	screen.PsLocation.Y = 10;  
 
     screen.TmLocation.X = 26;       //for tetris map
     screen.TmLocation.Y = 3;
@@ -85,19 +91,19 @@ void getInput()
     keyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
     keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+	keyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
     keyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
 }
 
 void update(double dt)
 {
     // get the delta time
-    elapsedTime += dt;
-    deltaTime = dt;
 
     switch (stage)
     {
     case START_SCREEN: // For start screen
-
+		 elapsedTime += dt;
+         deltaTime = dt;
         if (keyPressed[K_ENTER])
         {
             stage = MENU_SCREEN;
@@ -106,27 +112,33 @@ void update(double dt)
         break;
 
     case MENU_SCREEN: // For main menu screen
-
-        if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
+		 elapsedTime += dt;
+         deltaTime = dt;
+        if (keyPressed[K_UP] && screen.MmLocation.Y > 5)
         {
             Beep(1440, 30);
             screen.MmLocation.Y -= 5; 
         }
 
-        if (keyPressed[K_DOWN] && screen.MmLocation.Y < 15)
+        if (keyPressed[K_DOWN] && screen.MmLocation.Y < 20)
         {
             Beep(1440, 30);
             screen.MmLocation.Y += 5; 
         }
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 10)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 5)
         {
             stage = GAMEPLAY_SCREEN;
         }
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 15)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 10)
         {
             stage = OPTION_SCREEN;
+        }
+
+		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 15)
+        {
+            stage = START_SCREEN;
         }
 
 		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
@@ -136,7 +148,8 @@ void update(double dt)
         break;
 
     case GAMEPLAY_SCREEN: // For gameplay screen
-        
+         elapsedTime += dt;
+         deltaTime = dt;
         speed = static_cast<int>(elapsedTime*10);
         /*
         if (speed % 5  == 0)
@@ -175,6 +188,11 @@ void update(double dt)
             Beep(1440, 30);
             blocks.l_shape.X++;
         }
+
+		if(keyPressed[K_SPACE])
+		{
+			stage = PAUSE_SCREEN;
+		}
 
         
         // for z-shape
@@ -311,7 +329,7 @@ void update(double dt)
         }*/
 		break;
 
-	/*case PAUSE_SCREEN:
+	case PAUSE_SCREEN:
 
 		if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
         {
@@ -332,34 +350,36 @@ void update(double dt)
 
         if (keyPressed[K_ENTER] && screen.PsLocation.Y == 15)
         {
-            stage = START_SCREEN;
+            g_quitGame = true;
         }
 
-        break;*/
+        break;
 
 		// for options
 		case OPTION_SCREEN:
-			if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
+			 elapsedTime += dt;
+             deltaTime = dt;
+			if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
 			{
 				Beep(1440, 30);
-				screen.MmLocation.Y -= 5; 
+				screen.OptLocation.Y -= 5; 
 			}
 
-			if (keyPressed[K_DOWN] && screen.MmLocation.Y < 15)
+			if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
 			{
 				Beep(1440, 30);
-				screen.MmLocation.Y += 5; 
+				screen.OptLocation.Y += 5; 
 			}
 
-			if (keyPressed[K_ENTER] && screen.MmLocation.Y == 10)
+			if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
 			{
 				stage = GAMEPLAY_SCREEN;
 			}
-			if (keyPressed[K_ENTER] && screen.MmLocation.Y == 15)
+			if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
 			{
 				stage = MENU_SCREEN;
 			}
-    }
+}
 }
 
 void render()
@@ -387,6 +407,14 @@ void render()
 
         printBlocks(L_TYPE, rotate[1]);
         break;
+
+	case OPTION_SCREEN:
+		renderOption(screen.OptLocation);
+		break;
+
+	case PAUSE_SCREEN:
+		renderPause(screen.PsLocation);
+		break;
     }
 
     //render the game

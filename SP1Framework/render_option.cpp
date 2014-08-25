@@ -9,22 +9,22 @@ void renderOption (COORD c)
 	cout << ">>";
 
 	colour(0xE);
-	gotoXY(19, 2);  
+	gotoXY(17, 2);  
 	cout << " *****  " << "******" << " *******" << " *******" << "  ***** " << " **    *" << endl;
-	gotoXY(19, 3);
+	gotoXY(17, 3);
 	cout << "*     * " << "*    *" << "    *   " << "    *   " << " *     *" << " * *   *" << endl;
-	gotoXY(19, 4);
+	gotoXY(17, 4);
 	cout << "*     * " << "******" << "    *   " << "    *   " << " *     *" << " *  *  *" << endl;
-	gotoXY(19, 5);
+	gotoXY(17, 5);
 	cout << "*     * " << "*     " << "    *   " << "    *   " << " *     *" << " *   * *" << endl;
-	gotoXY(19, 6);
+	gotoXY(17, 6);
 	cout << " *****  " << "*     " << "    *   " << " *******" << "  ***** " << " *    **" << endl;
 
 	colour(0xB);
-	gotoXY(35, 10);
+	gotoXY(32, 10);
 	cout << "Change colour";
 
-	gotoXY(35, 15);
+	gotoXY(32, 15);
 	cout << "Return to Main Menu";
 
 	colour(0xE);

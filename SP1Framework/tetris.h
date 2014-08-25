@@ -29,9 +29,10 @@ extern COORD DataBlocks[blocksType][orientation][coordinates];
 struct Location
 {
     COORD MmLocation;   // main menu screen
-    COORD OptLocation;  // option screen (havent done yet)
-    COORD TmLocation;   //tetris map 
-    COORD BdLocation;   //border location
+    COORD OptLocation;  // option screen
+	COORD PsLocation;   // pause screen
+    COORD TmLocation;   // tetris map 
+    COORD BdLocation;   // border location
 };
 
 struct Blocks
@@ -50,7 +51,8 @@ enum gameState
     START_SCREEN,
     MENU_SCREEN,
     GAMEPLAY_SCREEN,
-    OPTION_SCREEN
+    OPTION_SCREEN,
+	PAUSE_SCREEN
 };
 
 enum BlocksType
@@ -73,6 +75,9 @@ void renderStartScreen(COORD c);
 
 // in render_option.cpp
 void renderOption(COORD c);
+
+// in render_pause.cpp
+void renderPause(COORD c);
 
 // in render_gameplay.cpp
 void printTetrisMap(COORD c);
