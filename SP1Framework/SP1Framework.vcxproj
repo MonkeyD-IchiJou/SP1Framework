@@ -82,6 +82,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="render_gameplay.cpp" />
     <ClCompile Include="render_menu.cpp" />
+    <ClCompile Include="render_option.cpp" />
+    <ClCompile Include="render_score.cpp" />
     <ClCompile Include="render_start_screen.cpp" />
   </ItemGroup>
   <ItemGroup>
