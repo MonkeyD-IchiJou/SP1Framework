@@ -13,7 +13,8 @@ using std::vector;
 const size_t height = 23;
 const size_t width = 14;
 
-extern char map[20][30];
+extern char map[22][20];
+extern char Sq[4][8];
 
 struct Location
 {
@@ -49,10 +50,10 @@ void renderStartScreen(COORD c);
 
 // in render_gameplay.cpp
 void sqBlocks(COORD c);
+void sqBlocks();
 void LBlocks(COORD c);
 void ZBlocks(COORD c);
 void printTetrisMap(COORD c);
-char BLocksShape();
 
 void DrawArray(COORD c);
 void DrawMap(COORD c);

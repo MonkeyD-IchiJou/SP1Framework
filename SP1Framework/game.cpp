@@ -98,7 +98,7 @@ void update(double dt)
         if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
         {
             Beep(1440, 30);
-            screen.MmLocation.Y-=5; 
+            screen.MmLocation.Y -= 5; 
         }
 
         if (keyPressed[K_DOWN] && screen.MmLocation.Y < 15)
@@ -137,19 +137,19 @@ void update(double dt)
         if (keyPressed[K_LEFT] && blocks.Sq_shape.X > 0)
         {
             Beep(1440, 30);
-            blocks.Sq_shape.X--;
+            blocks.Sq_shape.X-=2;
         }
         
         if (keyPressed[K_DOWN] && blocks.Sq_shape.Y < consoleSize.Y - 1)
         {
             Beep(1440, 30);
-            blocks.Sq_shape.Y++; 
+            blocks.Sq_shape.Y+=2; 
         }
 
         if (keyPressed[K_RIGHT] && blocks.Sq_shape.X < consoleSize.X - 1)
         {
             Beep(1440, 30);
-            blocks.Sq_shape.X++;
+            blocks.Sq_shape.X+=2;
         }
 
         // quits the game if player hits the escape key
@@ -157,10 +157,17 @@ void update(double dt)
         {
             g_quitGame = true;
         }
-
-        if (blocks.Sq_shape.Y > 10)
+        
+        if (blocks.Sq_shape.Y > 22)
         {
-
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    map[8+i][8+j] = Sq[i][j];
+                }
+            }
+            
             blocks.Sq_shape.X = 36;
             blocks.Sq_shape.Y = 5;
         }
@@ -190,22 +197,6 @@ void render()
         DrawMap(screen.TmLocation);
         //DrawArray(screen.TmLocation);
         sqBlocks(blocks.Sq_shape);
-
-        if (blocks.Sq_shape.Y > 10)
-        {
-            for(int i = 0; i < 20; i++)
-            {
-                for(int j = 0; j < 30; j++)
-                {
-                    switch(map[i][j])
-                    {
-                    case '!':
-                        map[blocks.Sq_shape.X - 30][blocks.Sq_shape.Y] = ' ';
-                        break;
-                    }
-                }
-            }
-        }
         break;
     }
 

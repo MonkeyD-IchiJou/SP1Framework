@@ -1,35 +1,43 @@
-#include "game.h"
+﻿#include "game.h"
 #include "tetris.h"
 #include "Framework\console.h"
 
 
-char map[20][30] = {"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X             P             X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "X                           X",
-                    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"};
+char map[22][20] = {"A=================B",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "# 0 0 0 0 0 0 0 0 #",
+                    "C=================D",};
+
+char Sq[4][8] = {"0 0 0 0",
+                 "0 222 0",
+                 "0 111 0",
+                 "0 0 0 0",};
 
 
 void DrawArray(COORD c)
 {
-     for(int i =0; i < 20; i++)
+     for(int i =0; i < 22; i++)
      {
         gotoXY(c.X, c.Y+i);
-        for(int j = 0; j < 30; j++)
+        for(int j = 0; j < 20; j++)
         {
             cout << map[i][j];
         }
@@ -39,18 +47,51 @@ void DrawArray(COORD c)
 
 void DrawMap(COORD c)
 {
-    for(int i = 0; i < 20; i++)
+    for(int i = 0; i < 22; i++)
     {
         gotoXY(c.X, c.Y+i);
-        for(int j = 0; j < 30; j++)
+        for(int j = 0; j < 20; j++)
         {
             switch(map[i][j])
             {
-                case 'X':
-                    cout << (char)1;
+                case '=':
+                    cout << (char)205; //═
                     break;
+
+                case '#':
+                    cout << (char)186; //↕
+                    break;
+
                 case ' ':
-                    cout << (char)33;
+                    cout << ' ';
+                    break;
+
+                case '0':
+                    cout << '.';
+                    break;
+
+                case 'A':
+                    cout << (char)201; //╔
+                    break;
+
+                case 'B':
+                    cout << (char)187; //╗
+                    break;
+
+                case 'C':
+                    cout << (char)200; //╚
+                    break;
+
+                case 'D':
+                    cout << (char)188; //╝
+                    break;
+
+                case '1':
+                    cout << (char)219;
+                    break;
+
+                case '2':
+                    cout << (char)220;
                     break;
             }
         }
@@ -61,17 +102,51 @@ void DrawMap(COORD c)
 
 void sqBlocks(COORD c)
 {
-    gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-	cout << BLocksShape();
-
-	gotoXY(c.X,c.Y++);
-	cout << BLocksShape();
-	cout << BLocksShape();
+    for(int i = 0; i < 4; i++)
+    {
+        gotoXY(c.X,c.Y++);
+        for(int j = 0; j < 6; j++)
+        {
+            switch(Sq[i][j])
+            {
+            case ' ':
+                cout << ' ';
+                break;
+            case '1':
+                cout << (char)219;
+                break;
+            case '2':
+                cout << (char)220;
+                break;
+            case '0':
+                cout << '.'; //═
+                break;
+            }
+        }
+    }
 }
 
-char BLocksShape()
+void sqBlocks()
 {
-    char shape = 'o';
-    return shape;
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 6; j++)
+        {
+            switch(Sq[i][j])
+            {
+            case ' ':
+                cout << ' ';
+                break;
+            case '1':
+                cout << (char)219;
+                break;
+            case '2':
+                cout << (char)220;
+                break;
+            case '0':
+                cout << '.'; //═
+                break;
+            }
+        }
+    }
 }
