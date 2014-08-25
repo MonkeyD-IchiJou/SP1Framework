@@ -70,5 +70,7 @@ void initiate(COORD l, COORD Z, COORD L);
 
 void print_l_blocks(int change);
 void print_Z_blocks(int change);
+void print_L_blocks(int change);
+void print_Sq_blocks(int change);
 
 #endif // _TETRIS_H

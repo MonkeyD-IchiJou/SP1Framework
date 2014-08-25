@@ -25,6 +25,7 @@ int defaultY = 3;
 int switchornot = 1;
 int switchornot1 = 1;
 int switchornot2 = 1;
+int switchornot4 = 1;
 
 void init()
 {
@@ -299,8 +300,10 @@ void render()
         //DrawMap(screen.TmLocation);
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape);
 
-        print_l_blocks(switchornot);
-        print_Z_blocks(switchornot1);
+        //print_l_blocks(switchornot);
+        //print_Z_blocks(switchornot1);
+		//print_L_blocks(switchornot2);
+		print_Sq_blocks(switchornot4);
 
         break;
 

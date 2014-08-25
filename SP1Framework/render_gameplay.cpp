@@ -111,30 +111,180 @@ void initiate(COORD l, COORD Z, COORD L)
     }
 
     // for Z shape blocks
-    for (int i = 0; i < 4; i++)                 // first orientation
-    {
-        DataBlocks[1][0][i].X = Z.X-1+i; 
-        DataBlocks[1][0][i].Y = Z.Y-i;
-    }
+
+	 // first orientation
+
+	DataBlocks[1][0][0].X = Z.X-1;
+    DataBlocks[1][0][0].Y = Z.Y;
+
+	DataBlocks[1][0][1].X = Z.X+1;
+	DataBlocks[1][0][1].Y = Z.Y+1;
+	
+	DataBlocks[1][0][2].X = Z.X;
+	DataBlocks[1][0][2].Y = Z.Y;
+		
+	DataBlocks[1][0][3].X = Z.X;
+    DataBlocks[1][0][3].Y = Z.Y+1;
+
+	
+	// second orientation
+              
+	DataBlocks[1][1][0].X = Z.X-1; 
+    DataBlocks[1][1][0].Y = Z.Y;
+
+	DataBlocks[1][1][1].X = Z.X;
+    DataBlocks[1][1][1].Y = Z.Y-1;
+
+	DataBlocks[1][1][2].X = Z.X;
+    DataBlocks[1][1][2].Y = Z.Y;
+
+	DataBlocks[1][1][3].X = Z.X-1;
+    DataBlocks[1][1][3].Y = Z.Y+1;
     
-    for (int i = 0; i < 4; i++)                // second orientation
-    {
-        DataBlocks[1][1][i].X = Z.X; 
-        DataBlocks[1][1][i].Y = Z.Y-1+i;
-    }
+    
+     // third orientation
 
-    for (int i = 0; i < 4; i++)               // third orientation
-    {
-        DataBlocks[1][2][i].X = Z.X-2+i; 
-        DataBlocks[1][2][i].Y = Z.Y;
-    }
+	DataBlocks[1][2][0].X = Z.X-1;
+    DataBlocks[1][2][0].Y = Z.Y;
 
-    for (int i = 0; i < 4; i++)             // fourth orientation
-    {
-        DataBlocks[1][3][i].X = Z.X; 
-        DataBlocks[1][3][i].Y = Z.Y-2+i;
-    }
+	DataBlocks[1][2][1].X = Z.X+1;
+	DataBlocks[1][2][1].Y = Z.Y+1;
 
+	DataBlocks[1][2][2].X = Z.X;
+	DataBlocks[1][2][2].Y = Z.Y;
+		
+	DataBlocks[1][2][3].X = Z.X; 
+    DataBlocks[1][2][3].Y = Z.Y+1;
+
+	// fourth orientation
+	
+	DataBlocks[1][3][0].X = Z.X-1; 
+    DataBlocks[1][3][0].Y = Z.Y;
+
+	DataBlocks[1][3][1].X = Z.X;
+    DataBlocks[1][3][1].Y = Z.Y-1;
+
+	DataBlocks[1][3][2].X = Z.X;
+    DataBlocks[1][3][2].Y = Z.Y;
+
+	DataBlocks[1][3][3].X = Z.X-1;
+    DataBlocks[1][3][3].Y = Z.Y+1;       
+   
+	//For L shape blocks
+
+	// first orientation
+	
+	DataBlocks[2][0][0].X = Z.X; 
+    DataBlocks[2][0][0].Y = Z.Y;
+
+	DataBlocks[2][0][1].X = Z.X;
+	DataBlocks[2][0][1].Y = Z.Y-1;
+	
+	DataBlocks[2][0][2].X = Z.X;
+	DataBlocks[2][0][2].Y = Z.Y+1;
+		
+	DataBlocks[2][0][3].X = Z.X+1;
+    DataBlocks[2][0][3].Y = Z.Y+1;
+
+	// second orientation
+
+	DataBlocks[2][1][0].X = Z.X; 
+    DataBlocks[2][1][0].Y = Z.Y;
+
+	DataBlocks[2][1][1].X = Z.X-1;
+	DataBlocks[2][1][1].Y = Z.Y;
+	
+	DataBlocks[2][1][2].X = Z.X-1;
+	DataBlocks[2][1][2].Y = Z.Y+1;
+		
+	DataBlocks[2][1][3].X = Z.X+1;
+    DataBlocks[2][1][3].Y = Z.Y;
+
+	// third orientation
+	
+	DataBlocks[2][2][0].X = Z.X; 
+    DataBlocks[2][2][0].Y = Z.Y;
+	
+	DataBlocks[2][2][1].X = Z.X;
+	DataBlocks[2][2][1].Y = Z.Y-1;
+	
+	DataBlocks[2][2][2].X = Z.X;
+	DataBlocks[2][2][2].Y = Z.Y+1;
+		
+	DataBlocks[2][2][3].X = Z.X-1;
+    DataBlocks[2][2][3].Y = Z.Y-1;
+
+	// fourth orientation
+	
+	DataBlocks[2][3][0].X = Z.X; 
+    DataBlocks[2][3][0].Y = Z.Y;
+	
+	DataBlocks[2][3][1].X = Z.X-1;
+	DataBlocks[2][3][1].Y = Z.Y;
+	
+	DataBlocks[2][3][2].X = Z.X+1;
+	DataBlocks[2][3][2].Y = Z.Y;
+		
+	DataBlocks[2][3][3].X = Z.X+1;
+    DataBlocks[2][3][3].Y = Z.Y-1;
+
+
+	//For Square shape blocks
+
+	// first orientation
+	DataBlocks[4][0][0].X = Z.X; 
+    DataBlocks[4][0][0].Y = Z.Y;
+
+	DataBlocks[4][0][1].X = Z.X+1;
+	DataBlocks[4][0][1].Y = Z.Y;
+	
+	DataBlocks[4][0][2].X = Z.X;
+	DataBlocks[4][0][2].Y = Z.Y+1;
+		
+	DataBlocks[4][0][3].X = Z.X+1;
+    DataBlocks[4][0][3].Y = Z.Y+1;
+
+	// second orientation
+	
+	DataBlocks[4][1][0].X = Z.X; 
+    DataBlocks[4][1][0].Y = Z.Y;
+
+	DataBlocks[4][1][1].X = Z.X+1;
+	DataBlocks[4][1][1].Y = Z.Y;
+	
+	DataBlocks[4][1][2].X = Z.X;
+	DataBlocks[4][1][2].Y = Z.Y+1;
+		
+	DataBlocks[4][1][3].X = Z.X+1;
+    DataBlocks[4][1][3].Y = Z.Y+1;
+
+	// third orientation
+	
+	DataBlocks[4][2][0].X = Z.X;
+    DataBlocks[4][2][0].Y = Z.Y;
+
+	DataBlocks[4][2][1].X = Z.X+1;
+	DataBlocks[4][2][1].Y = Z.Y;
+	
+	DataBlocks[4][2][2].X = Z.X;
+	DataBlocks[4][2][2].Y = Z.Y+1;
+		
+	DataBlocks[4][2][3].X = Z.X+1;
+    DataBlocks[4][2][3].Y = Z.Y+1;
+
+	// fourth orientation
+	
+	DataBlocks[4][3][0].X = Z.X; 
+    DataBlocks[4][3][0].Y = Z.Y;
+
+	DataBlocks[4][3][1].X = Z.X+1;
+	DataBlocks[4][3][1].Y = Z.Y;
+	
+	DataBlocks[4][3][2].X = Z.X;
+	DataBlocks[4][3][2].Y = Z.Y+1;
+		
+	DataBlocks[4][3][3].X = Z.X+1;
+    DataBlocks[4][3][3].Y = Z.Y+1;
 
 }
 
@@ -166,7 +316,7 @@ void print_l_blocks(int change)
         }
         break;
 
-    case 4:
+	case 4:
         for (int i = 0; i < 4; i++)
         {
             gotoXY(DataBlocks[0][3][i]);
@@ -208,6 +358,83 @@ void print_Z_blocks(int change)
         for (int i = 0; i < 4; i++)
         {
             gotoXY(DataBlocks[1][3][i]);
+            cout << shape;
+        }
+        break;
+    }
+}
+
+
+void print_L_blocks(int change)
+{
+    switch(change)
+    {
+    case 1:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[2][0][i]);
+            cout << shape;
+        }
+        break;
+
+    case 2:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[2][1][i]);
+            cout << shape;
+        }
+        break;
+
+    case 3:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[2][2][i]);
+            cout << shape;
+        }
+        break;
+
+    case 4:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[2][3][i]);
+            cout << shape;
+        }
+        break;
+    }
+}
+
+void print_Sq_blocks(int change)
+{
+    switch(change)
+    {
+    case 1:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[4][0][i]);
+            cout << shape;
+        }
+        break;
+
+    case 2:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[4][1][i]);
+            cout << shape;
+        }
+        break;
+
+    case 3:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[4][2][i]);
+            cout << shape;
+        }
+        break;
+
+    case 4:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[4][3][i]);
             cout << shape;
         }
         break;
