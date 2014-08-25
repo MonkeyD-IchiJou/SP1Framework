@@ -5,14 +5,17 @@
 void renderMenu (COORD c)
 {
     gotoXY(c);
+	colour(0xF);
     cout << ">>";
 
-    gotoXY(30, 10);
+    gotoXY(35, 10);
+	colour(0xA);
     cout << "Start Game";
 
-    gotoXY(30, 15);
+    gotoXY(35, 15);
     cout << "Option";
 
+	colour(0xE);
     gotoXY(58, 25);
     cout << "*Up/Down to select";
 

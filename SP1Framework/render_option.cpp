@@ -4,22 +4,33 @@
 
 void renderOption (COORD c)
 {
-	gotoXY(18, 2);  
-	cout << " *****  " << "******" << " *******" << " *******" << "  ***** " << " **    *" << endl;
-	gotoXY(18, 3);
-	cout << "*     * " << "*    *" << "    *   " << "    *   " << " *     *" << " * *   *" << endl;
-	gotoXY(18, 4);
-	cout << "*     * " << "******" << "    *   " << "    *   " << " *     *" << " *  *  *" << endl;
-	gotoXY(18, 5);
-	cout << "*     * " << "*     " << "    *   " << "    *   " << " *     *" << " *   * *" << endl;
-	gotoXY(18, 6);
-	cout << " *****  " << "*     " << "    *   " << " *******" << "  ***** " << " *    **" << endl;
 	gotoXY(c);
+	colour(0xF);
 	cout << ">>";
 
-	gotoXY(35, 9);
+	colour(0xE);
+	gotoXY(19, 2);  
+	cout << " *****  " << "******" << " *******" << " *******" << "  ***** " << " **    *" << endl;
+	gotoXY(19, 3);
+	cout << "*     * " << "*    *" << "    *   " << "    *   " << " *     *" << " * *   *" << endl;
+	gotoXY(19, 4);
+	cout << "*     * " << "******" << "    *   " << "    *   " << " *     *" << " *  *  *" << endl;
+	gotoXY(19, 5);
+	cout << "*     * " << "*     " << "    *   " << "    *   " << " *     *" << " *   * *" << endl;
+	gotoXY(19, 6);
+	cout << " *****  " << "*     " << "    *   " << " *******" << "  ***** " << " *    **" << endl;
+
+	colour(0xB);
+	gotoXY(35, 10);
 	cout << "Change colour";
 
-	gotoXY(35, 14);
+	gotoXY(35, 15);
 	cout << "Return to Main Menu";
+
+	colour(0xE);
+	gotoXY(58, 25);
+    cout << "*Up/Down to select";
+
+    gotoXY(58, 27);
+    cout << "*Enter key to confirm";
 }

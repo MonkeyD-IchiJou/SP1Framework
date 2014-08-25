@@ -61,6 +61,9 @@ void renderMenu(COORD c);
 // in render_start_screen.cpp
 void renderStartScreen(COORD c);
 
+// in render_option.cpp
+void renderOption(COORD c);
+
 // in render_gameplay.cpp
 void printTetrisMap(COORD c);
 void DrawMap(COORD c);

@@ -48,7 +48,7 @@ void init()
     consoleSize.Y = csbi.srWindow.Bottom + 1;
     
     // default location.
-    screen.MmLocation.X = 27;       //for main menu
+    screen.MmLocation.X = 32;       //for main menu
     screen.MmLocation.Y = 10;
 
     screen.TmLocation.X = 26;       //for tetris map
@@ -126,9 +126,13 @@ void update(double dt)
 
         if (keyPressed[K_ENTER] && screen.MmLocation.Y == 15)
         {
-            stage = START_SCREEN;
+            stage = OPTION_SCREEN;
         }
 
+		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
+		{
+			g_quitGame = true;
+		}
         break;
 
     case GAMEPLAY_SCREEN: // For gameplay screen
@@ -245,8 +249,8 @@ void update(double dt)
             blocks.l_shape.X = 32;
             blocks.l_shape.Y = 5;
         }*/
-
 		break;
+<<<<<<< 29ab9069511e8d70df6eec590f86fcf3dd63ca36
 
 	/*case PAUSE_SCREEN:
 
@@ -274,6 +278,30 @@ void update(double dt)
 
         break;*/
 
+=======
+		// for options
+		case OPTION_SCREEN:
+			if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
+			{
+				Beep(1440, 30);
+				screen.MmLocation.Y -= 5; 
+			}
+
+			if (keyPressed[K_DOWN] && screen.MmLocation.Y < 15)
+			{
+				Beep(1440, 30);
+				screen.MmLocation.Y += 5; 
+			}
+
+			if (keyPressed[K_ENTER] && screen.MmLocation.Y == 10)
+			{
+				stage = GAMEPLAY_SCREEN;
+			}
+			if (keyPressed[K_ENTER] && screen.MmLocation.Y == 15)
+			{
+				stage = MENU_SCREEN;
+			}
+>>>>>>> 419eecba780bd8a6dde3fb5119a0262ff40502bd
     }
 }
 
@@ -300,6 +328,7 @@ void render()
         //DrawMap(screen.TmLocation);
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape);
 
+<<<<<<< 29ab9069511e8d70df6eec590f86fcf3dd63ca36
         //print_l_blocks(switchornot);
         //print_Z_blocks(switchornot1);
 		//print_L_blocks(switchornot2);
@@ -308,6 +337,14 @@ void render()
         break;
 
 
+=======
+        print_l_blocks(switchornot);
+        print_Z_blocks(switchornot1);
+        break;
+	case OPTION_SCREEN:
+		renderOption(screen.MmLocation);
+		break;
+>>>>>>> 419eecba780bd8a6dde3fb5119a0262ff40502bd
     }
 
     //render the game
@@ -325,6 +362,7 @@ void render()
 
 void FPSInfo()
 {
+	colour(0xD);
     gotoXY(71, 0);
     colour(0xC);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
@@ -332,6 +370,7 @@ void FPSInfo()
 
 void TIMINGInfo()
 {
+	colour(0xC);
     gotoXY(0, 0);
     colour(0x2);
     std::cout << elapsedTime << "secs" << std::endl;
