@@ -19,6 +19,13 @@ gameState stage;
 int x, y;
 int speed;
 
+int defaultX = 32;
+int defaultY = 3;
+
+int switchornot = 1;
+int switchornot1 = 1;
+int switchornot2 = 1;
+
 void init()
 {
     // Set precision for floating point output
@@ -44,18 +51,22 @@ void init()
     screen.MmLocation.Y = 10;
 
     screen.TmLocation.X = 26;       //for tetris map
-    screen.TmLocation.Y = 5;
+    screen.TmLocation.Y = 3;
 
-    blocks.Sq_shape.X = 36;         //for square blocks
-    blocks.Sq_shape.Y = 5;          
+    screen.BdLocation.X = 25;       //for border
+    screen.BdLocation.Y = 2;
 
-    blocks.L_shape.X = 36;          //for L-shape
-    blocks.L_shape.Y = 5;
+    blocks.Sq_shape.X = defaultX;         //for square blocks
+    blocks.Sq_shape.Y = defaultY;          
 
-    blocks.Z_shape.X = 36;          //for N-blocks
-    blocks.Z_shape.Y = 5;
+    blocks.L_shape.X = defaultX;          //for L-shape
+    blocks.L_shape.Y = defaultY+10;
 
-    
+    blocks.Z_shape.X = defaultX;          //for N-blocks
+    blocks.Z_shape.Y = defaultY+5;
+
+    blocks.l_shape.X = defaultX;          //for l-shape
+    blocks.l_shape.Y = defaultY;
 
     elapsedTime = 0.0;
 }
@@ -122,55 +133,122 @@ void update(double dt)
     case GAMEPLAY_SCREEN: // For gameplay screen
         
         speed = static_cast<int>(elapsedTime*10);
-
+        /*
         if (speed % 5  == 0)
         {
-            blocks.Sq_shape.Y++;
-        }
+            blocks.l_shape.Y++;
+        }*/
 
         // Updating Gameplay screen by pressing buttons
-        if (keyPressed[K_UP] && blocks.Sq_shape.Y > 0) // Rotation button
+
+        // for long shape
+        if (keyPressed[K_UP] && blocks.l_shape.Y > 0) // Rotation button
         {
             Beep(1440, 30);
+            switchornot++;
+
+            if (switchornot == 5)
+            {
+                switchornot = 1;
+            }
         }
 
-        if (keyPressed[K_LEFT] && blocks.Sq_shape.X > 0)
+        if (keyPressed[K_LEFT] && blocks.l_shape.X > screen.TmLocation.X)
         {
             Beep(1440, 30);
-            blocks.Sq_shape.X-=2;
+            blocks.l_shape.X--;
         }
         
-        if (keyPressed[K_DOWN] && blocks.Sq_shape.Y < consoleSize.Y - 1)
+        if (keyPressed[K_DOWN] && blocks.l_shape.Y < consoleSize.Y - 1)
         {
             Beep(1440, 30);
-            blocks.Sq_shape.Y+=2; 
+            blocks.l_shape.Y++; 
         }
 
-        if (keyPressed[K_RIGHT] && blocks.Sq_shape.X < consoleSize.X - 1)
+        if (keyPressed[K_RIGHT] && blocks.l_shape.X < screen.TmLocation.X + 12)
         {
             Beep(1440, 30);
-            blocks.Sq_shape.X+=2;
+            blocks.l_shape.X++;
+        }
+
+        
+        // for z-shape
+        if (keyPressed[K_UP] && blocks.Z_shape.Y > 0) // Rotation button
+        {
+<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
+            stage = PAUSE_SCREEN;
+=======
+            Beep(1440, 30);
+            switchornot1++;
+
+            if (switchornot1 == 5)
+            {
+                switchornot1 = 1;
+            }
+        }
+
+        if (keyPressed[K_LEFT] && blocks.Z_shape.X > screen.TmLocation.X)
+        {
+            Beep(1440, 30);
+            blocks.Z_shape.X--;
+>>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
+        }
+        
+        if (keyPressed[K_DOWN] && blocks.Z_shape.Y < consoleSize.Y - 1)
+        {
+            Beep(1440, 30);
+            blocks.Z_shape.Y++; 
+        }
+
+        if (keyPressed[K_RIGHT] && blocks.Z_shape.X < screen.TmLocation.X + 12)
+        {
+            Beep(1440, 30);
+            blocks.Z_shape.X++;
+        }
+
+        // for L-shape
+        if (keyPressed[K_UP] && blocks.L_shape.Y > 0) // Rotation button
+        {
+            Beep(1440, 30);
+            switchornot2++;
+
+            if (switchornot2 == 5)
+            {
+                switchornot2 = 1;
+            }
+        }
+
+        if (keyPressed[K_LEFT] && blocks.L_shape.X > screen.TmLocation.X)
+        {
+            Beep(1440, 30);
+            blocks.L_shape.X--;
+        }
+        
+        if (keyPressed[K_DOWN] && blocks.L_shape.Y < consoleSize.Y - 1)
+        {
+            Beep(1440, 30);
+            blocks.L_shape.Y++; 
+        }
+
+        if (keyPressed[K_RIGHT] && blocks.L_shape.X < screen.TmLocation.X + 12)
+        {
+            Beep(1440, 30);
+            blocks.L_shape.X++;
         }
 
         // quits the game if player hits the escape key
+
         if (keyPressed[K_ESCAPE])
         {
-            stage = PAUSE_SCREEN;
+            g_quitGame = true;
         }
-        
-        if (blocks.Sq_shape.Y > 22)
+        /*
+        if (blocks.l_shape.Y > 22)
         {
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    map[8+i][8+j] = Sq[i][j];
-                }
-            }
-            
-            blocks.Sq_shape.X = 36;
-            blocks.Sq_shape.Y = 5;
-        }
+            blocks.l_shape.X = 32;
+            blocks.l_shape.Y = 5;
+        }*/
+
 		break;
 
 	case PAUSE_SCREEN:
@@ -221,9 +299,13 @@ void render()
         break;
 
     case GAMEPLAY_SCREEN: 
-        DrawMap(screen.TmLocation);
-        //DrawArray(screen.TmLocation);
-        sqBlocks(blocks.Sq_shape);
+        //DrawBorder(screen.BdLocation);
+        //DrawMap(screen.TmLocation);
+        initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape);
+
+        print_l_blocks(switchornot);
+        print_Z_blocks(switchornot1);
+
         break;
 
 	case PAUSE_SCREEN:
@@ -238,6 +320,7 @@ void render()
 	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	                        };
     // render time taken to calculate this frame
+
     FPSInfo();
     TIMINGInfo();
 }
@@ -254,9 +337,4 @@ void TIMINGInfo()
     gotoXY(0, 0);
     colour(0x2);
     std::cout << elapsedTime << "secs" << std::endl;
-}
-
-void Map()
-{
-
 }

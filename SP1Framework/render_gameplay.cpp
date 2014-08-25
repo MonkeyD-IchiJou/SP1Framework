@@ -2,157 +2,240 @@
 #include "tetris.h"
 #include "Framework\console.h"
 
+const char cornerA = (char)201; //╔
+const char cornerB = (char)187; //╗
+const char cornerC = (char)200; //╚
+const char cornerD = (char)188; //╝
+const char borderUP = (char)205; //═
+const char borderSide = (char)186; //↕
 
-char map[22][20] = {"A=================B",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "# 0 0 0 0 0 0 0 0 #",
-                    "C=================D",};
+const char shape = 'o';
 
-char Sq[4][8] = {"0 0 0 0",
-                 "0 222 0",
-                 "0 111 0",
-                 "0 0 0 0",};
+Blocks storedata;
+COORD DataBlocks[blocksType][orientation][coordinates];
 
+char map[height][width] = { "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000",
+                            "0000000000"};
 
-void DrawArray(COORD c)
-{
-     for(int i =0; i < 22; i++)
-     {
-        gotoXY(c.X, c.Y+i);
-        for(int j = 0; j < 20; j++)
-        {
-            cout << map[i][j];
-        }
-        cout << endl;
-     }
-}
+char border[borderheight][borderwidth];
+
 
 void DrawMap(COORD c)
 {
-    colour(0xF);
-    for(int i = 0; i < 22; i++)
+    for(int i = 0; i < height; i++)
     {
         gotoXY(c.X, c.Y+i);
-        for(int j = 0; j < 20; j++)
+        for(int j = 0; j < width; j++)
         {
+            switch(map[i][j])
+            {
+                case '0':
+                    cout << '.';
+                    break;
+            }
+        }
+
+        cout << endl;
+    }
+}
+
+void DrawBorder(COORD c)
+{
+<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
+    colour(0xF);
+    for(int i = 0; i < 22; i++)
+=======
+    for(int i = 0; i < borderheight; i++)
+>>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
+    {
+        gotoXY(c.X, c.Y+i);
+        for(int j = 0; j < borderwidth; j++)
+        {
+<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
             
             switch(map[i][j])
             {
                 case '=':
                     cout << (char)205; //═
                     break;
+=======
+            border[0][j] = borderUP;
+            border[22][j] = borderUP;
+>>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
 
-                case '#':
-                    cout << (char)186; //↕
-                    break;
+            border[i][0] = borderSide; 
+            border[i][12] = borderSide;
 
-                case ' ':
-                    cout << ' ';
-                    break;
+            border[0][0] = cornerA;
+            border[0][12] = cornerB;
+            border[22][0] = cornerC;
+            border[22][12] = cornerD;
 
-                case '0':
-                    cout << '.';
-                    break;
-
-                case 'A':
-                    cout << (char)201; //╔
-                    break;
-
-                case 'B':
-                    cout << (char)187; //╗
-                    break;
-
-                case 'C':
-                    cout << (char)200; //╚
-                    break;
-
-                case 'D':
-                    cout << (char)188; //╝
-                    break;
-
-                case '1':
-                    cout << (char)219;
-                    break;
-
-                case '2':
-                    cout << (char)220;
-                    break;
-            }
+            cout << border[i][j];
         }
 
         cout << endl;
     }
 }
 
-void sqBlocks(COORD c)
+void initiate(COORD l, COORD Z, COORD L)
 {
+    // for long shape blocks
+    for (int i = 0; i < 4; i++)                 // first orientation
+    {
+        DataBlocks[0][0][i].X = l.X-1+i; 
+        DataBlocks[0][0][i].Y = l.Y;
+    }
+    
+    for (int i = 0; i < 4; i++)                // second orientation
+    {
+        DataBlocks[0][1][i].X = l.X; 
+        DataBlocks[0][1][i].Y = l.Y-1+i;
+    }
+
+    for (int i = 0; i < 4; i++)               // third orientation
+    {
+        DataBlocks[0][2][i].X = l.X-2+i; 
+        DataBlocks[0][2][i].Y = l.Y;
+    }
+
+    for (int i = 0; i < 4; i++)             // fourth orientation
+    {
+        DataBlocks[0][3][i].X = l.X; 
+        DataBlocks[0][3][i].Y = l.Y-2+i;
+    }
+
+    // for Z shape blocks
+    for (int i = 0; i < 4; i++)                 // first orientation
+    {
+        DataBlocks[1][0][i].X = Z.X-1+i; 
+        DataBlocks[1][0][i].Y = Z.Y-i;
+    }
+    
+    for (int i = 0; i < 4; i++)                // second orientation
+    {
+        DataBlocks[1][1][i].X = Z.X; 
+        DataBlocks[1][1][i].Y = Z.Y-1+i;
+    }
+
+    for (int i = 0; i < 4; i++)               // third orientation
+    {
+        DataBlocks[1][2][i].X = Z.X-2+i; 
+        DataBlocks[1][2][i].Y = Z.Y;
+    }
+
+    for (int i = 0; i < 4; i++)             // fourth orientation
+    {
+        DataBlocks[1][3][i].X = Z.X; 
+        DataBlocks[1][3][i].Y = Z.Y-2+i;
+    }
+
+
+}
+
+void print_l_blocks(int change)
+{
+<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
     
         colour(0xE);
     for(int i = 0; i < 4; i++)
+=======
+    switch(change)
+>>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
     {
-        gotoXY(c.X,c.Y++);
-        for(int j = 0; j < 6; j++)
+    case 1:
+        for (int i = 0; i < 4; i++)
         {
-            switch(Sq[i][j])
-            {
-            case ' ':
-                cout << ' ';
-                break;
-            case '1':
-                cout << (char)219;
-                break;
-            case '2':
-                cout << (char)220;
-                break;
-            case '0':
-                cout << '.'; //═
-                break;
-            }
+            gotoXY(DataBlocks[0][0][i]);
+            cout << shape;
         }
+        break;
+
+    case 2:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[0][1][i]);
+            cout << shape;
+        }
+        break;
+
+    case 3:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[0][2][i]);
+            cout << shape;
+        }
+        break;
+
+    case 4:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[0][3][i]);
+            cout << shape;
+        }
+        break;
     }
 }
 
-void sqBlocks()
+void print_Z_blocks(int change)
 {
+<<<<<<< f64eb5a5d5352954ac1b8203c61f771e5459eaf0
     
     for(int i = 0; i < 4; i++)
+=======
+    switch(change)
+>>>>>>> 7afc92211722e54167ffb698e4488cfedb9389ed
     {
-        for(int j = 0; j < 6; j++)
+    case 1:
+        for (int i = 0; i < 4; i++)
         {
-            switch(Sq[i][j])
-            {
-            case ' ':
-                cout << ' ';
-                break;
-            case '1':
-                cout << (char)219;
-                break;
-            case '2':
-                cout << (char)220;
-                break;
-            case '0':
-                cout << '.'; //═
-                break;
-            }
+            gotoXY(DataBlocks[1][0][i]);
+            cout << shape;
         }
+        break;
+
+    case 2:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[1][1][i]);
+            cout << shape;
+        }
+        break;
+
+    case 3:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[1][2][i]);
+            cout << shape;
+        }
+        break;
+
+    case 4:
+        for (int i = 0; i < 4; i++)
+        {
+            gotoXY(DataBlocks[1][3][i]);
+            cout << shape;
+        }
+        break;
     }
 }
 
