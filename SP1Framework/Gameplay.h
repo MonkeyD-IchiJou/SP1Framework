@@ -19,6 +19,8 @@ extern char map[height][width];
 
 extern COORD DataBlocks[blocksType][orientation][coordinates];
 
+extern COORD DataMap[height][width];
+
 struct Blocks
 {
     COORD Sq_shape;     // square blocks coordinate
@@ -40,12 +42,12 @@ enum BlocksType
 };
 
 // in render_gameplay.cpp
-void printTetrisMap(COORD c);
-void DrawMap(COORD c);
 void DrawBorder(COORD c);
 
 void initiate(COORD l, COORD Z, COORD L, COORD S, COORD T);
-
 void printBlocks(int type, int change);
+
+void DrawMap(COORD c);
+void initiateMap(COORD c);
 
 #endif // _GAMEPLAY_H
