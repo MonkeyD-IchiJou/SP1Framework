@@ -249,6 +249,7 @@ void render()
     {
     case START_SCREEN: 
         // render Start screen
+		lukris();
         renderStartScreen(screen.MmLocation); 
         break;
 
@@ -622,4 +623,20 @@ void tshapeUpdate()
         blocks.T_shape.Y = defaultY + T_shapedefaultY;
         T_downward = 0;
     }
+}
+
+void lukris()
+{
+	ifstream inlukris;
+	string hi;
+
+	inlukris.open ("Bg.txt");
+
+	while (!inlukris.eof())
+	{
+		getline (inlukris,hi);
+		cout << hi << endl;
+	}
+
+	inlukris.close();
 }
