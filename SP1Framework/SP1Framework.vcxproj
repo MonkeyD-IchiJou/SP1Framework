@@ -75,7 +75,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\render_pause.cpp" />
     <ClCompile Include="8bit_music.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
@@ -84,6 +83,7 @@
     <ClCompile Include="render_gameplay.cpp" />
     <ClCompile Include="render_menu.cpp" />
     <ClCompile Include="render_option.cpp" />
+    <ClCompile Include="render_pause.cpp" />
     <ClCompile Include="render_score.cpp" />
     <ClCompile Include="render_start_screen.cpp" />
   </ItemGroup>
