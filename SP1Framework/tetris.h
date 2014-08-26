@@ -12,10 +12,32 @@ using std::cin;
 using std::endl;
 using std::vector;
 
+<<<<<<< df3499aed3ef5acdc18698a8e7822a8b299e5012
 using std::ifstream;
 using std::string;
 using std::ofstream;
 
+=======
+<<<<<<< 4d739baf4fdcbc784e85ece17999c0cf888d3e2d
+=======
+const size_t height = 23;
+const size_t width = 11;
+
+const size_t borderheight = 23;
+const size_t borderwidth = 13; 
+
+const size_t blocksSize = 5;
+
+const size_t blocksType = 7;
+const size_t orientation = 4;
+const size_t coordinates = 4;
+
+extern char map[height][width];
+
+extern COORD DataBlocks[blocksType][orientation][coordinates];
+
+>>>>>>> ad1f56cefa7a3e4e297c5029bf12a6655a0b3fa6
+>>>>>>> 23d1d089ca1ef97f578db29e71ad87291aa8219f
 struct Location
 {
     COORD MmLocation;   // main menu screen

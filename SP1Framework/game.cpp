@@ -301,13 +301,30 @@ void render()
     case GAMEPLAY_SCREEN: 
         //DrawBorder(screen.BdLocation);
         DrawMap(screen.TmLocation);
+<<<<<<< 4d739baf4fdcbc784e85ece17999c0cf888d3e2d
         initiateMap(screen.TmLocation);
 
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
         printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
+<<<<<<< d7d7cad63f56c04b595d110c2bf4b8f3ab4c53b5
         cout << l_downward;
         /*
         
+=======
+
+<<<<<<< dc7697da909308dcf6bdc39ac6ad8b7de8666707
+        cout << l_downward;
+        /*
+=======
+=======
+
+        //initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
+        //printBlocks(Z_TYPE, rotate[Z_TYPE]);
+        break;
+>>>>>>> ad1f56cefa7a3e4e297c5029bf12a6655a0b3fa6
+
+>>>>>>> 3b8789543283a2a434ba3ceaccf0ded517abdd3a
+>>>>>>> 411485f24a12f32c8b34f42bfae92770d6d758c9
         switch(randomisation)
         {
         case 0:
