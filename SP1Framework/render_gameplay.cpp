@@ -38,7 +38,6 @@ char map[height][width] = { "0000000000",
 
 char border[borderheight][borderwidth];
 
-
 void DrawMap(COORD c)
 {
     for(int i = 0; i < height; i++)
@@ -88,7 +87,7 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     // for long shape blocks
     for (int i = 0; i < 4; i++)                 // first orientation
     {
-        DataBlocks[0][0][i].X = l.X-1+i; 
+        DataBlocks[LONG_TYPE][0][i].X = l.X-1+i; 
         DataBlocks[0][0][i].Y = l.Y;
     }
     
@@ -112,9 +111,7 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
     // for Z shape blocks
 
-	 // first orientation
-
-	DataBlocks[1][0][0].X = Z.X-1;
+	DataBlocks[Z_TYPE][0][0].X = Z.X-1;          // first orientation
     DataBlocks[1][0][0].Y = Z.Y;
 
 	DataBlocks[1][0][1].X = Z.X+1;
@@ -126,10 +123,7 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 	DataBlocks[1][0][3].X = Z.X;
     DataBlocks[1][0][3].Y = Z.Y+1;
 
-	
-	// second orientation
-              
-	DataBlocks[1][1][0].X = Z.X-1; 
+	DataBlocks[1][1][0].X = Z.X-1;          // second orientation
     DataBlocks[1][1][0].Y = Z.Y;
 
 	DataBlocks[1][1][1].X = Z.X;
@@ -140,11 +134,8 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
 	DataBlocks[1][1][3].X = Z.X-1;
     DataBlocks[1][1][3].Y = Z.Y+1;
-    
-    
-     // third orientation
 
-	DataBlocks[1][2][0].X = Z.X-1;
+	DataBlocks[1][2][0].X = Z.X-1;          // third orientation
     DataBlocks[1][2][0].Y = Z.Y;
 
 	DataBlocks[1][2][1].X = Z.X+1;
@@ -156,9 +147,7 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 	DataBlocks[1][2][3].X = Z.X; 
     DataBlocks[1][2][3].Y = Z.Y+1;
 
-	// fourth orientation
-	
-	DataBlocks[1][3][0].X = Z.X-1; 
+	DataBlocks[1][3][0].X = Z.X-1;          // fourth orientation
     DataBlocks[1][3][0].Y = Z.Y;
 
 	DataBlocks[1][3][1].X = Z.X;
@@ -172,9 +161,7 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
    
 	//For L shape blocks
 
-	// first orientation
-	
-	DataBlocks[2][0][0].X = L.X; 
+	DataBlocks[L_TYPE][0][0].X = L.X;        // first orientation
     DataBlocks[2][0][0].Y = L.Y;
 
 	DataBlocks[2][0][1].X = L.X;
@@ -186,9 +173,7 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 	DataBlocks[2][0][3].X = L.X+1;
     DataBlocks[2][0][3].Y = L.Y+1;
 
-	// second orientation
-
-	DataBlocks[2][1][0].X = L.X; 
+	DataBlocks[2][1][0].X = L.X;        // second orientation
     DataBlocks[2][1][0].Y = L.Y;
 
 	DataBlocks[2][1][1].X = L.X-1;
@@ -199,10 +184,8 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 		
 	DataBlocks[2][1][3].X = L.X+1;
     DataBlocks[2][1][3].Y = L.Y;
-
-	// third orientation
-	
-	DataBlocks[2][2][0].X = L.X; 
+    
+    DataBlocks[2][2][0].X = L.X;        // third orientation
     DataBlocks[2][2][0].Y = L.Y;
 	
 	DataBlocks[2][2][1].X = L.X;
@@ -213,10 +196,8 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 		
 	DataBlocks[2][2][3].X = L.X-1;
     DataBlocks[2][2][3].Y = L.Y-1;
-
-	// fourth orientation
 	
-	DataBlocks[2][3][0].X = L.X; 
+	DataBlocks[2][3][0].X = L.X;        // fourth orientation
     DataBlocks[2][3][0].Y = L.Y;
 	
 	DataBlocks[2][3][1].X = L.X-1;
@@ -228,101 +209,93 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 	DataBlocks[2][3][3].X = L.X+1;
     DataBlocks[2][3][3].Y = L.Y-1;
 
-
 	//For Square shape blocks
 
-	// first orientation
-	DataBlocks[4][0][0].X = S.X; 
-    DataBlocks[4][0][0].Y = S.Y;
+	DataBlocks[Sq_TYPE][0][0].X = S.X;        // first orientation
+    DataBlocks[Sq_TYPE][0][0].Y = S.Y;
 
-	DataBlocks[4][0][1].X = S.X+1;
-	DataBlocks[4][0][1].Y = S.Y;
+	DataBlocks[Sq_TYPE][0][1].X = S.X+1;
+	DataBlocks[Sq_TYPE][0][1].Y = S.Y;
 	
-	DataBlocks[4][0][2].X = S.X;
-	DataBlocks[4][0][2].Y = S.Y+1;
+	DataBlocks[Sq_TYPE][0][2].X = S.X;
+	DataBlocks[Sq_TYPE][0][2].Y = S.Y+1;
 		
-	DataBlocks[4][0][3].X = S.X+1;
-    DataBlocks[4][0][3].Y = S.Y+1;
-
-	// second orientation
+	DataBlocks[Sq_TYPE][0][3].X = S.X+1;
+    DataBlocks[Sq_TYPE][0][3].Y = S.Y+1;
 	
-	DataBlocks[4][1][0].X = S.X; 
-    DataBlocks[4][1][0].Y = S.Y;
+	DataBlocks[Sq_TYPE][1][0].X = S.X;        // second orientation
+    DataBlocks[Sq_TYPE][1][0].Y = S.Y;
 
-	DataBlocks[4][1][1].X = S.X+1;
-	DataBlocks[4][1][1].Y = S.Y;
+	DataBlocks[Sq_TYPE][1][1].X = S.X+1;
+	DataBlocks[Sq_TYPE][1][1].Y = S.Y;
 	
-	DataBlocks[4][1][2].X = S.X;
-	DataBlocks[4][1][2].Y = S.Y+1;
+	DataBlocks[Sq_TYPE][1][2].X = S.X;
+	DataBlocks[Sq_TYPE][1][2].Y = S.Y+1;
 		
-	DataBlocks[4][1][3].X = S.X+1;
-    DataBlocks[4][1][3].Y = S.Y+1;
-
-	// third orientation
+	DataBlocks[Sq_TYPE][1][3].X = S.X+1;
+    DataBlocks[Sq_TYPE][1][3].Y = S.Y+1;
 	
-	DataBlocks[4][2][0].X = S.X;
-    DataBlocks[4][2][0].Y = S.Y;
+	DataBlocks[Sq_TYPE][2][0].X = S.X;        // third orientation
+    DataBlocks[Sq_TYPE][2][0].Y = S.Y;
 
-	DataBlocks[4][2][1].X = S.X+1;
-	DataBlocks[4][2][1].Y = S.Y;
+	DataBlocks[Sq_TYPE][2][1].X = S.X+1;
+	DataBlocks[Sq_TYPE][2][1].Y = S.Y;
 	
-	DataBlocks[4][2][2].X = S.X;
-	DataBlocks[4][2][2].Y = S.Y+1;
+	DataBlocks[Sq_TYPE][2][2].X = S.X;
+	DataBlocks[Sq_TYPE][2][2].Y = S.Y+1;
 		
-	DataBlocks[4][2][3].X = S.X+1;
-    DataBlocks[4][2][3].Y = S.Y+1;
+	DataBlocks[Sq_TYPE][2][3].X = S.X+1;
+    DataBlocks[Sq_TYPE][2][3].Y = S.Y+1;
 
-	// fourth orientation
-	
-	DataBlocks[4][3][0].X = S.X; 
-    DataBlocks[4][3][0].Y = S.Y;
+	DataBlocks[Sq_TYPE][3][0].X = S.X;        // fourth orientation
+    DataBlocks[Sq_TYPE][3][0].Y = S.Y;
 
-	DataBlocks[4][3][1].X = S.X+1;
-	DataBlocks[4][3][1].Y = S.Y;
+	DataBlocks[Sq_TYPE][3][1].X = S.X+1;
+	DataBlocks[Sq_TYPE][3][1].Y = S.Y;
 	
-	DataBlocks[4][3][2].X = S.X;
-	DataBlocks[4][3][2].Y = S.Y+1;
+	DataBlocks[Sq_TYPE][3][2].X = S.X;
+	DataBlocks[Sq_TYPE][3][2].Y = S.Y+1;
 		
-	DataBlocks[4][3][3].X = S.X+1;
-    DataBlocks[4][3][3].Y = S.Y+1;
+	DataBlocks[Sq_TYPE][3][3].X = S.X+1;
+    DataBlocks[Sq_TYPE][3][3].Y = S.Y+1;
 
-    // for T blocks
+    //For T blocks
 
-    DataBlocks[5][0][0].X = T.X;                // first orientation
-    DataBlocks[5][0][0].Y = T.Y-1;
+    DataBlocks[T_TYPE][0][0].X = T.X;               // first orientation
+    DataBlocks[T_TYPE][0][0].Y = T.Y-1;
 
     for (int i = 1; i < 4; i++)
     {
-        DataBlocks[5][0][i].X = T.X+i-2;                
-        DataBlocks[5][0][i].Y = T.Y;
+        DataBlocks[T_TYPE][0][i].X = T.X+i-2;                
+        DataBlocks[T_TYPE][0][i].Y = T.Y;
     }
     
-    DataBlocks[5][1][0].X = T.X+1;                // second orientation
-    DataBlocks[5][1][0].Y = T.Y;
+    DataBlocks[T_TYPE][1][0].X = T.X+1;            // second orientation
+    DataBlocks[T_TYPE][1][0].Y = T.Y;
 
     for (int i = 1; i < 4; i++)
     {
-        DataBlocks[5][1][i].X = T.X;                
-        DataBlocks[5][1][i].Y = T.Y+i-2;
+        DataBlocks[T_TYPE][1][i].X = T.X;                
+        DataBlocks[T_TYPE][1][i].Y = T.Y+i-2;
     }
 
-    DataBlocks[5][2][0].X = T.X;              // third orientation
-    DataBlocks[5][2][0].Y = T.Y+1;
+    DataBlocks[T_TYPE][2][0].X = T.X;              // third orientation
+    DataBlocks[T_TYPE][2][0].Y = T.Y+1;
 
     for (int i = 1; i < 4; i++)
     {
-        DataBlocks[5][2][i].X = T.X+i-2;                
-        DataBlocks[5][2][i].Y = T.Y;
+        DataBlocks[T_TYPE][2][i].X = T.X+i-2;                
+        DataBlocks[T_TYPE][2][i].Y = T.Y;
     }
     
 
-    DataBlocks[5][3][0].X = T.X-1;                // forth orientation
-    DataBlocks[5][3][0].Y = T.Y;
+    DataBlocks[T_TYPE][3][0].X = T.X-1;                // forth orientation
+    DataBlocks[T_TYPE][3][0].Y = T.Y;
 
     for (int i = 1; i < 4; i++)
     {
-        DataBlocks[5][3][i].X = T.X;                
-        DataBlocks[5][3][i].Y = T.Y+i-2;
+        DataBlocks[T_TYPE][3][i].X = T.X;                
+        DataBlocks[T_TYPE][3][i].Y = T.Y+i-2;
     }
 
 }

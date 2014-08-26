@@ -163,11 +163,11 @@ void update(double dt)
         if (keyPressed[K_UP] && blocks.l_shape.Y > 0) // Rotation button
         {
             Beep(1440, 30);
-            rotate[0]++;
+            rotate[LONG_TYPE]++;
 
-            if (rotate[0] == 5)
+            if (rotate[LONG_TYPE] == 5)
             {
-                rotate[0] = 1;
+                rotate[LONG_TYPE] = 1;
             }
         }
 
@@ -188,28 +188,20 @@ void update(double dt)
             Beep(1440, 30);
             blocks.l_shape.X++;
         }
-
-		if(keyPressed[K_SPACE])
-		{
-			stage = PAUSE_SCREEN;
-		}
-
         
         // for z-shape
         if (keyPressed[K_UP] && blocks.Z_shape.Y > 0) // Rotation button
         {
-            Beep(1440, 30);
-            rotate[1]++;
+            rotate[Z_TYPE]++;
 
-            if (rotate[1]== 5)
+            if (rotate[Z_TYPE]== 5)
             {
-                rotate[1] = 1;
+                rotate[Z_TYPE] = 1;
             }
         }
 
         if (keyPressed[K_LEFT] && blocks.Z_shape.X > screen.TmLocation.X)
         {
-            Beep(1440, 30);
             blocks.Z_shape.X--;
         }
         
@@ -221,97 +213,84 @@ void update(double dt)
 
         if (keyPressed[K_RIGHT] && blocks.Z_shape.X < screen.TmLocation.X + 12)
         {
-            Beep(1440, 30);
             blocks.Z_shape.X++;
         }
 
         // for L-shape
         if (keyPressed[K_UP] && blocks.L_shape.Y > 0) // Rotation button
         {
-            Beep(1440, 30);
-            rotate[2]++;
+            rotate[L_TYPE]++;
 
-            if (rotate[2] == 5)
+            if (rotate[L_TYPE] == 5)
             {
-                rotate[2] = 1;
+                rotate[L_TYPE] = 1;
             }
         }
 
         if (keyPressed[K_LEFT] && blocks.L_shape.X > screen.TmLocation.X)
         {
-            Beep(1440, 30);
             blocks.L_shape.X--;
         }
         
         if (keyPressed[K_DOWN] && blocks.L_shape.Y < consoleSize.Y - 1)
         {
-            Beep(1440, 30);
             blocks.L_shape.Y++; 
         }
 
         if (keyPressed[K_RIGHT] && blocks.L_shape.X < screen.TmLocation.X + 12)
         {
-            Beep(1440, 30);
             blocks.L_shape.X++;
         }
 
         // For square-shape
         if (keyPressed[K_UP] && blocks.Sq_shape.Y > 0) // Rotation button
         {
-            Beep(1440, 30);
-            rotate[3]++;
+            rotate[Sq_TYPE]++;
 
-            if (rotate[3] == 5)
+            if (rotate[Sq_TYPE] == 5)
             {
-                rotate[3] = 1;
+                rotate[Sq_TYPE] = 1;
             }
         }
 
         if (keyPressed[K_LEFT] && blocks.Sq_shape.X > screen.TmLocation.X)
         {
-            Beep(1440, 30);
             blocks.Sq_shape.X--;
         }
         
         if (keyPressed[K_DOWN] && blocks.Sq_shape.Y < consoleSize.Y - 1)
         {
-            Beep(1440, 30);
             blocks.Sq_shape.Y++; 
         }
 
         if (keyPressed[K_RIGHT] && blocks.Sq_shape.X < screen.TmLocation.X + 12)
         {
-            Beep(1440, 30);
             blocks.Sq_shape.X++;
         }
 
         // for T-shape
         if (keyPressed[K_UP] && blocks.T_shape.Y > 0) // Rotation button
         {
-            Beep(1440, 30);
             rotate[4]++;
 
-            if (rotate[4] == 5)
+            if (rotate[T_TYPE] == 5)
             {
-                rotate[4] = 1;
+                rotate[T_TYPE] = 1;
             }
         }
 
         if (keyPressed[K_LEFT] && blocks.T_shape.X > screen.TmLocation.X)
         {
-            Beep(1440, 30);
             blocks.T_shape.X--;
         }
         
         if (keyPressed[K_DOWN] && blocks.T_shape.Y < consoleSize.Y - 1)
         {
-            Beep(1440, 30);
             blocks.T_shape.Y++; 
         }
 
         if (keyPressed[K_RIGHT] && blocks.T_shape.X < screen.TmLocation.X + 12)
         {
-            Beep(1440, 30);
             blocks.T_shape.X++;
         }
 
@@ -327,6 +306,12 @@ void update(double dt)
             blocks.l_shape.X = 32;
             blocks.l_shape.Y = 5;
         }*/
+
+        if(keyPressed[K_SPACE])
+		{
+			stage = PAUSE_SCREEN;
+		}
+
 		break;
 
 	case PAUSE_SCREEN:
@@ -355,31 +340,32 @@ void update(double dt)
 
         break;
 
-		// for options
-		case OPTION_SCREEN:
-			 elapsedTime += dt;
-             deltaTime = dt;
-			if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
-			{
-				Beep(1440, 30);
-				screen.OptLocation.Y -= 5; 
-			}
+	// for options
+    case OPTION_SCREEN:
+        elapsedTime += dt;
+        deltaTime = dt;
+        if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
+	    {
+	        Beep(1440, 30);
+		    screen.OptLocation.Y -= 5; 
+        }
 
-			if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
-			{
-				Beep(1440, 30);
-				screen.OptLocation.Y += 5; 
-			}
+        if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
+	    {
+		    Beep(1440, 30);
+		    screen.OptLocation.Y += 5; 
+	    }
 
-			if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
-			{
-				stage = GAMEPLAY_SCREEN;
-			}
-			if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
-			{
-				stage = MENU_SCREEN;
-			}
-}
+	    if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
+        {
+			stage = GAMEPLAY_SCREEN;
+		}
+
+		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
+        {
+			stage = MENU_SCREEN;
+		}
+    }
 }
 
 void render()
@@ -405,7 +391,7 @@ void render()
         //DrawMap(screen.TmLocation);
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
 
-        printBlocks(L_TYPE, rotate[1]);
+        printBlocks(Z_TYPE, rotate[Z_TYPE]);
         break;
 
 	case OPTION_SCREEN:
