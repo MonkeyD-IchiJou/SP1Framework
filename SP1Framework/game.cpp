@@ -4,6 +4,7 @@
 #include "game.h"
 #include "Framework\console.h"
 #include "tetris.h"
+#include "Gameplay.h"
 
 double elapsedTime;
 double deltaTime;
@@ -19,10 +20,18 @@ gameState stage;
 int x, y;
 int speed;
 
-int defaultX = 32;
-int defaultY = 3;
+const int defaultX = 30;
+const int defaultY = 0;
 
-int rotate[7] = {1, 1, 1, 1, 1, 1, 1};
+const int Long_shapedefaultX = 4;
+const int Long_shapedefaultY = 0;
+
+int Long_right;
+int Long_left;
+
+const int down = 21;
+
+int rotate[7] = {0, 0, 0, 0, 0, 0, 0};
 
 void init()
 {
@@ -54,26 +63,26 @@ void init()
 	screen.PsLocation.X = 28;       // for pause
 	screen.PsLocation.Y = 10;  
 
-    screen.TmLocation.X = 26;       //for tetris map
-    screen.TmLocation.Y = 3;
+    screen.TmLocation.X = defaultX;       //for tetris map
+    screen.TmLocation.Y = defaultY;
 
     screen.BdLocation.X = 25;       //for border
     screen.BdLocation.Y = 2;
-
+    /*
     blocks.Sq_shape.X = defaultX;         //for square blocks
     blocks.Sq_shape.Y = defaultY+20;          
 
     blocks.L_shape.X = defaultX;          //for L-shape
-    blocks.L_shape.Y = defaultY+10;
+    blocks.L_shape.Y = defaultY;
 
     blocks.Z_shape.X = defaultX;          //for N-blocks
     blocks.Z_shape.Y = defaultY+5;
-
-    blocks.l_shape.X = defaultX;          //for l-shape
-    blocks.l_shape.Y = defaultY;
-
+    */
+    blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
+    blocks.l_shape.Y = defaultY + Long_shapedefaultY;
+    /*
     blocks.T_shape.X = defaultX;          //for T-shape
-    blocks.T_shape.Y = defaultY+15;
+    blocks.T_shape.Y = defaultY+15;*/
 
     elapsedTime = 0.0;
 }
@@ -148,47 +157,79 @@ void update(double dt)
         break;
 
     case GAMEPLAY_SCREEN: // For gameplay screen
-         elapsedTime += dt;
-         deltaTime = dt;
+        elapsedTime += dt;
+        deltaTime = dt;
         speed = static_cast<int>(elapsedTime*10);
-        /*
-        if (speed % 5  == 0)
+        
+        if (speed % 5  == 0 && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][1].Y != defaultY + down) // DataBlocks[LONG_TYPE][0][1] == blocks.l_shape.Y // second coordinate
         {
             blocks.l_shape.Y++;
-        }*/
+        }
 
         // Updating Gameplay screen by pressing buttons
 
         // for long shape
-        if (keyPressed[K_UP] && blocks.l_shape.Y > 0) // Rotation button
+        if (rotate[LONG_TYPE] == 0)
+        {
+            Long_right = 7;
+            Long_left = 1;
+        }
+
+        if (rotate[LONG_TYPE] == 1)
+        {
+            Long_right = 9;
+            Long_left = 0;
+        } 
+
+        if (rotate[LONG_TYPE] == 2)
+        {
+            Long_right = 7;
+            Long_left = 1;
+        } 
+
+        if (rotate[LONG_TYPE] == 3)
+        {
+            Long_right = 9;
+            Long_left = 0;
+        }
+
+        if (keyPressed[K_UP] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][1].Y > 0) // Rotation button
         {
             Beep(1440, 30);
             rotate[LONG_TYPE]++;
 
-            if (rotate[LONG_TYPE] == 5)
+            if (rotate[LONG_TYPE] == 4)
             {
-                rotate[LONG_TYPE] = 1;
+                rotate[LONG_TYPE] = 0;
             }
         }
 
-        if (keyPressed[K_LEFT] && blocks.l_shape.X > screen.TmLocation.X)
+        if (keyPressed[K_LEFT] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][1].X != defaultX + Long_left)
         {
             Beep(1440, 30);
             blocks.l_shape.X--;
         }
         
-        if (keyPressed[K_DOWN] && blocks.l_shape.Y < consoleSize.Y - 1)
+        if (keyPressed[K_DOWN] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][1].Y != defaultY + down)
         {
             Beep(1440, 30);
             blocks.l_shape.Y++; 
         }
 
-        if (keyPressed[K_RIGHT] && blocks.l_shape.X < screen.TmLocation.X + 12)
+        if (keyPressed[K_RIGHT] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][1].X != defaultX + Long_right)
         {
             Beep(1440, 30);
             blocks.l_shape.X++;
         }
-        
+
+        if (DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][1].Y >= 21)
+        {
+            blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
+            blocks.l_shape.Y = defaultY + Long_shapedefaultY;
+            map[21][3] = '1';
+        }
+
+        /*
         // for z-shape
         if (keyPressed[K_UP] && blocks.Z_shape.Y > 0) // Rotation button
         {
@@ -300,12 +341,6 @@ void update(double dt)
         {
             g_quitGame = true;
         }
-        /*
-        if (blocks.l_shape.Y > 22)
-        {
-            blocks.l_shape.X = 32;
-            blocks.l_shape.Y = 5;
-        }*/
 
         if(keyPressed[K_SPACE])
 		{
@@ -364,7 +399,7 @@ void update(double dt)
 		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
         {
 			stage = MENU_SCREEN;
-		}
+		}*/
     }
 }
 
@@ -388,10 +423,10 @@ void render()
 
     case GAMEPLAY_SCREEN: 
         //DrawBorder(screen.BdLocation);
-        //DrawMap(screen.TmLocation);
-        initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
+        DrawMap(screen.TmLocation);
 
-        printBlocks(Z_TYPE, rotate[Z_TYPE]);
+        initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
+        printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
         break;
 
 	case OPTION_SCREEN:
@@ -418,16 +453,16 @@ void render()
 
 void FPSInfo()
 {
-	colour(0xD);
+	colour(0xF);
     gotoXY(71, 0);
-    colour(0xC);
+    //colour(0xC);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 }
 
 void TIMINGInfo()
 {
-	colour(0xC);
+	//colour(0xC);
     gotoXY(0, 0);
-    colour(0x2);
+    //colour(0x2);
     std::cout << elapsedTime << "secs" << std::endl;
 }

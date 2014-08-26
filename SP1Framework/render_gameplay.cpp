@@ -1,6 +1,7 @@
 ﻿#include "game.h"
-#include "tetris.h"
 #include "Framework\console.h"
+#include "tetris.h"
+#include "Gameplay.h"
 
 const char cornerA = (char)201; //╔
 const char cornerB = (char)187; //╗
@@ -12,9 +13,11 @@ const char borderSide = (char)186; //↕
 const char shape = 'o';
 
 Blocks storedata;
+
 COORD DataBlocks[blocksType][orientation][coordinates];
 
 char map[height][width] = { "0000000000",
+                            "0000000000",
                             "0000000000",
                             "0000000000",
                             "0000000000",
@@ -49,6 +52,10 @@ void DrawMap(COORD c)
             {
                 case '0':
                     cout << '.';
+                    break;
+
+                case '1':
+                    cout << 'o';
                     break;
             }
         }
@@ -88,25 +95,25 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     for (int i = 0; i < 4; i++)                 // first orientation
     {
         DataBlocks[LONG_TYPE][0][i].X = l.X-1+i; 
-        DataBlocks[0][0][i].Y = l.Y;
+        DataBlocks[LONG_TYPE][0][i].Y = l.Y;
     }
     
     for (int i = 0; i < 4; i++)                // second orientation
     {
-        DataBlocks[0][1][i].X = l.X; 
-        DataBlocks[0][1][i].Y = l.Y-1+i;
+        DataBlocks[LONG_TYPE][1][i].X = l.X; 
+        DataBlocks[LONG_TYPE][1][i].Y = l.Y-1+i;
     }
 
     for (int i = 0; i < 4; i++)               // third orientation
     {
-        DataBlocks[0][2][i].X = l.X-2+i; 
-        DataBlocks[0][2][i].Y = l.Y;
+        DataBlocks[LONG_TYPE][2][i].X = l.X-2+i; 
+        DataBlocks[LONG_TYPE][2][i].Y = l.Y;
     }
 
     for (int i = 0; i < 4; i++)             // fourth orientation
     {
-        DataBlocks[0][3][i].X = l.X; 
-        DataBlocks[0][3][i].Y = l.Y-2+i;
+        DataBlocks[LONG_TYPE][3][i].X = l.X; 
+        DataBlocks[LONG_TYPE][3][i].Y = l.Y-2+i;
     }
 
     // for Z shape blocks
@@ -304,7 +311,7 @@ void printBlocks(int type, int change)
 {
     switch(change)
     {
-    case 1:
+    case 0:
         for (int i = 0; i < 4; i++)
         {
             gotoXY(DataBlocks[type][0][i]);
@@ -312,7 +319,7 @@ void printBlocks(int type, int change)
         }
         break;
 
-    case 2:
+    case 1:
         for (int i = 0; i < 4; i++)
         {
             gotoXY(DataBlocks[type][1][i]);
@@ -320,7 +327,7 @@ void printBlocks(int type, int change)
         }
         break;
 
-    case 3:
+    case 2:
         for (int i = 0; i < 4; i++)
         {
             gotoXY(DataBlocks[type][2][i]);
@@ -328,7 +335,7 @@ void printBlocks(int type, int change)
         }
         break;
 
-    case 4:
+    case 3:
         for (int i = 0; i < 4; i++)
         {
             gotoXY(DataBlocks[type][3][i]);

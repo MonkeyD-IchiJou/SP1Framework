@@ -1,6 +1,7 @@
 #include "game.h"
-#include "tetris.h"
 #include "Framework\console.h"
+#include "tetris.h"
+#include "Gameplay.h"
 
 void renderPause(COORD c)
 {
