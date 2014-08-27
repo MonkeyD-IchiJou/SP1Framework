@@ -45,7 +45,6 @@ char map[height][width] = { "300000000003",
 COORD DataMap[23][11];
 
 char map[height][width] = { "0000000000",
-<<<<<<< beae32c5d0bc41106470374b59bb9102ab67af32
                             "0000000000",
                             "0000000000",
                             "0000000000",
@@ -67,6 +66,7 @@ char map[height][width] = { "0000000000",
                             "0000000000",
                             "0000000000",
                             "0000000000"};
+<<<<<<< f3bb6df17f2c3907a0ddd5ffa524f6a322e51806
 =======
     "0000000000",
     "0000000000",
@@ -90,11 +90,15 @@ char map[height][width] = { "0000000000",
     "0000000000"};
 >>>>>>> 4d78c908850b7c8d4ed128924b39bb047bb4e5c2
 >>>>>>> cf0ddc81a512161eb4c9b38d28878c5ae645f849
+=======
+
+>>>>>>> dcc81fe318cc91ee8d9c186de042f31ba63305a4
 
 char border[borderheight][borderwidth];
 
 void DrawMap(COORD c)
 {
+    colour(White);
     for(int i = 0; i < height; i++)
     {
         gotoXY(c.X, c.Y+i);
@@ -102,7 +106,6 @@ void DrawMap(COORD c)
         {
             switch(map[i][j])
             {
-<<<<<<< 4b2edd439e6c07514d72987f4377c866dd19479e
                 case '0':
                     cout << '.';
                     break;
@@ -110,6 +113,7 @@ void DrawMap(COORD c)
                 case '1':
                     cout << 'o';
                     break;
+<<<<<<< f3bb6df17f2c3907a0ddd5ffa524f6a322e51806
 <<<<<<< 34b0dcd44d1445da6b1be632358393712ce4f794
 
                 case '2':
@@ -125,6 +129,9 @@ void DrawMap(COORD c)
                 break;
 >>>>>>> 9e32eb91402300289768ea5fcb800d33d2de18c8
 >>>>>>> cf0ddc81a512161eb4c9b38d28878c5ae645f849
+=======
+            
+>>>>>>> dcc81fe318cc91ee8d9c186de042f31ba63305a4
             }
         }
 
@@ -215,8 +222,6 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
     // for Z shape blocks
 
-<<<<<<< 9e32eb91402300289768ea5fcb800d33d2de18c8
-<<<<<<< beae32c5d0bc41106470374b59bb9102ab67af32
 	 // first orientation
 
 	DataBlocks[Z_TYPE][0][0].X = Z.X-1;
@@ -333,10 +338,6 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 	DataBlocks[L_TYPE][3][3].X = L.X+1;
     DataBlocks[L_TYPE][3][3].Y = L.Y-1;
 
-=======
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
-=======
->>>>>>> 8b1c26c776bcdcfee74e97392ceb8e70510d25c0
 	DataBlocks[Z_TYPE][0][0].X = Z.X-1;          // first orientation
     // first orientation
 
@@ -473,7 +474,6 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
     DataBlocks[2][3][3].X = L.X+1;
     DataBlocks[2][3][3].Y = L.Y-1;
->>>>>>> 4d78c908850b7c8d4ed128924b39bb047bb4e5c2
 
 	//For Square shape blocks
 
@@ -679,7 +679,6 @@ void printBlocks(int type, int change)
     }*/
 }
 
-<<<<<<< 4b2edd439e6c07514d72987f4377c866dd19479e
 void drawShape(int orientation, int x, int y)
 {
     switch(orientation)
@@ -717,7 +716,6 @@ void drawShape(int orientation, int x, int y)
         break;
     }
 }
-=======
 
         /*FOR EASIER REFERENCE PLEASE DON'T DELETE (CAN MOVE) - JUNYAN
 
@@ -731,4 +729,3 @@ void drawShape(int orientation, int x, int y)
         
         */
 
->>>>>>> 9e32eb91402300289768ea5fcb800d33d2de18c8

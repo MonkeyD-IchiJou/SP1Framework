@@ -34,16 +34,6 @@ enum gameState
 	PAUSE_SCREEN
 };
 
-<<<<<<< beae32c5d0bc41106470374b59bb9102ab67af32
-=======
-enum BlocksType
-{
-    LONG_TYPE,
-    Z_TYPE,
-    L_TYPE,
-    Sq_TYPE,
-    T_TYPE
-};
 
 enum colour
 {
@@ -56,7 +46,6 @@ enum colour
     DarkGreen = 0x2
 };
 
->>>>>>> 4d78c908850b7c8d4ed128924b39bb047bb4e5c2
 void FPSInfo();
 void TIMINGInfo();
 
@@ -86,12 +75,9 @@ void print_Sq_blocks(int change);
 void print_T_blocks(int change);
 
 void printBlocks(int type, int change);
-<<<<<<< beae32c5d0bc41106470374b59bb9102ab67af32
 
 void lukris();
-=======
 // in render_pause_screen.cpp
 void RenderPauseScreen(COORD c);
 
->>>>>>> 4d78c908850b7c8d4ed128924b39bb047bb4e5c2
 #endif // _TETRIS_H

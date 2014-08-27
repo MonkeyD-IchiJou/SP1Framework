@@ -345,27 +345,17 @@ void render()
 
 void FPSInfo()
 {
-<<<<<<< 9e32eb91402300289768ea5fcb800d33d2de18c8
-	colour(0xF);
-    gotoXY(71, 0);
-    //colour(0xC);
-=======
+	
     gotoXY(71, 0);
     colour(Red);
->>>>>>> 8b1c26c776bcdcfee74e97392ceb8e70510d25c0
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 }
 
 void TIMINGInfo()
 {
-<<<<<<< 9e32eb91402300289768ea5fcb800d33d2de18c8
-	//colour(0xC);
-    gotoXY(0, 0);
-    //colour(0x2);
-=======
+
     gotoXY(0, 0);
     colour(DarkGreen);
->>>>>>> 8b1c26c776bcdcfee74e97392ceb8e70510d25c0
     std::cout << elapsedTime << "secs" << std::endl;
 }
 
@@ -1008,6 +998,7 @@ void tshapeUpdate()
 
 void lukris()
 {
+    /*
 	ifstream inlukris;
 	string hi;
 
@@ -1019,5 +1010,10 @@ void lukris()
 		cout << hi << endl;
 	}
 
+<<<<<<< f3bb6df17f2c3907a0ddd5ffa524f6a322e51806
 	inlukris.close();
 }*/
+=======
+	inlukris.close();*/
+}
+>>>>>>> dcc81fe318cc91ee8d9c186de042f31ba63305a4
