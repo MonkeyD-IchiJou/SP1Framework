@@ -313,6 +313,7 @@ void render()
 
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
         printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
+<<<<<<< 4cb07c0b1dfcbbb84ee68412781e250721bdc40c
 <<<<<<< d7d7cad63f56c04b595d110c2bf4b8f3ab4c53b5
         cout << l_downward;
         /*
@@ -321,18 +322,19 @@ void render()
 
 <<<<<<< 411485f24a12f32c8b34f42bfae92770d6d758c9
 <<<<<<< dc7697da909308dcf6bdc39ac6ad8b7de8666707
+=======
+>>>>>>> f244548d0af5e3cb3154213eb5578e515fc3cc1d
         cout << l_downward;
-        /*
-=======
-=======
-=======
->>>>>>> 1645ff0b05c65de2ee8a6b71cd1198390dab6d3a
+        
 
         //initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
         //printBlocks(Z_TYPE, rotate[Z_TYPE]);
 
+<<<<<<< 4cb07c0b1dfcbbb84ee68412781e250721bdc40c
 >>>>>>> 3b8789543283a2a434ba3ceaccf0ded517abdd3a
 >>>>>>> 411485f24a12f32c8b34f42bfae92770d6d758c9
+=======
+>>>>>>> f244548d0af5e3cb3154213eb5578e515fc3cc1d
         switch(randomisation)
         {
         case 0:
@@ -354,7 +356,7 @@ void render()
         case 4:
             printBlocks(T_TYPE, rotate[T_TYPE]);
             break;
-        }*/
+        }
 
         /*void rng()
         {

@@ -17,9 +17,9 @@ void renderScore()
 
 	int tscore = 0;
     int fline = 0;
-    for (int i = 0 ; i < 2; i++ ) 
+    for (int i = 0 ; i < 5; i++ ) 
     { 
-        std::cin >> fline ;
+        cin >> fline ;
         if (fline >= 1 && fline <= 4)
         {
             if(fline == 1)
