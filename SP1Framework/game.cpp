@@ -53,6 +53,8 @@ int Sq_left = -1;
 int T_right = 9;
 int T_left = 0;
 
+int check_l = 3;
+
 const int down = 21;
 
 int rotate[7] = {0, 0, 0, 0, 0, 0, 0};
@@ -264,8 +266,10 @@ void render()
         initiateMap(screen.TmLocation);
 
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
+        printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
 
-
+        cout << l_downward;
+        /*
         switch(randomisation)
         {
         case 0:
@@ -287,7 +291,7 @@ void render()
         case 4:
             printBlocks(T_TYPE, rotate[T_TYPE]);
             break;
-        }
+        }*/
 
         break;
         
@@ -382,14 +386,34 @@ void longshapeUpdate ()
         l_downward++;
     }
 
-    if (keyPressed[K_UP] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][0].Y > 0) // Rotation button
+    if (keyPressed[K_UP]) // Rotation button
     {
         Beep(1440, 30);
-        rotate[LONG_TYPE]++;
 
-        if (rotate[LONG_TYPE] == 4)
+        rotate[LONG_TYPE]++;
+        if (rotate[LONG_TYPE] == 1)
+        {
+            check_l++;
+            l_downward+=2;
+        }
+
+        else if (rotate[LONG_TYPE] == 2)
+        {
+            check_l-=2;
+            l_downward-=2;
+        }
+
+        else if (rotate[LONG_TYPE] == 3)
+        {
+            check_l+=2;
+            l_downward++;
+        }
+
+        else if (rotate[LONG_TYPE] == 4)
         {
             rotate[LONG_TYPE] = 0;
+            check_l--;
+            //l_downward++;
         }
     }
 
@@ -397,6 +421,7 @@ void longshapeUpdate ()
     {
         Beep(1440, 30);
         blocks.l_shape.X--;
+        check_l--;
     }
 
     if (keyPressed[K_DOWN] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][3].Y != defaultY + down)
@@ -410,13 +435,73 @@ void longshapeUpdate ()
     {
         Beep(1440, 30);
         blocks.l_shape.X++;
+        check_l++;
     }
 
-    if (l_downward >= 21)
+    // if blocks touches reach 1 in the map, update the map
+    if (map[l_downward][check_l] == '1')                            
     {
         blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
         blocks.l_shape.Y = defaultY + Long_shapedefaultY;
-        l_downward = 0;
+        
+        drawShape(rotate[LONG_TYPE], l_downward-1, check_l);
+
+        if (rotate[LONG_TYPE] == 0)
+        {
+            l_downward = 0;
+            check_l = 3;
+        }
+
+        else if (rotate[LONG_TYPE] == 1)
+        {
+            l_downward = 0;
+            check_l = 4;
+        }
+
+        else if (rotate[LONG_TYPE] == 2)
+        {
+            l_downward = 0;
+            check_l = 2;
+        }
+
+        else if (rotate[LONG_TYPE] == 3)
+        {
+            l_downward = 0;
+            check_l = 4;
+        }
+    }
+
+    // if the blocks reach the floor, update the map
+    else if (l_downward >= 21)
+    {
+        blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
+        blocks.l_shape.Y = defaultY + Long_shapedefaultY;
+
+        drawShape(rotate[LONG_TYPE], l_downward, check_l);
+
+        if (rotate[LONG_TYPE] == 0)
+        {
+            l_downward = 0;
+            check_l = 3;
+        }
+
+        else if (rotate[LONG_TYPE] == 1)
+        {
+            l_downward = 2;
+            check_l = 4;
+        }
+
+        else if (rotate[LONG_TYPE] == 2)
+        {
+            l_downward = 0;
+            check_l = 2;
+        }
+
+        else if (rotate[LONG_TYPE] == 3)
+        {
+            l_downward = 0;
+            check_l = 4;
+        }
     }
 }
 

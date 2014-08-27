@@ -50,4 +50,6 @@ void printBlocks(int type, int change);
 void DrawMap(COORD c);
 void initiateMap(COORD c);
 
+void drawShape(int orientation , int x, int y);
+
 #endif // _GAMEPLAY_H
