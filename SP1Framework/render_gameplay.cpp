@@ -54,6 +54,10 @@ void DrawMap(COORD c)
                 case '0':
                     cout << '.';
                     break;
+
+                case '1':
+                    cout << 'o';
+                    break;
             }
         }
 
@@ -385,6 +389,44 @@ void printBlocks(int type, int change)
             gotoXY(DataBlocks[type][3][i]);
             cout << shape;
         }
+        break;
+    }
+}
+
+void drawShape(int orientation, int x, int y)
+{
+    switch(orientation)
+    {
+    case 0:
+        for (int i = 0; i < 4; i++)
+        {
+            map[x][y+i] = '1';
+        }
+
+        break;
+
+    case 1:
+        for (int i = 0; i < 4; i++)
+        {
+            map[x-i][y] = '1';
+        }
+
+        break;
+
+    case 2:
+        for (int i = 0; i < 4; i++)
+        {
+            map[x][y+i] = '1';
+        }
+
+        break;
+
+    case 3:
+        for (int i = 0; i < 4; i++)
+        {
+            map[x-i][y] = '1';
+        }
+
         break;
     }
 }

@@ -413,7 +413,7 @@ void longshapeUpdate ()
         {
             rotate[LONG_TYPE] = 0;
             check_l--;
-            //l_downward++;
+            l_downward--;
         }
     }
 
@@ -454,7 +454,7 @@ void longshapeUpdate ()
 
         else if (rotate[LONG_TYPE] == 1)
         {
-            l_downward = 0;
+            l_downward = 2;
             check_l = 4;
         }
 
@@ -466,7 +466,7 @@ void longshapeUpdate ()
 
         else if (rotate[LONG_TYPE] == 3)
         {
-            l_downward = 0;
+            l_downward = 2;
             check_l = 4;
         }
     }
@@ -499,7 +499,7 @@ void longshapeUpdate ()
 
         else if (rotate[LONG_TYPE] == 3)
         {
-            l_downward = 0;
+            l_downward = 2;
             check_l = 4;
         }
     }
