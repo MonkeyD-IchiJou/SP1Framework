@@ -5,15 +5,11 @@
 
 void renderMenu (COORD c)
 {
-    
     gotoXY(c);
 	colour(White);
     cout << ">>";
-
-    gotoXY(32, 5);
-	colour(Green);
     
-    gotoXY(35, 10);
+    gotoXY(32, 5);
     colour(Green);
     cout << "Start Game";
 
