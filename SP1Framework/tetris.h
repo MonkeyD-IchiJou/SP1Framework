@@ -12,6 +12,7 @@ using std::cin;
 using std::endl;
 using std::vector;
 
+<<<<<<< 3b8789543283a2a434ba3ceaccf0ded517abdd3a
 <<<<<<< df3499aed3ef5acdc18698a8e7822a8b299e5012
 using std::ifstream;
 using std::string;
@@ -38,6 +39,8 @@ extern COORD DataBlocks[blocksType][orientation][coordinates];
 
 >>>>>>> ad1f56cefa7a3e4e297c5029bf12a6655a0b3fa6
 >>>>>>> 23d1d089ca1ef97f578db29e71ad87291aa8219f
+=======
+>>>>>>> adf70b2fdb59713ce815b15d5a1a5a52e4f616c6
 struct Location
 {
     COORD MmLocation;   // main menu screen
