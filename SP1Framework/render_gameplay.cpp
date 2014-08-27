@@ -357,6 +357,7 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
 void printBlocks(int type, int change)
 {
+    
     switch(change)
     {
     case 0:
@@ -391,6 +392,12 @@ void printBlocks(int type, int change)
         }
         break;
     }
+    /*
+    for (int i = 0; i < 4; i++)
+    {
+        gotoXY(DataBlocks[type][change][i]);
+        cout << shape;
+    }*/
 }
 
 void drawShape(int orientation, int x, int y)

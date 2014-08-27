@@ -167,11 +167,28 @@ void update(double dt)
         speed = static_cast<int>(elapsedTime*10);
 
         // Updating Gameplay screen by pressing buttons
-        longshapeUpdate ();
-        zshapeUpdate();
-        LshapeUpdate();
-        sqshapeUpdate();
-        tshapeUpdate();
+        switch(randomisation)
+        {
+        case 0:
+            longshapeUpdate ();
+            break;
+
+        case 1:
+            zshapeUpdate();
+            break;
+
+        case 2:
+            LshapeUpdate();
+            break;
+
+        case 3:
+            sqshapeUpdate();
+            break;
+
+        case 4:
+            tshapeUpdate();
+            break;
+        }
 
         // quits the game if player hits the escape key
 
@@ -251,7 +268,7 @@ void render()
     {
     case START_SCREEN: 
         // render Start screen
-		lukris();
+		//lukris();
         renderStartScreen(screen.MmLocation); 
         break;
 
@@ -266,10 +283,10 @@ void render()
         initiateMap(screen.TmLocation);
 
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
-        printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
+        //printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
 
         cout << l_downward;
-        /*
+        
         switch(randomisation)
         {
         case 0:
@@ -291,7 +308,7 @@ void render()
         case 4:
             printBlocks(T_TYPE, rotate[T_TYPE]);
             break;
-        }*/
+        }
 
         break;
         
@@ -391,6 +408,7 @@ void longshapeUpdate ()
         Beep(1440, 30);
 
         rotate[LONG_TYPE]++;
+
         if (rotate[LONG_TYPE] == 1)
         {
             check_l++;
@@ -431,13 +449,13 @@ void longshapeUpdate ()
         l_downward++;
     }
 
-    if (keyPressed[K_RIGHT] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][3].X != DataMap[0][0].X + Long_right)
+    if (keyPressed[K_RIGHT] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][3].X != DataMap[0][0].X + Long_right && map[l_downward][check_l+4] != '1')
     {
         Beep(1440, 30);
         blocks.l_shape.X++;
         check_l++;
     }
-
+    
     // if blocks touches reach 1 in the map, update the map
     if (map[l_downward][check_l] == '1')                            
     {
@@ -466,7 +484,7 @@ void longshapeUpdate ()
 
         else if (rotate[LONG_TYPE] == 3)
         {
-            l_downward = 2;
+            l_downward = 1;
             check_l = 4;
         }
     }
@@ -499,7 +517,7 @@ void longshapeUpdate ()
 
         else if (rotate[LONG_TYPE] == 3)
         {
-            l_downward = 2;
+            l_downward = 1;
             check_l = 4;
         }
     }
@@ -546,7 +564,9 @@ void zshapeUpdate()
     {
         blocks.Z_shape.X = defaultX + Z_shapedefaultX;          //for Z-shape
         blocks.Z_shape.Y = defaultY + Z_shapedefaultY;
-        Z_downward = 0;
+        Z_downward = 1;
+
+        randomisation = 4;
     }
 }
 
@@ -597,11 +617,14 @@ void LshapeUpdate()
         L_right = 9;
         L_left = 0;
     }
+
     if (L_downward >= 21)
     {
         blocks.L_shape.X = defaultX + L_shapedefaultX;          //for L-shape
         blocks.L_shape.Y = defaultY + L_shapedefaultY;
         L_downward = 0;
+
+        randomisation = 1;
     }
 }
 
@@ -646,6 +669,8 @@ void sqshapeUpdate()
         blocks.Sq_shape.X = defaultX + Sq_shapedefaultX;          //for sq-shape
         blocks.Sq_shape.Y = defaultY + Sq_shapedefaultY;
         Sq_downward = 0;
+
+        randomisation = 2;
     }
 }
 
@@ -707,6 +732,8 @@ void tshapeUpdate()
         blocks.T_shape.X = defaultX + T_shapedefaultX;          //for T-shape
         blocks.T_shape.Y = defaultY + T_shapedefaultY;
         T_downward = 0;
+
+        randomisation = 3;
     }
 }
 
