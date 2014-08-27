@@ -5,7 +5,7 @@
 
 void renderStartScreen (COORD c)
 {
-	colour(0xE);
+	colour(Yellow);
 	gotoXY(14, 2);
 	cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
 	gotoXY(14, 3);
@@ -22,6 +22,6 @@ void renderStartScreen (COORD c)
 	cout << "   *   " << " *******" << "    *   " << " *       *"  << " ******* " << " ***** "<< endl;
 
     gotoXY(30, 15);
-	colour(0xB);
+	colour(Cyan);
     cout << "Please press ENTER";
 }

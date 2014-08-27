@@ -146,13 +146,10 @@ void update(double dt)
     if(!keyPressed[K_ESCAPE])
     {
     // get the delta time
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
 
-=======
         elapsedTime += dt;
         deltaTime = dt;
     }
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     switch (stage)
     {
     case START_SCREEN: // For start screen
@@ -348,17 +345,27 @@ void render()
 
 void FPSInfo()
 {
+<<<<<<< 9e32eb91402300289768ea5fcb800d33d2de18c8
 	colour(0xF);
     gotoXY(71, 0);
     //colour(0xC);
+=======
+    gotoXY(71, 0);
+    colour(Red);
+>>>>>>> 8b1c26c776bcdcfee74e97392ceb8e70510d25c0
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
 }
 
 void TIMINGInfo()
 {
+<<<<<<< 9e32eb91402300289768ea5fcb800d33d2de18c8
 	//colour(0xC);
     gotoXY(0, 0);
     //colour(0x2);
+=======
+    gotoXY(0, 0);
+    colour(DarkGreen);
+>>>>>>> 8b1c26c776bcdcfee74e97392ceb8e70510d25c0
     std::cout << elapsedTime << "secs" << std::endl;
 }
 

@@ -19,17 +19,10 @@ using std::ofstream;
 struct Location
 {
     COORD MmLocation;   // main menu screen
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
     COORD OptLocation;  // option screen
 	COORD PsLocation;   // pause screen
     COORD TmLocation;   // tetris map 
     COORD BdLocation;   // border location
-=======
-    COORD OptLocation;  // option screen (havent done yet)
-    COORD TmLocation;   //tetris map 
-	COORD PsLocation;   // pause screen
-    COORD BdLocation;   //border location
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
 };
 
 enum gameState
@@ -59,7 +52,8 @@ enum colour
     Red = 0xC,
     Yellow = 0xE,
     Cyan = 0xB,
-
+    Magenta = 0xD,
+    DarkGreen = 0x2
 };
 
 >>>>>>> 4d78c908850b7c8d4ed128924b39bb047bb4e5c2

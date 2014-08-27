@@ -215,6 +215,7 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
     // for Z shape blocks
 
+<<<<<<< 9e32eb91402300289768ea5fcb800d33d2de18c8
 <<<<<<< beae32c5d0bc41106470374b59bb9102ab67af32
 	 // first orientation
 
@@ -334,12 +335,12 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
 =======
 <<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
-	DataBlocks[Z_TYPE][0][0].X = Z.X-1;          // first orientation
 =======
+>>>>>>> 8b1c26c776bcdcfee74e97392ceb8e70510d25c0
+	DataBlocks[Z_TYPE][0][0].X = Z.X-1;          // first orientation
     // first orientation
 
     DataBlocks[1][0][0].X = Z.X-1;
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     DataBlocks[1][0][0].Y = Z.Y;
 
     DataBlocks[1][0][1].X = Z.X+1;
@@ -351,14 +352,11 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     DataBlocks[1][0][3].X = Z.X;
     DataBlocks[1][0][3].Y = Z.Y+1;
 
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
 	DataBlocks[1][1][0].X = Z.X-1;          // second orientation
-=======
 
     // second orientation
 
     DataBlocks[1][1][0].X = Z.X-1; 
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     DataBlocks[1][1][0].Y = Z.Y;
 
     DataBlocks[1][1][1].X = Z.X;
@@ -370,9 +368,7 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     DataBlocks[1][1][3].X = Z.X-1;
     DataBlocks[1][1][3].Y = Z.Y+1;
 
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
 	DataBlocks[1][2][0].X = Z.X-1;          // third orientation
-=======
 
     // third orientation
     for (int i = 0; i < 4; i++)                 // first orientation
@@ -388,7 +384,6 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     }
 
     DataBlocks[1][2][0].X = Z.X-1;
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     DataBlocks[1][2][0].Y = Z.Y;
 
     DataBlocks[1][2][1].X = Z.X+1;
@@ -400,13 +395,10 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     DataBlocks[1][2][3].X = Z.X; 
     DataBlocks[1][2][3].Y = Z.Y+1;
 
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
 	DataBlocks[1][3][0].X = Z.X-1;          // fourth orientation
-=======
     // fourth orientation
 
     DataBlocks[1][3][0].X = Z.X-1; 
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     DataBlocks[1][3][0].Y = Z.Y;
 
     DataBlocks[1][3][1].X = Z.X;
@@ -418,15 +410,12 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     DataBlocks[1][3][3].X = Z.X-1;
     DataBlocks[1][3][3].Y = Z.Y+1;       
 
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
 	DataBlocks[L_TYPE][0][0].X = L.X;        // first orientation
-=======
     //For L shape blocks
 
     // first orientation
 
     DataBlocks[2][0][0].X = L.X; 
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     DataBlocks[2][0][0].Y = L.Y;
 
     DataBlocks[2][0][1].X = L.X;
@@ -438,13 +427,10 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     DataBlocks[2][0][3].X = L.X+1;
     DataBlocks[2][0][3].Y = L.Y+1;
 
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
 	DataBlocks[2][1][0].X = L.X;        // second orientation
-=======
     // second orientation
 
     DataBlocks[2][1][0].X = L.X; 
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     DataBlocks[2][1][0].Y = L.Y;
 
     DataBlocks[2][1][1].X = L.X-1;
@@ -455,15 +441,12 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
     DataBlocks[2][1][3].X = L.X+1;
     DataBlocks[2][1][3].Y = L.Y;
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
     
     DataBlocks[2][2][0].X = L.X;        // third orientation
-=======
 
     // third orientation
 
     DataBlocks[2][2][0].X = L.X; 
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     DataBlocks[2][2][0].Y = L.Y;
 
     DataBlocks[2][2][1].X = L.X;
@@ -474,15 +457,12 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
     DataBlocks[2][2][3].X = L.X-1;
     DataBlocks[2][2][3].Y = L.Y-1;
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
 	
 	DataBlocks[2][3][0].X = L.X;        // fourth orientation
-=======
 
     // fourth orientation
 
     DataBlocks[2][3][0].X = L.X; 
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     DataBlocks[2][3][0].Y = L.Y;
 
     DataBlocks[2][3][1].X = L.X-1;
@@ -495,7 +475,6 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     DataBlocks[2][3][3].Y = L.Y-1;
 >>>>>>> 4d78c908850b7c8d4ed128924b39bb047bb4e5c2
 
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
 	//For Square shape blocks
 
 	// first orientation
@@ -552,7 +531,6 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 		
 	DataBlocks[Sq_TYPE][3][3].X = S.X+1;
     DataBlocks[Sq_TYPE][3][3].Y = S.Y+1;
-=======
 
     //For O shape blocks
 
@@ -610,7 +588,6 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 
     DataBlocks[4][3][3].X = S.X+1;
     DataBlocks[4][3][3].Y = S.Y+1;
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
 
     // for T blocks
 
@@ -622,15 +599,12 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
         DataBlocks[T_TYPE][0][i].X = T.X+i-2;                
         DataBlocks[T_TYPE][0][i].Y = T.Y;
     }
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
     
     DataBlocks[T_TYPE][1][0].X = T.X+1;                // second orientation
     DataBlocks[T_TYPE][1][0].Y = T.Y;
-=======
 
     DataBlocks[5][1][0].X = T.X+1;                // second orientation
     DataBlocks[5][1][0].Y = T.Y;
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
 
     for (int i = 1; i < 4; i++)
     {

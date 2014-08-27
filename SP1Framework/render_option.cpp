@@ -6,10 +6,10 @@
 void renderOption (COORD c)
 {
 	gotoXY(c);
-	colour(0xF);
+	colour(White);
 	cout << ">>";
 
-	colour(0xE);
+	colour(Yellow);
 	gotoXY(17, 2);  
 	cout << " *****  " << "******" << " *******" << " *******" << "  ***** " << " **    *" << endl;
 	gotoXY(17, 3);
@@ -21,14 +21,14 @@ void renderOption (COORD c)
 	gotoXY(17, 6);
 	cout << " *****  " << "*     " << "    *   " << " *******" << "  ***** " << " *    **" << endl;
 
-	colour(0xB);
+	colour(Cyan);
 	gotoXY(32, 10);
 	cout << "Change colour";
 
 	gotoXY(32, 15);
 	cout << "Return to Main Menu";
 
-	colour(0xE);
+	colour(Yellow);
 	gotoXY(58, 25);
     cout << "*Up/Down to select";
 

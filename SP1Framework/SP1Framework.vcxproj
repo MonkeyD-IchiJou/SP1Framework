@@ -81,12 +81,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="render_gameplay.cpp" />
     <ClCompile Include="render_menu.cpp" />
-<<<<<<< f42c40c2adcab91354e2f34e613f9182af718cb4
     <ClCompile Include="render_option.cpp" />
     <ClCompile Include="render_pause.cpp" />
     <ClCompile Include="render_score.cpp" />
-=======
->>>>>>> dd88a835f519b64050d0c5393a72bb9806699e88
     <ClCompile Include="render_start_screen.cpp" />
   </ItemGroup>
   <ItemGroup>
