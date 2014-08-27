@@ -77,6 +77,7 @@ void print_T_blocks(int change);
 void printBlocks(int type, int change);
 
 void lukris();
+void rng();
 // in render_pause_screen.cpp
 void RenderPauseScreen(COORD c);
 

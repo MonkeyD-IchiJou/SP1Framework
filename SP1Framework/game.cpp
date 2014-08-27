@@ -89,35 +89,35 @@ void init()
     // set the size for the game
     consoleSize.X = csbi.srWindow.Right + 1;
     consoleSize.Y = csbi.srWindow.Bottom + 1;
-    
+
     // default location.
     screen.MmLocation.X = 28;       //for main menu
     screen.MmLocation.Y = 5;
-    
-	screen.OptLocation.X = 29;      //for options
-	screen.OptLocation.Y = 10;
 
-	screen.PsLocation.X = 28;       // for pause
-	screen.PsLocation.Y = 10;  
-    
+    screen.OptLocation.X = 29;      //for options
+    screen.OptLocation.Y = 10;
+
+    screen.PsLocation.X = 28;       // for pause
+    screen.PsLocation.Y = 10;  
+
     screen.TmLocation.X = defaultX;       //for tetris map
     screen.TmLocation.Y = defaultY;
     /*
     screen.BdLocation.X = 25;       //for border
     screen.BdLocation.Y = 2;*/
-    
+
     blocks.Sq_shape.X = defaultX + Sq_shapedefaultX;         //for square blocks
     blocks.Sq_shape.Y = defaultY + Sq_shapedefaultY;          
-    
+
     blocks.L_shape.X = defaultX + L_shapedefaultX;          //for L-shape
     blocks.L_shape.Y = defaultY + L_shapedefaultY;
 
     blocks.Z_shape.X = defaultX + Z_shapedefaultX;          //for N-blocks
     blocks.Z_shape.Y = defaultY + Z_shapedefaultY;
-    
+
     blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
     blocks.l_shape.Y = defaultY + Long_shapedefaultY;
-    
+
     blocks.T_shape.X = defaultX + T_shapedefaultX;          //for T-shape
     blocks.T_shape.Y = defaultY + T_shapedefaultY;
 
@@ -127,7 +127,7 @@ void init()
 void shutdown()
 {
     // Reset to white text on black background
-	colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+    colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
 }
 
 void getInput()
@@ -137,7 +137,7 @@ void getInput()
     keyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
     keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
-	keyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
+    keyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
     keyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
 }
 
@@ -145,7 +145,7 @@ void update(double dt)
 {
     if(!keyPressed[K_ESCAPE])
     {
-    // get the delta time
+        // get the delta time
 
         elapsedTime += dt;
         deltaTime = dt;
@@ -153,7 +153,7 @@ void update(double dt)
     switch (stage)
     {
     case START_SCREEN: // For start screen
-		elapsedTime += dt;
+        elapsedTime += dt;
         deltaTime = dt;
 
         updateStartScreen();
@@ -206,15 +206,15 @@ void update(double dt)
         }
 
         if(keyPressed[K_SPACE])
-		{
-			stage = PAUSE_SCREEN;
-		}
+        {
+            stage = PAUSE_SCREEN;
+        }
 
-		break;
+        break;
 
-	case PAUSE_SCREEN:
+    case PAUSE_SCREEN:
 
-		if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
+        if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
         {
             Beep(1440, 30);
             screen.PsLocation.Y -= 5; 
@@ -238,33 +238,33 @@ void update(double dt)
 
         break;
 
-	// for options
+        // for options
     case OPTION_SCREEN:
         elapsedTime += dt;
         deltaTime = dt;
         if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
-	    {
-	        Beep(1440, 30);
-		    screen.OptLocation.Y -= 5; 
+        {
+            Beep(1440, 30);
+            screen.OptLocation.Y -= 5; 
         }
 
         if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
-	    {
-		    Beep(1440, 30);
-		    screen.OptLocation.Y += 5; 
-	    }
-
-	    if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
         {
-			stage = GAMEPLAY_SCREEN;
-		}
+            Beep(1440, 30);
+            screen.OptLocation.Y += 5; 
+        }
 
-		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
+        if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
         {
-			stage = MENU_SCREEN;
-		}
+            stage = GAMEPLAY_SCREEN;
+        }
+
+        if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
+        {
+            stage = MENU_SCREEN;
+        }
     }
-    
+
 }
 
 void render()
@@ -277,7 +277,7 @@ void render()
     {
     case START_SCREEN: 
         // render Start screen
-		//lukris();
+        //lukris();
         renderStartScreen(screen.MmLocation); 
         break;
 
@@ -294,6 +294,7 @@ void render()
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
         printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
         cout << l_downward;
+<<<<<<< 6c10ff49de2ebcdaf20349724d197fe029bb454b
         /*
         
         switch(randomisation)
@@ -318,25 +319,57 @@ void render()
             printBlocks(T_TYPE, rotate[T_TYPE]);
             break;
         }*/
+=======
 
+        /*void rng()
+        {
+            srand(time(NULL));
+            for(int i = 0;i < 12;i++) // RNG ten numbers
+            {
+                int poppy = 1 + (rand() % 7);
+            }*/
+            switch(randomisation)
+            {
+            case 0:
+                printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
+                break;
+
+            case 1:
+                printBlocks(Z_TYPE, rotate[Z_TYPE]);
+                break;
+
+            case 2:
+                printBlocks(L_TYPE, rotate[L_TYPE]);
+                break;
+
+            case 3:
+                printBlocks(Sq_TYPE, rotate[Sq_TYPE]);
+                break;
+
+            case 4:
+                printBlocks(T_TYPE, rotate[T_TYPE]);
+                break;
+            }
+        //}
         break;
-        
-	case OPTION_SCREEN:
-		renderOption(screen.OptLocation);
-		break;
+>>>>>>> 82d631fc74a30285c6a8c231256acc50bd3784ff
 
-	case PAUSE_SCREEN:
-		renderPause(screen.PsLocation);
-		break;
+    case OPTION_SCREEN:
+        renderOption(screen.OptLocation);
+        break;
+
+    case PAUSE_SCREEN:
+        renderPause(screen.PsLocation);
+        break;
     }
 
     //render the game
-    
+
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
-	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-	                        };
+        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+    };
     // render time taken to calculate this frame
 
     FPSInfo();
@@ -345,7 +378,7 @@ void render()
 
 void FPSInfo()
 {
-	
+
     gotoXY(71, 0);
     colour(Red);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
@@ -406,7 +439,7 @@ void longshapeUpdate ()
 {
     /*
     // for long shape
-        
+
     if (speed % 5  == 0 )
     {
         blocks.l_shape.Y++;
@@ -471,13 +504,19 @@ void longshapeUpdate ()
         blocks.l_shape.X++;
         check_l++;
     }
+<<<<<<< 6c10ff49de2ebcdaf20349724d197fe029bb454b
     
     // if blocks touches 1 in the map, update the map
     if (map[l_downward][check_l] == '1' || map[l_downward][check_l+1] == '1' || map[l_downward][check_l+2] == '1' || map[l_downward][check_l+3] == '1')                            
+=======
+
+    // if blocks touches reach 1 in the map, update the map
+    if (map[l_downward][check_l] == '1')                            
+>>>>>>> 82d631fc74a30285c6a8c231256acc50bd3784ff
     {
         blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
         blocks.l_shape.Y = defaultY + Long_shapedefaultY;
-        
+
         drawShape(rotate[LONG_TYPE], l_downward-1, check_l);
 
         if (rotate[LONG_TYPE] == 0)
@@ -785,7 +824,7 @@ void longshapeUpdate ()
 void zshapeUpdate()
 {
     // for z-shape
-        
+
     if (speed % 5  == 0 )
     {
         blocks.Z_shape.Y++;
@@ -832,7 +871,7 @@ void zshapeUpdate()
 void LshapeUpdate()
 {
     // for L-shape
-        
+
     if (speed % 5  == 0 )
     {
         blocks.L_shape.Y++;
@@ -999,17 +1038,18 @@ void tshapeUpdate()
 void lukris()
 {
     /*
-	ifstream inlukris;
-	string hi;
+    ifstream inlukris;
+    string hi;
 
-	inlukris.open ("Bg.txt");
+    inlukris.open ("Bg.txt");
 
-	while (!inlukris.eof())
-	{
-		getline (inlukris,hi);
-		cout << hi << endl;
-	}
+    while (!inlukris.eof())
+    {
+    getline (inlukris,hi);
+    cout << hi << endl;
+    }
 
+<<<<<<< 6c10ff49de2ebcdaf20349724d197fe029bb454b
 <<<<<<< f3bb6df17f2c3907a0ddd5ffa524f6a322e51806
 	inlukris.close();
 }*/
@@ -1017,3 +1057,7 @@ void lukris()
 	inlukris.close();*/
 }
 >>>>>>> dcc81fe318cc91ee8d9c186de042f31ba63305a4
+=======
+    inlukris.close();*/
+}
+>>>>>>> 82d631fc74a30285c6a8c231256acc50bd3784ff
