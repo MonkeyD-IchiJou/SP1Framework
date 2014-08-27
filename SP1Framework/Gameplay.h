@@ -4,7 +4,7 @@
 #include "tetris.h"
 
 const size_t height = 23;
-const size_t width = 11;
+const size_t width = 13;
 
 const size_t borderheight = 25;
 const size_t borderwidth = 13; 
@@ -39,6 +39,14 @@ enum BlocksType
     L_TYPE,
     Sq_TYPE,
     T_TYPE
+};
+
+enum Orientation
+{
+    FIRST,
+    SECOND,
+    THIRD,
+    FOURTH
 };
 
 // in render_gameplay.cpp

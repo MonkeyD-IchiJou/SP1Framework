@@ -23,7 +23,7 @@ int speed;
 const int defaultX = 30;
 const int defaultY = 0;
 
-const int Long_shapedefaultX = 4;
+const int Long_shapedefaultX = 5;
 const int Long_shapedefaultY = 0;
 
 const int Z_shapedefaultX = 5;
@@ -38,9 +38,7 @@ const int Sq_shapedefaultY = 0;
 const int T_shapedefaultX = 4;
 const int T_shapedefaultY = 0;
 
-int Long_right = 9;
-int Long_left = 0;
-
+/*
 int Z_right = 8;
 int Z_left = 0;
 
@@ -52,8 +50,13 @@ int Sq_left = -1;
 
 int T_right = 9;
 int T_left = 0;
+*/
 
 int check_l = 3;
+int check_Right;
+int check_Left;
+
+int check = 0;
 
 const int down = 21;
 
@@ -65,7 +68,7 @@ int L_downward = 0;
 int Sq_downward = 0;
 int T_downward = 0;
 
-unsigned int randomisation = 2;
+unsigned int randomisation = 0;
 
 void init()
 {
@@ -172,7 +175,7 @@ void update(double dt)
         case 0:
             longshapeUpdate ();
             break;
-
+/*
         case 1:
             zshapeUpdate();
             break;
@@ -187,7 +190,7 @@ void update(double dt)
 
         case 4:
             tshapeUpdate();
-            break;
+            break;*/
         }
 
         // quits the game if player hits the escape key
@@ -283,14 +286,14 @@ void render()
         initiateMap(screen.TmLocation);
 
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
-        //printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
-
+        printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
         cout << l_downward;
+        /*
         
         switch(randomisation)
         {
         case 0:
-            printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
+            printBlocks(LONG_TYPE, rotate[LONG_TYPE]);cout << check_l;
             break;
 
         case 1:
@@ -308,7 +311,7 @@ void render()
         case 4:
             printBlocks(T_TYPE, rotate[T_TYPE]);
             break;
-        }
+        }*/
 
         break;
         
@@ -395,6 +398,7 @@ void updateStartScreen()
 
 void longshapeUpdate ()
 {
+    /*
     // for long shape
         
     if (speed % 5  == 0 )
@@ -403,7 +407,8 @@ void longshapeUpdate ()
         l_downward++;
     }
 
-    if (keyPressed[K_UP]) // Rotation button
+    // Rotation button
+    if (keyPressed[K_UP]) 
     {
         Beep(1440, 30);
 
@@ -413,18 +418,21 @@ void longshapeUpdate ()
         {
             check_l++;
             l_downward+=2;
+            check_Right = 1;
         }
 
         else if (rotate[LONG_TYPE] == 2)
         {
             check_l-=2;
             l_downward-=2;
+            check_Right = 4;
         }
 
         else if (rotate[LONG_TYPE] == 3)
         {
             check_l+=2;
             l_downward++;
+            check_Right = 1;
         }
 
         else if (rotate[LONG_TYPE] == 4)
@@ -432,32 +440,34 @@ void longshapeUpdate ()
             rotate[LONG_TYPE] = 0;
             check_l--;
             l_downward--;
+            check_Right = 4;
         }
     }
 
-    if (keyPressed[K_LEFT] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][0].X != DataMap[0][0].X - Long_left)
+    //  for different orientation, different coordinate to detect collision
+    if (keyPressed[K_LEFT] && map[l_downward][check_l + check_Left] != '2' && map[l_downward][check_l + check_Left] != '1')
     {
         Beep(1440, 30);
         blocks.l_shape.X--;
         check_l--;
     }
 
-    if (keyPressed[K_DOWN] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][3].Y != defaultY + down)
+    if (keyPressed[K_DOWN])
     {
         Beep(1440, 30);
         blocks.l_shape.Y++;
         l_downward++;
     }
 
-    if (keyPressed[K_RIGHT] && DataBlocks[LONG_TYPE][rotate[LONG_TYPE]][3].X != DataMap[0][0].X + Long_right && map[l_downward][check_l+4] != '1')
+    if (keyPressed[K_RIGHT] && map[l_downward][check_l + check_Right] != '2' && map[l_downward][check_l + check_Right] != '1')
     {
         Beep(1440, 30);
         blocks.l_shape.X++;
         check_l++;
     }
     
-    // if blocks touches reach 1 in the map, update the map
-    if (map[l_downward][check_l] == '1')                            
+    // if blocks touches 1 in the map, update the map
+    if (map[l_downward][check_l] == '1' || map[l_downward][check_l+1] == '1' || map[l_downward][check_l+2] == '1' || map[l_downward][check_l+3] == '1')                            
     {
         blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
         blocks.l_shape.Y = defaultY + Long_shapedefaultY;
@@ -520,9 +530,252 @@ void longshapeUpdate ()
             l_downward = 1;
             check_l = 4;
         }
+    }*/
+
+    switch (rotate[LONG_TYPE])
+    {
+    case FIRST:
+
+        check_Right = 5;
+        check_Left = 0;
+
+        if (speed % 5  == 0 )
+        {
+            blocks.l_shape.Y++;
+
+            l_downward++;
+        }
+
+        if (keyPressed[K_LEFT] && map[l_downward][check_l + check_Left] != '3' && map[l_downward][check_l + check_Left] != '1')
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.X--;
+
+            check_l--;
+        }
+
+        if (keyPressed[K_RIGHT] && map[l_downward][check_l + check_Right] != '3' && map[l_downward][check_l + check_Right] != '1')
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.X++;
+
+            check_l++;
+        }
+
+        if (keyPressed[K_DOWN] && map[l_downward][check_l] != '2' && map[l_downward][check_l+1] != '1' && map[l_downward][check_l+2] != '1' && map[l_downward][check_l+3] != '1' && map[l_downward][check_l+4] != '1')
+        {
+            Beep(1440, 30);
+            blocks.l_shape.Y++;
+
+            l_downward++;
+        }
+
+        //check for collision
+        if (map[l_downward][check_l] == '2' || map[l_downward][check_l+1] == '1' || map[l_downward][check_l+2] == '1' || map[l_downward][check_l+3] == '1' || map[l_downward][check_l+4] == '1')                            
+        {
+            blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
+            blocks.l_shape.Y = defaultY + Long_shapedefaultY;
+        
+            drawShape(rotate[LONG_TYPE], l_downward-1, check_l+1);
+
+            l_downward = 0;
+            check_l = 3;
+        }
+
+        // if press up, go to next orientation
+        if (keyPressed[K_UP]) 
+        {
+            Beep(1440, 30);
+
+            rotate[LONG_TYPE] = 1;
+
+            l_downward+=2;
+            check_l++;
+        }
+        break;
+
+    case SECOND:
+
+        check_Right = 2;
+        check_Left = 0;
+
+        if (speed % 5  == 0)
+        {
+            blocks.l_shape.Y++;
+            l_downward++;
+        }
+
+        if (keyPressed[K_LEFT] && map[l_downward][check_l + check_Left] != '3' && map[l_downward][check_l + check_Left] != '1')
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.X--;
+            check_l--;
+        }
+
+        if (keyPressed[K_RIGHT] && map[l_downward][check_l + check_Right] != '3' && map[l_downward][check_l + check_Right] != '1')
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.X++;
+            check_l++;
+        }
+
+        if (keyPressed[K_DOWN] && map[l_downward][check_l] != '2' && map[l_downward][check_l+1] != '1' )
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.Y++;
+            l_downward++;
+        }
+
+        // check for collision
+        if (map[l_downward][check_l] == '2' || map[l_downward][check_l+1] == '1' )                            
+        {
+            blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
+            blocks.l_shape.Y = defaultY + Long_shapedefaultY;
+        
+            drawShape(rotate[LONG_TYPE], l_downward-1, check_l+1);
+
+            l_downward = 2;
+            check_l = 4;
+        }
+
+        // rotate when pressed UP
+        if (keyPressed[K_UP] && map[l_downward][check_l-1] != '3' && map[l_downward][check_l] != '3' && map[l_downward][check_l+2] != '3' && map[l_downward][check_l-1] != '1' && map[l_downward][check_l] != '1' && map[l_downward][check_l+2] != '1') 
+        {
+            Beep(1440, 30);
+
+            rotate[LONG_TYPE] = THIRD;
+
+            l_downward-=2;
+            check_l-=2;
+        }
+        break;
+
+    case THIRD:
+
+        check_Right = 5;
+        check_Left = 0;
+
+        if (speed % 5  == 0 )
+        {
+            blocks.l_shape.Y++;
+            l_downward++;
+        }
+
+        if (keyPressed[K_LEFT] && map[l_downward][check_l + check_Left] != '3' && map[l_downward][check_l + check_Left] != '1')
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.X--;
+            check_l--;
+        }
+
+        if (keyPressed[K_RIGHT] && map[l_downward][check_l + check_Right] != '3' && map[l_downward][check_l + check_Right] != '1')
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.X++;
+            check_l++;
+        }
+
+        if (keyPressed[K_DOWN] && map[l_downward][check_l] != '2' && map[l_downward][check_l+1] != '1' && map[l_downward][check_l+2] != '1' && map[l_downward][check_l+3] != '1' && map[l_downward][check_l+4] != '1')
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.Y++;
+            l_downward++;
+        }
+
+        //check for collision
+        if (map[l_downward][check_l] == '2' || map[l_downward][check_l+1] == '1' || map[l_downward][check_l+2] == '1' || map[l_downward][check_l+3] == '1' || map[l_downward][check_l+4] == '1')                            
+        {
+            blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
+            blocks.l_shape.Y = defaultY + Long_shapedefaultY;
+        
+            drawShape(rotate[LONG_TYPE], l_downward-1, check_l+1);
+
+            l_downward = 0;
+            check_l = 2;
+        }
+
+        // Press UP to rotate
+        if (keyPressed[K_UP]) 
+        {
+            Beep(1440, 30);
+
+            rotate[LONG_TYPE] = FOURTH;
+
+            l_downward+=2;
+            check_l+=2;
+        }
+
+        break;
+
+    case FOURTH:
+
+        check_Right = 2;
+        check_Left = 0;
+
+        if (speed % 5  == 0 )
+        {
+            blocks.l_shape.Y++;
+            l_downward++;
+        }
+
+        if (keyPressed[K_LEFT] && map[l_downward][check_l + check_Left] != '3' && map[l_downward][check_l + check_Left] != '1')
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.X--;
+            check_l--;
+        }
+
+        if (keyPressed[K_RIGHT] && map[l_downward][check_l + check_Right] != '3' && map[l_downward][check_l + check_Right] != '1')
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.X++;
+            check_l++;
+        }
+
+        if (keyPressed[K_DOWN] && map[l_downward][check_l] != '2' && map[l_downward][check_l+1] != '1' )
+        {
+            Beep(1440, 30);
+
+            blocks.l_shape.Y++;
+            l_downward++;
+        }
+
+        //check for collision
+        if (map[l_downward][check_l] == '2' || map[l_downward][check_l+1] == '1' )                           
+        {
+            blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
+            blocks.l_shape.Y = defaultY + Long_shapedefaultY;
+        
+            drawShape(rotate[LONG_TYPE], l_downward-1, check_l+1);
+
+            l_downward = 1;
+            check_l = 4;
+        }
+
+        //Press UP to rotate
+        if (keyPressed[K_UP] && map[l_downward][check_l-1] != '3' && map[l_downward][check_l] != '3' && map[l_downward][check_l+3] != '3' && map[l_downward][check_l+2] != '3' && map[l_downward][check_l-1] != '1' && map[l_downward][check_l] != '1' && map[l_downward][check_l+2] != '1')  
+        {
+            Beep(1440, 30);
+            
+            rotate[LONG_TYPE] = FIRST;
+            l_downward-=2;
+            check_l--;
+        }
+
+        break;
     }
 }
-
+/*
 void zshapeUpdate()
 {
     // for z-shape
@@ -751,4 +1004,4 @@ void lukris()
 	}
 
 	inlukris.close();
-}
+}*/
