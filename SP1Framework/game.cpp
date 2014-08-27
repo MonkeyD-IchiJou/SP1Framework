@@ -294,6 +294,7 @@ void render()
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
         printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
         cout << l_downward;
+
         /*
         switch(randomisation)
         {
@@ -645,7 +646,7 @@ void longshapeUpdate ()
             l_downward++;
         }
 
-        if (keyPressed[K_LEFT] && map[l_downward][check_l + check_Left] != '3' && map[l_downward][check_l + check_Left] != '1')
+        if (keyPressed[K_LEFT] && map[l_downward][check_l + check_Left] != '3' && map[l_downward][check_l + check_Left] != '1' && map[l_downward-1][check_l + check_Left] != '1' && map[l_downward-2][check_l + check_Left] != '1' && map[l_downward-3][check_l + check_Left] != '1')
         {
             Beep(1440, 30);
 
@@ -653,7 +654,7 @@ void longshapeUpdate ()
             check_l--;
         }
 
-        if (keyPressed[K_RIGHT] && map[l_downward][check_l + check_Right] != '3' && map[l_downward][check_l + check_Right] != '1')
+        if (keyPressed[K_RIGHT] && map[l_downward][check_l + check_Right] != '3' && map[l_downward][check_l + check_Right] != '1' && map[l_downward-1][check_l + check_Right] != '1' && map[l_downward-2][check_l + check_Right] != '1' && map[l_downward-3][check_l + check_Right] != '1')
         {
             Beep(1440, 30);
 
@@ -813,6 +814,7 @@ void longshapeUpdate ()
         break;
     }
 }
+
 /*
 void zshapeUpdate()
 {

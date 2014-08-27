@@ -49,6 +49,20 @@ enum Orientation
     FOURTH
 };
 
+struct Block
+{
+    COORD location;     // square blocks coordinate
+    BlocksType type;      // L-shape blocks coordinate
+    Orientation orientation;      // N-shape blocks coordinate
+    WORD color;      // long-shape blocks coordinate
+
+    COORD blockoffset[3];   //shape for L blocks
+};
+
+
+
+
+
 // in render_gameplay.cpp
 void DrawBorder(COORD c);
 
