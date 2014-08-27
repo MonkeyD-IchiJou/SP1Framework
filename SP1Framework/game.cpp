@@ -277,6 +277,7 @@ void render()
     {
     case START_SCREEN: 
         // render Start screen
+<<<<<<< 04e2efff5ffaaf3ae446971878dd85bbb7b74384
 <<<<<<< 7af8eb740c80e2177b2a108f2afb7ca943382698
 <<<<<<< 3c933a5cf0c2485b2858fb536fbeb3e07674b60d
         //lukris();
@@ -298,6 +299,9 @@ void render()
 =======
 		//lukris();
 >>>>>>> fc1c5f279c69b915cadafdcd09962b81a26bca84
+=======
+		lukris();
+>>>>>>> dd59249b15f3d7daa4d6b28cec6e229380e29548
         renderStartScreen(screen.MmLocation); 
         break;
 
@@ -313,28 +317,8 @@ void render()
 
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
         printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
-<<<<<<< 4cb07c0b1dfcbbb84ee68412781e250721bdc40c
-<<<<<<< d7d7cad63f56c04b595d110c2bf4b8f3ab4c53b5
         cout << l_downward;
         /*
-        
-=======
-
-<<<<<<< 411485f24a12f32c8b34f42bfae92770d6d758c9
-<<<<<<< dc7697da909308dcf6bdc39ac6ad8b7de8666707
-=======
->>>>>>> f244548d0af5e3cb3154213eb5578e515fc3cc1d
-        cout << l_downward;
-        
-
-        //initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
-        //printBlocks(Z_TYPE, rotate[Z_TYPE]);
-
-<<<<<<< 4cb07c0b1dfcbbb84ee68412781e250721bdc40c
->>>>>>> 3b8789543283a2a434ba3ceaccf0ded517abdd3a
->>>>>>> 411485f24a12f32c8b34f42bfae92770d6d758c9
-=======
->>>>>>> f244548d0af5e3cb3154213eb5578e515fc3cc1d
         switch(randomisation)
         {
         case 0:
@@ -356,7 +340,7 @@ void render()
         case 4:
             printBlocks(T_TYPE, rotate[T_TYPE]);
             break;
-        }
+        }*/
 
         /*void rng()
         {
@@ -1070,7 +1054,7 @@ void tshapeUpdate()
         randomisation = 3;
     }
 }
-
+*/
 void lukris()
 {
     /*
@@ -1086,4 +1070,4 @@ void lukris()
     }
 
 	inlukris.close();
-}*/
+}
