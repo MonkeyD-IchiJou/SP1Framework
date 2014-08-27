@@ -294,7 +294,6 @@ void render()
         initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
         printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
         cout << l_downward;
-<<<<<<< 6c10ff49de2ebcdaf20349724d197fe029bb454b
         /*
         
         switch(randomisation)
@@ -319,7 +318,6 @@ void render()
             printBlocks(T_TYPE, rotate[T_TYPE]);
             break;
         }*/
-=======
 
         /*void rng()
         {
@@ -352,7 +350,6 @@ void render()
             }
         //}
         break;
->>>>>>> 82d631fc74a30285c6a8c231256acc50bd3784ff
 
     case OPTION_SCREEN:
         renderOption(screen.OptLocation);
@@ -1049,15 +1046,5 @@ void lukris()
     cout << hi << endl;
     }
 
-<<<<<<< 6c10ff49de2ebcdaf20349724d197fe029bb454b
-<<<<<<< f3bb6df17f2c3907a0ddd5ffa524f6a322e51806
 	inlukris.close();
 }*/
-=======
-	inlukris.close();*/
-}
->>>>>>> dcc81fe318cc91ee8d9c186de042f31ba63305a4
-=======
-    inlukris.close();*/
-}
->>>>>>> 82d631fc74a30285c6a8c231256acc50bd3784ff
