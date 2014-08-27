@@ -277,20 +277,28 @@ void render()
     {
     case START_SCREEN: 
         // render Start screen
+<<<<<<< 7af8eb740c80e2177b2a108f2afb7ca943382698
 <<<<<<< 3c933a5cf0c2485b2858fb536fbeb3e07674b60d
         //lukris();
 =======
+=======
+<<<<<<< 37141e309caaafc4b8bee5e73acacb866d1c3632
+>>>>>>> 4cb07c0b1dfcbbb84ee68412781e250721bdc40c
 <<<<<<< 34b0dcd44d1445da6b1be632358393712ce4f794
 		//lukris();
 =======
 <<<<<<< beae32c5d0bc41106470374b59bb9102ab67af32
 		lukris();
 >>>>>>> dc7697da909308dcf6bdc39ac6ad8b7de8666707
+<<<<<<< 7af8eb740c80e2177b2a108f2afb7ca943382698
 >>>>>>> d7d7cad63f56c04b595d110c2bf4b8f3ab4c53b5
         renderStartScreen(screen.MmLocation); 
 =======
-		renderStartScreen(screen.MmLocation); 
->>>>>>> 4d739baf4fdcbc784e85ece17999c0cf888d3e2d
+>>>>>>> 4cb07c0b1dfcbbb84ee68412781e250721bdc40c
+=======
+		//lukris();
+>>>>>>> fc1c5f279c69b915cadafdcd09962b81a26bca84
+        renderStartScreen(screen.MmLocation); 
         break;
 
     case MENU_SCREEN:

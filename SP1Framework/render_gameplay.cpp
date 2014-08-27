@@ -221,10 +221,10 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
 	// first orientation
 	
 	DataBlocks[L_TYPE][0][0].X = L.X; 
-    DataBlocks[2][0][0].Y = L.Y;
+    DataBlocks[L_TYPE][0][0].Y = L.Y;
 
 	DataBlocks[L_TYPE][0][1].X = L.X;
-	DataBlocks[2][0][1].Y = L.Y-1;
+	DataBlocks[L_TYPE][0][1].Y = L.Y-1;
 	
 	DataBlocks[L_TYPE][0][2].X = L.X;
 	DataBlocks[L_TYPE][0][2].Y = L.Y+1;
