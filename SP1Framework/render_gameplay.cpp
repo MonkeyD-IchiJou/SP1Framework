@@ -890,26 +890,23 @@ void UpdateMap(int type, int orientation, int x, int y)
         case SECOND:
             for (int i = 0; i < 3; i++)
             {
-                map[x+i][y] = '1';
-                if (i < 2)
-                {
-                    map[x][y+i] = '1';
-                }
+                map[x-1+i][y] = '1';
+                map[x][y+1] = '1';
             }
             break;
 
         case THIRD:
             for (int i = 0; i < 3; i++)
             {
-                map[x-1][y+i] = '1';
-                map[x][y+2] = '1';
+                map[x][y+i] = '1';
+                map[x+1][y+1] = '1';
             }
             break;
 
         case FOURTH:
             for (int i = 0; i < 3; i++)
             {
-                map[x-i][y+1] = '1';
+                map[x-1+i][y+1] = '1';
                 map[x][y] = '1';
             }
             break;

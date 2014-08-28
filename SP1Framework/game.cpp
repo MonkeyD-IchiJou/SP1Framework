@@ -184,7 +184,6 @@ void render()
         DrawMap(screen.TmLocation);
 
         printBlock(block.type, block.orientation, check.wallcollision);
-        cout << downward;
         break;
 
     case OPTION_SCREEN:
@@ -823,7 +822,7 @@ void updateT()
     switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-2] != '1' && map[downward+1][check.T-2] != '1')
+        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] != '1' && map[downward+1][check.T-1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -831,7 +830,7 @@ void updateT()
             check.T--;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward+1][check.T + 2] != '1')
+        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward+1][check.T + 1] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -868,7 +867,7 @@ void updateT()
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T - 2] != '1' && map[downward + 1][check.T - 2] != '1' && map[downward + 2][check.T - 2] != '1')
+        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-2] != '1' && map[downward][check.T] != '1' && map[downward][check.T-1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -876,7 +875,7 @@ void updateT()
             check.T--;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 8 && map[downward][check.T + 2] != '1')
+        if (keyPressed[K_RIGHT] && check.T < 8 && map[downward][check.T+2] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -888,8 +887,6 @@ void updateT()
         {
             Beep(1440, 30);
             block.location.Y++;
-
-            check.T--;
 
             downward++;
         }
@@ -903,9 +900,9 @@ void updateT()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward+1][check.L] == '1')
+        if (downward > 20 || map[downward+1][check.T] == '1' || map[downward][check.T+1] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward - 1, check.L);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward - 1, check.T);             // bu jie zhi mi
 
             initCheck();
             random();
@@ -913,7 +910,7 @@ void updateT()
         break;
 
     case THIRD:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-2] != '1')
+        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -921,7 +918,7 @@ void updateT()
             check.T--;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward+1][check.T + 2] != '1' && map[downward][check.T + 2] != '1')
+        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward][check.T+3] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -944,9 +941,9 @@ void updateT()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward][check.T] == '1' || map[downward+1][check.T+1] == '1' || map[downward][check.T-1] == '1')
+        if (downward > 20 || map[downward+1][check.T+1] == '1' || map[downward][check.T] == '1' || map[downward][check.T+2] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward, check.T - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward - 1, check.T);             // bu jie zhi mi
 
             initCheck();
             random();
@@ -954,7 +951,7 @@ void updateT()
         break;
 
     case FOURTH:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward + 1][check.T - 2] != '1' && map[downward-1][check.T - 2] != '1' && map[downward][check.T - 2] != '1')
+        if (keyPressed[K_LEFT] && check.T > 0 && check.T < 8 && map[downward-1][check.T-1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -962,7 +959,7 @@ void updateT()
             check.T--;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 8 && map[downward+1][check.T + 2] != '1' && map[downward][check.T + 2] != '1' && map[downward-1][check.T + 2] != '1')
+        if (keyPressed[K_RIGHT] && check.T < 8 && map[downward+1][check.T+2] != '1' && map[downward][check.T+2] != '1' && map[downward-1][check.T+2] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -981,13 +978,15 @@ void updateT()
         if (keyPressed[K_UP])
         {
             block.orientation = FIRST;
+
+            downward--;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward+1][check.T] == '1' || map[downward+1][check.T-1] == '1')
+        if (downward > 20 || map[downward][check.T] == '1' || map[downward + 1][check.T + 1] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward, check.T - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward-1, check.T);             // bu jie zhi mi
 
             initCheck();
             random();
@@ -1632,7 +1631,7 @@ void random()
     block.orientation = FIRST;
 
     srand (time(NULL));
-    randomisation = 4;//rand()%2;
+    randomisation = rand()%5;
 
     switch(randomisation)
     {
