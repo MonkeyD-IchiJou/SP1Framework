@@ -29,4 +29,8 @@ void updateMenu();
 void pauseScreenUpdate();
 void optionScreenUpdate();
 
+void initCheck();               //inside init()
+void initBlockLocation();
+void random();
+
 #endif // _GAME_H

@@ -100,7 +100,7 @@ void DrawBorder(COORD c)
         }
 }
 
-void initiate(int type, int orientation, COORD c)
+void initiate(int type, COORD c)
 {
     switch (type)
     {
@@ -133,31 +133,181 @@ void initiate(int type, int orientation, COORD c)
         break;
 
     case Z_TYPE:
-        // for I blocks
+        // for Z blocks
         for (int i = 0; i < 4; i++)                 // first orientation
         {
-            DataBlocks[type][0][i].X = c.X-2+i; 
-            DataBlocks[type][0][i].Y = c.Y;
+            if (i < 2)
+            {
+                DataBlocks[type][0][i].X = c.X-1+i; 
+                DataBlocks[type][0][i].Y = c.Y;
+            }
+
+            if (i >= 2)
+            {
+                DataBlocks[type][0][i].X = c.X-2+i; 
+                DataBlocks[type][0][i].Y = c.Y+1;
+            }
         }
 
         for (int i = 0; i < 4; i++)                // second orientation
         {
-            DataBlocks[type][1][i].X = c.X; 
-            DataBlocks[type][1][i].Y = c.Y-2+i;
+            if (i < 2)
+            {
+                DataBlocks[type][1][i].X = c.X; 
+                DataBlocks[type][1][i].Y = c.Y-1+i;
+            }
+
+            if (i >= 2)
+            {
+                DataBlocks[type][1][i].X = c.X-1; 
+                DataBlocks[type][1][i].Y = c.Y-2+i;
+            }
         }
 
-        for (int i = 0; i < 4; i++)               // third orientation
+        break;
+
+    case L_TYPE:
+        //for L blocks
+        for (int i = 0; i < 4; i++)                 // first orientation
         {
-            DataBlocks[type][2][i].X = c.X-2+i; 
-            DataBlocks[type][2][i].Y = c.Y;
+            if(i < 3)
+            {
+                DataBlocks[type][0][i].X = c.X-1+i; 
+                DataBlocks[type][0][i].Y = c.Y;
+            }
+
+            DataBlocks[type][0][3].X = c.X-1; 
+            DataBlocks[type][0][3].Y = c.Y-1;
         }
 
-        for (int i = 0; i < 4; i++)             // fourth orientation
+        for (int i = 0; i < 4; i++)                 // second orientation
         {
-            DataBlocks[type][3][i].X = c.X - 1; 
-            DataBlocks[type][3][i].Y = c.Y-1+i;
+            if(i < 3)
+            {
+                DataBlocks[type][1][i].X = c.X; 
+                DataBlocks[type][1][i].Y = c.Y-1+i;
+            }
+
+            DataBlocks[type][1][3].X = c.X+1; 
+            DataBlocks[type][1][3].Y = c.Y-1;
         }
 
+        for (int i = 0; i < 4; i++)                // third orientation
+        {
+            if(i < 3)
+            {
+                DataBlocks[type][2][i].X = c.X-1+i; 
+                DataBlocks[type][2][i].Y = c.Y;
+            }
+
+            DataBlocks[type][2][3].X = c.X+1; 
+            DataBlocks[type][2][3].Y = c.Y+1;
+        }
+
+        for (int i = 0; i < 4; i++)                 // fourth orientation
+        {
+            if(i < 3)
+            {
+                DataBlocks[type][3][i].X = c.X; 
+                DataBlocks[type][3][i].Y = c.Y-1+i;
+            }
+
+            DataBlocks[type][3][3].X = c.X-1; 
+            DataBlocks[type][3][3].Y = c.Y+1;
+        }
+        break;
+
+    case Sq_TYPE:
+        for (int i = 0; i < 4; i++)                 // first orientation
+        {
+            if (i < 2)
+            {
+                DataBlocks[type][0][i].X = c.X+i; 
+                DataBlocks[type][0][i].Y = c.Y;
+            }
+
+            if (i >= 2)
+            {
+                DataBlocks[type][0][i].X = c.X-2+i; 
+                DataBlocks[type][0][i].Y = c.Y+1;
+            }
+        }
+        break;
+
+    case T_TYPE:
+        for (int i = 0; i < 4; i++)                 // first orientation
+        {
+            if(i < 3)
+            {
+                DataBlocks[type][0][i].X = c.X-1+i; 
+                DataBlocks[type][0][i].Y = c.Y;
+            }
+
+            DataBlocks[type][0][3].X = c.X; 
+            DataBlocks[type][0][3].Y = c.Y-1;
+        }
+
+        for (int i = 0; i < 4; i++)                 // second orientation
+        {
+            if(i < 3)
+            {
+                DataBlocks[type][1][i].X = c.X; 
+                DataBlocks[type][1][i].Y = c.Y-1+i;
+            }
+
+            DataBlocks[type][1][3].X = c.X+1; 
+            DataBlocks[type][1][3].Y = c.Y;
+        }
+
+        for (int i = 0; i < 4; i++)                // third orientation
+        {
+            if(i < 3)
+            {
+                DataBlocks[type][2][i].X = c.X-1+i; 
+                DataBlocks[type][2][i].Y = c.Y;
+            }
+
+            DataBlocks[type][2][3].X = c.X; 
+            DataBlocks[type][2][3].Y = c.Y+1;
+        }
+
+        for (int i = 0; i < 4; i++)                 // fourth orientation
+        {
+            if(i < 3)
+            {
+                DataBlocks[type][3][i].X = c.X; 
+                DataBlocks[type][3][i].Y = c.Y-1+i;
+            }
+
+            DataBlocks[type][3][3].X = c.X-1; 
+            DataBlocks[type][3][3].Y = c.Y;
+        }
+        break;
+
+    case L_REV_TYPE:
+        for (int i = 0; i < 4; i++)                // first orientation
+        {
+            if(i < 3)
+            {
+                DataBlocks[type][0][i].X = c.X-1+i; 
+                DataBlocks[type][0][i].Y = c.Y;
+            }
+
+            DataBlocks[type][0][3].X = c.X+1; 
+            DataBlocks[type][0][3].Y = c.Y-1;
+        }
+
+        for (int i = 0; i < 4; i++)                 // fourth orientation
+        {
+            if(i < 3)
+            {
+                DataBlocks[type][3][i].X = c.X; 
+                DataBlocks[type][3][i].Y = c.Y-1+i;
+            }
+
+            DataBlocks[type][3][3].X = c.X+1; 
+            DataBlocks[type][3][3].Y = c.Y+1;
+        }
         break;
         /*
     case Z_TYPE:
@@ -591,40 +741,179 @@ void printBlock(int type, int orientation, int moveAside)
     }
 }
 
-void UpdateMap(int orientation, int x, int y)
+void UpdateMap(int type, int orientation, int x, int y)
 {
-    switch(orientation)
+    switch(type)
     {
-    case FIRST:
-        for (int i = 0; i < 4; i++)
+    case LONG_TYPE:
+        switch(orientation)
         {
-            map[x][y+i] = '1';
-        }
+        case FIRST:
+            for (int i = 0; i < 4; i++)
+            {
+                map[x][y+i] = '1';
+            }
 
+            break;
+
+        case SECOND:
+            for (int i = 0; i < 4; i++)
+            {
+                map[x-i][y] = '1';
+            }
+
+            break;
+
+        case THIRD:
+            for (int i = 0; i < 4; i++)
+            {
+                map[x][y+i] = '1';
+            }
+
+            break;
+
+        case FOURTH:
+            for (int i = 0; i < 4; i++)
+            {
+                map[x-i][y] = '1';
+            }
+
+            break;
+        }
         break;
 
-    case SECOND:
-        for (int i = 0; i < 4; i++)
+    case Z_TYPE:
+        switch(orientation)
         {
-            map[x-i][y] = '1';
-        }
+        case FIRST:
+            for (int i = 0; i < 4; i++)
+            {
+                if (i > 0 && i < 3)
+                {
+                    map[x-1][y+i] = '1';
+                }
+                
+                if (i > 1 && i < 4)
+                {
+                    map[x][y+i] = '1';
+                }
+            }
 
+            break;
+
+        case SECOND:
+            for (int i = 0; i < 4; i++)
+            {
+                if (i > 0 && i < 3)
+                {
+                    map[x-i][y+2] = '1';
+                }
+                
+                if (i >= 0 && i < 2)
+                {
+                    map[x-i][y+1] = '1';
+                }
+            }
+
+            break;
+        }
         break;
 
-    case THIRD:
-        for (int i = 0; i < 4; i++)
+    case L_TYPE:
+        switch(orientation)
         {
-            map[x][y+i] = '1';
-        }
+        case FIRST:
+            for (int i = 0; i < 3; i++)
+            {
+                map[x][y+i] = '1';
+                map[x-1][y] = '1';
+            }
+            break;
 
+        case SECOND:
+            for (int i = 0; i < 3; i++)
+            {
+                map[x+i][y] = '1';
+                if (i < 2)
+                {
+                    map[x-1][y+i] = '1';
+                }
+            }
+            break;
+
+        case THIRD:
+            for (int i = 0; i < 3; i++)
+            {
+                map[x-1][y+i] = '1';
+                map[x][y+2] = '1';
+            }
+            break;
+
+        case FOURTH:
+            for (int i = 0; i < 3; i++)
+            {
+                map[x-i][y+1] = '1';
+                map[x][y] = '1';
+            }
+            break;
+        }
         break;
 
-    case FOURTH:
-        for (int i = 0; i < 4; i++)
+    case Sq_TYPE:
+        switch(orientation)
         {
-            map[x-i][y] = '1';
-        }
+        case FIRST:
+            for (int i = 0; i < 4; i++)
+            {
+                if (i > 0 && i < 3)
+                {
+                    map[x-1][y+i] = '1';
+                    map[x][y+i] = '1';
+                }
+            }
 
+            break;
+        }
+        break;
+
+    case T_TYPE:
+        switch(orientation)
+        {
+        case FIRST:
+            for (int i = 0; i < 3; i++)
+            {
+                map[x+1][y+i] = '1';
+                map[x][y+1] = '1';
+            }
+            break;
+
+        case SECOND:
+            for (int i = 0; i < 3; i++)
+            {
+                map[x+i][y] = '1';
+                if (i < 2)
+                {
+                    map[x][y+i] = '1';
+                }
+            }
+            break;
+
+        case THIRD:
+            for (int i = 0; i < 3; i++)
+            {
+                map[x-1][y+i] = '1';
+                map[x][y+2] = '1';
+            }
+            break;
+
+        case FOURTH:
+            for (int i = 0; i < 3; i++)
+            {
+                map[x-i][y+1] = '1';
+                map[x][y] = '1';
+            }
+            break;
+        }
         break;
     }
 }

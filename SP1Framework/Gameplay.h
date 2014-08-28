@@ -35,7 +35,8 @@ enum BlocksType
     Z_TYPE,
     L_TYPE,
     Sq_TYPE,
-    T_TYPE
+    T_TYPE,
+    L_REV_TYPE
 };
 
 enum Orientation
@@ -72,11 +73,13 @@ void DrawBorder(COORD c);
 void SetMap();
 void DrawMap(COORD c);
 
-void initiate(int type, int orientation, COORD c);
+void initiate(int type, COORD c);
 void printBlock(int type, int orientation, int moveAside);
 
-void UpdateMap(int orientation, int x, int y);
+void UpdateMap(int type, int orientation, int x, int y);
 void updateLONG();
 void updateZ();
-void initCheck();
+void updateL();
+void updateSq();
+void updateT();
 #endif // _GAMEPLAY_H
