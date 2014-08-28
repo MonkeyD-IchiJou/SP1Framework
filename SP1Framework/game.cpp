@@ -1,3 +1,4 @@
+
 // This is the main file for the game logic and function
 //
 //
@@ -228,13 +229,13 @@ void updateMenu()
     if (keyPressed[K_UP] && screen.MmLocation.Y > 5)
     {
         Beep(1440, 30);
-        screen.MmLocation.Y -= 5; 
+        screen.MmLocation.Y -= 5;
     }
 
     if (keyPressed[K_DOWN] && screen.MmLocation.Y < 20)
     {
         Beep(1440, 30);
-        screen.MmLocation.Y += 5; 
+        screen.MmLocation.Y += 5;
     }
 
     if (keyPressed[K_ENTER] && screen.MmLocation.Y == 5)
@@ -1598,6 +1599,7 @@ void tshapeUpdate()
 void initCheck()
 {
     check.l = 3;
+<<<<<<< bc870dff08f00b7593eedc98402b1beb4da8c741
     check.Z = 4;
     check.L = 5;
     check.Sq = 4;
@@ -1666,3 +1668,6 @@ void random()
         break;
     }
 }
+=======
+}
+>>>>>>> 58e0d8c451ffd97b11979809b9736a191e6a62bf
