@@ -1,9 +1,8 @@
 // This is the main file to hold everthing together
 
+#include "Framework\timer.h"
 #include "game.h"
-#include "Framework\console.h"
 #include "tetris.h"
-#include "Gameplay.h"
 
 StopWatch g_timer;            // Timer function to keep track of time and the frame rate
 bool g_quitGame = false;      // Set to true if you want to quit the game

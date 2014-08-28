@@ -10,65 +10,21 @@ double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 
-Location screen;
-Blocks blocks;
+Location screen;        //coordinates for start, main menu, gameplay, and pause screen 
+Blocks blocks;          //coordinates for different blocks
+Block block;            //use for individual block
+
+collisionCheck check;
+
+gameState stage;        //check for the gamestate
 
 COORD consoleSize;
 
-gameState stage;
-
-int x, y;
 int speed;
 
-const int defaultX = 30;
-const int defaultY = 0;
-
-const int Long_shapedefaultX = 5;
-const int Long_shapedefaultY = 0;
-
-const int Z_shapedefaultX = 5;
-const int Z_shapedefaultY = 0;
-
-const int L_shapedefaultX = 4;
-const int L_shapedefaultY = 0;
-
-const int Sq_shapedefaultX = 4;
-const int Sq_shapedefaultY = 0;
-
-const int T_shapedefaultX = 4;
-const int T_shapedefaultY = 0;
-
-/*
-int Z_right = 8;
-int Z_left = 0;
-
-int L_right = 9;
-int L_left = 0;
-
-int Sq_right = 9;
-int Sq_left = -1;
-
-int T_right = 9;
-int T_left = 0;
-*/
-
-int check_l = 3;
-int check_Right;
-int check_Left;
-
-int check = 0;
-
-const int down = 21;
-
-int rotate[7] = {0, 0, 0, 0, 0, 0, 0};
-
-int l_downward = 0;
-int Z_downward = 0;
-int L_downward = 0;
-int Sq_downward = 0;
-int T_downward = 0;
-
-unsigned int randomisation = 0;
+int extraX = 21;
+int extraY = 4;
+int downward = 0;
 
 void init()
 {
@@ -100,27 +56,36 @@ void init()
     screen.PsLocation.X = 28;       // for pause
     screen.PsLocation.Y = 10;  
 
-    screen.TmLocation.X = defaultX;       //for tetris map
-    screen.TmLocation.Y = defaultY;
-    /*
-    screen.BdLocation.X = 25;       //for border
-    screen.BdLocation.Y = 2;*/
+    screen.TmLocation.X = 30;       //for tetris map
+    screen.TmLocation.Y = 3;
 
-    blocks.Sq_shape.X = defaultX + Sq_shapedefaultX;         //for square blocks
-    blocks.Sq_shape.Y = defaultY + Sq_shapedefaultY;          
+    blocks.l_shape.X = 35;
+    blocks.l_shape.Y = 3;
 
-    blocks.L_shape.X = defaultX + L_shapedefaultX;          //for L-shape
-    blocks.L_shape.Y = defaultY + L_shapedefaultY;
+    blocks.L_shape.X = 35;
+    blocks.L_shape.Y = 3;
 
-    blocks.Z_shape.X = defaultX + Z_shapedefaultX;          //for N-blocks
-    blocks.Z_shape.Y = defaultY + Z_shapedefaultY;
+    blocks.Sq_shape.X = 35;
+    blocks.Sq_shape.Y = 3;
 
-    blocks.l_shape.X = defaultX + Long_shapedefaultX;          //for l-shape
-    blocks.l_shape.Y = defaultY + Long_shapedefaultY;
+    blocks.T_shape.X = 35;
+    blocks.T_shape.Y = 3;
 
-    blocks.T_shape.X = defaultX + T_shapedefaultX;          //for T-shape
-    blocks.T_shape.Y = defaultY + T_shapedefaultY;
+    blocks.Z_shape.X = 35;
+    blocks.Z_shape.Y = 3;
 
+    // initiate block thingy here
+    // will do randomisation here
+    block.orientation = FIRST;
+
+    block.location.X = blocks.l_shape.X;
+    block.location.Y = blocks.l_shape.Y;
+
+    block.type = LONG_TYPE;
+
+    initCheck();
+    check.wallcollision = 0;
+    downward = 0;
     elapsedTime = 0.0;
 }
 
@@ -143,13 +108,6 @@ void getInput()
 
 void update(double dt)
 {
-    if(!keyPressed[K_ESCAPE])
-    {
-        // get the delta time
-
-        elapsedTime += dt;
-        deltaTime = dt;
-    }
     switch (stage)
     {
     case START_SCREEN: // For start screen
@@ -169,102 +127,40 @@ void update(double dt)
         break;
 
     case GAMEPLAY_SCREEN: // For gameplay screen
-
         elapsedTime += dt;
         deltaTime = dt;
         speed = static_cast<int>(elapsedTime*10);
 
-        // Updating Gameplay screen by pressing buttons
-        switch(randomisation)
+        initiate(block.type, block.orientation, block.location);
+
+        switch(block.type)
         {
-        case 0:
-            longshapeUpdate ();
-            break;
-/*
-        case 1:
-            zshapeUpdate();
+        case LONG_TYPE:
+            updateLONG();
             break;
 
-        case 2:
-            LshapeUpdate();
+        case Z_TYPE:
+            updateZ();
             break;
-
-        case 3:
-            sqshapeUpdate();
-            break;
-
-        case 4:
-            tshapeUpdate();
-            break;*/
         }
-
-        // quits the game if player hits the escape key
-
-        if (keyPressed[K_ESCAPE])
-        {
-            g_quitGame = true;
-        }
-
-        if(keyPressed[K_SPACE])
-        {
-            stage = PAUSE_SCREEN;
-        }
-
-        break;
 
     case PAUSE_SCREEN:
+        elapsedTime += dt;
+        deltaTime = dt;
 
-        if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
-        {
-            Beep(1440, 30);
-            screen.PsLocation.Y -= 5; 
-        }
-
-        if (keyPressed[K_DOWN] && screen.PsLocation.Y < 15)
-        {
-            Beep(1440, 30);
-            screen.PsLocation.Y += 5; 
-        }
-
-        if (keyPressed[K_ENTER] && screen.PsLocation.Y == 10)
-        {
-            stage = GAMEPLAY_SCREEN;
-        }
-
-        if (keyPressed[K_ENTER] && screen.PsLocation.Y == 15)
-        {
-            g_quitGame = true;
-        }
+        pauseScreenUpdate();
 
         break;
 
-        // for options
     case OPTION_SCREEN:
+
         elapsedTime += dt;
         deltaTime = dt;
-        if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
-        {
-            Beep(1440, 30);
-            screen.OptLocation.Y -= 5; 
-        }
 
-        if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
-        {
-            Beep(1440, 30);
-            screen.OptLocation.Y += 5; 
-        }
+        optionScreenUpdate();
 
-        if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
-        {
-            stage = GAMEPLAY_SCREEN;
-        }
-
-        if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
-        {
-            stage = MENU_SCREEN;
-        }
+        break;
     }
-
 }
 
 void render()
@@ -277,7 +173,6 @@ void render()
     {
     case START_SCREEN: 
         // render Start screen
-        //lukris();
         renderStartScreen(screen.MmLocation); 
         break;
 
@@ -287,68 +182,12 @@ void render()
         break;
 
     case GAMEPLAY_SCREEN: 
-        //DrawBorder(screen.BdLocation);
+        // render gameplay
         DrawMap(screen.TmLocation);
-        initiateMap(screen.TmLocation);
 
-        initiate(blocks.l_shape, blocks.Z_shape, blocks.L_shape, blocks.Sq_shape, blocks.T_shape);
-        printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
-        cout << l_downward;
-
-        /*
-        switch(randomisation)
-        {
-        case 0:
-            printBlocks(LONG_TYPE, rotate[LONG_TYPE]);cout << check_l;
-            break;
-
-        case 1:
-            printBlocks(Z_TYPE, rotate[Z_TYPE]);
-            break;
-
-        case 2:
-            printBlocks(L_TYPE, rotate[L_TYPE]);
-            break;
-
-        case 3:
-            printBlocks(Sq_TYPE, rotate[Sq_TYPE]);
-            break;
-
-        case 4:
-            printBlocks(T_TYPE, rotate[T_TYPE]);
-            break;
-        }*/
-
-        /*void rng()
-        {
-            srand(time(NULL));
-            for(int i = 0;i < 12;i++) // RNG ten numbers
-            {
-                int poppy = 1 + (rand() % 7);
-            }*/
-            switch(randomisation)
-            {
-            case 0:
-                printBlocks(LONG_TYPE, rotate[LONG_TYPE]);
-                break;
-
-            case 1:
-                printBlocks(Z_TYPE, rotate[Z_TYPE]);
-                break;
-
-            case 2:
-                printBlocks(L_TYPE, rotate[L_TYPE]);
-                break;
-
-            case 3:
-                printBlocks(Sq_TYPE, rotate[Sq_TYPE]);
-                break;
-
-            case 4:
-                printBlocks(T_TYPE, rotate[T_TYPE]);
-                break;
-            }
-        //}
+        printBlock(block.type, block.orientation, check.wallcollision);
+        cout << check.l;
+        
         break;
 
     case OPTION_SCREEN:
@@ -373,9 +212,9 @@ void render()
     TIMINGInfo();
 }
 
+// All the info and updates function below
 void FPSInfo()
 {
-
     gotoXY(71, 0);
     colour(Red);
     std::cout << 1.0 / deltaTime << "fps" << std::endl;
@@ -383,7 +222,6 @@ void FPSInfo()
 
 void TIMINGInfo()
 {
-
     gotoXY(0, 0);
     colour(DarkGreen);
     std::cout << elapsedTime << "secs" << std::endl;
@@ -432,7 +270,296 @@ void updateStartScreen()
     }
 }
 
-void longshapeUpdate ()
+void pauseScreenUpdate()
+{
+    if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
+    {
+        Beep(1440, 30);
+        screen.PsLocation.Y -= 5; 
+    }
+
+    if (keyPressed[K_DOWN] && screen.PsLocation.Y < 15)
+    {
+        Beep(1440, 30);
+        screen.PsLocation.Y += 5; 
+    }
+
+    if (keyPressed[K_ENTER] && screen.PsLocation.Y == 10)
+    {
+        stage = GAMEPLAY_SCREEN;
+    }
+
+    if (keyPressed[K_ENTER] && screen.PsLocation.Y == 15)
+    {
+        g_quitGame = true;
+    }
+}
+
+void optionScreenUpdate()
+{
+    if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
+    {
+        Beep(1440, 30);
+        screen.OptLocation.Y -= 5; 
+    }
+
+    if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
+    {
+        Beep(1440, 30);
+        screen.OptLocation.Y += 5; 
+    }
+
+    if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
+    {
+        stage = GAMEPLAY_SCREEN;
+    }
+
+    if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
+    {
+        stage = MENU_SCREEN;
+    }
+}
+
+void updateLONG()
+{
+    switch(block.orientation)
+    {
+    case FIRST:
+
+        if (keyPressed[K_LEFT] && check.l > 0)
+        {
+            Beep(1440, 30);
+            block.location.X--;
+            
+            check.l--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.l < 6)
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.l++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = SECOND;
+
+            downward++;
+
+            check.l+=2;
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 21)
+        {
+            UpdateMap(block.orientation, downward - 1, check.l);             // bu jie zhi mi
+
+            init();
+        }
+
+        if (map[downward][check.l] == '1')
+        {
+            UpdateMap(block.orientation, downward - 1, check.l);
+
+            init();
+        }
+
+        break;
+
+    case SECOND:
+
+        if (keyPressed[K_LEFT] && check.l > 0)
+        {
+            Beep(1440, 30);
+            block.location.X--;
+            
+            check.l--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.l < 9)
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.l++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = THIRD;
+            downward--;
+
+            check.l-=2;
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 21)
+        {
+            UpdateMap(block.orientation, downward - 1, check.l);             // bu jie zhi mi
+
+            init();
+        }
+
+        if (map[downward][check.l] == '1')
+        {
+            UpdateMap(block.orientation, downward - 1, check.l);
+
+            init();
+        }
+
+        break;
+
+    case THIRD:
+
+        if (keyPressed[K_LEFT] && check.l > 0)
+        {
+            Beep(1440, 30);
+            block.location.X--;
+            
+            check.l--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.l < 6)
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.l++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = FOURTH;
+
+            downward+=2;
+
+            check.l+=2;
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 21)
+        {
+            UpdateMap(block.orientation, downward - 1, check.l);             // bu jie zhi mi
+
+            init();
+        }
+
+        if (map[downward][check.l] == '1')
+        {
+            UpdateMap(block.orientation, downward - 1, check.l);
+
+            init();
+        }
+
+        break;
+
+    case FOURTH:
+
+        if (keyPressed[K_LEFT] && check.l > 1)
+        {
+            Beep(1440, 30);
+            block.location.X--;
+            
+            check.l--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.l < 10)
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.l++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = FIRST;
+
+            downward-=2;
+
+            check.l-=2;
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 21)
+        {
+            UpdateMap(block.orientation, downward - 1, check.l);             // bu jie zhi mi
+
+            init();
+        }
+
+        if (map[downward][check.l] == '1')
+        {
+            UpdateMap(block.orientation, downward - 1, check.l);
+
+            init();
+        }
+
+        break;
+    }
+}
+
+void updateZ()
+{
+    switch(block.orientation)
+    {
+    case FIRST:
+        // enter key here
+        break;
+
+    case SECOND:
+        // enter e=key here
+        break;
+
+    case THIRD:
+        // enter key here
+        break;
+
+    case FOURTH:
+        // enter key here
+        break;
+    }
+}
+
+/*void longshapeUpdate()
 {
     /*
     // for long shape
@@ -569,7 +696,7 @@ void longshapeUpdate ()
             l_downward = 1;
             check_l = 4;
         }
-    }*/
+    }
 
     switch (rotate[LONG_TYPE])
     {
@@ -1030,19 +1157,9 @@ void tshapeUpdate()
     }
 }
 */
-void lukris()
+
+
+void initCheck()
 {
-    
-    ifstream inlukris;
-    string hi;
-
-    inlukris.open ("Bg.txt");
-
-    while (!inlukris.eof())
-    {
-    getline (inlukris,hi);
-    cout << hi << endl;
-    }
-
-	inlukris.close();
+    check.l = 3;
 }

@@ -61,23 +61,6 @@ void renderOption(COORD c);
 // in render_pause.cpp
 void renderPause(COORD c);
 
-// in render_gameplay.cpp
-void printTetrisMap(COORD c);
-void DrawMap(COORD c);
-void DrawBorder(COORD c);
-
-void initiate(COORD l, COORD Z, COORD L, COORD S, COORD T);
-
-void print_l_blocks(int change);
-void print_Z_blocks(int change);
-void print_L_blocks(int change);
-void print_Sq_blocks(int change);
-void print_T_blocks(int change);
-
-void printBlocks(int type, int change);
-
-void lukris();
-void rng();
 // in render_pause_screen.cpp
 void RenderPauseScreen(COORD c);
 

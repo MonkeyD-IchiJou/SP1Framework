@@ -1,10 +1,10 @@
 #ifndef _GAMEPLAY_H
 #define _GAMEPLAY_H
 
-#include "tetris.h"
+#include "Framework\timer.h"
 
-const size_t height = 23;
-const size_t width = 13;
+const size_t height = 22;
+const size_t width = 11;
 
 const size_t borderheight = 25;
 const size_t borderwidth = 13; 
@@ -18,8 +18,7 @@ const size_t coordinates = 4;
 extern char map[height][width];
 
 extern COORD DataBlocks[blocksType][orientation][coordinates];
-
-extern COORD DataMap[height][width];
+extern int checkLnR[blocksType][orientation];
 
 struct Blocks
 {
@@ -28,8 +27,6 @@ struct Blocks
     COORD Z_shape;      // N-shape blocks coordinate
     COORD l_shape;      // long-shape blocks coordinate
     COORD T_shape;      // T-shape blocks coordinate
-
-    char l_blocks[blocksSize];   //shape for L blocks
 };
 
 enum BlocksType
@@ -51,27 +48,35 @@ enum Orientation
 
 struct Block
 {
-    COORD location;     // square blocks coordinate
-    BlocksType type;      // L-shape blocks coordinate
-    Orientation orientation;      // N-shape blocks coordinate
-    WORD color;      // long-shape blocks coordinate
-
-    COORD blockoffset[3];   //shape for L blocks
+    COORD location;
+    BlocksType type;
+    Orientation orientation; 
+    WORD color;
+    
+    COORD blockoffset[3];
 };
 
+struct collisionCheck
+{
+    int l;
+    int Z;
+    int L;
+    int Sq;
+    int T;
 
-
-
+    int wallcollision;
+};
 
 // in render_gameplay.cpp
 void DrawBorder(COORD c);
-
-void initiate(COORD l, COORD Z, COORD L, COORD S, COORD T);
-void printBlocks(int type, int change);
-
+void SetMap();
 void DrawMap(COORD c);
-void initiateMap(COORD c);
 
-void drawShape(int orientation , int x, int y);
+void initiate(int type, int orientation, COORD c);
+void printBlock(int type, int orientation, int moveAside);
 
+void UpdateMap(int orientation, int x, int y);
+void updateLONG();
+void updateZ();
+void initCheck();
 #endif // _GAMEPLAY_H

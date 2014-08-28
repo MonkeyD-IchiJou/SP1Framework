@@ -11,36 +11,35 @@ const char borderUP = (char)205; //═
 const char borderSide = (char)186; //↕
 
 const char shape = 'o';
-
-Blocks storedata;
-
+const char normal = '.';
+ 
 COORD DataBlocks[blocksType][orientation][coordinates];
-COORD DataMap[23][13];
 
-char map[height][width] = { "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "300000000003",
-                            "222222222222",};
-
+char map[height][width] = 
+{
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+};
 
 char border[borderheight][borderwidth];
 
@@ -55,44 +54,16 @@ void DrawMap(COORD c)
             switch(map[i][j])
             {
                 case '0':
-                    cout << '.';
+                    cout << normal;
                     break;
 
                 case '1':
-                    cout << 'o';
+                    cout << shape;
                     break;
-
-                case '2':
-                    cout << ' ';
-
-                case '3':
-                    cout << ' ';
-
             }
         }
 
         cout << endl;
-    }
-    /*
-    for(int i = 0; i < height; i++)
-    {
-        for(int j = 0; j < width; j++)
-        { 
-            DataMap[i][j].X = c.X+j;
-            DataMap[i][j].Y = c.Y+i;
-        }
-    }*/
-}
-
-void initiateMap(COORD c)
-{
-    for(int i = 0; i < height; i++)
-    {
-        for(int j = 0; j < width; j++)
-        { 
-            DataMap[i][j].X = c.X+j;
-            DataMap[i][j].Y = c.Y+i;
-        }
     }
 }
 
@@ -129,102 +100,141 @@ void DrawBorder(COORD c)
         }
 }
 
-void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
+void initiate(int type, int orientation, COORD c)
 {
-    // for I blocks
-    for (int i = 0; i < 4; i++)                 // first orientation
+    switch (type)
     {
-        DataBlocks[LONG_TYPE][0][i].X = l.X-1+i; 
-        DataBlocks[LONG_TYPE][0][i].Y = l.Y;
-    }
+    case LONG_TYPE:
+        // for I blocks
+        for (int i = 0; i < 4; i++)                 // first orientation
+        {
+            DataBlocks[type][0][i].X = c.X-2+i; 
+            DataBlocks[type][0][i].Y = c.Y;
+        }
 
-    for (int i = 0; i < 4; i++)                // second orientation
-    {
-        DataBlocks[LONG_TYPE][1][i].X = l.X; 
-        DataBlocks[LONG_TYPE][1][i].Y = l.Y-1+i;
-    }
+        for (int i = 0; i < 4; i++)                // second orientation
+        {
+            DataBlocks[type][1][i].X = c.X; 
+            DataBlocks[type][1][i].Y = c.Y-2+i;
+        }
 
-    for (int i = 0; i < 4; i++)               // third orientation
-    {
-        DataBlocks[LONG_TYPE][2][i].X = l.X-2+i; 
-        DataBlocks[LONG_TYPE][2][i].Y = l.Y;
-    }
+        for (int i = 0; i < 4; i++)               // third orientation
+        {
+            DataBlocks[type][2][i].X = c.X-2+i; 
+            DataBlocks[type][2][i].Y = c.Y;
+        }
 
-    for (int i = 0; i < 4; i++)             // fourth orientation
-    {
-        DataBlocks[LONG_TYPE][3][i].X = l.X; 
-        DataBlocks[LONG_TYPE][3][i].Y = l.Y-2+i;
-    }
+        for (int i = 0; i < 4; i++)             // fourth orientation
+        {
+            DataBlocks[type][3][i].X = c.X - 1; 
+            DataBlocks[type][3][i].Y = c.Y-1+i;
+        }
 
-    // for Z shape blocks
+        break;
 
-	 // first orientation
+    case Z_TYPE:
+        // for I blocks
+        for (int i = 0; i < 4; i++)                 // first orientation
+        {
+            DataBlocks[type][0][i].X = c.X-2+i; 
+            DataBlocks[type][0][i].Y = c.Y;
+        }
 
-	DataBlocks[Z_TYPE][0][0].X = Z.X-1;
-    DataBlocks[Z_TYPE][0][0].Y = Z.Y;
+        for (int i = 0; i < 4; i++)                // second orientation
+        {
+            DataBlocks[type][1][i].X = c.X; 
+            DataBlocks[type][1][i].Y = c.Y-2+i;
+        }
 
-	DataBlocks[Z_TYPE][0][1].X = Z.X+1;
-	DataBlocks[Z_TYPE][0][1].Y = Z.Y+1;
+        for (int i = 0; i < 4; i++)               // third orientation
+        {
+            DataBlocks[type][2][i].X = c.X-2+i; 
+            DataBlocks[type][2][i].Y = c.Y;
+        }
+
+        for (int i = 0; i < 4; i++)             // fourth orientation
+        {
+            DataBlocks[type][3][i].X = c.X - 1; 
+            DataBlocks[type][3][i].Y = c.Y-1+i;
+        }
+
+        break;
+        /*
+    case Z_TYPE:
+        // for Z shape blocks
+
+	    // first orientation
+
+	    DataBlocks[Z_TYPE][0][0].X = c.X-1;
+        DataBlocks[Z_TYPE][0][0].Y = c.Y;
+
+	    DataBlocks[Z_TYPE][0][1].X = c.X+1;
+	    DataBlocks[Z_TYPE][0][1].Y = c.Y+1;
 	
-	DataBlocks[Z_TYPE][0][2].X = Z.X;
-	DataBlocks[Z_TYPE][0][2].Y = Z.Y;
+	    DataBlocks[Z_TYPE][0][2].X = c.X;
+	    DataBlocks[Z_TYPE][0][2].Y = c.Y;
 		
-	DataBlocks[Z_TYPE][0][3].X = Z.X;
-    DataBlocks[Z_TYPE][0][3].Y = Z.Y+1;
+	    DataBlocks[Z_TYPE][0][3].X = c.X;
+        DataBlocks[Z_TYPE][0][3].Y = c.Y+1;
 
 	
-	// second orientation
+	    // second orientation
               
-	DataBlocks[Z_TYPE][1][0].X = Z.X-1; 
-    DataBlocks[Z_TYPE][1][0].Y = Z.Y;
+	    DataBlocks[Z_TYPE][1][0].X = c.X-1; 
+        DataBlocks[Z_TYPE][1][0].Y = c.Y;
 
-	DataBlocks[Z_TYPE][1][1].X = Z.X;
-    DataBlocks[Z_TYPE][1][1].Y = Z.Y-1;
+	    DataBlocks[Z_TYPE][1][1].X = c.X;
+        DataBlocks[Z_TYPE][1][1].Y = c.Y-1;
 
-	DataBlocks[Z_TYPE][1][2].X = Z.X;
-    DataBlocks[Z_TYPE][1][2].Y = Z.Y;
+	    DataBlocks[Z_TYPE][1][2].X = c.X;
+        DataBlocks[Z_TYPE][1][2].Y = c.Y;
 
-	DataBlocks[Z_TYPE][1][3].X = Z.X-1;
-    DataBlocks[Z_TYPE][1][3].Y = Z.Y+1;
+	    DataBlocks[Z_TYPE][1][3].X = c.X-1;
+        DataBlocks[Z_TYPE][1][3].Y = c.Y+1;
     
     
-     // third orientation
+        // third orientation
 
-	DataBlocks[Z_TYPE][2][0].X = Z.X-1;
-    DataBlocks[Z_TYPE][2][0].Y = Z.Y;
+	    DataBlocks[Z_TYPE][2][0].X = c.X-1;
+        DataBlocks[Z_TYPE][2][0].Y = c.Y;
 
-	DataBlocks[Z_TYPE][2][1].X = Z.X+1;
-	DataBlocks[Z_TYPE][2][1].Y = Z.Y+1;
+	    DataBlocks[Z_TYPE][2][1].X = c.X+1;
+	    DataBlocks[Z_TYPE][2][1].Y = c.Y+1;
 
-	DataBlocks[Z_TYPE][2][2].X = Z.X;
-	DataBlocks[Z_TYPE][2][2].Y = Z.Y;
+	    DataBlocks[Z_TYPE][2][2].X = c.X;
+	    DataBlocks[Z_TYPE][2][2].Y = c.Y;
 		
-	DataBlocks[Z_TYPE][2][3].X = Z.X; 
-    DataBlocks[Z_TYPE][2][3].Y = Z.Y+1;
+	    DataBlocks[Z_TYPE][2][3].X = c.X; 
+        DataBlocks[Z_TYPE][2][3].Y = c.Y+1;
 
-	// fourth orientation
+	    // fourth orientation
 	
-	DataBlocks[Z_TYPE][3][0].X = Z.X-1; 
-    DataBlocks[Z_TYPE][3][0].Y = Z.Y;
+	    DataBlocks[Z_TYPE][3][0].X = c.X-1; 
+        DataBlocks[Z_TYPE][3][0].Y = c.Y;
 
-	DataBlocks[Z_TYPE][3][1].X = Z.X;
-    DataBlocks[Z_TYPE][3][1].Y = Z.Y-1;
+	    DataBlocks[Z_TYPE][3][1].X = c.X;
+        DataBlocks[Z_TYPE][3][1].Y = c.Y-1;
 
-	DataBlocks[Z_TYPE][3][2].X = Z.X;
-    DataBlocks[Z_TYPE][3][2].Y = Z.Y;
+	    DataBlocks[Z_TYPE][3][2].X = c.X;
+        DataBlocks[Z_TYPE][3][2].Y = c.Y;
 
-	DataBlocks[Z_TYPE][3][3].X = Z.X-1;
-    DataBlocks[Z_TYPE][3][3].Y = Z.Y+1;       
+	    DataBlocks[Z_TYPE][3][3].X = c.X-1;
+        DataBlocks[Z_TYPE][3][3].Y = c.Y+1;   
+
+        break;
    
+    case L_TYPE:
+
+        /*
 	//For L shape blocks
 
 	// first orientation
 	
-	DataBlocks[L_TYPE][0][0].X = L.X; 
-    DataBlocks[L_TYPE][0][0].Y = L.Y;
+	DataBlocks[L_TYPE][0][0].X = c.X; 
+    DataBlocks[L_TYPE][0][0].Y = c.Y;
 
-	DataBlocks[L_TYPE][0][1].X = L.X;
-	DataBlocks[L_TYPE][0][1].Y = L.Y-1;
+	DataBlocks[L_TYPE][0][1].X = c.X;
+	DataBlocks[L_TYPE][0][1].Y = c.Y-1;
 	
 	DataBlocks[L_TYPE][0][2].X = L.X;
 	DataBlocks[L_TYPE][0][2].Y = L.Y+1;
@@ -525,101 +535,67 @@ void initiate(COORD l, COORD Z, COORD L, COORD S ,COORD T)
     DataBlocks[4][3][3].X = S.X+1;
     DataBlocks[4][3][3].Y = S.Y+1;
 
+        break;
+
+    case T_TYPE:
     // for T blocks
 
-    DataBlocks[T_TYPE][0][0].X = T.X;                // first orientation
-    DataBlocks[T_TYPE][0][0].Y = T.Y-1;
+        DataBlocks[T_TYPE][0][0].X = c.X;                // first orientation
+        DataBlocks[T_TYPE][0][0].Y = c.Y-1;
 
-    for (int i = 1; i < 4; i++)
-    {
-        DataBlocks[T_TYPE][0][i].X = T.X+i-2;                
-        DataBlocks[T_TYPE][0][i].Y = T.Y;
-    }
+        for (int i = 1; i < 4; i++)
+        {
+            DataBlocks[T_TYPE][0][i].X = c.X+i-2;                
+            DataBlocks[T_TYPE][0][i].Y = c.Y;
+        }
     
-    DataBlocks[T_TYPE][1][0].X = T.X+1;                // second orientation
-    DataBlocks[T_TYPE][1][0].Y = T.Y;
+        DataBlocks[T_TYPE][1][0].X = c.X+1;                // second orientation
+        DataBlocks[T_TYPE][1][0].Y = c.Y;
 
-    DataBlocks[5][1][0].X = T.X+1;                // second orientation
-    DataBlocks[5][1][0].Y = T.Y;
+        DataBlocks[5][1][0].X = c.X+1;                // second orientation
+        DataBlocks[5][1][0].Y = c.Y;
 
-    for (int i = 1; i < 4; i++)
-    {
-        DataBlocks[T_TYPE][1][i].X = T.X;                
-        DataBlocks[T_TYPE][1][i].Y = T.Y+i-2;
-    }
+        for (int i = 1; i < 4; i++)
+        {
+            DataBlocks[T_TYPE][1][i].X = c.X;                
+            DataBlocks[T_TYPE][1][i].Y = c.Y+i-2;
+        }
 
-    DataBlocks[T_TYPE][2][0].X = T.X;              // third orientation
-    DataBlocks[T_TYPE][2][0].Y = T.Y+1;
+        DataBlocks[T_TYPE][2][0].X = c.X;              // third orientation
+        DataBlocks[T_TYPE][2][0].Y = c.Y+1;
 
-    for (int i = 1; i < 4; i++)
-    {
-        DataBlocks[T_TYPE][2][i].X = T.X+i-2;                
-        DataBlocks[T_TYPE][2][i].Y = T.Y;
-    }
+        for (int i = 1; i < 4; i++)
+        {
+            DataBlocks[T_TYPE][2][i].X = c.X+i-2;                
+            DataBlocks[T_TYPE][2][i].Y = c.Y;
+        }
 
+        DataBlocks[T_TYPE][3][0].X = c.X-1;                // forth orientation
+        DataBlocks[T_TYPE][3][0].Y = c.Y;
 
-    DataBlocks[T_TYPE][3][0].X = T.X-1;                // forth orientation
-    DataBlocks[T_TYPE][3][0].Y = T.Y;
-
-    for (int i = 1; i < 4; i++)
-    {
-        DataBlocks[T_TYPE][3][i].X = T.X;                
-        DataBlocks[T_TYPE][3][i].Y = T.Y+i-2;
+        for (int i = 1; i < 4; i++)
+        {
+            DataBlocks[T_TYPE][3][i].X = c.X;                
+            DataBlocks[T_TYPE][3][i].Y = c.Y+i-2;
+        }*/
     }
 
 }
 
-
-void printBlocks(int type, int change)
+void printBlock(int type, int orientation, int moveAside)
 {
-    
-    switch(change)
-    {
-    case 0:
-        for (int i = 0; i < 4; i++)
-        {
-            gotoXY(DataBlocks[type][0][i]);
-            cout << shape;
-        }
-        break;
-
-    case 1:
-        for (int i = 0; i < 4; i++)
-        {
-            gotoXY(DataBlocks[type][1][i]);
-            cout << shape;
-        }
-        break;
-
-    case 2:
-        for (int i = 0; i < 4; i++)
-        {
-            gotoXY(DataBlocks[type][2][i]);
-            cout << shape;
-        }
-        break;
-
-    case 3:
-        for (int i = 0; i < 4; i++)
-        {
-            gotoXY(DataBlocks[type][3][i]);
-            cout << shape;
-        }
-        break;
-    }
-    /*
     for (int i = 0; i < 4; i++)
     {
-        gotoXY(DataBlocks[type][change][i]);
+        gotoXY(DataBlocks[type][orientation][i].X + moveAside, DataBlocks[type][orientation][i].Y);
         cout << shape;
-    }*/
+    }
 }
 
-void drawShape(int orientation, int x, int y)
+void UpdateMap(int orientation, int x, int y)
 {
     switch(orientation)
     {
-    case 0:
+    case FIRST:
         for (int i = 0; i < 4; i++)
         {
             map[x][y+i] = '1';
@@ -627,7 +603,7 @@ void drawShape(int orientation, int x, int y)
 
         break;
 
-    case 1:
+    case SECOND:
         for (int i = 0; i < 4; i++)
         {
             map[x-i][y] = '1';
@@ -635,7 +611,7 @@ void drawShape(int orientation, int x, int y)
 
         break;
 
-    case 2:
+    case THIRD:
         for (int i = 0; i < 4; i++)
         {
             map[x][y+i] = '1';
@@ -643,7 +619,7 @@ void drawShape(int orientation, int x, int y)
 
         break;
 
-    case 3:
+    case FOURTH:
         for (int i = 0; i < 4; i++)
         {
             map[x-i][y] = '1';
@@ -664,4 +640,3 @@ void drawShape(int orientation, int x, int y)
         Z-block - Red
         
         */
-

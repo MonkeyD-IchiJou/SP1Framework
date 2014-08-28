@@ -83,14 +83,13 @@
     <ClCompile Include="render_menu.cpp" />
     <ClCompile Include="render_option.cpp" />
     <ClCompile Include="render_pause.cpp" />
-    <ClCompile Include="render_score.cpp" />
     <ClCompile Include="render_start_screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="Gameplay.h" />
+    <ClInclude Include="gameplay.h" />
     <ClInclude Include="tetris.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

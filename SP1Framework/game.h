@@ -26,11 +26,7 @@ void shutdown();            // do clean up, free memory
 
 void updateStartScreen();
 void updateMenu();
-
-void longshapeUpdate();
-void zshapeUpdate();
-void LshapeUpdate();
-void sqshapeUpdate();
-void tshapeUpdate();
+void pauseScreenUpdate();
+void optionScreenUpdate();
 
 #endif // _GAME_H
