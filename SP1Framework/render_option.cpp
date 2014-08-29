@@ -4,14 +4,29 @@
 
 void renderOption (COORD c)
 {
+	colour(Yellow);
+	gotoXY(18, 2);  
+	cout << " *****  " << "******" << " *******" << " *******" << "  ***** " << " **    *" << endl;
+	gotoXY(18, 3);
+	cout << "*     * " << "*    *" << "    *   " << "    *   " << " *     *" << " * *   *" << endl;
+	gotoXY(18, 4);
+	cout << "*     * " << "******" << "    *   " << "    *   " << " *     *" << " *  *  *" << endl;
+	gotoXY(18, 5);
+	cout << "*     * " << "*     " << "    *   " << "    *   " << " *     *" << " *   * *" << endl;
+	gotoXY(18, 6);
+	cout << " *****  " << "*     " << "    *   " << " *******" << "  ***** " << " *    **" << endl;
+
     gotoXY(c);
+	colour(White);
     cout << ">>";
 
-    gotoXY(30, 10);
-    cout << "Start Game";
+    gotoXY(34, 10);
+	colour(Green);
+    cout << "Change Colour";
 
-    gotoXY(30, 15);
-    cout << "Option";
+    gotoXY(34, 15);
+	colour(Magenta);
+    cout << "Return to Main Menu";
 
     gotoXY(58, 25);
     cout << "*Up/Down to select";
