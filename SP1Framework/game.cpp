@@ -183,13 +183,9 @@ void render()
         // render gameplay
         DrawMap(screen.TmLocation);
 
-<<<<<<< 8c841f004b38fa2b30a2b5482e038c79e0b0b9d7
         printBlock(block.type, block.orientation);
         
-=======
-        printBlock(block.type, block.orientation, check.wallcollision);
         cout << downward;
->>>>>>> 33ba33da6af0ed1fc793b4ca3b1231e6f916911f
         break;
 
     case OPTION_SCREEN:
@@ -441,6 +437,15 @@ void updateLONG()
             Beep(1440, 30);
             block.location.Y++;
             downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = FOURTH;
+
+            downward += 2;
+
+            check.l++;
         }
 
         // Update map when reach bottom or other block
@@ -1030,19 +1035,7 @@ void random()
     block.orientation = FIRST;
 
     srand (time(NULL));
-<<<<<<< 5dc86eaab5edc1afec5d375f4492ecfbd94bc861
-<<<<<<< 8c841f004b38fa2b30a2b5482e038c79e0b0b9d7
-    randomisation = 0;//rand()%5;
-=======
-<<<<<<< 8d59e3cc1206155ee65fb0dd250b9834595be412
-    randomisation = 1;//rand()%5;
-=======
     randomisation =rand()%5;
->>>>>>> 0698cb49d5c3180f962311604c02fc4f2b324207
->>>>>>> 33ba33da6af0ed1fc793b4ca3b1231e6f916911f
-=======
-    randomisation =rand()%5;
->>>>>>> 56e85a7f90f2825769d897d9515d2d1aabc4704c
 
     switch(randomisation)
     {
