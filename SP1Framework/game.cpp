@@ -213,7 +213,7 @@ void render()
     TIMINGInfo();
 }
 
-// All the info and updates function below
+//All the info and updates function below
 void FPSInfo()
 {
     gotoXY(71, 0);
