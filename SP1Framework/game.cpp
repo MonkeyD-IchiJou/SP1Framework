@@ -179,12 +179,12 @@ void render()
     {
     case START_SCREEN: 
         // render Start screen
-        //renderStartScreen(screen.MmLocation); 
+        renderStartScreen(screen.MmLocation); 
         break;
 
     case MENU_SCREEN:
         // render main menu
-        //renderMenu(screen.MmLocation);
+        renderMenu(screen.MmLocation);
         break;
 
     case GAMEPLAY_SCREEN: 
