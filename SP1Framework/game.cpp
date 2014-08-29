@@ -112,12 +112,12 @@ void update(double dt)
         deltaTime = dt;
         speed = static_cast<int>(elapsedTime*10);
         initiate(block.type, block.location);
-
+/*
         if (speed % 5 == 0)
         {
             block.location.Y++;
             downward++;
-        }
+        }*/
 
         switch(block.type)
         {
@@ -140,6 +140,14 @@ void update(double dt)
         case T_TYPE:
             updateT();
             break;
+
+		case Z_REV_TYPE:
+			updateREVZ();
+			break;
+
+		case L_REV_TYPE:
+			updateREVL();
+			break;
         }
 
     case PAUSE_SCREEN:
@@ -184,8 +192,8 @@ void render()
         DrawMap(screen.TmLocation);
 
         printBlock(block.type, block.orientation);
-        
-        cout << downward;
+		cout << check.RL;
+
         break;
 
     case OPTION_SCREEN:
@@ -992,6 +1000,271 @@ void updateT()
     }
 }
 
+<<<<<<< 24231bdfe70ccaf8f86b8999146a4c09b792d0ef
+=======
+void updateREVZ()
+{
+	switch(block.orientation)
+    {
+    case FIRST:
+        if (keyPressed[K_LEFT] && check.RZ > 0 && map[downward][check.RZ - 1] != '1' && map[downward+1][check.RZ - 2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X--;
+
+            check.RZ--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.RZ < 7 && map[downward+1][check.RZ] != '1' && map[downward+1][check.RZ-1] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.RZ++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = SECOND;
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 20 ||  map[downward+1][check.RZ] == '1' ||  map[downward+1][check.RZ + 1] == '1' ||  map[downward][check.RZ + 2] == '1')
+        {
+            UpdateMap(block.type, block.orientation, downward, check.RZ - 1);             // bu jie zhi mi
+
+            initCheck();
+            random();
+        }
+        break;
+
+    case SECOND:
+        if (keyPressed[K_LEFT] && check.RZ > 1 && map[downward+1][check.RZ-1] != '1' && map[downward+1][check.RZ-2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X--;
+
+            check.RZ--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.RZ < 9 && map[downward][check.RZ+2] != '1' && map[downward-1][check.RZ+2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.RZ++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = FIRST;
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 20 ||  map[downward+1][check.RZ] == '1' ||  map[downward][check.RZ - 1] == '1')
+        {
+            UpdateMap(block.type, block.orientation, downward, check.RZ - 1);             // bu jie zhi mi
+
+            initCheck();
+            random();
+        }
+        break;
+	}
+}
+
+void updateREVL()
+{
+	switch(block.orientation)
+    {
+    case FIRST:
+        if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL - 1] != '1' && map[downward+1][check.RL - 2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X--;
+
+            check.RL--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.RL < 7 && map[downward+1][check.RL] != '1' && map[downward+1][check.RL-1] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.RL++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = SECOND;
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 20 ||  map[downward+1][check.RL] == '1' ||  map[downward+1][check.RL + 1] == '1' ||  map[downward][check.RL + 2] == '1')
+        {
+            UpdateMap(block.type, block.orientation, downward, check.RL - 1);             // bu jie zhi mi
+
+            initCheck();
+            random();
+        }
+        break;
+
+    case SECOND:
+        if (keyPressed[K_LEFT] && check.RL > 0 && map[downward+1][check.RL-1] != '1' && map[downward+1][check.RL-2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X--;
+
+            check.RL--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.RL < 8 && map[downward][check.RL+2] != '1' && map[downward-1][check.RL+2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.RL++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = THIRD;
+
+
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 20 ||  map[downward+1][check.RL] == '1' ||  map[downward][check.RL - 1] == '1')
+        {
+            UpdateMap(block.type, block.orientation, downward, check.RL - 1);             // bu jie zhi mi
+
+            initCheck();
+            random();
+        }
+        break;
+	case THIRD:
+		if (keyPressed[K_LEFT] && check.RL > 0 && map[downward+1][check.RL-1] != '1' && map[downward+1][check.RL-2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X--;
+
+            check.RL--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.RL < 7 && map[downward][check.RL+2] != '1' && map[downward-1][check.RL+2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.RL++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = FOURTH;
+			check.RL++;
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 20 ||  map[downward+1][check.RL] == '1' ||  map[downward][check.RL - 1] == '1')
+        {
+            UpdateMap(block.type, block.orientation, downward, check.RL - 1);             // bu jie zhi mi
+
+            initCheck();
+            random();
+        }
+        break;
+	case FOURTH:
+		if (keyPressed[K_LEFT] && check.RL > 0 && map[downward+1][check.RL-1] != '1' && map[downward+1][check.RL-2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X--;
+
+            check.RL--;
+        }
+
+        if (keyPressed[K_RIGHT] && check.RL < 8 && map[downward][check.RL+2] != '1' && map[downward-1][check.RL+2] != '1')
+        {
+            Beep(1440, 30);
+            block.location.X++;
+
+            check.RL++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            Beep(1440, 30);
+            block.location.Y++;
+
+            downward++;
+        }
+
+        if (keyPressed[K_UP])
+        {
+            block.orientation = FIRST;
+
+			check.RL--;
+        }
+
+        // Update map when reach bottom or other block
+        // Come down next block when reach bottom
+        if (downward > 20 ||  map[downward+1][check.RL] == '1' ||  map[downward][check.RL - 1] == '1')
+        {
+            UpdateMap(block.type, block.orientation, downward, check.RL - 1);             // bu jie zhi mi
+
+            initCheck();
+            random();
+        }
+        break;
+
+	}
+}
+
+>>>>>>> 4bad09918611205157fce8ba18265f6d2cf66e3f
 void initCheck()
 {
     check.l = 3;
@@ -999,6 +1272,8 @@ void initCheck()
     check.L = 5;
     check.Sq = 4;
     check.T = 4;
+	check.RZ = 4;
+	check.RL = 4;
 
     check.wallcollision = 0;
 
@@ -1022,8 +1297,12 @@ void initBlockLocation()
     blocks.Z_shape.X = 35;
     blocks.Z_shape.Y = 3;
 
-	//blocks.RZ_shape.X = 35;
-    //blocks.RZ_shape.Y = 3;
+	blocks.RZ_shape.X = 33;
+    blocks.RZ_shape.Y = 3;
+
+	blocks.RL_shape.X = 35;
+	blocks.RL_shape.Y = 4;
+
 }
 
 void random()
@@ -1031,7 +1310,13 @@ void random()
     block.orientation = FIRST;
 
     srand (time(NULL));
+<<<<<<< 24231bdfe70ccaf8f86b8999146a4c09b792d0ef
     randomisation = rand()%5;
+=======
+
+    randomisation = 6;//rand()%5;
+
+>>>>>>> 4bad09918611205157fce8ba18265f6d2cf66e3f
 
     switch(randomisation)
     {
@@ -1070,6 +1355,14 @@ void random()
         block.location.X = blocks.RZ_shape.X;
         block.location.Y = blocks.RZ_shape.Y;
         break;*/
+
+        break;
+
+	case 6:
+		block.type = L_REV_TYPE;
+		block.location.X = blocks.RL_shape.X;
+        block.location.Y = blocks.RL_shape.Y;
+		break;
     }
 }
 

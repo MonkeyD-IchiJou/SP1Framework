@@ -27,6 +27,9 @@ struct Blocks
     COORD Z_shape;      // N-shape blocks coordinate
     COORD l_shape;      // long-shape blocks coordinate
     COORD T_shape;      // T-shape blocks coordinate
+	COORD RZ_shape;     // Z-reverse blocks coordinate
+	COORD RL_shape;     // L-reverse blocks coordinate
+
 };
 
 enum BlocksType
@@ -36,7 +39,9 @@ enum BlocksType
     L_TYPE,
     Sq_TYPE,
     T_TYPE,
-    L_REV_TYPE
+    L_REV_TYPE,
+	Z_REV_TYPE
+
 };
 
 enum Orientation
@@ -62,8 +67,8 @@ struct collisionCheck
     int L;
     int Sq;
     int T;
-    int REVZ;
-
+	int RZ;
+	int RL;
     int wallcollision;
 };
 
@@ -82,4 +87,6 @@ void updateZ();
 void updateL();
 void updateSq();
 void updateT();
+void updateREVZ();
+void updateREVL();
 #endif // _GAMEPLAY_H
