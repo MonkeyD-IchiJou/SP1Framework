@@ -23,11 +23,11 @@ COORD consoleSize;
 
 int speed;
 
-int extraX = 21;
-int extraY = 4;
 int downward = 0;
 
 int randomisation;
+
+int checkscore[height];
 
 void init()
 {
@@ -112,12 +112,12 @@ void update(double dt)
         deltaTime = dt;
         speed = static_cast<int>(elapsedTime*10);
         initiate(block.type, block.location);
-/*
+
         if (speed % 5 == 0)
         {
             block.location.Y++;
             downward++;
-        }*/
+        }
 
         switch(block.type)
         {
@@ -192,7 +192,6 @@ void render()
         DrawMap(screen.TmLocation);
 
         printBlock(block.type, block.orientation);
-		cout << check.RL;
 
         break;
 
@@ -265,7 +264,6 @@ void updateMenu()
 }
 
 void updateStartScreen()
-
 {
     if (keyPressed[K_ENTER])
     {
@@ -345,7 +343,7 @@ void updateLONG()
             check.l++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 21 && map[downward][check.l] != '1')
+        if (keyPressed[K_DOWN] && downward < 20 && map[downward][check.l] != '1')
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -367,6 +365,8 @@ void updateLONG()
         if (downward > 21 || map[downward][check.l] == '1' || map[downward][check.l + 1] == '1' || map[downward][check.l + 2] == '1' || map[downward][check.l + 3] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
+            receive (block.type, block.orientation, downward - 1);
+            calculate (downward - 1);
 
             initCheck();
             random();
@@ -392,7 +392,7 @@ void updateLONG()
             check.l++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -416,6 +416,8 @@ void updateLONG()
         if (downward > 21 || map[downward][check.l] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
+            receive (block.type, block.orientation, downward - 1);
+            calculate (downward - 1);
 
             initCheck();
             random();
@@ -440,7 +442,7 @@ void updateLONG()
             check.l++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -461,6 +463,8 @@ void updateLONG()
         if (downward > 21 || map[downward][check.l] == '1' || map[downward][check.l + 1] == '1' || map[downward][check.l + 2] == '1' || map[downward][check.l + 3] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
+            receive (block.type, block.orientation, downward - 1);
+            calculate (downward - 1);
 
             initCheck();
             random();
@@ -468,7 +472,7 @@ void updateLONG()
 
         break;
 
-    case FOURTH: // T Block
+    case FOURTH: 
 
         if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l - 1] != '1' && map[downward -1][check.l - 1] != '1' && map[downward - 2][check.l - 1] != '1' && map[downward -3][check.l - 1] != '1')
         {
@@ -486,7 +490,7 @@ void updateLONG()
             check.l++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -510,6 +514,8 @@ void updateLONG()
         if (downward > 21 || map[downward][check.l] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
+            receive (block.type, block.orientation, downward - 1);
+            calculate (downward - 1);
 
             initCheck();
             random();
@@ -540,7 +546,7 @@ void updateZ()
             check.Z++;
         }
 
-        if (keyPressed[K_DOWN]  && downward < 21 && map[downward][check.Z] != '1')
+        if (keyPressed[K_DOWN]  && downward < 20 && map[downward][check.Z] != '1')
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -559,6 +565,8 @@ void updateZ()
         if (downward > 20 || map[downward][check.Z] == '1' || map[downward+1][check.Z + 1] == '1' || map[downward+1][check.Z + 2] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.Z - 1);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -582,7 +590,7 @@ void updateZ()
             check.Z++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -600,6 +608,8 @@ void updateZ()
         if (downward > 20 || map[downward+1][check.Z] == '1' || map[downward][check.Z+1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.Z - 1);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -629,7 +639,7 @@ void updateL()
             check.L++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -649,6 +659,8 @@ void updateL()
         if (downward > 20 || map[downward+1][check.L] == '1' || map[downward+1][check.L+1] == '1' || map[downward+1][check.L-1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.L - 1);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -672,7 +684,7 @@ void updateL()
             check.L++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -690,6 +702,8 @@ void updateL()
         if (downward > 20 || map[downward+1][check.L] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.L);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -713,7 +727,7 @@ void updateL()
             check.L++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -731,6 +745,8 @@ void updateL()
         if (downward > 20 || map[downward][check.L] == '1' || map[downward+1][check.L+1] == '1' || map[downward][check.L-1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.L - 1);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -754,7 +770,7 @@ void updateL()
             check.L++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -772,6 +788,8 @@ void updateL()
         if (downward > 20 || map[downward+1][check.L] == '1' || map[downward+1][check.L-1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.L - 1);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -801,7 +819,7 @@ void updateSq()
             check.Sq++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 21 && map[downward][check.Sq] != '1')
+        if (keyPressed[K_DOWN] && downward < 20 && map[downward][check.Sq] != '1')
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -814,6 +832,8 @@ void updateSq()
         if (downward > 20 || map[downward + 1][check.Sq] == '1' || map[downward + 1][check.Sq + 1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.Sq - 1);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -865,6 +885,8 @@ void updateT()
         if (downward > 20 || map[downward+1][check.T] == '1' || map[downward+1][check.T+2] == '1' || map[downward+1][check.T+1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.T);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -888,7 +910,7 @@ void updateT()
             check.T++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -908,6 +930,8 @@ void updateT()
         if (downward > 20 || map[downward+1][check.T] == '1' || map[downward][check.T+1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.T);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -931,7 +955,7 @@ void updateT()
             check.T++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -949,6 +973,8 @@ void updateT()
         if (downward > 20 || map[downward+1][check.T+1] == '1' || map[downward][check.T] == '1' || map[downward][check.T+2] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.T);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -972,7 +998,7 @@ void updateT()
             check.T++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 20)
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -992,6 +1018,8 @@ void updateT()
         if (downward > 20 || map[downward][check.T] == '1' || map[downward + 1][check.T + 1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward-1, check.T);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -1000,8 +1028,6 @@ void updateT()
     }
 }
 
-<<<<<<< 24231bdfe70ccaf8f86b8999146a4c09b792d0ef
-=======
 void updateREVZ()
 {
 	switch(block.orientation)
@@ -1023,7 +1049,7 @@ void updateREVZ()
             check.RZ++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 21 && map[downward+1][check.RZ] != '1' &&  map[downward+1][check.RZ + 1] != '1' &&  map[downward][check.RZ + 2] != '1')
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -1041,6 +1067,8 @@ void updateREVZ()
         if (downward > 20 ||  map[downward+1][check.RZ] == '1' ||  map[downward+1][check.RZ + 1] == '1' ||  map[downward][check.RZ + 2] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.RZ - 1);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -1082,6 +1110,8 @@ void updateREVZ()
         if (downward > 20 ||  map[downward+1][check.RZ] == '1' ||  map[downward][check.RZ - 1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.RZ - 1);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
             random();
@@ -1264,7 +1294,6 @@ void updateREVL()
 	}
 }
 
->>>>>>> 4bad09918611205157fce8ba18265f6d2cf66e3f
 void initCheck()
 {
     check.l = 3;
@@ -1310,13 +1339,8 @@ void random()
     block.orientation = FIRST;
 
     srand (time(NULL));
-<<<<<<< 24231bdfe70ccaf8f86b8999146a4c09b792d0ef
-    randomisation = rand()%5;
-=======
 
-    randomisation = 6;//rand()%5;
-
->>>>>>> 4bad09918611205157fce8ba18265f6d2cf66e3f
+    randomisation = rand()%6;
 
     switch(randomisation)
     {
@@ -1349,13 +1373,11 @@ void random()
         block.location.X = blocks.T_shape.X;
         block.location.Y = blocks.T_shape.Y;
         break;
-        /*
+        
 	case 5:
 		block.type = Z_REV_TYPE;
         block.location.X = blocks.RZ_shape.X;
         block.location.Y = blocks.RZ_shape.Y;
-        break;*/
-
         break;
 
 	case 6:
@@ -1365,4 +1387,3 @@ void random()
 		break;
     }
 }
-

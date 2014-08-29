@@ -20,6 +20,8 @@ extern char map[height][width];
 extern COORD DataBlocks[blocksType][orientation][coordinates];
 extern int checkLnR[blocksType][orientation];
 
+extern int checkscore[height];
+
 struct Blocks
 {
     COORD Sq_shape;     // square blocks coordinate
@@ -41,7 +43,6 @@ enum BlocksType
     T_TYPE,
     L_REV_TYPE,
 	Z_REV_TYPE
-
 };
 
 enum Orientation
@@ -79,7 +80,8 @@ void DrawMap(COORD c);
 
 void initiate(int type, COORD c);
 void printBlock(int type, int orientation);
-void score(int type, int orientation, int x);
+void receive(int type, int orientation, int x);
+void calculate(int x);
 
 void UpdateMap(int type, int orientation, int x, int y);
 void updateLONG();

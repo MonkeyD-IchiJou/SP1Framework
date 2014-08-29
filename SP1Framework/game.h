@@ -12,10 +12,10 @@ enum Keys
     K_DOWN,
     K_LEFT,
     K_RIGHT,
-    K_ESCAPE,
-    K_COUNT,
+    K_ESCAPE,   
     K_ENTER,
-	K_SPACE
+	K_SPACE,
+    K_COUNT,
 };
 
 void init();                // initialize your variables, allocate memory, etc
