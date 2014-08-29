@@ -4,8 +4,21 @@
 
 void renderMenu (COORD c)
 {
-    
-    
+
+        ifstream inlukris;
+        string hi;
+
+        inlukris.open ("Bg.txt");
+
+        while (!inlukris.eof())
+        {
+            colour(Green);
+            getline (inlukris,hi);
+            cout << hi << endl;
+        }
+
+        inlukris.close();
+
     gotoXY(c);
 	colour(White);
     cout << ">>";

@@ -4,6 +4,7 @@
 
 void renderStartScreen (COORD c)
 {
+<<<<<<< 8d59e3cc1206155ee65fb0dd250b9834595be412
 	gotoXY(14, 2);
 	colour(Yellow);
 	cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
@@ -24,3 +25,24 @@ void renderStartScreen (COORD c)
 	colour(Green);
     cout << "Press ENTER to start";
 }
+=======
+
+        ifstream inlukris;
+        string hi;
+
+        inlukris.open ("Bg.txt");
+
+        while (!inlukris.eof())
+        {
+            colour(Green);
+            getline (inlukris,hi);
+            cout << hi << endl;
+        }
+
+        inlukris.close();
+
+    colour(Magenta);
+    gotoXY(30, 10);
+    cout << "Press press ENTER";
+}
+>>>>>>> 0698cb49d5c3180f962311604c02fc4f2b324207

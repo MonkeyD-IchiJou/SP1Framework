@@ -64,4 +64,7 @@ void renderPause(COORD c);
 // in render_pause_screen.cpp
 void RenderPauseScreen(COORD c);
 
+void lukris();
+
+
 #endif // _TETRIS_H

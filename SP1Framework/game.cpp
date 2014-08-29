@@ -95,7 +95,6 @@ void update(double dt)
     case START_SCREEN: // For start screen
         elapsedTime += dt;
         deltaTime = dt;
-
         updateStartScreen();
 
         break;
@@ -184,8 +183,13 @@ void render()
         // render gameplay
         DrawMap(screen.TmLocation);
 
+<<<<<<< 8c841f004b38fa2b30a2b5482e038c79e0b0b9d7
         printBlock(block.type, block.orientation);
         
+=======
+        printBlock(block.type, block.orientation, check.wallcollision);
+        cout << downward;
+>>>>>>> 33ba33da6af0ed1fc793b4ca3b1231e6f916911f
         break;
 
     case OPTION_SCREEN:
@@ -200,10 +204,6 @@ void render()
     //render the game
 
     //render test screen code (not efficient at all)
-    const WORD colors[] =   {
-        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-    };
     // render time taken to calculate this frame
 
     FPSInfo();
@@ -323,7 +323,7 @@ void updateLONG()
 {
     switch(block.orientation)
     {
-    case FIRST:
+    case FIRST: // I Block
 
         if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l-1] != '1')
         {
@@ -341,7 +341,7 @@ void updateLONG()
             check.l++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 21 && map[downward][check.l] != '1')
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -398,7 +398,7 @@ void updateLONG()
 
         // if user want to rotate, check the surrounding of the blocks
 
-        if(keyPressed[K_UP] && check.l != 0 && check.l != 1 && check.l != 9)
+        if(keyPressed[K_UP])
         {
             block.orientation = THIRD;
 
@@ -419,7 +419,7 @@ void updateLONG()
 
         break;
 
-    case THIRD:
+    case THIRD:   
         if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l-1] != '1')
         {
             Beep(1440, 30);
@@ -440,17 +440,7 @@ void updateLONG()
         {
             Beep(1440, 30);
             block.location.Y++;
-
             downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
-            block.orientation = FOURTH;
-
-            downward+=2;
-
-            check.l++;
         }
 
         // Update map when reach bottom or other block
@@ -465,7 +455,7 @@ void updateLONG()
 
         break;
 
-    case FOURTH:
+    case FOURTH: // T Block
 
         if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l - 1] != '1' && map[downward -1][check.l - 1] != '1' && map[downward - 2][check.l - 1] != '1' && map[downward -3][check.l - 1] != '1')
         {
@@ -493,7 +483,7 @@ void updateLONG()
 
         // if user want to rotate, check the surrounding of the blocks
         
-        if(keyPressed[K_UP] && check.l != 0 && check.l != 1)
+        if(keyPressed[K_UP] )
         {
             block.orientation = FIRST;
 
@@ -537,7 +527,7 @@ void updateZ()
             check.Z++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN]  && downward < 21 && map[downward][check.Z] != '1')
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -798,7 +788,7 @@ void updateSq()
             check.Sq++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN] && downward < 21 && map[downward][check.Sq] != '1')
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -840,7 +830,7 @@ void updateT()
             check.T++;
         }
 
-        if (keyPressed[K_DOWN])
+        if (keyPressed[K_DOWN]  && downward < 21 && map[downward][check.T] != '1')
         {
             Beep(1440, 30);
             block.location.Y++;
@@ -997,10 +987,13 @@ void updateT()
     }
 }
 
+<<<<<<< 8d59e3cc1206155ee65fb0dd250b9834595be412
 void updateREVZ()
 {
 
 }
+=======
+>>>>>>> 0698cb49d5c3180f962311604c02fc4f2b324207
 void initCheck()
 {
     check.l = 3;
@@ -1040,7 +1033,15 @@ void random()
     block.orientation = FIRST;
 
     srand (time(NULL));
+<<<<<<< 8c841f004b38fa2b30a2b5482e038c79e0b0b9d7
     randomisation = 0;//rand()%5;
+=======
+<<<<<<< 8d59e3cc1206155ee65fb0dd250b9834595be412
+    randomisation = 1;//rand()%5;
+=======
+    randomisation =rand()%5;
+>>>>>>> 0698cb49d5c3180f962311604c02fc4f2b324207
+>>>>>>> 33ba33da6af0ed1fc793b4ca3b1231e6f916911f
 
     switch(randomisation)
     {

@@ -283,8 +283,12 @@ void initiate(int type, COORD c)
             DataBlocks[type][3][3].Y = c.Y;
         }
         break;
+<<<<<<< 8c841f004b38fa2b30a2b5482e038c79e0b0b9d7
 <<<<<<< 0b85bcc1a6609350f7a4b09707f93d942c690c47
 =======
+=======
+<<<<<<< 8d59e3cc1206155ee65fb0dd250b9834595be412
+>>>>>>> 33ba33da6af0ed1fc793b4ca3b1231e6f916911f
 
 	case Z_REV_TYPE:
 		for(int i = 0; i < 4; i++)                  //first orientation
@@ -740,7 +744,12 @@ void initiate(int type, COORD c)
             DataBlocks[T_TYPE][3][i].X = c.X;                
             DataBlocks[T_TYPE][3][i].Y = c.Y+i-2;
         }*/
+<<<<<<< 8c841f004b38fa2b30a2b5482e038c79e0b0b9d7
 >>>>>>> 8d59e3cc1206155ee65fb0dd250b9834595be412
+=======
+=======
+>>>>>>> 0698cb49d5c3180f962311604c02fc4f2b324207
+>>>>>>> 33ba33da6af0ed1fc793b4ca3b1231e6f916911f
     }
 
 }
