@@ -171,12 +171,12 @@ void render()
     {
     case START_SCREEN: 
         // render Start screen
-        renderStartScreen(screen.MmLocation); 
+        //renderStartScreen(screen.MmLocation); 
         break;
 
     case MENU_SCREEN:
         // render main menu
-        renderMenu(screen.MmLocation);
+        //renderMenu(screen.MmLocation);
         break;
 
     case GAMEPLAY_SCREEN: 
@@ -359,7 +359,7 @@ void updateLONG()
         if (downward > 21 || map[downward][check.l] == '1' || map[downward][check.l + 1] == '1' || map[downward][check.l + 2] == '1' || map[downward][check.l + 3] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
-            score(block.type, block.orientation, downward);
+
             initCheck();
             random();
         }
@@ -992,11 +992,6 @@ void updateT()
     }
 }
 
-void updateREVZ()
-{
-
-}
-
 void initCheck()
 {
     check.l = 3;
@@ -1036,11 +1031,7 @@ void random()
     block.orientation = FIRST;
 
     srand (time(NULL));
-<<<<<<< Updated upstream
-    randomisation =rand()%5;
-=======
-    randomisation = 4;//rand()%5;
->>>>>>> Stashed changes
+    randomisation = rand()%5;
 
     switch(randomisation)
     {
