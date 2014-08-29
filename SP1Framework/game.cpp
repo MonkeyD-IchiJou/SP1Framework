@@ -997,13 +997,10 @@ void updateT()
     }
 }
 
-<<<<<<< 577c1c6ee86514be23a66501e64c3ab889843ffb
 void updateREVZ()
 {
 
 }
-=======
->>>>>>> 420784b93cf8c1239e370af4a8d95e1b2dd717a9
 void initCheck()
 {
     check.l = 3;
@@ -1043,11 +1040,7 @@ void random()
     block.orientation = FIRST;
 
     srand (time(NULL));
-<<<<<<< 360d9ef454f103cc08fd1044c2fa70934a2d40b1
-    randomisation = 1;//rand()%5;
-=======
     randomisation = 0;//rand()%5;
->>>>>>> a15b10704484e98ffab1d4792f52a503a5d1070a
 
     switch(randomisation)
     {
@@ -1080,27 +1073,12 @@ void random()
         block.location.X = blocks.T_shape.X;
         block.location.Y = blocks.T_shape.Y;
         break;
-<<<<<<< 577c1c6ee86514be23a66501e64c3ab889843ffb
 
 	case 5:
 		block.type = Z_REV_TYPE;
         block.location.X = blocks.RZ_shape.X;
         block.location.Y = blocks.RZ_shape.Y;
         break;
-=======
-/*
-    case 5:
-        block.type = L_REV_TYPE;
-        block.location.X = blocks.T_shape.X;
-        block.location.Y = blocks.T_shape.Y;
-        break;
-
-    case 6:
-        block.type = Z_REV_TYPE;
-        block.location.X = blocks.T_shape.X;
-        block.location.Y = blocks.T_shape.Y;
-        break;*/
->>>>>>> 420784b93cf8c1239e370af4a8d95e1b2dd717a9
     }
 }
 
