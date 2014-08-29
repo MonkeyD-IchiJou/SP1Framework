@@ -184,7 +184,8 @@ void render()
         // render gameplay
         DrawMap(screen.TmLocation);
 
-        printBlock(block.type, block.orientation, check.wallcollision);
+        printBlock(block.type, block.orientation);
+        
         break;
 
     case OPTION_SCREEN:
@@ -362,7 +363,7 @@ void updateLONG()
         if (downward > 21 || map[downward][check.l] == '1' || map[downward][check.l + 1] == '1' || map[downward][check.l + 2] == '1' || map[downward][check.l + 3] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
-
+            score(block.type, block.orientation, downward);
             initCheck();
             random();
         }
@@ -1042,7 +1043,11 @@ void random()
     block.orientation = FIRST;
 
     srand (time(NULL));
+<<<<<<< 360d9ef454f103cc08fd1044c2fa70934a2d40b1
     randomisation = 1;//rand()%5;
+=======
+    randomisation = 0;//rand()%5;
+>>>>>>> a15b10704484e98ffab1d4792f52a503a5d1070a
 
     switch(randomisation)
     {

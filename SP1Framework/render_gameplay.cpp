@@ -769,11 +769,11 @@ void initiate(int type, COORD c)
 
 }
 
-void printBlock(int type, int orientation, int moveAside)
+void printBlock(int type, int orientation)
 {
     for (int i = 0; i < 4; i++)
     {
-        gotoXY(DataBlocks[type][orientation][i].X + moveAside, DataBlocks[type][orientation][i].Y);
+        gotoXY(DataBlocks[type][orientation][i].X, DataBlocks[type][orientation][i].Y);
         cout << shape;
     }
 }
@@ -952,7 +952,13 @@ void UpdateMap(int type, int orientation, int x, int y)
     }
 }
 
-        /*FOR EASIER REFERENCE PLEASE DON'T DELETE (CAN MOVE) - JUNYAN
+void score(int type, int orientation, int x)
+{
+
+    map[x-1][0] = '0';
+}
+     
+/*FOR EASIER REFERENCE PLEASE DON'T DELETE (CAN MOVE) - JUNYAN
 
         O-block - Yellow
         I-block - Cyan
