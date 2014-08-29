@@ -827,7 +827,7 @@ void updateT()
             check.T--;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward+1][check.T + 1] != '1')
+        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward+1][check.T + 3] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -864,7 +864,7 @@ void updateT()
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-2] != '1' && map[downward][check.T] != '1' && map[downward][check.T-1] != '1')
+        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] != '1' && map[downward][check.T] != '1' && map[downward][check.T-1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -996,6 +996,7 @@ void updateREVZ()
 {
 
 }
+
 void initCheck()
 {
     check.l = 3;
@@ -1035,7 +1036,11 @@ void random()
     block.orientation = FIRST;
 
     srand (time(NULL));
+<<<<<<< Updated upstream
     randomisation =rand()%5;
+=======
+    randomisation = 4;//rand()%5;
+>>>>>>> Stashed changes
 
     switch(randomisation)
     {
