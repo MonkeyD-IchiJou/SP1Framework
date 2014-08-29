@@ -282,8 +282,13 @@ void initiate(int type, COORD c)
             DataBlocks[type][3][3].X = c.X-1; 
             DataBlocks[type][3][3].Y = c.Y;
         }
+<<<<<<< 577c1c6ee86514be23a66501e64c3ab889843ffb
         break;*/
 
+=======
+        break;
+        /*
+>>>>>>> 420784b93cf8c1239e370af4a8d95e1b2dd717a9
     case L_REV_TYPE:
         for (int i = 0; i < 4; i++)                // first orientation
         {
@@ -309,6 +314,7 @@ void initiate(int type, COORD c)
             DataBlocks[type][3][3].Y = c.Y+1;
         }
         break;
+<<<<<<< 577c1c6ee86514be23a66501e64c3ab889843ffb
 
 	case Z_REV_TYPE:
 		for(int i = 0; i < 4; i++)                  //first orientation
@@ -723,42 +729,42 @@ void initiate(int type, COORD c)
 
         DataBlocks[T_TYPE][0][0].X = c.X;                // first orientation
         DataBlocks[T_TYPE][0][0].Y = c.Y-1;
+=======
+>>>>>>> 420784b93cf8c1239e370af4a8d95e1b2dd717a9
 
-        for (int i = 1; i < 4; i++)
+    case Z_REV_TYPE:
+        // for Z blocks
+        for (int i = 0; i < 4; i++)                 // first orientation
         {
-            DataBlocks[T_TYPE][0][i].X = c.X+i-2;                
-            DataBlocks[T_TYPE][0][i].Y = c.Y;
-        }
-    
-        DataBlocks[T_TYPE][1][0].X = c.X+1;                // second orientation
-        DataBlocks[T_TYPE][1][0].Y = c.Y;
+            if (i < 2)
+            {
+                DataBlocks[type][0][i].X = c.X-1+i; 
+                DataBlocks[type][0][i].Y = c.Y;
+            }
 
-        DataBlocks[5][1][0].X = c.X+1;                // second orientation
-        DataBlocks[5][1][0].Y = c.Y;
-
-        for (int i = 1; i < 4; i++)
-        {
-            DataBlocks[T_TYPE][1][i].X = c.X;                
-            DataBlocks[T_TYPE][1][i].Y = c.Y+i-2;
-        }
-
-        DataBlocks[T_TYPE][2][0].X = c.X;              // third orientation
-        DataBlocks[T_TYPE][2][0].Y = c.Y+1;
-
-        for (int i = 1; i < 4; i++)
-        {
-            DataBlocks[T_TYPE][2][i].X = c.X+i-2;                
-            DataBlocks[T_TYPE][2][i].Y = c.Y;
+            if (i >= 2)
+            {
+                DataBlocks[type][0][i].X = c.X-2+i; 
+                DataBlocks[type][0][i].Y = c.Y+1;
+            }
         }
 
-        DataBlocks[T_TYPE][3][0].X = c.X-1;                // forth orientation
-        DataBlocks[T_TYPE][3][0].Y = c.Y;
-
-        for (int i = 1; i < 4; i++)
+        for (int i = 0; i < 4; i++)                // second orientation
         {
-            DataBlocks[T_TYPE][3][i].X = c.X;                
-            DataBlocks[T_TYPE][3][i].Y = c.Y+i-2;
-        }*/
+            if (i < 2)
+            {
+                DataBlocks[type][1][i].X = c.X; 
+                DataBlocks[type][1][i].Y = c.Y-1+i;
+            }
+
+            if (i >= 2)
+            {
+                DataBlocks[type][1][i].X = c.X-1; 
+                DataBlocks[type][1][i].Y = c.Y-2+i;
+            }
+        }
+
+        break;*/
     }
 
 }
