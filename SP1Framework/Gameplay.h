@@ -27,7 +27,6 @@ struct Blocks
     COORD Z_shape;      // N-shape blocks coordinate
     COORD l_shape;      // long-shape blocks coordinate
     COORD T_shape;      // T-shape blocks coordinate
-	COORD RZ_shape;
 };
 
 enum BlocksType
@@ -37,8 +36,7 @@ enum BlocksType
     L_TYPE,
     Sq_TYPE,
     T_TYPE,
-    L_REV_TYPE,
-	Z_REV_TYPE
+    L_REV_TYPE
 };
 
 enum Orientation

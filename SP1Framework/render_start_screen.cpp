@@ -4,7 +4,6 @@
 
 void renderStartScreen (COORD c)
 {
-<<<<<<< 8d59e3cc1206155ee65fb0dd250b9834595be412
 	gotoXY(14, 2);
 	colour(Yellow);
 	cout << "*******" << " *******" << " *******" << " ******   "  << " ******* " << "   ***** " << endl;
@@ -21,11 +20,6 @@ void renderStartScreen (COORD c)
 	gotoXY(14, 8);
 	cout << "   *   " << " *******" << "    *   " << " *       *"  << " ******* " << " ***** "<< endl;
 
-	gotoXY(30, 15);
-	colour(Green);
-    cout << "Press ENTER to start";
-}
-=======
 
         ifstream inlukris;
         string hi;
@@ -45,4 +39,3 @@ void renderStartScreen (COORD c)
     gotoXY(30, 10);
     cout << "Press press ENTER";
 }
->>>>>>> 0698cb49d5c3180f962311604c02fc4f2b324207
