@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <sstream>
 
 using std::cout;
 using std::cin;
@@ -18,6 +19,7 @@ using std::ofstream;
 
 struct Location
 {
+    COORD ScLocation;   //Start Screen 
     COORD MmLocation;   // main menu screen
     COORD OptLocation;  // option screen
 	COORD PsLocation;   // pause screen
@@ -25,15 +27,6 @@ struct Location
     COORD BdLocation;   // border location
     COORD NLineLocation; // show next line block
     COORD StoreLineLocation; // show the storing block
-};
-
-enum gameState
-{
-    START_SCREEN,
-    MENU_SCREEN,
-    GAMEPLAY_SCREEN,
-    OPTION_SCREEN,
-	PAUSE_SCREEN
 };
 
 enum colour

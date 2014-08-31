@@ -19,6 +19,15 @@ enum Keys
     K_COUNT
 };
 
+enum stages
+{
+    START_SCREEN,
+    MAIN_MENU,
+    HIGHSCORE_MODE,
+    PAUSE_SCREEN,
+    END_GAME,
+    CREDIT
+};
 void init();                // initialize your variables, allocate memory, etc
 void getInput();            // get input from player
 void update(double dt);     // update the game and the state of the game

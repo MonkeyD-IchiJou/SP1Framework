@@ -5,9 +5,6 @@
 #include "tetris.h"
 #include "Gameplay.h"
 #include "Framework\console.h"
-#include <iostream>
-#include <iomanip>
-#include <sstream>
 
 // Console size, width by height
 COORD ConsoleSize = {60, 25};
@@ -16,7 +13,7 @@ double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 
-gameState stage;        //check for the gamestate
+stages gameState = START_SCREEN;
 
 COORD consoleSize;
 
@@ -26,7 +23,8 @@ COORD charLocation;
 Location screen;        //coordinates for start, main menu, gameplay, and pause screen 
 Blocks blocks;          //coordinates for different blocks
 Block block;            //use for individual block
-BlocksType store;
+BlocksType store;       //use for store different kind of blocks
+BlocksType *temporaryStore;      
 storeNswitch count;     //check and store the block
 blockcolor color;       //blocks colors
 collisionCheck check;   //use to check for collision (left and right of the blocks)
@@ -42,12 +40,7 @@ int checkscore[height];
 int randomblock[65535];
 int next = 0;
 
-
 bool dunturnup = true;
-BlocksType *temporaryStore;
-/*
-bool storeornot = false;    
-int switchcount = 0;    //to check how many times the user has swaped the block, if more than one time, dun allow player to switch again*/
 
 void init()
 {
@@ -59,6 +52,15 @@ void init()
     charLocation.X = ConsoleSize.X / 2;
     charLocation.Y = ConsoleSize.Y / 2;
 
+    screen.ScLocation.X = ConsoleSize.X / 2;
+    screen.ScLocation.Y = ConsoleSize.Y / 2;
+
+    screen.MmLocation.X = ConsoleSize.X / 2;
+    screen.MmLocation.Y = ConsoleSize.Y / 2;
+
+
+    // initiate block thingy here
+    // will do randomisation here
     screen.NLineLocation.X = ConsoleSize.X / 2;
     screen.NLineLocation.Y = ConsoleSize.Y / 2;
 
@@ -67,13 +69,11 @@ void init()
 
     count.storeornot = false;
     count.storeOredi = false;
-    
+
     count.switchcount = 0;
 
     blockcolorinit();
-
-    // initiate block thingy here
-    // will do randomisation here
+    temporaryStore = &store;
 
     srand (time(NULL));
     for (int i = 0; i < 65535; i++)
@@ -84,6 +84,57 @@ void init()
     initBlockLocation();
     initCheck();
     random();
+    /*
+    switch(gameState)
+    {
+    case START_SCREEN:
+        
+        screen.ScLocation.X = ConsoleSize.X / 2;
+        screen.ScLocation.Y = ConsoleSize.Y / 2;
+        break;
+
+    case MAIN_MENU:
+
+        screen.MmLocation.X = ConsoleSize.X / 2;
+        screen.MmLocation.Y = ConsoleSize.Y / 2;
+        break;
+
+    case HIGHSCORE_MODE:
+
+        screen.NLineLocation.X = ConsoleSize.X / 2;
+        screen.NLineLocation.Y = ConsoleSize.Y / 2;
+
+        screen.StoreLineLocation.X = ConsoleSize.X / 2;
+        screen.StoreLineLocation.Y = ConsoleSize.Y / 2 - 10;
+
+        count.storeornot = false;
+        count.storeOredi = false;
+
+        count.switchcount = 0;
+
+        blockcolorinit();
+
+        // initiate block thingy here
+        // will do randomisation here
+
+        srand (time(NULL));
+        for (int i = 0; i < 65535; i++)
+        { 
+            randomblock[i] = rand()%5;
+        }
+
+        initBlockLocation();
+        initCheck();
+        random();
+
+        break;
+
+    case PAUSE_SCREEN:
+
+        screen.PsLocation.X = ConsoleSize.X / 2;
+        screen.PsLocation.Y = ConsoleSize.Y / 2;
+        break;
+    }*/
 }
 
 void shutdown()
@@ -108,136 +159,159 @@ void getInput()
 
 void update(double dt)
 {
-    elapsedTime += dt;
-    deltaTime = dt;
+    if (gameState != PAUSE_SCREEN)
+    {
+        elapsedTime += dt;
+        deltaTime = dt;
+    }
 
     initiate(block.type, block.location);
     speed = static_cast<int>(elapsedTime*1000);
 
-    //if blocks reach the top of the map, game end
-    for (int i = 0; i < width; i++)
+    switch(gameState)
     {
-        if (map[0][i] == '1')
+    case START_SCREEN:
+
+        if (keyPressed[K_ENTER])
+        {
+            Sleep(100);
+            gameState = MAIN_MENU;
+        }
+        break;
+
+    case MAIN_MENU:
+
+        if (keyPressed[K_ENTER])
+        {
+            gameState = HIGHSCORE_MODE;
+        }
+        break;
+
+    case HIGHSCORE_MODE:
+
+        if (!keyPressed[K_UP])
+        {
+            dunturnup = true;
+        }
+
+        if (speed % 5 == 0 && !keyPressed[K_DOWN])
+        {
+            block.location.Y++;
+            downward++;
+        }
+
+        if (keyPressed[K_DOWN])
+        {
+            block.location.Y++;
+            downward++;
+        }
+
+
+        if (keyPressed[K_SHIFT] && count.storeornot == false && count.switchcount % 2 == 0)
+        {
+            Sleep(150);
+
+            count.switchcount++;
+
+            *temporaryStore = block.type;
+
+            next++;
+            initCheck();
+            random();
+
+            count.storeornot = true;
+            count.storeOredi = true;
+
+        }
+
+        else if (keyPressed[K_SHIFT] && count.storeOredi == true && count.switchcount % 2 == 0)
+        {
+            Sleep(150);
+
+            count.switchcount--; // unlimited switchcount if i put minus sign here
+
+            random();
+            initCheck();
+            initBlockLocation();
+
+            BlocksType currentblock = block.type;
+            block.type = *temporaryStore;
+            *temporaryStore = currentblock;
+
+            switch(block.type)
+            {
+            case LONG_TYPE:
+                block.color = color.l;
+                break;
+
+            case Z_TYPE:
+                block.color = color.Z;
+                break;
+
+            case L_TYPE:
+                block.color = color.L;
+                break;
+
+            case Sq_TYPE:
+                block.color = color.Sq;
+                break;
+
+            case T_TYPE:
+                block.color = color.T;
+                break;
+            }
+        }
+
+        if (keyPressed[K_ESCAPE])
         {
             g_quitGame = true;
         }
-    }
 
-    if (!keyPressed[K_UP])
-    {
-        dunturnup = true;
-    }
-    
-    if (speed % 5 == 0 && !keyPressed[K_DOWN])
-    {
-        block.location.Y++;
-        downward++;
-    }
-
-    if (keyPressed[K_DOWN])
-    {
-        block.location.Y++;
-        downward++;
-    }
-
-    // press shift to store block
-    temporaryStore = &store;
-
-    if (keyPressed[K_SHIFT] && count.storeornot == false && count.switchcount % 2 == 0)
-    {
-        Sleep(150);
-
-        count.switchcount++;
-
-        *temporaryStore = block.type;
-
-        next++;
-        initCheck();
-        random();
-        
-        count.storeornot = true;
-        count.storeOredi = true;
-        
-    }
-
-    else if (keyPressed[K_SHIFT] && count.storeOredi == true && count.switchcount % 2 == 0)
-    {
-        Sleep(150);
-
-        count.switchcount--; // unlimited switchcount if i put minus sign here
-
-        random();
-        initCheck();
-        initBlockLocation();
-
-        BlocksType currentblock = block.type;
-        block.type = *temporaryStore;
-        *temporaryStore = currentblock;
         switch(block.type)
         {
         case LONG_TYPE:
-            block.color = color.l;
+            updateLONG();
             break;
 
         case Z_TYPE:
-            block.color = color.Z;
+            updateZ();
             break;
 
         case L_TYPE:
-            block.color = color.L;
+            updateL();
             break;
 
         case Sq_TYPE:
-            block.color = color.Sq;
+            updateSq();
             break;
 
         case T_TYPE:
-            block.color = color.T;
+            updateT();
             break;
-        }
-        /*
-        if (count.storeornot = false)
+
+        case Z_REV_TYPE:
+            updateREVZ();
+            break;
+
+        case L_REV_TYPE:
+            updateREVL();
+            break;
+        }   
+
+        //if blocks reach the top of the map, game end
+        for (int i = 0; i < width; i++)
         {
-            delete temporaryStore;
-            
-        }*/
+            if (map[0][i] == '1')
+            {
+                g_quitGame = true;
+            }
+        }
+        break;  
+
+    case PAUSE_SCREEN:
+
+        break;
     }
-
-    if (keyPressed[K_ESCAPE])
-    {
-        g_quitGame = true;
-    }
-
-    switch(block.type)
-    {
-    case LONG_TYPE:
-        updateLONG();
-        break;
-
-    case Z_TYPE:
-        updateZ();
-        break;
-
-    case L_TYPE:
-        updateL();
-        break;
-
-    case Sq_TYPE:
-        updateSq();
-        break;
-
-    case T_TYPE:
-        updateT();
-        break;
-
-    case Z_REV_TYPE:
-        updateREVZ();
-        break;
-
-    case L_REV_TYPE:
-        updateREVL();
-        break;
-    }   
 }
 
 void render()
@@ -245,25 +319,40 @@ void render()
     // Clears the buffer with this colour attribute
     clearBuffer(0x1A);
 
+    TIMINGInfo(charLocation); //show timing
+
     // Set up sample colours, and output shadings
     const WORD colors[] =   {
 	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
 	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	                        };
     
-    DrawMap(screen.TmLocation, block.type);
+    switch(gameState)
+    {
+    case START_SCREEN:
 
-    printBlock(block.type, block.orientation, block.color);
-    
-    showNextBlock(screen.NLineLocation, block.type);
+        renderStartScreen(screen.ScLocation);
+        break;
 
-    storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
+    case MAIN_MENU:
 
-    TIMINGInfo(charLocation);
-    
-    //writeToBuffer(block.location, (char)check.T);
+        renderMenu(screen.MmLocation);
+        break;
 
-    // Writes the buffer to the console, hence you will see what you have written
+    case HIGHSCORE_MODE:
+
+        DrawMap(screen.TmLocation, block.type);
+        printBlock(block.type, block.orientation, block.color);
+        showNextBlock(screen.NLineLocation, block.type);
+        storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
+        break;
+
+    case PAUSE_SCREEN:
+
+        RenderPauseScreen(screen.PsLocation);
+        break;
+    }
+
     flushBufferToConsole();
 }
 

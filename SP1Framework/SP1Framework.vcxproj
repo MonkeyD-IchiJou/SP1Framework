@@ -80,6 +80,9 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="render_gameplay.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="render_main_menu.cpp" />
+    <ClCompile Include="render_pause_screen.cpp" />
+    <ClCompile Include="render_start_screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h" />
