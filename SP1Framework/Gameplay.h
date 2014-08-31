@@ -3,7 +3,7 @@
 
 #include "Framework\timer.h"
 
-const size_t height = 22;
+const size_t height = 23;
 const size_t width = 11;
 
 const size_t borderheight = 25;
@@ -91,4 +91,6 @@ void updateSq();
 void updateT();
 void updateREVZ();
 void updateREVL();
+
+void mapkk();
 #endif // _GAMEPLAY_H

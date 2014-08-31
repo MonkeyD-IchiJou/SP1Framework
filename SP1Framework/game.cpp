@@ -1,26 +1,33 @@
-
 // This is the main file for the game logic and function
 //
 //
 #include "game.h"
-#include "Framework\console.h"
 #include "tetris.h"
 #include "Gameplay.h"
+#include "Framework\console.h"
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+
+// Console size, width by height
+COORD ConsoleSize = {60, 25};
 
 double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
+
+gameState stage;        //check for the gamestate
+
+COORD consoleSize;
+
+// Game specific variables here
+COORD charLocation;
 
 Location screen;        //coordinates for start, main menu, gameplay, and pause screen 
 Blocks blocks;          //coordinates for different blocks
 Block block;            //use for individual block
 
 collisionCheck check;
-
-gameState stage;        //check for the gamestate
-
-COORD consoleSize;
-
 int speed;
 
 int downward = 0;
@@ -29,52 +36,32 @@ int randomisation;
 
 int checkscore[height];
 
+bool dunturnup = true;
+
 void init()
 {
     // Set precision for floating point output
-    std::cout << std::fixed << std::setprecision(3);
+    elapsedTime = 0.0;
 
-    SetConsoleTitle(L"Tetris");
+    initConsole(ConsoleSize, "SP1 Framework");
 
-    // Sets the console size, this is the biggest so far.
-    setConsoleSize(79, 28);
-
-    // Get console width and height
-    CONSOLE_SCREEN_BUFFER_INFO csbi; /* to get buffer info */   
-
-    /* get the number of character cells in the current buffer */ 
-    GetConsoleScreenBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ), &csbi );
-
-    // set the size for the game
-    consoleSize.X = csbi.srWindow.Right + 1;
-    consoleSize.Y = csbi.srWindow.Bottom + 1;
-
-    // default location.
-    screen.MmLocation.X = 28;       //for main menu
-    screen.MmLocation.Y = 5;
-
-    screen.OptLocation.X = 28;      //for options
-    screen.OptLocation.Y = 10;
-
-    screen.PsLocation.X = 28;       // for pause
-    screen.PsLocation.Y = 10;  
-
-    screen.TmLocation.X = 30;       //for tetris map
-    screen.TmLocation.Y = 3;
+    charLocation.X = ConsoleSize.X / 2;
+    charLocation.Y = ConsoleSize.Y / 2;
 
     // initiate block thingy here
     // will do randomisation here
+
     initBlockLocation();
     initCheck();
     random();
-
-    elapsedTime = 0.0;
 }
 
 void shutdown()
 {
     // Reset to white text on black background
-    colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+	colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+
+    shutDownConsole();
 }
 
 void getInput()
@@ -90,435 +77,325 @@ void getInput()
 
 void update(double dt)
 {
-    switch (stage)
+    elapsedTime += dt;
+    deltaTime = dt;
+
+
+    initiate(block.type, block.location);
+    speed = static_cast<int>(elapsedTime*500);
+
+    if (!keyPressed[K_UP])
     {
-    case START_SCREEN: // For start screen
-        elapsedTime += dt;
-        deltaTime = dt;
-        updateStartScreen();
+        dunturnup = true;
+    }
 
-        break;
+    /*
+    if (keyPressed[K_SPACE])
+    {
+        block.location.Y++;
+        downward++;
+    }
 
-    case MENU_SCREEN: // For main menu screen
-        elapsedTime += dt;
-        deltaTime = dt;
-
-        updateMenu();
-
-        break;
-
-    case GAMEPLAY_SCREEN: // For gameplay screen
-        elapsedTime += dt;
-        deltaTime = dt;
-        speed = static_cast<int>(elapsedTime*10);
-        initiate(block.type, block.location);
-
-        if (speed % 5 == 0)
+    else 
+    {
+        if (speed % 15 == 0)
         {
             block.location.Y++;
             downward++;
         }
+    }*/
 
-        switch(block.type)
+    for (int i = 0; i < width; i++)
+    {
+        if (map[0][i] == '1')
         {
-        case LONG_TYPE:
-            updateLONG();
-            break;
-
-        case Z_TYPE:
-            updateZ();
-            break;
-
-        case L_TYPE:
-            updateL();
-            break;
-
-        case Sq_TYPE:
-            updateSq();
-            break;
-
-        case T_TYPE:
-            updateT();
-            break;
-
-		case Z_REV_TYPE:
-			updateREVZ();
-			break;
-
-		case L_REV_TYPE:
-			updateREVL();
-			break;
+            g_quitGame = true;
         }
-
-    case PAUSE_SCREEN:
-        elapsedTime += dt;
-        deltaTime = dt;
-
-        pauseScreenUpdate();
-
-        break;
-
-    case OPTION_SCREEN:
-
-        elapsedTime += dt;
-        deltaTime = dt;
-
-        optionScreenUpdate();
-
-        break;
     }
+    /*
+    if (speed % 20 == 0 )
+    {
+        block.location.Y++;
+        downward++;
+    }*/
+
+    if (keyPressed[K_DOWN]) //|| (keyPressed[K_UP] && dunturnup == true))
+    {
+        block.location.Y++;
+        downward++;
+        //dunturnup = false;
+    }
+
+    if (keyPressed[K_SPACE])
+    {
+        block.location.Y+=8;
+        downward+=8;
+    }
+
+    if (keyPressed[K_ESCAPE])
+    {
+        g_quitGame = true;
+    }
+
+    switch(block.type)
+    {
+    case LONG_TYPE:
+        updateLONG();
+        break;
+
+    case Z_TYPE:
+        updateZ();
+        break;
+
+    case L_TYPE:
+        updateL();
+        break;
+
+    case Sq_TYPE:
+        updateSq();
+        break;
+
+    case T_TYPE:
+        updateT();
+        break;
+
+    case Z_REV_TYPE:
+        updateREVZ();
+        break;
+
+    case L_REV_TYPE:
+        updateREVL();
+        break;
+    }   
 }
 
 void render()
-{
-    // clear previous screen
-    cls();
+{    
+    // Clears the buffer with this colour attribute
+    clearBuffer(0x1A);
 
-    // render game
-    switch (stage)
-    {
-    case START_SCREEN: 
-        // render Start screen
-        renderStartScreen(screen.MmLocation); 
-        break;
+    // Set up sample colours, and output shadings
+    const WORD colors[] =   {
+	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+	                        };
+    
+    // Draw the location of the character
+    //writeToBuffer(charLocation, (char)1, 0x0C);
+    
+    DrawMap(screen.TmLocation);
+    printBlock(block.type, block.orientation);
+    
+    writeToBuffer(block.location, (char)check.T);
 
-    case MENU_SCREEN:
-        // render main menu
-        renderMenu(screen.MmLocation);
-        break;
-
-    case GAMEPLAY_SCREEN: 
-        // render gameplay
-        DrawMap(screen.TmLocation);
-
-        printBlock(block.type, block.orientation);
-
-        break;
-
-    case OPTION_SCREEN:
-        renderOption(screen.OptLocation);
-        break;
-
-    case PAUSE_SCREEN:
-        renderPause(screen.PsLocation);
-        break;
-    }
-
-    //render the game
-
-    //render test screen code (not efficient at all)
-    // render time taken to calculate this frame
-
-    FPSInfo();
-    TIMINGInfo();
+    TIMINGInfo(charLocation);
+    // Writes the buffer to the console, hence you will see what you have written
+    flushBufferToConsole();
 }
 
-//All the info and updates function below
-void FPSInfo()
+void FPSinfo(COORD c)
 {
-    gotoXY(71, 0);
-    colour(Red);
-    std::cout << 1.0 / deltaTime << "fps" << std::endl;
+    // displays the framerate
+    std::ostringstream ss;
+    ss << std::fixed << std::setprecision(3);
+    ss << 1.0 / deltaTime << "fps";
+    c.X = ConsoleSize.X-9;
+    c.Y = 0;
+    writeToBuffer(c, ss.str());
 }
 
-void TIMINGInfo()
+void TIMINGInfo(COORD c)
 {
-    gotoXY(0, 0);
-    colour(DarkGreen);
-    std::cout << elapsedTime << "secs" << std::endl;
-}
-
-void updateMenu()
-{
-    if (keyPressed[K_UP] && screen.MmLocation.Y > 5)
-    {
-        Beep(1440, 30);
-        screen.MmLocation.Y -= 5;
-    }
-
-    if (keyPressed[K_DOWN] && screen.MmLocation.Y < 20)
-    {
-        Beep(1440, 30);
-        screen.MmLocation.Y += 5;
-    }
-
-    if (keyPressed[K_ENTER] && screen.MmLocation.Y == 5)
-    {
-        stage = GAMEPLAY_SCREEN;
-    }
-
-    if (keyPressed[K_ENTER] && screen.MmLocation.Y == 10)
-    {
-        stage = OPTION_SCREEN;
-    }
-
-    if (keyPressed[K_ENTER] && screen.MmLocation.Y == 15)
-    {
-        stage = START_SCREEN;
-    }
-
-    if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
-    {
-        g_quitGame = true;
-    }
-}
-
-void updateStartScreen()
-{
-    if (keyPressed[K_ENTER])
-    {
-        stage = MENU_SCREEN;
-    }
-}
-
-void pauseScreenUpdate()
-{
-    if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
-    {
-        Beep(1440, 30);
-        screen.PsLocation.Y -= 5; 
-    }
-
-    if (keyPressed[K_DOWN] && screen.PsLocation.Y < 15)
-    {
-        Beep(1440, 30);
-        screen.PsLocation.Y += 5; 
-    }
-
-    if (keyPressed[K_ENTER] && screen.PsLocation.Y == 10)
-    {
-        stage = GAMEPLAY_SCREEN;
-    }
-
-    if (keyPressed[K_ENTER] && screen.PsLocation.Y == 15)
-    {
-        g_quitGame = true;
-    }
-}
-
-void optionScreenUpdate()
-{
-    if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
-    {
-        Beep(1440, 30);
-        screen.OptLocation.Y -= 5; 
-    }
-
-    if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
-    {
-        Beep(1440, 30);
-        screen.OptLocation.Y += 5; 
-    }
-
-    if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
-    {
-        stage = GAMEPLAY_SCREEN;
-    }
-
-    if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
-    {
-        stage = MENU_SCREEN;
-    }
+    // displays the elapsed time
+    std::ostringstream ss;
+    ss.str("");
+    ss << elapsedTime << "secs";
+    c.X = 0;
+    c.Y = 0;
+    writeToBuffer(c, ss.str(), 0x59);
 }
 
 void updateLONG()
 {
     switch(block.orientation)
     {
-    case FIRST: // I Block
+    case FIRST:     // First orientation
 
         if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l-1] != '1')
         {
-            Beep(1440, 30);
             block.location.X--;
             
             check.l--;
         }
 
-        if (keyPressed[K_RIGHT] && check.l < 6 && map[downward][check.l + 4] != '1')
+        else if (keyPressed[K_RIGHT] && check.l < 6 && map[downward][check.l + 4] != '1')
         {
-            Beep(1440, 30);
             block.location.X++;
 
             check.l++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 20 && map[downward][check.l] != '1')
+        if (keyPressed[K_UP] && dunturnup == true && (downward == 21 || map[downward+1][check.l] == '1' || map[downward+1][check.l + 1] == '1' || map[downward+1][check.l + 2] == '1' || map[downward+1][check.l + 3] == '1'))
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(150);
+            check.l+=2;
 
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
+            block.location.Y--;
+            downward--;
+            
             block.orientation = SECOND;
 
-            downward++;
+            dunturnup = false;
+        }
 
+        else if (keyPressed[K_UP] && dunturnup == true)
+        {
+            Sleep(150);
             check.l+=2;
+
+            block.orientation = SECOND;
+
+            dunturnup = false;
         }
+
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 21 || map[downward][check.l] == '1' || map[downward][check.l + 1] == '1' || map[downward][check.l + 2] == '1' || map[downward][check.l + 3] == '1')
+        // or when the user press space
+
+        else if (downward-1 >= 22 || map[downward][check.l] == '1' || map[downward][check.l + 1] == '1' || map[downward][check.l + 2] == '1' || map[downward][check.l + 3] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
-            receive (block.type, block.orientation, downward - 1);
-            calculate (downward - 1);
+            UpdateMap(block.type, block.orientation, downward-1, check.l);              // bu jie zhi mi
+
+            receive (block.type, block.orientation, downward-1);
+            calculate (downward-1);
 
             initCheck();
             random();
+
+            Sleep(100);
         }
 
         break;
 
-    case SECOND:
+    case SECOND:    // Second orientation
 
-        if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l - 1] != '1' && map[downward -1][check.l - 1] != '1' && map[downward - 2][check.l - 1] != '1' && map[downward -3][check.l - 1] != '1')
+        if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l - 1] != '1' && map[downward -1][check.l - 1] != '1' && map[downward - 2][check.l - 1] != '1' && map[downward + 1][check.l - 1] != '1')
         {
-            Beep(1440, 30);
             block.location.X--;
             
             check.l--;
         }
 
-        if (keyPressed[K_RIGHT] && check.l < 9 && map[downward][check.l + 1] != '1' && map[downward -1][check.l + 1] != '1' && map[downward - 2][check.l + 1] != '1' && map[downward -3][check.l + 1] != '1')
+        else if (keyPressed[K_RIGHT] && check.l < 9 && map[downward][check.l + 1] != '1' && map[downward -1][check.l + 1] != '1' && map[downward - 2][check.l + 1] != '1' && map[downward + 1][check.l + 1] != '1')
         {
-            Beep(1440, 30);
             block.location.X++;
 
             check.l++;
-        }
-
-        if (keyPressed[K_DOWN] && downward < 20)
-        {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
-        }
-
-        // if user want to rotate, check the surrounding of the blocks
-
-        if(keyPressed[K_UP])
-        {
-            block.orientation = THIRD;
-
-            downward--;
-
-            check.l-=2;
-        }
-
-        // Update map when reach bottom or other block
-        // Come down next block when reach bottom
-        if (downward > 21 || map[downward][check.l] == '1')
-        {
-            UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
-            receive (block.type, block.orientation, downward - 1);
-            calculate (downward - 1);
-
-            initCheck();
-            random();
-        }
-
-        break;
-
-    case THIRD:   
-        if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l-1] != '1')
-        {
-            Beep(1440, 30);
-            block.location.X--;
-            
-            check.l--;
-        }
-
-        if (keyPressed[K_RIGHT] && check.l < 6 && map[downward][check.l + 4] != '1')
-        {
-            Beep(1440, 30);
-            block.location.X++;
-
-            check.l++;
-        }
-
-        if (keyPressed[K_DOWN] && downward < 20)
-        {
-            Beep(1440, 30);
-            block.location.Y++;
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
-            block.orientation = FOURTH;
-
-            downward += 2;
-
-            check.l++;
-        }
-
-        // Update map when reach bottom or other block
-        // Come down next block when reach bottom
-        if (downward > 21 || map[downward][check.l] == '1' || map[downward][check.l + 1] == '1' || map[downward][check.l + 2] == '1' || map[downward][check.l + 3] == '1')
-        {
-            UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
-            receive (block.type, block.orientation, downward - 1);
-            calculate (downward - 1);
-
-            initCheck();
-            random();
-        }
-
-        break;
-
-    case FOURTH: 
-
-        if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l - 1] != '1' && map[downward -1][check.l - 1] != '1' && map[downward - 2][check.l - 1] != '1' && map[downward -3][check.l - 1] != '1')
-        {
-            Beep(1440, 30);
-            block.location.X--;
-            
-            check.l--;
-        }
-
-        if (keyPressed[K_RIGHT] && check.l < 9 && map[downward][check.l + 1] != '1' && map[downward -1][check.l + 1] != '1' && map[downward - 2][check.l + 1] != '1' && map[downward -3][check.l + 1] != '1')
-        {
-            Beep(1440, 30);
-            block.location.X++;
-
-            check.l++;
-        }
-
-        if (keyPressed[K_DOWN] && downward < 20)
-        {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
         }
 
         // if user want to rotate, check the surrounding of the blocks
         
-        if(keyPressed[K_UP] )
+        if(keyPressed[K_UP] && dunturnup == true && check.l < 2 && (map[downward - 1][check.l + 1] == '1'|| map[downward - 2][check.l + 1] == '1' || map[downward + 1][check.l + 1] == '1' ||
+                                                                    map[downward - 1][check.l + 2] == '1' || map[downward -2][check.l + 2] == '1' || map[downward + 1][check.l + 2] == '1' ||
+                                                                    map[downward - 1][check.l + 3] == '1' || map[downward -2][check.l + 3] == '1' || map[downward + 1][check.l + 3] == '1'))
         {
+            dunturnup = true;
+        }
+        
+        else if (keyPressed[K_UP] && dunturnup == true && check.l > 6 && (map[downward + 1][check.l - 1] == '1' || map[downward -1][check.l - 1] == '1' || map[downward - 2][check.l - 1] == '1' ||
+                                                                          map[downward + 1][check.l - 2] == '1' || map[downward -1][check.l - 2] == '1' || map[downward - 2][check.l - 2] == '1' || 
+                                                                          map[downward + 1][check.l - 3] == '1' || map[downward -1][check.l - 3] == '1' || map[downward - 2][check.l - 3] == '1'))
+        {
+            dunturnup = true;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true  && (map[downward + 1][check.l - 1] == '1' || map[downward -1][check.l - 1] == '1' || map[downward - 2][check.l - 1] == '1' ||
+                                                            map[downward + 1][check.l - 2] == '1' || map[downward -1][check.l - 2] == '1' || map[downward - 2][check.l - 2] == '1' )&&
+                                                           (map[downward - 1][check.l + 1] == '1'|| map[downward - 2][check.l + 1] == '1' || map[downward + 1][check.l + 1] == '1' ||
+                                                            map[downward - 1][check.l + 2] == '1' || map[downward -2][check.l + 2] == '1' || map[downward + 1][check.l + 2] == '1' ||
+                                                            map[downward - 1][check.l + 3] == '1' || map[downward -2][check.l + 3] == '1' || map[downward + 1][check.l + 3] == '1'))
+        {
+            dunturnup = true;
+        }
+
+        else if(keyPressed[K_UP] && dunturnup == true && check.l < 2)
+        {
+            Sleep(150);
+            block.location.X+=2;
+
             block.orientation = FIRST;
 
-            downward-=2;
-
-            check.l--;
+            dunturnup = false;
         }
+        
+        else if(keyPressed[K_UP] && dunturnup == true &&(map[downward + 1][check.l - 1] == '1' || map[downward -1][check.l - 1] == '1' || map[downward - 2][check.l - 1] == '1'))
+        {
+            Sleep(150);
+            block.location.X+=2;
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+        
+        else if (keyPressed[K_UP] && dunturnup == true && (map[downward + 1][check.l - 2] == '1' || map[downward -1][check.l - 2] == '1' || map[downward - 2][check.l - 2] == '1'))
+        {
+            Sleep(150);
+            block.location.X++;
+            check.l --;
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+
+        else if(keyPressed[K_UP] && dunturnup == true && check.l > 8)
+        {
+            Sleep(150);
+            block.location.X--;
+            check.l-=3;
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+        
+        else if (keyPressed[K_UP] && dunturnup == true && check.l > 2 && (map[downward -1][check.l + 1] == '1' || map[downward - 2][check.l + 1] == '1' || map[downward + 1][check.l + 1] == '1'))  // check for right side obstacle
+        {
+            Sleep(150);
+            block.location.X--;
+            check.l-=3;
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+        
+        else if(keyPressed[K_UP] && dunturnup == true)
+        {
+            Sleep(150); 
+            check.l-=2;
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+        
+        
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 21 || map[downward][check.l] == '1')
+        else if (downward >= 22 || map[downward+1][check.l] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward - 1, check.l);              // bu jie zhi mi
-            receive (block.type, block.orientation, downward - 1);
-            calculate (downward - 1);
+            UpdateMap(block.type, block.orientation, downward, check.l);              // bu jie zhi mi
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
 
             initCheck();
-            random();
+            random(); 
+            
+            Sleep(100);
         }
 
         break;
@@ -530,7 +407,7 @@ void updateZ()
     switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.Z > 0 && map[downward][check.Z - 1] != '1')
+        if (keyPressed[K_LEFT] && check.Z > 0 && map[downward][check.Z - 1] != '1' && map[downward+1][check.Z] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -538,7 +415,7 @@ void updateZ()
             check.Z--;
         }
 
-        if (keyPressed[K_RIGHT] && check.Z < 7 && map[downward+1][check.Z + 3] != '1')
+        else if (keyPressed[K_RIGHT] && check.Z < 7 && map[downward+1][check.Z + 3] != '1' && map[downward][check.Z + 2] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -546,23 +423,18 @@ void updateZ()
             check.Z++;
         }
 
-        if (keyPressed[K_DOWN]  && downward < 20 && map[downward][check.Z] != '1')
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(150);
 
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
             block.orientation = SECOND;
-            //check.Z++;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward][check.Z] == '1' || map[downward+1][check.Z + 1] == '1' || map[downward+1][check.Z + 2] == '1')
+        else if (downward >= 22 || map[downward][check.Z] == '1' || map[downward+1][check.Z + 1] == '1' || map[downward+1][check.Z + 2] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.Z - 1);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
@@ -570,11 +442,13 @@ void updateZ()
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.Z > 0 && map[downward+1][check.Z-1] != '1' && map[downward][check.Z-1] != '1')
+        if (keyPressed[K_LEFT] && check.Z > 0 && map[downward+1][check.Z-1] != '1' && map[downward][check.Z-1] != '1' && map[downward-1][check.Z] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -582,7 +456,7 @@ void updateZ()
             check.Z--;
         }
 
-        if (keyPressed[K_RIGHT] && check.Z < 8 && map[downward][check.Z+2] != '1' && map[downward-1][check.Z+2] != '1')
+        else if (keyPressed[K_RIGHT] && check.Z < 8 && map[downward][check.Z+2] != '1' && map[downward+1][check.Z+1] != '1' && map[downward-1][check.Z + 3] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -590,22 +464,57 @@ void updateZ()
             check.Z++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 20)
+        // if user want to rotate the block, check the surrounding whether possible for him to rotate or not
+        else if (keyPressed[K_UP] && dunturnup == true  && check.Z > 7 && (map[downward+1][check.Z-1] == '1' || map[downward][check.Z-1] == '1' || map[downward-1][check.Z] == '1'))
         {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
+            dunturnup = true;
         }
 
-        if (keyPressed[K_UP])
+        else if (keyPressed[K_UP] && dunturnup == true  && check.Z < 2 && (map[downward][check.Z+2] == '1' || map[downward+1][check.Z+1] == '1' || map[downward-1][check.Z + 3] == '1'))
         {
+            dunturnup = true;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true  &&  (map[downward][check.Z+2] == '1' || map[downward+1][check.Z+1] == '1' || map[downward-1][check.Z + 3] == '1') &&
+                                                            (map[downward+1][check.Z-1] == '1' || map[downward][check.Z-1] == '1' || map[downward-1][check.Z] == '1'))
+        {
+            dunturnup = true;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true  && (map[downward][check.Z+2] == '1' || map[downward+1][check.Z+1] == '1' || map[downward-1][check.Z + 3] == '1'))
+        {
+            Sleep(150);
+            block.location.X--;
+            check.Z--;
+
             block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true && check.Z == 8)
+        {
+            Sleep(150);
+            block.location.X--;
+            check.Z--;
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true)
+        {
+            Sleep(150);
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward+1][check.Z] == '1' || map[downward][check.Z+1] == '1')
+        else if (downward >= 22 || map[downward+1][check.Z] == '1' || map[downward][check.Z+1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.Z - 1);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
@@ -613,6 +522,8 @@ void updateZ()
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
     }
@@ -623,7 +534,7 @@ void updateL()
     switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.L > 1 && map[downward][check.L-2] != '1' && map[downward+1][check.L-2] != '1')
+        if (keyPressed[K_LEFT] && check.L > 0 && map[downward][check.L-1] != '1' && map[downward-1][check.L-1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -631,7 +542,7 @@ void updateL()
             check.L--;
         }
 
-        if (keyPressed[K_RIGHT] && check.L < 8 && map[downward+1][check.L + 2] != '1')
+        else if (keyPressed[K_RIGHT] && check.L < 7 && map[downward][check.L + 3] != '1' && map[downward + 1][check.L + 1] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -639,36 +550,34 @@ void updateL()
             check.L++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 20)
+        // check surrounding before rotate
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(150);
+            check.L++;
 
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
             block.orientation = SECOND;
 
-            downward++;
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward+1][check.L] == '1' || map[downward+1][check.L+1] == '1' || map[downward+1][check.L-1] == '1')
+        else if (downward >= 22 || map[downward+1][check.L] == '1' || map[downward+1][check.L+1] == '1' || map[downward+1][check.L+2] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward, check.L - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward, check.L);             
             receive (block.type, block.orientation, downward);
             calculate (downward);
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.L > 0 && map[downward][check.L - 2] != '1' && map[downward + 1][check.L - 2] != '1' && map[downward + 2][check.L - 2] != '1')
+        if (keyPressed[K_LEFT] && check.L > 0 && map[downward][check.L - 1] != '1' && map[downward - 1][check.L - 1] != '1' && map[downward + 1][check.L - 1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -676,7 +585,7 @@ void updateL()
             check.L--;
         }
 
-        if (keyPressed[K_RIGHT] && check.L < 8 && map[downward][check.L + 2] != '1')
+        else if (keyPressed[K_RIGHT] && check.L < 8 && map[downward][check.L + 1] != '1' && map[downward - 1][check.L + 2] != '1' && map[downward + 1][check.L+1] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -684,34 +593,61 @@ void updateL()
             check.L++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 20)
+        // check surrounding before rotate
+        else if (keyPressed[K_UP] && dunturnup == true && map[downward + 1][check.L + 2] == '1' &&  ((map[downward][check.L - 1] == '1' || map[downward - 1][check.L - 1] == '1' || map[downward + 1][check.L - 1] == '1') || 
+                                                                                                    (map[downward][check.L - 2] == '1' || map[downward - 1][check.L - 2] == '1' || map[downward + 1][check.L - 2] == '1' )))
         {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
+            dunturnup = true;
         }
 
-        if (keyPressed[K_UP])
+        else if (keyPressed[K_UP] && dunturnup == true && ( map[downward][check.L - 1] == '1' && map[downward - 1][check.L - 1] == '1' && map[downward + 1][check.L - 1] == '1'))
         {
+            Sleep(150);
+            block.location.X++;
+
             block.orientation = THIRD;
+
+            dunturnup = false;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true && check.L <1 )
+        {
+            Sleep(150);
+            block.location.X++;
+
+            block.orientation = THIRD;
+
+            dunturnup = false;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true)
+        {
+            Sleep(150);
+            check.L--;
+
+            block.orientation = THIRD;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward+1][check.L] == '1')
+
+        else if (downward >= 22 || map[downward+1][check.L] == '1' || map[downward-1][check.L+1] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward - 1, check.L);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward-1, check.L);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
             calculate (downward);
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
 
     case THIRD:
-        if (keyPressed[K_LEFT] && check.L > 1 && map[downward][check.L-2] != '1')
+        if (keyPressed[K_LEFT] && check.L > 0 && map[downward][check.L-1] != '1' && map[downward+1][check.L+1] != '1' )
         {
             Beep(1440, 30);
             block.location.X--;
@@ -719,7 +655,7 @@ void updateL()
             check.L--;
         }
 
-        if (keyPressed[K_RIGHT] && check.L < 8 && map[downward+1][check.L + 2] != '1' && map[downward][check.L + 2] != '1')
+        else if (keyPressed[K_RIGHT] && check.L < 7 && map[downward+1][check.L + 3] != '1' && map[downward][check.L + 3] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -727,34 +663,32 @@ void updateL()
             check.L++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 20)
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(150);
 
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
             block.orientation = FOURTH;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward][check.L] == '1' || map[downward+1][check.L+1] == '1' || map[downward][check.L-1] == '1')
+        else if (downward >= 22 || map[downward][check.L] == '1' || map[downward][check.L+1] == '1' || map[downward+1][check.L + 2] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward, check.L - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward, check.L);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
             calculate (downward);
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
 
     case FOURTH:
-        if (keyPressed[K_LEFT] && check.L > 1 && map[downward + 1][check.L - 2] != '1' && map[downward-1][check.L - 2] != '1' && map[downward][check.L - 2] != '1')
+        if (keyPressed[K_LEFT] && check.L > 0 && map[downward + 1][check.L - 1] != '1' && map[downward-1][check.L ] != '1' && map[downward][check.L ] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -762,37 +696,59 @@ void updateL()
             check.L--;
         }
 
-        if (keyPressed[K_RIGHT] && check.L < 9 && map[downward+1][check.L + 2] != '1' && map[downward][check.L + 2] != '1' && map[downward-1][check.L + 2] != '1')
+        else if (keyPressed[K_RIGHT] && check.L < 8 && map[downward+1][check.L + 2] != '1' && map[downward][check.L + 2] != '1' && map[downward-1][check.L + 2] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.L++;
         }
-
-        if (keyPressed[K_DOWN] && downward < 20)
+        
+        // check for surrounding when rotate
+        else if (keyPressed[K_UP] && dunturnup == true && check.L < 1 && map[downward][check.L + 2] == '1')
         {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
+            dunturnup = true;
+        }
+        
+        else if (keyPressed[K_UP] && dunturnup == true && (map[downward][check.L + 2] == '1'|| map[downward-1][check.L + 2] == '1' || map[downward+1][check.L + 2] != '1') && 
+                                                          (map[downward + 1][check.L - 1] == '1' || map[downward-1][check.L] == '1' || map[downward][check.L] == '1'))
+        {
+            dunturnup = true;
         }
 
-        if (keyPressed[K_UP])
+        else if (keyPressed[K_UP] && dunturnup == true && (check.L > 7 || map[downward][check.L + 2] == '1'))
         {
+            Sleep(150);
+            block.location.X--;
+
+            check.L--;
+
             block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true)
+        {
+            Sleep(150);
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward+1][check.L] == '1' || map[downward+1][check.L-1] == '1')
+        else if (downward >= 22 || map[downward+1][check.L] == '1' || map[downward+1][check.L+1] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward, check.L - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward, check.L);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
             calculate (downward);
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
     }
@@ -819,17 +775,9 @@ void updateSq()
             check.Sq++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 20 && map[downward][check.Sq] != '1')
-        {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
-        }
-
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward + 1][check.Sq] == '1' || map[downward + 1][check.Sq + 1] == '1')
+        if (downward >= 22 || map[downward + 1][check.Sq] == '1' || map[downward + 1][check.Sq + 1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward, check.Sq - 1);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
@@ -847,7 +795,7 @@ void updateT()
     switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] != '1' && map[downward+1][check.T-1] != '1')
+        if (keyPressed[K_LEFT] && check.T > 0 && map[downward-1][check.T] != '1' && map[downward][check.T-1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -855,7 +803,7 @@ void updateT()
             check.T--;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward+1][check.T + 3] != '1')
+        else if (keyPressed[K_RIGHT] && check.T < 7 && map[downward-1][check.T + 2] != '1' && map[downward][check.T + 3] != '1' )
         {
             Beep(1440, 30);
             block.location.X++;
@@ -863,26 +811,19 @@ void updateT()
             check.T++;
         }
 
-        if (keyPressed[K_DOWN]  && downward < 21 && map[downward][check.T] != '1')
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
-            block.orientation = SECOND;
-
+            Sleep(150);
             check.T++;
 
-            downward++;
+            block.orientation = SECOND;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward+1][check.T] == '1' || map[downward+1][check.T+2] == '1' || map[downward+1][check.T+1] == '1')
+        else if (downward >= 22 || map[downward+1][check.T] == '1' || map[downward+1][check.T+2] == '1' || map[downward+1][check.T+1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.T);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
@@ -890,11 +831,13 @@ void updateT()
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] != '1' && map[downward][check.T] != '1' && map[downward][check.T-1] != '1')
+        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] != '1' && map[downward - 1][check.T-1] != '1' && map[downward + 1][check.T-1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -902,7 +845,7 @@ void updateT()
             check.T--;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 8 && map[downward][check.T+2] != '1')
+        else if (keyPressed[K_RIGHT] && check.T < 8 && map[downward][check.T+2] != '1' && map[downward-1][check.T+2] != '1' && map[downward+1][check.T+1] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -910,24 +853,19 @@ void updateT()
             check.T++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 20)
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(150);
+            check.T--;
 
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
             block.orientation = THIRD;
 
-            check.T--;
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward+1][check.T] == '1' || map[downward][check.T+1] == '1')
+        if (downward >= 22 || map[downward+1][check.T] == '1' || map[downward][check.T+1] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.T);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
@@ -935,11 +873,13 @@ void updateT()
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
 
     case THIRD:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] != '1')
+        if (keyPressed[K_LEFT] && check.T > 0 && map[downward+1][check.T] != '1' && map[downward][check.T-1] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -947,7 +887,7 @@ void updateT()
             check.T--;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward][check.T+3] != '1')
+        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward+1][check.T + 2] != '1' && map[downward][check.T + 3] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -955,22 +895,18 @@ void updateT()
             check.T++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 20)
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(150);
 
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
             block.orientation = FOURTH;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward+1][check.T+1] == '1' || map[downward][check.T] == '1' || map[downward][check.T+2] == '1')
+        if (downward >= 22 || map[downward+1][check.T+1] == '1' || map[downward][check.T] == '1' || map[downward][check.T+2] == '1')
         {
             UpdateMap(block.type, block.orientation, downward - 1, check.T);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
@@ -978,11 +914,13 @@ void updateT()
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
 
     case FOURTH:
-        if (keyPressed[K_LEFT] && check.T > 0 && check.T < 8 && map[downward-1][check.T-1] != '1')
+        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] != '1' && map[downward - 1][check.T] != '1' && map[downward + 1][check.T] != '1')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -990,7 +928,7 @@ void updateT()
             check.T--;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 8 && map[downward+1][check.T+2] != '1' && map[downward][check.T+2] != '1' && map[downward-1][check.T+2] != '1')
+        if (keyPressed[K_RIGHT] && check.T < 8 && map[downward][check.T+2] != '1' && map[downward-1][check.T+2] != '1' && map[downward+1][check.T+2] != '1')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -998,24 +936,18 @@ void updateT()
             check.T++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 20)
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(150);
 
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
             block.orientation = FIRST;
 
-            downward--;
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 || map[downward][check.T] == '1' || map[downward + 1][check.T + 1] == '1')
+        if (downward >= 22 || map[downward+1][check.T+1] == '1' || map[downward][check.T] == '1')
         {
             UpdateMap(block.type, block.orientation, downward-1, check.T);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
@@ -1023,6 +955,8 @@ void updateT()
 
             initCheck();
             random();
+
+            Sleep(100);
         }
         break;
     }
@@ -1298,7 +1232,7 @@ void initCheck()
 {
     check.l = 3;
     check.Z = 4;
-    check.L = 5;
+    check.L = 4;
     check.Sq = 4;
     check.T = 4;
 	check.RZ = 4;
@@ -1311,26 +1245,29 @@ void initCheck()
 
 void initBlockLocation()
 {
-    blocks.l_shape.X = 35;
-    blocks.l_shape.Y = 3;
+    int initialX = 8;
+    int initialY = 1;
+
+    blocks.l_shape.X = initialX;
+    blocks.l_shape.Y = initialY;
     
-    blocks.L_shape.X = 35;
-    blocks.L_shape.Y = 4;
+    blocks.L_shape.X = initialX;
+    blocks.L_shape.Y = initialY;
 
-    blocks.Sq_shape.X = 34;
-    blocks.Sq_shape.Y = 3;
+    blocks.Sq_shape.X = initialX-1;
+    blocks.Sq_shape.Y = initialY;
 
-    blocks.T_shape.X = 35;
-    blocks.T_shape.Y = 4;
+    blocks.T_shape.X = initialX;
+    blocks.T_shape.Y = initialY;
 
-    blocks.Z_shape.X = 35;
-    blocks.Z_shape.Y = 3;
+    blocks.Z_shape.X = initialX;
+    blocks.Z_shape.Y = initialY;
 
-	blocks.RZ_shape.X = 33;
-    blocks.RZ_shape.Y = 3;
+	blocks.RZ_shape.X = initialX;
+    blocks.RZ_shape.Y = initialY;
 
-	blocks.RL_shape.X = 35;
-	blocks.RL_shape.Y = 4;
+	blocks.RL_shape.X = initialX;
+	blocks.RL_shape.Y = initialY;
 
 }
 
@@ -1340,7 +1277,7 @@ void random()
 
     srand (time(NULL));
 
-    randomisation = rand()%6;
+    randomisation = 4;//rand()%4;
 
     switch(randomisation)
     {

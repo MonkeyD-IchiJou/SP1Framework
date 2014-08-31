@@ -24,15 +24,10 @@ void update(double dt);     // update the game and the state of the game
 void render();              // renders the current state of the game to the console
 void shutdown();            // do clean up, free memory
 
-void updateStartScreen();
-void updateMenu();
-void pauseScreenUpdate();
-void optionScreenUpdate();
-
 void initCheck();               //inside init()
 void initBlockLocation();
 void random();
 
-
-
+void FPSinfo(COORD c);
+void TIMINGInfo(COORD c);
 #endif // _GAME_H

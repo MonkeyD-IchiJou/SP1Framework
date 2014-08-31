@@ -33,19 +33,7 @@
     <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="render_menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="render_start_screen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="render_gameplay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="render_option.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="render_pause.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,10 +47,10 @@
     <ClInclude Include="game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tetris.h">
+    <ClInclude Include="gameplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameplay.h">
+    <ClInclude Include="tetris.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

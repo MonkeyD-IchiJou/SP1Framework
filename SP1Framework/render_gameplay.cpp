@@ -15,7 +15,7 @@ const char normal = '.';
  
 COORD DataBlocks[blocksType][orientation][coordinates];
 
-char map[height][width] = 
+char map[height][width] =
 {
     "0000000000",
     "0000000000",
@@ -39,26 +39,27 @@ char map[height][width] =
     "0000000000",
     "0000000000",
     "0000000000",
+    "0000000000"
 };
 
 char border[borderheight][borderwidth];
 
 void DrawMap(COORD c)
 {
-    colour(White);
     for(int i = 0; i < height; i++)
     {
-        gotoXY(c.X, c.Y+i);
         for(int j = 0; j < width; j++)
-        {
+        {   
+            c.X = j+3;
+            c.Y= i+1;
             switch(map[i][j])
             {
                 case '0':
-                    cout << normal;
+                    writeToBuffer(c, normal, 0x0C);
                     break;
 
                 case '1':
-                    cout << shape;
+                    writeToBuffer(c, shape, 0x0A);
                     break;
             }
         }
@@ -69,35 +70,33 @@ void DrawMap(COORD c)
 
 void DrawBorder(COORD c)
 {
-    for(int i = 0; i < 22; i++)
-        for(int i = 0; i < borderheight; i++)
+    for(int i = 0; i < borderheight; i++)
+    {
+        gotoXY(c.X, c.Y+i);
+        for(int j = 0; j < borderwidth; j++)
         {
-            gotoXY(c.X, c.Y+i);
-            for(int j = 0; j < borderwidth; j++)
+            switch(map[i][j])
             {
+            case '=':
+                cout << (char)205; //═
+                break;
+                border[0][j] = borderUP;
+                border[22][j] = borderUP;
 
-                switch(map[i][j])
-                {
-                case '=':
-                    cout << (char)205; //═
-                    break;
-                    border[0][j] = borderUP;
-                    border[22][j] = borderUP;
+                border[i][0] = borderSide; 
+                border[i][12] = borderSide;
 
-                    border[i][0] = borderSide; 
-                    border[i][12] = borderSide;
+                border[0][0] = cornerA;
+                border[0][12] = cornerB;
+                border[22][0] = cornerC;
+                border[22][12] = cornerD;
 
-                    border[0][0] = cornerA;
-                    border[0][12] = cornerB;
-                    border[22][0] = cornerC;
-                    border[22][12] = cornerD;
-
-                    cout << border[i][j];
-                }
-
-                cout << endl;
+                cout << border[i][j];
             }
+
+            cout << endl;
         }
+    }
 }
 
 void initiate(int type, COORD c)
@@ -112,19 +111,19 @@ void initiate(int type, COORD c)
             DataBlocks[type][0][i].Y = c.Y;
         }
 
-        for (int i = 0; i < 4; i++)                // second orientation
+        for (int i = 0; i < 4; i++)                 // second orientation
         {
             DataBlocks[type][1][i].X = c.X; 
             DataBlocks[type][1][i].Y = c.Y-2+i;
         }
 
-        for (int i = 0; i < 4; i++)               // third orientation
+        for (int i = 0; i < 4; i++)                 // near left obstacle orientation
         {
-            DataBlocks[type][2][i].X = c.X-2+i; 
+            DataBlocks[type][2][i].X = c.X+i; 
             DataBlocks[type][2][i].Y = c.Y;
         }
 
-        for (int i = 0; i < 4; i++)             // fourth orientation
+        for (int i = 0; i < 4; i++)                 // fourth orientation
         {
             DataBlocks[type][3][i].X = c.X - 1; 
             DataBlocks[type][3][i].Y = c.Y-1+i;
@@ -373,7 +372,7 @@ void printBlock(int type, int orientation)
 {
     for (int i = 0; i < 4; i++)
     {
-        gotoXY(DataBlocks[type][orientation][i].X, DataBlocks[type][orientation][i].Y);
+        writeToBuffer(DataBlocks[type][orientation][i], shape, 0x0A);
         cout << shape;
     }
 }
@@ -468,13 +467,10 @@ void UpdateMap(int type, int orientation, int x, int y)
             break;
 
         case SECOND:
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 map[x+i][y] = '1';
-                if (i < 2)
-                {
-                    map[x-1][y+i] = '1';
-                }
+                map[x-1][y+i] = '1';
             }
             break;
 
@@ -744,7 +740,121 @@ void receive (int type, int orientation, int x)
 
 void calculate(int x)
 {
-    if (checkscore[x] == 10)
+    if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10) 
+    {
+        for (int k = 0; k < 4; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[x-i][j] = map[x-i-1][j];
+                    checkscore[x-i] = checkscore[x-1-i];
+                }
+            }
+        }
+    }
+
+    else if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10) 
+    {
+        for (int k = 0; k < 3; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[x-i][j] = map[x-i-1][j];
+                    checkscore[x-i] = checkscore[x-1-i];
+                }
+            }
+        }
+    }
+
+    else if (checkscore[x] == 10 && checkscore[x-1] == 10) 
+    {
+        for (int k = 0; k < 2; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[x-i][j] = map[x-i-1][j];
+                    checkscore[x-i] = checkscore[x-1-i];
+                }
+            }
+        }
+    }
+    
+    else if (checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10) 
+    {
+        x-=1;
+        for (int k = 0; k < 3; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[x-i][j] = map[x-i-1][j];
+                    checkscore[x-i] = checkscore[x-1-i];
+                }
+            }
+        }
+    }
+
+    else if (checkscore[x-1] == 10 && checkscore[x-2] == 10) 
+    {
+        x-=1;
+        for (int k = 0; k < 2; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[x-i][j] = map[x-i-1][j];
+                    checkscore[x-i] = checkscore[x-1-i];
+                }
+            }
+        }
+    }
+
+    else if (checkscore[x-1] == 10 && checkscore[x-3] == 10) 
+    {
+        x-=1;
+        for (int k = 0; k < 3; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[x-i][j] = map[x-i-1][j];
+                    checkscore[x-i] = checkscore[x-1-i];
+
+                    if (i == 1)
+                    {
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+
+    else if (checkscore[x-2] == 10 && checkscore[x-3] == 10) 
+    {
+        x-=2;
+        for (int k = 0; k < 2; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[x-i][j] = map[x-i-1][j];
+                    checkscore[x-i] = checkscore[x-1-i];
+                }
+            }
+        }
+    }
+
+    else if (checkscore[x] == 10)
     {
         for (int i = 0; i < x; i++)
         {
@@ -755,16 +865,43 @@ void calculate(int x)
             }
         }
     }
-}
-     
-/*FOR EASIER REFERENCE PLEASE DON'T DELETE (CAN MOVE) - JUNYAN
 
-        O-block - Yellow
-        I-block - Cyan
-        J-block - Blue
-        L-block - Orange
-        S-block - Green
-        T-block - Purple
-        Z-block - Red
-        
-        */
+    else if (checkscore[x-1] == 10)
+    {
+        x-=1;
+        for (int i = 0; i < x; i++)
+        {
+            for(int j = 0; j < width-1; j++)
+            {
+                map[x-i][j] = map[x-i-1][j];
+                checkscore[x-i] = checkscore[x-1-i];
+            }
+        }
+    }
+
+    else if (checkscore[x-2] == 10)
+    {
+        x-=2;
+        for (int i = 0; i < x; i++)
+        {
+            for(int j = 0; j < width-1; j++)
+            {
+                map[x-i][j] = map[x-i-1][j];
+                checkscore[x-i] = checkscore[x-1-i];
+            }
+        }
+    }
+
+    else if (checkscore[x-3] == 10)
+    {
+        x-=3;
+        for (int i = 0; i < x; i++)
+        {
+            for(int j = 0; j < width-1; j++)
+            {
+                map[x-i][j] = map[x-i-1][j];
+                checkscore[x-i] = checkscore[x-1-i];
+            }
+        }
+    }
+}
