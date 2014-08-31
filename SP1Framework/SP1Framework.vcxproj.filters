@@ -45,6 +45,9 @@
     <ClCompile Include="render_pause_screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="render_end_game.cpp">
+      <Filter>Source Files\Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">

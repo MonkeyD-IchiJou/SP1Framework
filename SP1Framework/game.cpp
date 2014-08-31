@@ -7,13 +7,13 @@
 #include "Framework\console.h"
 
 // Console size, width by height
-COORD ConsoleSize = {60, 25};
+COORD ConsoleSize = {60, 26};
 
 double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 
-stages gameState = START_SCREEN;
+stages gameState = HIGHSCORE_MODE;
 
 COORD consoleSize;
 
@@ -24,7 +24,7 @@ Location screen;        //coordinates for start, main menu, gameplay, and pause 
 Blocks blocks;          //coordinates for different blocks
 Block block;            //use for individual block
 BlocksType store;       //use for store different kind of blocks
-BlocksType *temporaryStore;      
+BlocksType *temporaryStore = new BlocksType;      
 storeNswitch count;     //check and store the block
 blockcolor color;       //blocks colors
 collisionCheck check;   //use to check for collision (left and right of the blocks)
@@ -58,6 +58,14 @@ void init()
     screen.MmLocation.X = ConsoleSize.X / 2;
     screen.MmLocation.Y = ConsoleSize.Y / 2;
 
+    screen.BdLocation.X = 30;
+    screen.BdLocation.Y = 3;
+
+    screen.ShowScore.X = 25;
+    screen.ShowScore.Y = 22;
+
+    screen.FinalResult.X = ConsoleSize.X / 2 - 10;
+    screen.FinalResult.Y = ConsoleSize.Y / 2;
 
     // initiate block thingy here
     // will do randomisation here
@@ -166,7 +174,7 @@ void update(double dt)
     }
 
     initiate(block.type, block.location);
-    speed = static_cast<int>(elapsedTime*1000);
+    speed = static_cast<int>(elapsedTime*500);     //500 -> 10; 1000 -> 4; 1000 -> 2; 1000 -> 1
 
     switch(gameState)
     {
@@ -189,12 +197,50 @@ void update(double dt)
 
     case HIGHSCORE_MODE:
 
+        //if blocks reach the top of the map, game end
+        for (int i = 0; i < width; i++)
+        {
+            if (map[0][i] == '1')
+            {
+                gameState = END_GAME;
+            }
+        }
+
         if (!keyPressed[K_UP])
         {
             dunturnup = true;
         }
 
-        if (speed % 5 == 0 && !keyPressed[K_DOWN])
+        int changeSpeed;
+        int divide;
+
+        if (score >= 0 && score < 999)      // beginer speed
+        {
+            changeSpeed = 500;
+            divide = 10;
+        }
+
+        else if (score >= 1000 && score < 4999)
+        {
+            changeSpeed = 1000;
+            divide = 4;
+        }
+
+        else if (score >= 5000 && score < 14999)
+        {
+            changeSpeed = 1000;
+            divide = 2;
+        }
+
+        else if (score >= 15000)
+        {
+            changeSpeed = 1000;
+            divide = 1;
+        }
+
+        speed = static_cast<int>(elapsedTime*changeSpeed);
+
+        if (speed % divide == 0 && !keyPressed[K_DOWN])
         {
             block.location.Y++;
             downward++;
@@ -205,7 +251,6 @@ void update(double dt)
             block.location.Y++;
             downward++;
         }
-
 
         if (keyPressed[K_SHIFT] && count.storeornot == false && count.switchcount % 2 == 0)
         {
@@ -262,11 +307,6 @@ void update(double dt)
             }
         }
 
-        if (keyPressed[K_ESCAPE])
-        {
-            g_quitGame = true;
-        }
-
         switch(block.type)
         {
         case LONG_TYPE:
@@ -298,19 +338,53 @@ void update(double dt)
             break;
         }   
 
-        //if blocks reach the top of the map, game end
-        for (int i = 0; i < width; i++)
+        if (keyPressed[K_ESCAPE])
         {
-            if (map[0][i] == '1')
-            {
-                g_quitGame = true;
-            }
+            Sleep(100);
+            gameState = PAUSE_SCREEN;
         }
         break;  
 
     case PAUSE_SCREEN:
+        if (keyPressed[K_ENTER])
+        {
+            init();
+            for(int i = 0; i < height; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[i][j] = '0';
+                    checkscore[i] = 0;
+                }
+            }
 
+            score = 0;
+            gameState = HIGHSCORE_MODE;
+        }
+
+        if (keyPressed[K_SHIFT])
+        {
+            Sleep(100);
+            gameState = HIGHSCORE_MODE;
+        }
         break;
+
+    case END_GAME:
+        if (keyPressed[K_ENTER])
+        {
+            init();
+            for(int i = 0; i < height; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[i][j] = '0';
+                    checkscore[i] = 0;
+                }
+            }
+
+            score = 0;
+            gameState = HIGHSCORE_MODE;
+        }
     }
 }
 
@@ -319,7 +393,7 @@ void render()
     // Clears the buffer with this colour attribute
     clearBuffer(0x1A);
 
-    TIMINGInfo(charLocation); //show timing
+    //TIMINGInfo(charLocation); //show timing
 
     // Set up sample colours, and output shadings
     const WORD colors[] =   {
@@ -341,15 +415,22 @@ void render()
 
     case HIGHSCORE_MODE:
 
+        //DrawBorder(screen.BdLocation);
         DrawMap(screen.TmLocation, block.type);
         printBlock(block.type, block.orientation, block.color);
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
+        showScore(screen.ShowScore, score);
         break;
 
     case PAUSE_SCREEN:
 
         RenderPauseScreen(screen.PsLocation);
+        break;
+
+    case END_GAME:
+
+        renderResult(screen.FinalResult);
         break;
     }
 

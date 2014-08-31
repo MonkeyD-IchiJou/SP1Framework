@@ -78,6 +78,7 @@
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="render_end_game.cpp" />
     <ClCompile Include="render_gameplay.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="render_main_menu.cpp" />

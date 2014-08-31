@@ -16,6 +16,7 @@ const size_t orientation = 4;
 const size_t coordinates = 4;
 
 extern char map[height][width];
+extern char border[borderheight][borderwidth];
 
 extern COORD DataBlocks[blocksType][orientation][coordinates];
 extern int checkLnR[blocksType][orientation];
@@ -23,6 +24,8 @@ extern int checkLnR[blocksType][orientation];
 extern int checkscore[height];
 
 extern const char shape;
+
+extern unsigned int score;
 
 struct Blocks
 {
@@ -109,5 +112,6 @@ void updateT();
 void updateREVZ();
 void updateREVL();
 
-void mapkk();
+void showScore(COORD c, int x);
+
 #endif // _GAMEPLAY_H

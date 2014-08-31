@@ -27,6 +27,8 @@ struct Location
     COORD BdLocation;   // border location
     COORD NLineLocation; // show next line block
     COORD StoreLineLocation; // show the storing block
+    COORD ShowScore; // show score
+    COORD FinalResult; // show final score
 };
 
 enum colour
@@ -65,6 +67,9 @@ void renderPause(COORD c);
 
 // in render_pause_screen.cpp
 void RenderPauseScreen(COORD c);
+
+// in render_end_game.cpp
+void renderResult(COORD c);
 
 
 #endif // _TETRIS_H

@@ -15,6 +15,8 @@ const char normal = '.';
  
 COORD DataBlocks[blocksType][orientation][coordinates];
 
+unsigned int score = 0;
+
 char map[height][width] =
 {
     "0000000000",
@@ -91,7 +93,7 @@ void DrawBorder(COORD c)
         gotoXY(c.X, c.Y+i);
         for(int j = 0; j < borderwidth; j++)
         {
-            switch(map[i][j])
+            switch(border[i][j])
             {
             case '=':
                 cout << (char)205; //═
@@ -753,7 +755,7 @@ void receive (int type, int orientation, int x)
 
 void calculate(int x)
 {
-    if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10) 
+    if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10)  //4 line Strike -> 110 pts (40*2 + 30)
     {
         for (int k = 0; k < 4; k++)
         {
@@ -766,9 +768,11 @@ void calculate(int x)
                 }
             }
         }
+
+        score += 110;
     }
 
-    else if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10) 
+    else if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10) //3 line Strke -> 7pts (30*2 + 10)
     {
         for (int k = 0; k < 3; k++)
         {
@@ -781,9 +785,11 @@ void calculate(int x)
                 }
             }
         }
+
+        score += 70;
     }
 
-    else if (checkscore[x] == 10 && checkscore[x-1] == 10) 
+    else if (checkscore[x] == 10 && checkscore[x-1] == 10) //2 line Strike -> 4 (20*2 + 0)
     {
         for (int k = 0; k < 2; k++)
         {
@@ -796,6 +802,8 @@ void calculate(int x)
                 }
             }
         }
+
+        score += 40;
     }
     
     else if (checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10) 
@@ -812,6 +820,8 @@ void calculate(int x)
                 }
             }
         }
+
+        score += 70;
     }
 
     else if (checkscore[x-1] == 10 && checkscore[x-2] == 10) 
@@ -828,6 +838,8 @@ void calculate(int x)
                 }
             }
         }
+
+        score += 20;
     }
 
     else if (checkscore[x-1] == 10 && checkscore[x-3] == 10) 
@@ -849,6 +861,8 @@ void calculate(int x)
                 }
             }
         }
+
+        score += 40;
     }
 
     else if (checkscore[x-2] == 10 && checkscore[x-3] == 10) 
@@ -865,6 +879,8 @@ void calculate(int x)
                 }
             }
         }
+
+        score += 40;
     }
 
     else if (checkscore[x] == 10)
@@ -877,6 +893,8 @@ void calculate(int x)
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
+
+        score += 10;
     }
 
     else if (checkscore[x-1] == 10)
@@ -890,6 +908,8 @@ void calculate(int x)
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
+
+        score += 10;
     }
 
     else if (checkscore[x-2] == 10)
@@ -903,6 +923,8 @@ void calculate(int x)
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
+
+        score += 10;
     }
 
     else if (checkscore[x-3] == 10)
@@ -916,5 +938,15 @@ void calculate(int x)
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
+
+        score += 10;
     }
+}
+
+void showScore(COORD c, int x)
+{
+    std::ostringstream ss;
+    ss.str("");
+    ss << x << "pts";
+    writeToBuffer(c, ss.str());
 }
