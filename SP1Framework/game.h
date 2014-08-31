@@ -15,7 +15,8 @@ enum Keys
     K_ESCAPE,   
     K_ENTER,
 	K_SPACE,
-    K_COUNT,
+    K_SHIFT,
+    K_COUNT
 };
 
 void init();                // initialize your variables, allocate memory, etc

@@ -76,10 +76,10 @@ struct collisionCheck
 // in render_gameplay.cpp
 void DrawBorder(COORD c);
 void SetMap();
-void DrawMap(COORD c);
+void DrawMap(COORD c, int type, int color);
 
 void initiate(int type, COORD c);
-void printBlock(int type, int orientation);
+void printBlock(int type, int orientation, int color);
 void receive(int type, int orientation, int x);
 void calculate(int x);
 

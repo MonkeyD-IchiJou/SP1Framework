@@ -44,7 +44,7 @@ char map[height][width] =
 
 char border[borderheight][borderwidth];
 
-void DrawMap(COORD c)
+void DrawMap(COORD c, int type, int color)
 {
     for(int i = 0; i < height; i++)
     {
@@ -55,11 +55,11 @@ void DrawMap(COORD c)
             switch(map[i][j])
             {
                 case '0':
-                    writeToBuffer(c, normal, 0x0C);
+                    writeToBuffer(c, normal, 0x00);
                     break;
 
                 case '1':
-                    writeToBuffer(c, shape, 0x0A);
+                    writeToBuffer(c, shape, color);
                     break;
             }
         }
@@ -217,19 +217,16 @@ void initiate(int type, COORD c)
         break;
 
     case Sq_TYPE:
-        for (int i = 0; i < 4; i++)                 // first orientation
+        for (int i = 0; i < 2; i++)                 // first orientation
         {
-            if (i < 2)
-            {
-                DataBlocks[type][0][i].X = c.X+i; 
-                DataBlocks[type][0][i].Y = c.Y;
-            }
+            DataBlocks[type][0][i].X = c.X-1+i; 
+            DataBlocks[type][0][i].Y = c.Y;
+        }
 
-            if (i >= 2)
-            {
-                DataBlocks[type][0][i].X = c.X-2+i; 
-                DataBlocks[type][0][i].Y = c.Y+1;
-            }
+        for (int i = 0; i < 2; i++)      
+        {
+            DataBlocks[type][0][i+2].X = c.X-1+i; 
+            DataBlocks[type][0][i+2].Y = c.Y+1;
         }
         break;
 
@@ -368,13 +365,13 @@ void initiate(int type, COORD c)
 
 }
 
-void printBlock(int type, int orientation)
+void printBlock(int type, int orientation, int color)
 {
     for (int i = 0; i < 4; i++)
     {
-        writeToBuffer(DataBlocks[type][orientation][i], shape, 0x0A);
-        cout << shape;
+        writeToBuffer(DataBlocks[type][orientation][i], shape, color);
     }
+        
 }
 
 void UpdateMap(int type, int orientation, int x, int y)

@@ -2,11 +2,12 @@
 
 #include "Framework\timer.h"
 #include "game.h"
-
+#include "tetris.h"
+#include "Gameplay.h"
 
 StopWatch g_timer;            // Timer function to keep track of time and the frame rate
 bool g_quitGame = false;      // Set to true if you want to quit the game
-const unsigned char FPS = 30; // FPS of this game
+const unsigned char FPS = 20; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 
 void mainLoop();
@@ -18,8 +19,7 @@ int main()
 {
 	init();      // initialize your variables
     mainLoop();  // main loop
-    shutdown();  // do clean up, if any. free memory.
-	
+    shutdown();  // do clean up, if any. free memory
 	return 0;
 }
 

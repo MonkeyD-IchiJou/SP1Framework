@@ -23,6 +23,8 @@ struct Location
 	COORD PsLocation;   // pause screen
     COORD TmLocation;   // tetris map 
     COORD BdLocation;   // border location
+    COORD NLineLocation; // show next line block
+    COORD StoreLineLocation; // show the storing block
 };
 
 enum gameState
@@ -33,7 +35,6 @@ enum gameState
     OPTION_SCREEN,
 	PAUSE_SCREEN
 };
-
 
 enum colour
 {
@@ -46,8 +47,15 @@ enum colour
     DarkGreen = 0x2
 };
 
-void FPSInfo();
-void TIMINGInfo();
+struct storeNswitch
+{
+    bool storeornot;  
+    bool storeOredi;
+    int switchcount;
+};
+
+void showNextBlock(COORD c, int type);
+void storeBlock(COORD c, bool switchOrstore, int type);
 
 // in render_menu.cpp
 void renderMenu(COORD c);
@@ -63,8 +71,6 @@ void renderPause(COORD c);
 
 // in render_pause_screen.cpp
 void RenderPauseScreen(COORD c);
-
-void lukris();
 
 
 #endif // _TETRIS_H
