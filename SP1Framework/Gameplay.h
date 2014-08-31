@@ -22,6 +22,8 @@ extern int checkLnR[blocksType][orientation];
 
 extern int checkscore[height];
 
+extern const char shape;
+
 struct Blocks
 {
     COORD Sq_shape;     // square blocks coordinate
@@ -73,10 +75,25 @@ struct collisionCheck
     int wallcollision;
 };
 
+struct blockcolor
+{
+    int l;
+    int Z;
+    int L;
+    int Sq;
+    int T;
+	int RZ;
+	int RL;
+
+    int map;
+};  
+
+extern blockcolor color;
+
 // in render_gameplay.cpp
 void DrawBorder(COORD c);
 void SetMap();
-void DrawMap(COORD c, int type, int color);
+void DrawMap(COORD c, int type);
 
 void initiate(int type, COORD c);
 void printBlock(int type, int orientation, int color);

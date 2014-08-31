@@ -56,6 +56,7 @@ struct storeNswitch
 
 void showNextBlock(COORD c, int type);
 void storeBlock(COORD c, bool switchOrstore, int type);
+void blockcolorinit();
 
 // in render_menu.cpp
 void renderMenu(COORD c);

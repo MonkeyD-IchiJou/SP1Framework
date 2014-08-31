@@ -44,7 +44,7 @@ char map[height][width] =
 
 char border[borderheight][borderwidth];
 
-void DrawMap(COORD c, int type, int color)
+void DrawMap(COORD c, int type)
 {
     for(int i = 0; i < height; i++)
     {
@@ -55,11 +55,27 @@ void DrawMap(COORD c, int type, int color)
             switch(map[i][j])
             {
                 case '0':
-                    writeToBuffer(c, normal, 0x00);
+                    writeToBuffer(c, normal, color.map);
                     break;
 
                 case '1':
-                    writeToBuffer(c, shape, color);
+                    writeToBuffer(c, shape, color.l);
+                    break;
+
+                case '2':
+                    writeToBuffer(c, shape, color.Z);
+                    break;
+
+                case '3':
+                    writeToBuffer(c, shape, color.L);
+                    break;
+
+                case '4':
+                    writeToBuffer(c, shape, color.Sq);
+                    break;
+
+                case '5':
+                    writeToBuffer(c, shape, color.T);
                     break;
             }
         }
@@ -423,12 +439,12 @@ void UpdateMap(int type, int orientation, int x, int y)
             {
                 if (i > 0 && i < 3)
                 {
-                    map[x-1][y+i] = '1';
+                    map[x-1][y+i] = '2';
                 }
                 
                 if (i > 1 && i < 4)
                 {
-                    map[x][y+i] = '1';
+                    map[x][y+i] = '2';
                 }
             }
 
@@ -439,12 +455,12 @@ void UpdateMap(int type, int orientation, int x, int y)
             {
                 if (i > 0 && i < 3)
                 {
-                    map[x-i][y+2] = '1';
+                    map[x-i][y+2] = '2';
                 }
                 
                 if (i >= 0 && i < 2)
                 {
-                    map[x-i][y+1] = '1';
+                    map[x-i][y+1] = '2';
                 }
             }
 
@@ -458,32 +474,32 @@ void UpdateMap(int type, int orientation, int x, int y)
         case FIRST:
             for (int i = 0; i < 3; i++)
             {
-                map[x][y+i] = '1';
-                map[x-1][y] = '1';
+                map[x][y+i] = '3';
+                map[x-1][y] = '3';
             }
             break;
 
         case SECOND:
             for (int i = 0; i < 2; i++)
             {
-                map[x+i][y] = '1';
-                map[x-1][y+i] = '1';
+                map[x+i][y] = '3';
+                map[x-1][y+i] = '3';
             }
             break;
 
         case THIRD:
             for (int i = 0; i < 3; i++)
             {
-                map[x-1][y+i] = '1';
-                map[x][y+2] = '1';
+                map[x-1][y+i] = '3';
+                map[x][y+2] = '3';
             }
             break;
 
         case FOURTH:
             for (int i = 0; i < 3; i++)
             {
-                map[x-i][y+1] = '1';
-                map[x][y] = '1';
+                map[x-i][y+1] = '3';
+                map[x][y] = '3';
             }
             break;
         }
@@ -497,8 +513,8 @@ void UpdateMap(int type, int orientation, int x, int y)
             {
                 if (i > 0 && i < 3)
                 {
-                    map[x-1][y+i] = '1';
-                    map[x][y+i] = '1';
+                    map[x-1][y+i] = '4';
+                    map[x][y+i] = '4';
                 }
             }
 
@@ -512,32 +528,32 @@ void UpdateMap(int type, int orientation, int x, int y)
         case FIRST:
             for (int i = 0; i < 3; i++)
             {
-                map[x+1][y+i] = '1';
-                map[x][y+1] = '1';
+                map[x+1][y+i] = '5';
+                map[x][y+1] = '5';
             }
             break;
 
         case SECOND:
             for (int i = 0; i < 3; i++)
             {
-                map[x-1+i][y] = '1';
-                map[x][y+1] = '1';
+                map[x-1+i][y] = '5';
+                map[x][y+1] = '5';
             }
             break;
 
         case THIRD:
             for (int i = 0; i < 3; i++)
             {
-                map[x][y+i] = '1';
-                map[x+1][y+1] = '1';
+                map[x][y+i] = '5';
+                map[x+1][y+1] = '5';
             }
             break;
 
         case FOURTH:
             for (int i = 0; i < 3; i++)
             {
-                map[x-1+i][y+1] = '1';
-                map[x][y] = '1';
+                map[x-1+i][y+1] = '5';
+                map[x][y] = '5';
             }
             break;
         }
