@@ -810,6 +810,129 @@ void calculate(int x) //Score System
         score += 70;
     }
 
+    else if (checkscore[x] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10)  
+    {
+        for (int k = 0; k < 3; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    if (i != 1)
+                    {
+                        map[x-i][j] = map[x-i-1][j];
+                        checkscore[x-i] = checkscore[x-i-1];
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < x; i++)
+        {
+            for(int j = 0; j < width-1; j++)
+            {
+                map[x-i][j] = map[x-i-1][j];
+                checkscore[x-i] = checkscore[x-i-1];
+
+            }
+        }
+        score += 70;
+    }
+
+    else if (checkscore[x] == 10 && checkscore[x-2] == 10)  
+    {
+        for (int k = 0; k < 2; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    if (i != 1)
+                    {
+                        map[x-i][j] = map[x-i-1][j];
+                        checkscore[x-i] = checkscore[x-i-1];
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < x; i++)
+        {
+            for(int j = 0; j < width-1; j++)
+            {
+                map[x-i][j] = map[x-i-1][j];
+                checkscore[x-i] = checkscore[x-i-1];
+
+            }
+        }
+        score += 40;
+    }
+
+    else if (checkscore[x] == 10 && checkscore[x-3] == 10)  
+    {
+        for (int k = 0; k < 2; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    if (i != 1 && i != 2)
+                    {
+                        map[x-i][j] = map[x-i-1][j];
+                        checkscore[x-i] = checkscore[x-i-1];
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < x; i++)
+        {
+            for(int j = 0; j < width-1; j++)
+            {
+                map[x-i][j] = map[x-i-1][j];
+                checkscore[x-i] = checkscore[x-i-1];
+
+            }
+        }
+
+        score += 40;
+    }
+
+    /////
+
+    else if (checkscore[x-1] == 10 && checkscore[x-3] == 10) 
+    {
+        x-=1;
+        for (int k = 0; k < 2; k++)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    if (i != 1)
+                    {
+                        map[x-i][j] = map[x-i-1][j];
+                        checkscore[x-i] = checkscore[x-i-1];
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < x; i++)
+        {
+            for(int j = 0; j < width-1; j++)
+            {
+                map[x-i][j] = map[x-i-1][j];
+                checkscore[x-i] = checkscore[x-i-1];
+
+            }
+        }
+
+        score += 40;
+    }
+
+    ////
+
     else if (checkscore[x] == 10 && checkscore[x-1] == 10) //2 line Strike -> 40 points (20*2 + 0)
     {
         for (int k = 0; k < 2; k++)
@@ -861,29 +984,6 @@ void calculate(int x) //Score System
         }
 
         score += 20;
-    }
-
-    else if (checkscore[x-1] == 10 && checkscore[x-3] == 10) 
-    {
-        x-=1;
-        for (int k = 0; k < 3; k++)
-        {
-            for (int i = 0; i < x; i++)
-            {
-                for(int j = 0; j < width-1; j++)
-                {
-                    map[x-i][j] = map[x-i-1][j];
-                    checkscore[x-i] = checkscore[x-1-i];
-
-                    if (i == 1)
-                    {
-                        continue;
-                    }
-                }
-            }
-        }
-
-        score += 40;
     }
 
     else if (checkscore[x-2] == 10 && checkscore[x-3] == 10) 

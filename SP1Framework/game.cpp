@@ -95,7 +95,7 @@ void init()
     srand (time(NULL));
     for (int i = 0; i < 65535; i++)
     { 
-        randomblock[i] = rand()%7;
+        randomblock[i] = rand()%5;
     }
 
     initBlockLocation();
@@ -326,6 +326,14 @@ void update(double dt)
 
             case T_TYPE:
                 block.color = color.T;
+                break;
+
+            case L_REV_TYPE:
+                block.color = color.RL;
+                break;
+
+            case Z_REV_TYPE:
+                block.color = color.RZ;
                 break;
             }
         }
@@ -1234,6 +1242,8 @@ void updateT()
             receive (block.type, block.orientation, downward);
             calculate (downward);
 
+            next++;
+
             initCheck();
             random();
 
@@ -1710,7 +1720,7 @@ void updateREVL()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward >= 22 ||  map[downward+1][check.RL+1] == '1' ||  map[downward-1][check.RL] == '1')
+        if (downward >= 22 ||  map[downward+1][check.RL+1] != '0' ||  map[downward-1][check.RL] != '0')
         {
             UpdateMap(block.type, block.orientation, downward-2, check.RL+1);             
             receive (block.type, block.orientation, downward);
@@ -1773,7 +1783,7 @@ void random()
 {
     block.orientation = FIRST;
     
-    randomisation = randomblock[0+next];
+    randomisation = 6;//randomblock[0+next];
 
     srand (time(NULL));
     randomisation = rand()%5;
@@ -1931,19 +1941,19 @@ void showNextBlock(COORD c, int type)
     case 6:
         c.X;
         c.Y;
-        writeToBuffer(c, shape, color.Z);
+        writeToBuffer(c, shape, color.RZ);
 
         c.X++;
         c.Y;
-        writeToBuffer(c, shape, color.Z);
+        writeToBuffer(c, shape, color.RZ);
 
         c.X;
-        c.Y++;
-        writeToBuffer(c, shape, color.Z);
+        c.Y--;
+        writeToBuffer(c, shape, color.RZ);
 
         c.X++;
         c.Y;
-        writeToBuffer(c, shape, color.Z);
+        writeToBuffer(c, shape, color.RZ);
 
         break;
     }
@@ -2052,6 +2062,22 @@ void storeBlock(COORD c, bool switchOrstore, int type)
                 writeToBuffer(c, shape, color.RL);
             }
 
+        case 6:
+            c.X;
+            c.Y;
+            writeToBuffer(c, shape, color.RZ);
+
+            c.X++;
+            c.Y;
+            writeToBuffer(c, shape, color.RZ);
+
+            c.X;
+            c.Y--;
+            writeToBuffer(c, shape, color.RZ);
+
+            c.X++;
+            c.Y;
+            writeToBuffer(c, shape, color.RZ);
         break;
         }
     }
@@ -2065,7 +2091,6 @@ void storeBlock(COORD c, bool switchOrstore, int type)
 
 void blockcolorinit()
 {
-<<<<<<< 6b6f6918ec99e0cb9e4157bc837967d3701766ff
     color.l = Cyan;
     color.Z = Red;
     color.L = White; //Blue is a little hard to see with the blue buffer background
@@ -2075,6 +2100,7 @@ void blockcolorinit()
     color.RZ = Green;
 
     color.map = Black; //Background colour of the game grid
+<<<<<<< 5915a356a79c0537fd5eeca3d86ddad006e20d9b
 <<<<<<< ac2c8b2c8abf4d527e4fa49dcb3780f10f10b16c
 }
 =======
@@ -2091,3 +2117,6 @@ void blockcolorinit()
 >>>>>>> ba1f18af6d743c90da96c8bea34e06efdc68ac53
 }
 >>>>>>> 31fc7583649773ce3af2b96364b5855774d33e56
+=======
+}
+>>>>>>> 1121682d54f826cece00a86fb3c79d16505f1c9d
