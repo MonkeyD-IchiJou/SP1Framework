@@ -5,6 +5,7 @@
 #include "tetris.h"
 #include "Gameplay.h"
 #include "Framework\console.h"
+#include "Framework\sound.h"
 
 // Console size, width by height
 COORD ConsoleSize = {60, 26};
@@ -16,6 +17,8 @@ bool keyPressed[K_COUNT];
 stages gameState = START_SCREEN;
 
 COORD consoleSize;
+
+Sound snd;
 
 // Game specific variables here
 COORD charLocation;
@@ -42,6 +45,8 @@ int next = 0;
 
 bool dunturnup = true;
 
+int music;
+
 void init()
 {
     // Set precision for floating point output
@@ -58,6 +63,8 @@ void init()
     charLocation.X = ConsoleSize.X / 2;
     charLocation.Y = ConsoleSize.Y / 2;
 
+    snd.loadWave("move", "Tetris.wav");
+    
     screen.ScLocation.X = 22;
     screen.ScLocation.Y = 14;
 
@@ -180,6 +187,7 @@ void update(double dt)
     {
         elapsedTime += dt;
         deltaTime = dt;
+        playGameSound(S_JJ);
     }
 
     initiate(block.type, block.location);
@@ -188,7 +196,7 @@ void update(double dt)
     switch(gameState)
     {
     case START_SCREEN:
-
+        
         if (keyPressed[K_ENTER])
         {
             Sleep(100);
@@ -243,7 +251,7 @@ void update(double dt)
         }
         
     case HIGHSCORE_MODE:
-
+        
         //if blocks reach the top of the map, game end
         for (int i = 0; i < width-1; i++)
         {
@@ -529,6 +537,36 @@ void render()
     }
 
     flushBufferToConsole();
+}
+
+void playGameSound(SoundType sound)
+{
+    switch (sound)
+    {
+    case S_JJ : snd.playSound("move");
+        break;
+    }
+}
+
+void playNote(char note) // play this note
+{
+    // not gonna happen
+    /*
+    Octave 0    1    2    3    4    5    6    7
+    Note
+    C     16   33   65  131  262  523 1046 2093
+    C#    17   35   69  139  277  554 1109 2217
+    D     18   37   73  147  294  587 1175 2349
+    D#    19   39   78  155  311  622 1244 2489
+    E     21   41   82  165  330  659 1328 2637
+    F     22   44   87  175  349  698 1397 2794
+    F#    23   46   92  185  370  740 1480 2960
+    G     24   49   98  196  392  784 1568 3136
+    G#    26   52  104  208  415  831 1661 3322
+    A     27   55  110  220  440  880 1760 3520
+    A#    29   58  116  233  466  932 1865 3729
+    B     31   62  123  245  494  988 1975 3951
+    */
 }
 
 void FPSinfo(COORD c)

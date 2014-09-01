@@ -29,6 +29,13 @@ enum stages
     END_GAME,
     CREDIT
 };
+
+enum SoundType
+{
+    S_JJ,
+    S_COUNT
+};
+
 void init();                // initialize your variables, allocate memory, etc
 void getInput();            // get input from player
 void update(double dt);     // update the game and the state of the game
@@ -39,6 +46,9 @@ void initCheck();               //inside init()
 void initBlockLocation();
 void random();
 
+void playGameSound(SoundType sound); // play this sound type
+void playNote(char note); // play this note
 void FPSinfo(COORD c);
 void TIMINGInfo(COORD c);
+
 #endif // _GAME_H
