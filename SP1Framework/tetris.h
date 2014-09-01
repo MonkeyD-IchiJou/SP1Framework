@@ -33,13 +33,17 @@ struct Location
 
 enum colour
 {
-    White = 0xF,
+    BlueBg = 0x1A,
+    Black = 0x0,
+    Blue = 0x1,
+    DarkGreen = 0x2,
+    Brown = 0x6,
     Green = 0xA,
-    Red = 0xC,
-    Yellow = 0xE,
     Cyan = 0xB,
+    Red = 0xC,
     Magenta = 0xD,
-    DarkGreen = 0x2
+    Yellow = 0xE,
+    White = 0xF
 };
 
 struct storeNswitch
@@ -60,7 +64,7 @@ void renderMenu(COORD c);
 void renderStartScreen(COORD c);
 
 // in render_option.cpp
-void renderOption(COORD c);
+void renderInstruction(COORD c);
 
 // in render_pause.cpp
 void renderPause(COORD c);

@@ -45,16 +45,13 @@ bool dunturnup = true;
 void init()
 {
     // Set precision for floating point output
-<<<<<<< af641be0ae46d1e3f03e21a3fabb966d0139b5df
     elapsedTime = 0.0;
-=======
     std::cout << std::fixed << std::setprecision(3);
 
     SetConsoleTitle(L"Tetris");
 
     // Sets the console size, this is the biggest so far.
     setConsoleSize(79, 45);
->>>>>>> 41ca18c300f2574f98c3a154eeeb40c4994661cf
 
     initConsole(ConsoleSize, "SP1 Framework");
 
@@ -70,7 +67,7 @@ void init()
     screen.BdLocation.X = 30;
     screen.BdLocation.Y = 3;
 
-    screen.ShowScore.X = 25;
+    screen.ShowScore.X = 30;
     screen.ShowScore.Y = 22;
 
     screen.FinalResult.X = ConsoleSize.X / 2 - 10;
@@ -222,7 +219,7 @@ void update(double dt)
 
         int changeSpeed;
         int divide;
-        /*
+        
         if (score >= 0 && score < 999)      // beginer speed
         {
             changeSpeed = 500;
@@ -245,7 +242,7 @@ void update(double dt)
         {
             changeSpeed = 1000;
             divide = 1;
-        }*/
+        }
 
         speed = static_cast<int>(elapsedTime*changeSpeed);
 
@@ -364,6 +361,7 @@ void update(double dt)
                 {
                     map[i][j] = '0';
                     checkscore[i] = 0;
+                    
                 }
             }
 
@@ -400,7 +398,7 @@ void update(double dt)
 void render()
 {    
     // Clears the buffer with this colour attribute
-    clearBuffer(0x1A);
+    clearBuffer(BlueBg);
 
     //TIMINGInfo(charLocation); //show timing
 
@@ -434,8 +432,10 @@ void render()
         break;
 
     case PAUSE_SCREEN:
-
+        if(keyPressed[K_ESCAPE])
+        {
         RenderPauseScreen(screen.PsLocation);
+        }
         break;
 
     case END_GAME:
@@ -1798,6 +1798,13 @@ void showNextBlock(COORD c, int type)
         writeToBuffer(c, shape, color.T);
         break;
     }
+
+    std::ostringstream ss;
+    ss.str("");
+    ss << "Next Block";
+    c.X = 30;
+    c.Y = 10;
+    writeToBuffer(c, ss.str(), BlueBg);
     
 }
 
@@ -1884,17 +1891,23 @@ void storeBlock(COORD c, bool switchOrstore, int type)
             break;
         }
     }
+    std::ostringstream ss;
+    ss.str("");
+    ss << "Store";
+    c.X = 30;
+    c.Y = 1;
+    writeToBuffer(c, ss.str(), BlueBg);
 }
 
 void blockcolorinit()
 {
-    color.l = 0x09;
-    color.Z = 0x0C;
-    color.L = 0x0D;
-    color.Sq = 0x0E;
-    color.T = 0x0F;
-    color.RL = 0x1A;
-    color.RZ = 0x1A;
+    color.l = Cyan;
+    color.Z = Red;
+    color.L = White; //Blue is a little hard to see with the blue buffer background
+    color.Sq = Yellow;
+    color.T = Magenta;
+    color.RL = Brown; // Substitute orange
+    color.RZ = Green;
 
-    color.map = 0x00;
+    color.map = Black; //Background colour of the game grid
 }

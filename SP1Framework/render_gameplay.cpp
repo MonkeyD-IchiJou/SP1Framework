@@ -742,9 +742,9 @@ void receive (int type, int orientation, int x)
     }
 }
 
-void calculate(int x)
+void calculate(int x) //Score System
 {
-    if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10)  //4 line Strike -> 110 pts (40*2 + 30)
+    if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10)  //4 line Strike -> 110 points (40*2 + 30)
     {
         for (int k = 0; k < 4; k++)
         {
@@ -761,7 +761,7 @@ void calculate(int x)
         score += 110;
     }
 
-    else if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10) //3 line Strke -> 7pts (30*2 + 10)
+    else if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10) //3 line Strke -> 70 points (30*2 + 10)
     {
         for (int k = 0; k < 3; k++)
         {
@@ -778,7 +778,7 @@ void calculate(int x)
         score += 70;
     }
 
-    else if (checkscore[x] == 10 && checkscore[x-1] == 10) //2 line Strike -> 4 (20*2 + 0)
+    else if (checkscore[x] == 10 && checkscore[x-1] == 10) //2 line Strike -> 40 points (20*2 + 0)
     {
         for (int k = 0; k < 2; k++)
         {
@@ -936,6 +936,6 @@ void showScore(COORD c, int x)
 {
     std::ostringstream ss;
     ss.str("");
-    ss << x << "pts";
-    writeToBuffer(c, ss.str());
+    ss << x << " points";
+    writeToBuffer(c, ss.str(), BlueBg);
 }
