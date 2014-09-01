@@ -24,7 +24,7 @@ Location screen;        //coordinates for start, main menu, gameplay, and pause 
 Blocks blocks;          //coordinates for different blocks
 Block block;            //use for individual block
 BlocksType store;       //use for store different kind of blocks
-BlocksType *temporaryStore = new BlocksType;      
+BlocksType *temporaryStore;     
 storeNswitch count;     //check and store the block
 blockcolor color;       //blocks colors
 collisionCheck check;   //use to check for collision (left and right of the blocks)
@@ -95,7 +95,7 @@ void init()
     srand (time(NULL));
     for (int i = 0; i < 65535; i++)
     { 
-        randomblock[i] = rand()%5;
+        randomblock[i] = rand()%7;
     }
 
     initBlockLocation();
@@ -221,9 +221,9 @@ void update(double dt)
     case HIGHSCORE_MODE:
 
         //if blocks reach the top of the map, game end
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < width-1; i++)
         {
-            if (map[0][i] == '1')
+            if (map[0][i] != '0')
             {
                 gameState = END_GAME;
             }
@@ -479,7 +479,8 @@ void render()
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
-        writeToBuffer(block.location, (char)check.RZ);
+
+        //writeToBuffer(block.location, (char)downward);
         break;
 
     case PAUSE_SCREEN:
@@ -1498,7 +1499,7 @@ void updateREVL()
 	switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL - 1] != '1' && map[downward+1][check.RL - 2] != '1')
+        if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL - 1] == '0' && map[downward-1][check.RL +1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -1506,7 +1507,7 @@ void updateREVL()
             check.RL--;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 7 && map[downward+1][check.RL] != '1' && map[downward+1][check.RL-1] != '1')
+        if (keyPressed[K_RIGHT] && check.RL < 7 && map[downward-1][check.RL+3] == '0' && map[downward][check.RL+3] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -1514,32 +1515,36 @@ void updateREVL()
             check.RL++;
         }
 
-        if (keyPressed[K_DOWN])
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(100);
 
+            check.RL++;
             downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
             block.orientation = SECOND;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 ||  map[downward+1][check.RL] == '1' ||  map[downward+1][check.RL + 1] == '1' ||  map[downward][check.RL + 2] == '1')
+        else if (downward >= 22 ||  map[downward+1][check.RL] != '0' ||  map[downward+1][check.RL + 1] != '0' ||  map[downward+1][check.RL + 2] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward, check.RL - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward, check.RL+2);             
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
+
+            next++;
 
             initCheck();
             random();
+
+            Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
         }
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.RL > 0 && map[downward+1][check.RL-1] != '1' && map[downward+1][check.RL-2] != '1')
+        if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL-1] == '0' && map[downward-1][check.RL-1] == '0' && map[downward-2][check.RL-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -1547,7 +1552,7 @@ void updateREVL()
             check.RL--;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 8 && map[downward][check.RL+2] != '1' && map[downward-1][check.RL+2] != '1')
+        if (keyPressed[K_RIGHT] && check.RL < 8 && map[downward][check.RL+1] == '0' && map[downward-1][check.RL+1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -1555,33 +1560,67 @@ void updateREVL()
             check.RL++;
         }
 
-        if (keyPressed[K_DOWN])
+        // rotate after ensure the surrounding is allowed it
+        else if (keyPressed[K_UP] && dunturnup == true && (map[downward][check.RL+1] != '0' || map[downward-1][check.RL+2] != '0') &&
+                                                          ( map[downward][check.RL-1] != '0' || map[downward-1][check.RL-1] != '0' || map[downward-2][check.RL-1] != '0'))
         {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
+            dunturnup = true;
         }
 
-        if (keyPressed[K_UP])
+        else if (keyPressed[K_UP] && (map[downward][check.RL+1] != '0' || map[downward-1][check.RL+2] != '0'))
         {
+            dunturnup = true;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true && ( map[downward][check.RL-1] != '0' || map[downward-1][check.RL-1] != '0' || map[downward-2][check.RL-1] != '0'))
+        {
+            Sleep(100);
+            block.location.X++;
+
             block.orientation = THIRD;
 
+            dunturnup = false;
+        }
+        
+        else if (keyPressed[K_UP] && dunturnup == true && check.RL <1 )
+        {
+            Sleep(100);
+            block.location.X++;
 
+            block.orientation = THIRD;
+
+            dunturnup = false;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true)
+        {
+            Sleep(100);
+            check.RL--;
+
+            block.orientation = THIRD;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 ||  map[downward+1][check.RL] == '1' ||  map[downward][check.RL - 1] == '1')
+        else if (downward >= 22 ||  map[downward+1][check.RL] != '0' ||  map[downward+1][check.RL + 1] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward, check.RL - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward-2, check.RL);             
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
+
+            next++;
 
             initCheck();
             random();
+
+            Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
         }
         break;
+
 	case THIRD:
-		if (keyPressed[K_LEFT] && check.RL > 0 && map[downward+1][check.RL-1] != '1' && map[downward+1][check.RL-2] != '1')
+		if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL-1] == '0' && map[downward-1][check.RL-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -1589,7 +1628,7 @@ void updateREVL()
             check.RL--;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 7 && map[downward][check.RL+2] != '1' && map[downward-1][check.RL+2] != '1')
+        if (keyPressed[K_RIGHT] && check.RL < 7 && map[downward][check.RL+1] == '0' && map[downward-1][check.RL+3] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -1597,32 +1636,34 @@ void updateREVL()
             check.RL++;
         }
 
-        if (keyPressed[K_DOWN])
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(100);
 
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
             block.orientation = FOURTH;
-			check.RL++;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 ||  map[downward+1][check.RL] == '1' ||  map[downward][check.RL - 1] == '1')
+        else if (downward >= 22 ||  map[downward+1][check.RL] != '0' ||  map[downward][check.RL + 1] != '0' || map[downward][check.RL + 2] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward, check.RL - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward, check.RL - 2);             
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
+
+            next++;
 
             initCheck();
             random();
+
+            Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
         }
         break;
+
 	case FOURTH:
-		if (keyPressed[K_LEFT] && check.RL > 0 && map[downward+1][check.RL-1] != '1' && map[downward+1][check.RL-2] != '1')
+		if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL] == '0' && map[downward+1][check.RL] == '0' && map[downward-2][check.RL-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -1630,7 +1671,7 @@ void updateREVL()
             check.RL--;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 8 && map[downward][check.RL+2] != '1' && map[downward-1][check.RL+2] != '1')
+        if (keyPressed[K_RIGHT] && check.RL < 8 && map[downward][check.RL+2] == '0' && map[downward-1][check.RL+2] == '0' &&  map[downward+1][check.RL+2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -1638,29 +1679,49 @@ void updateREVL()
             check.RL++;
         }
 
-        if (keyPressed[K_DOWN])
+        // check surrounding before rotate
+        else if (keyPressed[K_UP] && dunturnup == true && (map[downward][check.RL+2] != '0' && map[downward-1][check.RL+2] != '0' &&  map[downward+1][check.RL+2] != '0') && 
+                                                          (map[downward + 1][check.L - 1] != '0' || map[downward-1][check.L] != '0' || map[downward][check.L] != '0'))
         {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
+            dunturnup = true;
         }
 
-        if (keyPressed[K_UP])
+        else if (keyPressed[K_UP] && dunturnup == true && (check.RL > 7 || map[downward][check.RL + 2] != '0' || map[downward][check.RL+2] != '0' || map[downward-1][check.RL+2] != '0' ||  map[downward+1][check.RL+2] != '0'))
         {
+            Sleep(100);
+            block.location.X--;
+
+            check.RL--;
+
             block.orientation = FIRST;
 
-			check.RL--;
+            dunturnup = false;
+        }
+        
+        else if (keyPressed[K_UP] && dunturnup == true)
+        {
+            Sleep(100);
+            downward--;
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 ||  map[downward+1][check.RL] == '1' ||  map[downward][check.RL - 1] == '1')
+        if (downward >= 22 ||  map[downward+1][check.RL+1] == '1' ||  map[downward-1][check.RL] == '1')
         {
-            UpdateMap(block.type, block.orientation, downward, check.RL - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward-2, check.RL+1);             
+            receive (block.type, block.orientation, downward);
+            calculate (downward);
+
+            next++;
 
             initCheck();
             random();
+
+            Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
         }
         break;
 
@@ -1851,6 +1912,40 @@ void showNextBlock(COORD c, int type)
         c.Y--;
         writeToBuffer(c, shape, color.T);
         break;
+
+    case 5:
+        c.X+=3;
+        c.Y--;
+        writeToBuffer(c, shape, color.RL);
+
+        c.Y++;
+        c.X-=3;
+        for(int i = 0; i < 3; i++)
+        {
+            c.X++;
+            writeToBuffer(c, shape, color.RL);
+        }
+
+        break;
+
+    case 6:
+        c.X;
+        c.Y;
+        writeToBuffer(c, shape, color.Z);
+
+        c.X++;
+        c.Y;
+        writeToBuffer(c, shape, color.Z);
+
+        c.X;
+        c.Y++;
+        writeToBuffer(c, shape, color.Z);
+
+        c.X++;
+        c.Y;
+        writeToBuffer(c, shape, color.Z);
+
+        break;
     }
 
     std::ostringstream ss;
@@ -1943,6 +2038,21 @@ void storeBlock(COORD c, bool switchOrstore, int type)
             c.Y--;
             writeToBuffer(c, shape, color.T);
             break;
+
+        case 5:
+            c.X;
+            c.Y++;
+            writeToBuffer(c, shape, color.RL);
+
+            c.Y--;
+            c.X--;
+            for(int i = 0; i < 3; i++)
+            {
+                c.X++;
+                writeToBuffer(c, shape, color.RL);
+            }
+
+        break;
         }
     }
     std::ostringstream ss;
@@ -1955,6 +2065,7 @@ void storeBlock(COORD c, bool switchOrstore, int type)
 
 void blockcolorinit()
 {
+<<<<<<< 6b6f6918ec99e0cb9e4157bc837967d3701766ff
     color.l = Cyan;
     color.Z = Red;
     color.L = White; //Blue is a little hard to see with the blue buffer background
@@ -1964,4 +2075,19 @@ void blockcolorinit()
     color.RZ = Green;
 
     color.map = Black; //Background colour of the game grid
+<<<<<<< ac2c8b2c8abf4d527e4fa49dcb3780f10f10b16c
 }
+=======
+=======
+    color.l = 0x09;
+    color.Z = 0x0C;
+    color.L = 0x0D;
+    color.Sq = 0x0E;
+    color.T = 0x0F;
+    color.RL = 0x0A;
+    color.RZ = 0x0B;
+
+    color.map = 0x00;
+>>>>>>> ba1f18af6d743c90da96c8bea34e06efdc68ac53
+}
+>>>>>>> 31fc7583649773ce3af2b96364b5855774d33e56

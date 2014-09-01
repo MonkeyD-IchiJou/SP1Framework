@@ -79,6 +79,14 @@ void DrawMap(COORD c, int type)
                 case '5':
                     writeToBuffer(c, shape, color.T);
                     break;
+
+                case '6':
+                    writeToBuffer(c, shape, color.RL);
+                    break;
+
+                case '7':
+                    writeToBuffer(c, shape, color.RZ);
+                    break;
             }
         }
 
@@ -319,10 +327,9 @@ void initiate(int type, COORD c)
                 DataBlocks[type][1][i].X = c.X; 
                 DataBlocks[type][1][i].Y = c.Y-1+i;
             }
-
-            DataBlocks[type][1][3].X = c.X-1; 
-            DataBlocks[type][1][3].Y = c.Y-1;
-        }
+        } 
+        DataBlocks[type][1][3].X = c.X+1; 
+        DataBlocks[type][1][3].Y = c.Y+1;
 
         for (int i = 0; i < 4; i++)                // third orientation
         {
@@ -344,8 +351,8 @@ void initiate(int type, COORD c)
                 DataBlocks[type][3][i].Y = c.Y-1+i;
             }
 
-            DataBlocks[type][3][3].X = c.X+1; 
-            DataBlocks[type][3][3].Y = c.Y+1;
+            DataBlocks[type][3][3].X = c.X-1; 
+            DataBlocks[type][3][3].Y = c.Y-1;
         }
         break;
 
@@ -556,57 +563,55 @@ void UpdateMap(int type, int orientation, int x, int y)
         case FIRST:
             for (int i = 1; i < 3; i++)
             {
-				map[x - 1][y + 1 + i] = '1';
-				map[x][y+i] = '1';
+				map[x - 1][y + 1 + i] = '7';
+				map[x][y+i] = '7';
             }
 
             break;
 
         case SECOND:
-				map[x - 1][y + 1] = '1';
-				map[x][y + 1] = '1';
-				map[x - 2][y] = '1';
-				map[x - 1][y] = '1';
+				map[x - 1][y + 1] = '7';
+				map[x][y + 1] = '7';
+				map[x - 2][y] = '7';
+				map[x - 1][y] = '7';
 
             break;
 		}
 		break;
+
 	case L_REV_TYPE:
 		switch(orientation)
 		{
 	    case FIRST:
             for (int i = 0; i < 3; i++)
             {
-                map[x][y - i] = '1';
-                map[x - 1][y] = '1';
+                map[x][y - i] = '6';
+                map[x - 1][y] = '6';
             }
             break;
 
         case SECOND:
             for (int i = 0; i < 3; i++)
             {
-                map[x+i][y] = '1';
-                if (i < 2)
-                {
-                    map[x-1][y+i] = '1';
-                }
-            }
+                map[x+i][y] = '6';
+                
+            }map[x+2][y+1] = '6';
             break;
 
         case THIRD:
             for (int i = 0; i < 3; i++)
             {
-                map[x-1][y + 2 + i] = '1';
-                map[x][y+2] = '1';
+                map[x-1][y + 2 + i] = '6';
+                map[x][y+2] = '6';
             }
             break;
 
         case FOURTH:
             for (int i = 0; i < 3; i++)
             {
-                map[x-i][y+1] = '1';
-                map[x][y] = '1';
-            }
+                map[x+i][y] = '6';
+                
+            }map[x][y-1] = '6';
             break;
 		}
 		break;
@@ -720,6 +725,33 @@ void receive (int type, int orientation, int x)
             checkscore[x]++;
             checkscore[x-1] +=2;
             checkscore[x-2]++;
+            break;
+        }
+        break;
+
+    case L_REV_TYPE:
+        switch (orientation)
+        {
+        case FIRST:
+            checkscore[x] += 3;
+            checkscore[x-1] ++;
+            break;
+
+        case SECOND:
+            checkscore[x]+=2;
+            checkscore[x-1]++;
+            checkscore[x-2]++;
+            break;
+
+        case THIRD:
+            checkscore[x]++;
+            checkscore[x-1]+=3;
+            break;
+
+        case FOURTH:
+            checkscore[x]++;
+            checkscore[x-1]++;
+            checkscore[x-2]+=2;
             break;
         }
         break;
