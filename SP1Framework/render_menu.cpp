@@ -4,6 +4,7 @@
 
 void renderMenu (COORD c)
 {
+<<<<<<< 6b6f6918ec99e0cb9e4157bc837967d3701766ff
     
         ifstream inlukris;
         string hi;
@@ -18,6 +19,22 @@ void renderMenu (COORD c)
         }
 
         inlukris.close();
+=======
+
+	ifstream inlukris;
+	string hi;
+
+	inlukris.open ("Bg.txt");
+
+	while (!inlukris.eof())
+	{
+		colour(Green);
+		getline (inlukris,hi);
+		cout << hi << endl;
+	}
+
+	inlukris.close();
+>>>>>>> 2fef80e018b397603e49e6d5824c9bc2196695f3
 
     gotoXY(c);
 	colour(White);

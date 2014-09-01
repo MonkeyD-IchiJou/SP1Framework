@@ -410,9 +410,20 @@ void render()
     
     switch(gameState)
     {
+<<<<<<< af641be0ae46d1e3f03e21a3fabb966d0139b5df
     case START_SCREEN:
 
         renderStartScreen(screen.ScLocation);
+=======
+    case START_SCREEN: 
+        // render Start screen
+        renderStartScreen(screen.MmLocation); 
+        break;
+
+    case MENU_SCREEN:
+        // render main menu
+        renderMenu(screen.MmLocation);
+>>>>>>> 9e9db701eb7626b55aa40b0c2ba974df1dfb451c
         break;
 
     case MAIN_MENU:
@@ -1660,8 +1671,14 @@ void initBlockLocation()
 void random()
 {
     block.orientation = FIRST;
+<<<<<<< af641be0ae46d1e3f03e21a3fabb966d0139b5df
     
     randomisation = randomblock[0+next];
+=======
+
+    srand (time(NULL));
+    randomisation = 6;//rand()%5;
+>>>>>>> 9e9db701eb7626b55aa40b0c2ba974df1dfb451c
 
     switch(randomisation)
     {
@@ -1901,6 +1918,7 @@ void storeBlock(COORD c, bool switchOrstore, int type)
 
 void blockcolorinit()
 {
+<<<<<<< 6b6f6918ec99e0cb9e4157bc837967d3701766ff
     color.l = Cyan;
     color.Z = Red;
     color.L = White; //Blue is a little hard to see with the blue buffer background
@@ -1911,3 +1929,15 @@ void blockcolorinit()
 
     color.map = Black; //Background colour of the game grid
 }
+=======
+    color.l = 0x09;
+    color.Z = 0x0C;
+    color.L = 0x0D;
+    color.Sq = 0x0E;
+    color.T = 0x0F;
+    color.RL = 0x1A;
+    color.RZ = 0x1A;
+
+    color.map = 0x00;
+}
+>>>>>>> 2fef80e018b397603e49e6d5824c9bc2196695f3
