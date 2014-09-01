@@ -59,6 +59,9 @@
       <Filter>Source Files</Filter>
 >>>>>>> 7149ce6fa0308feb64752ec1cbc63b9cea329689
     </ClCompile>
+    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\render_change.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">

@@ -74,6 +74,12 @@ void init()
 	screen.PsLocation.X = 23;
 	screen.PsLocation.Y = 10;
 
+	screen.OptLocation.X = 18;
+	screen.OptLocation.Y = 10;
+
+	screen.CLocation.X = 18;
+	screen.CLocation.Y = 5;
+
     screen.BdLocation.X = 30;
     screen.BdLocation.Y = 3;
 
@@ -216,14 +222,21 @@ void update(double dt)
             gameState = HIGHSCORE_MODE;
 		}
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 15)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 14)
         {
 			Sleep(100);
             Beep(1440, 30);
             gameState = INSTRUCTION;
 		}
+		
+		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 18)
+        {
+			Sleep(100);
+            Beep(1440, 30);
+            gameState = OPTION;
+		}
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 22)
         {
             Sleep(100);
             Beep(1440, 30);
@@ -234,14 +247,14 @@ void update(double dt)
         {
             Beep(1440, 30);
 			Sleep(50);
-            screen.MmLocation.Y -= 5;
+            screen.MmLocation.Y -= 4;
         }
 
-		if (keyPressed[K_DOWN] && screen.MmLocation.Y < 20)
+		if (keyPressed[K_DOWN] && screen.MmLocation.Y < 22)
         {
             Beep(1440, 30);
 			Sleep(50);
-            screen.MmLocation.Y += 5; 
+            screen.MmLocation.Y += 4; 
         }
 		break;
 
@@ -251,6 +264,97 @@ void update(double dt)
             Sleep(100);
             Beep(1440, 30);
             gameState = MAIN_MENU;
+        }
+		break;
+
+	case OPTION:
+		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+			gameState = CHANGESHAPE;
+		}
+
+		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+			gameState = MAIN_MENU;
+		}
+
+		if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.OptLocation.Y -= 5;
+        }
+
+		if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.OptLocation.Y += 5; 
+        }
+		break;
+
+	case CHANGESHAPE:
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 5)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+			gameState = HIGHSCORE_MODE;
+		}
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 7)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+		}
+
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 9)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+		
+		}
+
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 11)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+		
+		}
+
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 13)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+		
+		}
+
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 15)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+			gameState = MAIN_MENU;
+		}
+
+		if (keyPressed[K_UP] && screen.CLocation.Y > 5)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.CLocation.Y -= 2;
+        }
+
+		if (keyPressed[K_DOWN] && screen.CLocation.Y < 15)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.CLocation.Y += 2; 
         }
         
     case HIGHSCORE_MODE:
@@ -513,18 +617,21 @@ void render()
 
         renderMenu(screen.MmLocation);
         break;
-<<<<<<< 96737a36c506a977842b45d911fbee0dac4774d9
+
     case INSTRUCTION:
         renderInstruction(screen.ILocation);
         break;
-=======
 
 	case OPTION:
 
 		renderOption(screen.OptLocation);
 		break;
 
->>>>>>> 9bb059b826e61a0eae4088e2c360140d85c39b05
+	case CHANGESHAPE:
+
+		renderChange(screen.CLocation);
+		break;
+
     case HIGHSCORE_MODE:
 
         //DrawBorder(screen.BdLocation);
@@ -533,13 +640,13 @@ void render()
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
-<<<<<<< 96737a36c506a977842b45d911fbee0dac4774d9
+
 
         //writeToBuffer(block.location, (char)downward);
-=======
+
         //writeToBuffer(block.location, (char)check.RZ);
 		Background(screen.Background);
->>>>>>> 9bb059b826e61a0eae4088e2c360140d85c39b05
+
         break;
 
     case PAUSE_SCREEN:

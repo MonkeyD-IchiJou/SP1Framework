@@ -28,6 +28,7 @@ enum stages
     PAUSE_SCREEN,
     END_GAME,
 	OPTION,
+	CHANGESHAPE,
     CREDIT
 };
 

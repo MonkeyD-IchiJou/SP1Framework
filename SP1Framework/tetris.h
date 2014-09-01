@@ -23,6 +23,7 @@ struct Location
     COORD MmLocation;   // main menu screen
     COORD ILocation;    // Instruction screen
     COORD OptLocation;  // option screen
+	COORD CLocation;	// Change shape
 	COORD PsLocation;   // pause screen
     COORD TmLocation;   // tetris map 
     COORD BdLocation;   // border location
@@ -70,6 +71,9 @@ void renderInstruction(COORD c);
 
 // in render_option_screen.cpp
 void renderOption(COORD c);
+
+// in render_change.cpp
+void renderChange(COORD c);
 
 // in render_gameplay.cpp
 void Background(COORD c);

@@ -53,13 +53,17 @@ void renderMenu(COORD c)
 	c.Y++;
 
 	c.X = 25;
-	c.Y = 15;
+	c.Y = 14;
 	writeToBuffer(c, " Instructions ", 0x1A);
 	c.Y++;
 	
 	c.X = 25;
-	c.Y = 20;
-    
+	c.Y = 18;
+	writeToBuffer(c, " Options ", 0x1A);
+	c.Y++;
+
+	c.X = 25;
+	c.Y = 22;
 	writeToBuffer(c, " Exit Game ", 0x1A);
 	c.Y++;
 }

@@ -11,7 +11,8 @@ void renderOption(COORD c)
 	string text;
 
 	option.open("option.txt");
-	
+	c.X = 5;
+	c.Y = 0;
 	while( !option.eof() )
 	{
 		getline(option, text);
@@ -21,11 +22,11 @@ void renderOption(COORD c)
 
 	option.close();
 
-	c.X = 25;
+	c.X = 20;
 	c.Y = 10;
 	writeToBuffer(c, " Change Blocks Shape " , 0x1A);
 
-	c.X = 25;
+	c.X = 20;
 	c.Y = 15; 
 	writeToBuffer(c, " Return to Main Menu " , 0x1A); 
 }
