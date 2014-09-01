@@ -984,7 +984,7 @@ void calculate(int x) //Score System
 
         score += 70;
     }
-
+    
     else if (checkscore[x-1] == 10 && checkscore[x-2] == 10) 
     {
         x-=1;

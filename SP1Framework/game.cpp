@@ -642,12 +642,16 @@ void render()
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
 
+<<<<<<< 33a952fdb161e3f549d89fa03a1442d3e813ea3a
 
         //writeToBuffer(block.location, (char)downward);
 
         //writeToBuffer(block.location, (char)check.RZ);
 		Background(screen.Background);
 
+=======
+        //writeToBuffer(block.location, (char)checkscore[22]);
+>>>>>>> 0194adbd2b10adb748c75f950141fe0b47854bc1
         break;
 
     case PAUSE_SCREEN:
@@ -2250,6 +2254,7 @@ void storeBlock(COORD c, bool switchOrstore, int type)
                 c.X++;
                 writeToBuffer(c, shape, color.RL);
             }
+            break;
 
         case 6:
             c.X;
