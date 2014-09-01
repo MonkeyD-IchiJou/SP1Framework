@@ -95,7 +95,7 @@ void init()
     srand (time(NULL));
     for (int i = 0; i < 65535; i++)
     { 
-        randomblock[i] = rand()%5;
+        randomblock[i] = rand()%7;
     }
 
     initBlockLocation();
@@ -492,10 +492,8 @@ void render()
         break;
 
     case PAUSE_SCREEN:
-        if(keyPressed[K_ESCAPE])
-        {
+
         RenderPauseScreen(screen.PsLocation);
-        }
         break;
 
     case END_GAME:
@@ -1783,10 +1781,7 @@ void random()
 {
     block.orientation = FIRST;
     
-    randomisation = 6;//randomblock[0+next];
-
-    srand (time(NULL));
-    randomisation = rand()%5;
+    randomisation = randomblock[0+next];
 
     switch(randomisation)
     {
@@ -2100,23 +2095,4 @@ void blockcolorinit()
     color.RZ = Green;
 
     color.map = Black; //Background colour of the game grid
-<<<<<<< 5915a356a79c0537fd5eeca3d86ddad006e20d9b
-<<<<<<< ac2c8b2c8abf4d527e4fa49dcb3780f10f10b16c
 }
-=======
-=======
-    color.l = 0x09;
-    color.Z = 0x0C;
-    color.L = 0x0D;
-    color.Sq = 0x0E;
-    color.T = 0x0F;
-    color.RL = 0x0A;
-    color.RZ = 0x0B;
-
-    color.map = 0x00;
->>>>>>> ba1f18af6d743c90da96c8bea34e06efdc68ac53
-}
->>>>>>> 31fc7583649773ce3af2b96364b5855774d33e56
-=======
-}
->>>>>>> 1121682d54f826cece00a86fb3c79d16505f1c9d
