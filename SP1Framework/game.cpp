@@ -1652,7 +1652,7 @@ void random()
 {
     block.orientation = FIRST;
     
-    randomisation = 6;//randomblock[0+next];
+    randomisation = randomblock[0+next];
 
     switch(randomisation)
     {
