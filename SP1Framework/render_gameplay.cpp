@@ -53,11 +53,11 @@ void Background(COORD c)
 
 	background.open("background.txt");
 	c.X = 45;
-	c.Y = 0;
+	c.Y = 5;
 	while( !background.eof() )
 	{
 		getline(background, ground);
-		writeToBuffer(c, ground, 0x1D);
+		writeToBuffer(c, ground, 0x0C);
 		c.Y++;
 	}
 
@@ -71,7 +71,7 @@ void DrawMap(COORD c, int type)
         for(int j = 0; j < width; j++)
         {   
             c.X = j+25;
-            c.Y= i+1;
+            c.Y= i+6;
             switch(map[i][j])
             {
                 case '0':
@@ -1084,9 +1084,9 @@ void calculate(int x) //Score System
 void showScore(COORD c, int x)
 {
 	c.X = 4;
-	c.Y = 22;
+	c.Y = 30;
     std::ostringstream ss;
     ss.str("");
-    ss << x << " points";
-    writeToBuffer(c, ss.str(), BlueBg);
+    ss << x << " POINTS";
+    writeToBuffer(c, ss.str(), 0x0E);
 }

@@ -5,18 +5,18 @@
 
 void renderOption(COORD c)
 {
-	writeToBuffer(c, ">>", 0x1A);
+	writeToBuffer(c, ">>", 0x0A);
 
 	ifstream option;
 	string text;
 
 	option.open("option.txt");
-	c.X = 5;
+	c.X = 6;
 	c.Y = 0;
 	while( !option.eof() )
 	{
 		getline(option, text);
-		writeToBuffer(c, text, 0x1A);
+		writeToBuffer(c, text, 0x0A);
 		c.Y++;
 	}
 
@@ -24,9 +24,9 @@ void renderOption(COORD c)
 
 	c.X = 20;
 	c.Y = 10;
-	writeToBuffer(c, " Change Blocks Shape " , 0x1A);
+	writeToBuffer(c, " Change Blocks Shape " , 0x0A);
 
 	c.X = 20;
 	c.Y = 15; 
-	writeToBuffer(c, " Return to Main Menu " , 0x1A); 
+	writeToBuffer(c, " Return to Main Menu " , 0x0A); 
 }

@@ -8,7 +8,7 @@
 #include "Framework\sound.h"
 
 // Console size, width by height
-COORD ConsoleSize = {60, 26};
+COORD ConsoleSize = {60, 36};
 
 double elapsedTime;
 double deltaTime;
@@ -68,11 +68,11 @@ void init()
     screen.ScLocation.X = 22;
     screen.ScLocation.Y = 14;
 
-    screen.MmLocation.X = 23;
-    screen.MmLocation.Y = 10;
+    screen.MmLocation.X = 7;
+    screen.MmLocation.Y = 14;
 
-	screen.PsLocation.X = 23;
-	screen.PsLocation.Y = 10;
+	screen.PsLocation.X = 3;
+	screen.PsLocation.Y = 12;
 
 	screen.OptLocation.X = 18;
 	screen.OptLocation.Y = 10;
@@ -94,11 +94,11 @@ void init()
 
     // initiate block thingy here
     // will do randomisation here
-    screen.NLineLocation.X = ConsoleSize.X / 4 - 10;
-    screen.NLineLocation.Y = 15;
+    screen.NLineLocation.X = ConsoleSize.X / 4 - 9;
+    screen.NLineLocation.Y = 21;
 
     screen.StoreLineLocation.X = ConsoleSize.X / 4 - 9;
-    screen.StoreLineLocation.Y = 5;
+    screen.StoreLineLocation.Y = 8;
 
     count.storeornot = false;
     count.storeOredi = false;
@@ -215,46 +215,46 @@ void update(double dt)
 
     case MAIN_MENU:
 
-		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 10)
+		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 14)
         {
 			Sleep(100);
             Beep(1440, 30);
             gameState = HIGHSCORE_MODE;
 		}
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 14)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
         {
 			Sleep(100);
             Beep(1440, 30);
             gameState = INSTRUCTION;
 		}
 		
-		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 18)
+		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 26)
         {
 			Sleep(100);
             Beep(1440, 30);
             gameState = OPTION;
 		}
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 22)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 32)
         {
             Sleep(100);
             Beep(1440, 30);
             g_quitGame = true;
         }
 
-		if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
+		if (keyPressed[K_UP] && screen.MmLocation.Y > 14)
         {
             Beep(1440, 30);
-			Sleep(50);
-            screen.MmLocation.Y -= 4;
+			Sleep(100);
+            screen.MmLocation.Y -= 6;
         }
 
-		if (keyPressed[K_DOWN] && screen.MmLocation.Y < 22)
+		if (keyPressed[K_DOWN] && screen.MmLocation.Y < 31)
         {
             Beep(1440, 30);
-			Sleep(50);
-            screen.MmLocation.Y += 4; 
+			Sleep(100);
+            screen.MmLocation.Y += 6; 
         }
 		break;
 
@@ -517,26 +517,27 @@ void update(double dt)
 
     case PAUSE_SCREEN:
 
-		if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
+		if (keyPressed[K_UP] && screen.PsLocation.Y > 13)
         {
             Beep(1440, 30);
-			Sleep(50);
-            screen.PsLocation.Y -= 5;
+			Sleep(100);
+            screen.PsLocation.Y -= 7;
         }
 
-		if (keyPressed[K_DOWN] && screen.PsLocation.Y < 20)
+		if (keyPressed[K_DOWN] && screen.PsLocation.Y < 21)
         {
             Beep(1440, 30);
-			Sleep(50);
-            screen.PsLocation.Y += 5; 
+			Sleep(100);
+            screen.PsLocation.Y += 7; 
         }
 
-		if(keyPressed[K_ENTER] && screen.PsLocation.Y == 10)
+		if(keyPressed[K_ENTER] && screen.PsLocation.Y == 12)
 		{
+			Sleep(100);
 			gameState = HIGHSCORE_MODE;
 		}
 
-		if (keyPressed[K_ENTER] && screen.PsLocation.Y == 15)
+		if (keyPressed[K_ENTER] && screen.PsLocation.Y == 19)
         {
             init();
             for(int i = 0; i < height; i++)
@@ -553,7 +554,7 @@ void update(double dt)
             gameState = HIGHSCORE_MODE;
         }
 
-		if(keyPressed[K_ENTER] && screen.PsLocation.Y == 20)
+		if(keyPressed[K_ENTER] && screen.PsLocation.Y == 26)
 		{
 			gameState = MAIN_MENU; 
 		}
@@ -587,7 +588,7 @@ void update(double dt)
 void render()
 {    
     // Clears the buffer with this colour attribute
-    clearBuffer(BlueBg);
+    clearBuffer(Black);
 
     //TIMINGInfo(charLocation); //show timing
 
@@ -1940,7 +1941,7 @@ void initCheck()
 void initBlockLocation()
 {
     int initialX = 30;
-    int initialY = 1;
+    int initialY = 7;
 
     blocks.l_shape.X = initialX;
     blocks.l_shape.Y = initialY;
@@ -2145,9 +2146,14 @@ void showNextBlock(COORD c, int type)
     ss.str("");
     ss << "Next Block";
     c.X = 3;
-    c.Y = 11;
-    writeToBuffer(c, ss.str(), BlueBg);
-    
+    c.Y = 16;
+    writeToBuffer(c, ss.str(), 0x0A);
+	c.X = 2;
+	c.Y = 17;
+	writeToBuffer(c, " ========== ", 0x0A);
+	c.X = 2;
+	c.Y = 25;
+	writeToBuffer(c, " ========== ", 0x0A);
 }
 
 void storeBlock(COORD c, bool switchOrstore, int type)
@@ -2266,10 +2272,16 @@ void storeBlock(COORD c, bool switchOrstore, int type)
     }
     std::ostringstream ss;
     ss.str("");
-    ss << "Store";
-    c.X = 5;
-    c.Y = 1;
-    writeToBuffer(c, ss.str(), BlueBg);
+    ss << "Store Block";
+    c.X = 3;
+    c.Y = 2;
+    writeToBuffer(c, ss.str(), 0x0B);
+	c.X = 2;
+	c.Y = 3;
+	writeToBuffer(c, " =========== ", 0x0B);
+	c.X = 2;
+	c.Y = 12;
+	writeToBuffer(c, " =========== ", 0x0B);
 }
 
 void blockcolorinit()
@@ -2282,5 +2294,5 @@ void blockcolorinit()
     color.RL = Brown; // Substitute orange
     color.RZ = Green;
 
-    color.map = Black; //Background colour of the game grid
+    color.map = Magenta; //Background colour of the game grid
 }

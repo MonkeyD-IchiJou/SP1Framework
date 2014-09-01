@@ -11,31 +11,39 @@ void renderStartScreen(COORD c)
 	string bgtext;
 
 	title.open("title.txt");
-	c.X = 12;
-	c.Y = 3;
+	c.X = 11;
+	c.Y = 6;
 	while( !title.eof() )
 	{
 		getline(title, text);
-		writeToBuffer(c, text, 0x1A);
+		writeToBuffer(c, text, 0x0A);
 		c.Y++;
 	}
 	title.close();
+
+	c.X = 11;
+	c.Y = 12;
+	writeToBuffer(c, "=====================================", 0x0A);
 	
-	/*bg.open("bg.txt");
-	c.X = 1;
-	c.Y = 0;
-	while( !bg.eof() )
+	c.X = 7;
+	c.Y = 1;
+	writeToBuffer(c, "*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=", 0x0C);
+
+	c.X = 7;
+	c.Y = 32;
+	writeToBuffer(c, "*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=", 0x0C);
+
+	ifstream enter;
+	string entertext;
+
+	enter.open("enter.txt");
+	c.X = 0;
+	c.Y = 19;
+	while( !enter.eof() )
 	{
-		getline(bg, bgtext);
-		writeToBuffer(c, bgtext, 0xA);
+		getline(enter, entertext);
+		writeToBuffer(c, entertext, 0x0B);
 		c.Y++;
 	}
-
-	bg.close();*/
-
-	std::stringstream key;
-	key << "Please Press Enter!" << endl;
-	c.X = 20;
-	c.Y = 15;
-	writeToBuffer(c, key.str(), 0x1B);
+	enter.close();
 }

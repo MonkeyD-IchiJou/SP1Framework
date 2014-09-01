@@ -5,8 +5,9 @@
 
 void renderMenu(COORD c)
 {
-	writeToBuffer(c, ">>", 0x1D);
+	writeToBuffer(c, ">", 0x0E);
 
+	// for Menu title
 	ifstream menu;
 	string text;
 	menu.open("menu.txt");
@@ -15,55 +16,69 @@ void renderMenu(COORD c)
 	while( !menu.eof() )
 	{
 		getline(menu, text);
-		writeToBuffer(c, text, 0x1D);
+		writeToBuffer(c, text, 0x0D);
 		c.Y++;
 	}
 	menu.close();
-	/*
-	if(c.X == 25 && c.Y == 10)
-		{
-			writeToBuffer(c, " START GAME ", 0x1C);
-		}
-		else
-		{
-			writeToBuffer(c, " Start Game ", 0x1A);
-		}
 
-		if(c.X == 25 && c.Y == 15)
-		{
-			writeToBuffer(c, " INSTRUCTIONS ", 0x1C);
-		}
-		else
-		{
-			writeToBuffer(c, " Instructions ", 0x1A);
-		}
-		if(c.X == 25 && c.Y == 20)
-		{
-			writeToBuffer(c, " EXIT GAME ", 0x1C);
-		}
-		else
-		{
-			writeToBuffer(c, " Exit Game ", 0x1A);
-		}*/
-	
+	// for start game
+	ifstream start;
+	string starttext;
 
-	c.X = 25;
-	c.Y = 10;
-	writeToBuffer(c, " Start Game ", 0x1A);
-	c.Y++;
+	start.open("start.txt");
+	c.X = 11;
+	c.Y = 7;
+	while( !start.eof() )
+	{
+		getline(start, starttext);
+		writeToBuffer(c, starttext, 0x0A);
+		c.Y++;
+	}
+	start.close();
 
-	c.X = 25;
+	// for instructions
+	ifstream instruct;
+	string intext;
+
+	instruct.open("instruct.txt");
+	c.X = 8;
 	c.Y = 14;
-	writeToBuffer(c, " Instructions ", 0x1A);
-	c.Y++;
-	
-	c.X = 25;
-	c.Y = 18;
-	writeToBuffer(c, " Options ", 0x1A);
-	c.Y++;
+	while( !instruct.eof() )
+	{
+		getline(instruct, intext);
+		writeToBuffer(c, intext, 0x0B);
+		c.Y++;
+	}
+	instruct.close();
 
-	c.X = 25;
-	c.Y = 22;
-	writeToBuffer(c, " Exit Game ", 0x1A);
-	c.Y++;
+	// for options
+	ifstream options;
+	string opttext;
+
+	options.open("opttext.txt");
+	c.X = 10;
+	c.Y = 21;
+	while( !options.eof() )
+	{
+		getline(options, opttext);
+		writeToBuffer(c, opttext, 0x0E);
+		c.Y++;
+	}
+	options.close();
+
+	// for exit game
+	ifstream exit;
+	string exittext;
+
+	exit.open("exit.txt");
+	c.X = 15;
+	c.Y = 28;
+	while( !exit.eof() )
+	{
+		getline(exit, exittext);
+		writeToBuffer(c, exittext, 0x0F);
+		c.Y++;
+	}
+	exit.close();
+
 }
