@@ -213,7 +213,7 @@ void update(double dt)
 
         int changeSpeed;
         int divide;
-
+        /*
         if (score >= 0 && score < 999)      // beginer speed
         {
             changeSpeed = 500;
@@ -236,7 +236,7 @@ void update(double dt)
         {
             changeSpeed = 1000;
             divide = 1;
-        }
+        }*/
 
         speed = static_cast<int>(elapsedTime*changeSpeed);
 
@@ -421,6 +421,7 @@ void render()
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
+        writeToBuffer(block.location, (char)check.RZ);
         break;
 
     case PAUSE_SCREEN:
@@ -1306,7 +1307,7 @@ void updateREVZ()
 	switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.RZ > 0 && map[downward][check.RZ - 1] != '1' && map[downward+1][check.RZ - 2] != '1')
+        if (keyPressed[K_LEFT] && check.RZ > 0 && map[downward][check.RZ] == '0' && map[downward+1][check.RZ - 1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -1314,7 +1315,7 @@ void updateREVZ()
             check.RZ--;
         }
 
-        if (keyPressed[K_RIGHT] && check.RZ < 7 && map[downward+1][check.RZ] != '1' && map[downward+1][check.RZ-1] != '1')
+        if (keyPressed[K_RIGHT] && check.RZ < 7 && map[downward][check.RZ+3] == '0' && map[downward+1][check.RZ+2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -1322,34 +1323,34 @@ void updateREVZ()
             check.RZ++;
         }
 
-        if (keyPressed[K_DOWN] && downward < 21 && map[downward+1][check.RZ] != '1' &&  map[downward+1][check.RZ + 1] != '1' &&  map[downward][check.RZ + 2] != '1')
+        else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Beep(1440, 30);
-            block.location.Y++;
+            Sleep(100);
 
-            downward++;
-        }
-
-        if (keyPressed[K_UP])
-        {
             block.orientation = SECOND;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 ||  map[downward+1][check.RZ] == '1' ||  map[downward+1][check.RZ + 1] == '1' ||  map[downward][check.RZ + 2] == '1')
+        if (downward >= 22 ||  map[downward+1][check.RZ] != '0' ||  map[downward+1][check.RZ + 1] != '0' ||  map[downward][check.RZ + 2] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward, check.RZ - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward, check.RZ-1);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
             calculate (downward);
 
+            next++;
+
             initCheck();
             random();
+
+            Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
         }
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.RZ > 1 && map[downward+1][check.RZ-1] != '1' && map[downward+1][check.RZ-2] != '1')
+        if (keyPressed[K_LEFT] && check.RZ > 0 && map[downward+1][check.RZ] == '0' && map[downward][check.RZ-1] == '0' && map[downward-1][check.RZ-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -1357,7 +1358,7 @@ void updateREVZ()
             check.RZ--;
         }
 
-        if (keyPressed[K_RIGHT] && check.RZ < 9 && map[downward][check.RZ+2] != '1' && map[downward-1][check.RZ+2] != '1')
+        if (keyPressed[K_RIGHT] && check.RZ < 8 && map[downward][check.RZ+2] == '0' && map[downward+1][check.RZ+2] == '0'&& map[downward-1][check.RZ+1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -1365,29 +1366,68 @@ void updateREVZ()
             check.RZ++;
         }
 
-        if (keyPressed[K_DOWN])
+        // if user want to rotate the block, check the surrounding whether possible for him to rotate or not
+        else if (keyPressed[K_UP] && dunturnup == true  && check.Z > 7 && (map[downward+1][check.RZ] != '0' || map[downward][check.RZ-1] != '0' || map[downward-1][check.RZ-1] != '0'))
         {
-            Beep(1440, 30);
-            block.location.Y++;
-
-            downward++;
+            dunturnup = true;
         }
 
-        if (keyPressed[K_UP])
+        else if (keyPressed[K_UP] && dunturnup == true  && check.Z < 2 && (map[downward][check.RZ+2] != '0' || map[downward+1][check.RZ+2] != '0'|| map[downward-1][check.RZ+1] != '0'))
         {
+            dunturnup = true;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true  &&  (map[downward][check.RZ+2] != '0' || map[downward+1][check.RZ+2] != '0'|| map[downward-1][check.RZ+1] != '0') &&
+                                                            (map[downward+1][check.RZ] != '0' || map[downward][check.RZ-1] != '0' || map[downward-1][check.RZ-1] != '0'))
+        {
+            dunturnup = true;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true  && (map[downward][check.RZ+2] == '0' || map[downward+1][check.RZ+2] == '0'|| map[downward-1][check.RZ+1] == '0'))
+        {
+            Sleep(100);
+            block.location.X--;
+            check.RZ--;
+
             block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true && check.RZ > 7)
+        {
+            Sleep(100);
+            block.location.X--;
+            check.RZ--;
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true)
+        {
+            Sleep(100);
+
+            block.orientation = FIRST;
+
+            dunturnup = false;
         }
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward > 20 ||  map[downward+1][check.RZ] == '1' ||  map[downward][check.RZ - 1] == '1')
+        if (downward >= 22 ||  map[downward+1][check.RZ+1] != '0' ||  map[downward][check.RZ] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward, check.RZ - 1);             // bu jie zhi mi
+            UpdateMap(block.type, block.orientation, downward, check.RZ);             // bu jie zhi mi
             receive (block.type, block.orientation, downward);
             calculate (downward);
 
+            next++;
+
             initCheck();
             random();
+
+            Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
         }
         break;
 	}
@@ -1612,7 +1652,7 @@ void random()
 {
     block.orientation = FIRST;
     
-    randomisation = randomblock[0+next];
+    randomisation = 6;//randomblock[0+next];
 
     switch(randomisation)
     {

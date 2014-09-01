@@ -350,34 +350,23 @@ void initiate(int type, COORD c)
         break;
 
 	case Z_REV_TYPE:
-		for(int i = 0; i < 4; i++)                  //first orientation
+		for(int i = 0; i < 2; i++)                  //first orientation
 		{
-			if(i < 2)
-			{
-				DataBlocks[type][0][i].X = c.X + 2 + i;
-				DataBlocks[type][0][i].Y = c.Y;
-			}
-			if (i >= 2)
-            {
-                DataBlocks[type][0][i].X = c.X - 1 + i; 
-                DataBlocks[type][0][i].Y = c.Y + 1;
-            }
+            DataBlocks[type][0][i].X = c.X + 1 - i;
+            DataBlocks[type][0][i].Y = c.Y;
+
+            DataBlocks[type][0][2+i].X = c.X - i; 
+            DataBlocks[type][0][2+i].Y = c.Y + 1;
 		}
 
-		for (int i = 0; i < 4; i++)                // second orientation
-        {
-            if (i < 2)
-            {
-                DataBlocks[type][1][i].X = c.X ; 
-                DataBlocks[type][1][i].Y = c.Y - 1 + i;
-            }
+		for(int i = 0; i < 2; i++)                  //second orientation
+		{
+            DataBlocks[type][1][i].X = c.X -1 + i;
+            DataBlocks[type][1][i].Y = c.Y;
 
-            if (i >= 2)
-            {
-                DataBlocks[type][1][i].X = c.X + 1; 
-                DataBlocks[type][1][i].Y = c.Y - 2 + i;
-            }
-        }
+            DataBlocks[type][1][2+i].X = c.X - i; 
+            DataBlocks[type][1][2+i].Y = c.Y + 1 - (i*2) ;
+		}
 		break;
     }
 
