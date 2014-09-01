@@ -212,6 +212,13 @@ void update(double dt)
             gameState = INSTRUCTION;
 		}
 
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
+        {
+            Sleep(100);
+            Beep(1440, 30);
+            g_quitGame = true;
+        }
+
 		if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
         {
             Beep(1440, 30);
@@ -978,7 +985,7 @@ void updateL()
 
             dunturnup = false;
         }
-
+        
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
 

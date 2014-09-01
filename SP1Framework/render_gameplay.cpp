@@ -10,7 +10,7 @@ const char cornerD = (char)188; //╝
 const char borderUP = (char)205; //═
 const char borderSide = (char)186; //↕
 
-const char shape = 'o';
+const char shape = 'O';
 const char normal = '.';
  
 COORD DataBlocks[blocksType][orientation][coordinates];

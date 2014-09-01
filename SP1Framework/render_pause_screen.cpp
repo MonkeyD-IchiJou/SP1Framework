@@ -34,6 +34,6 @@ void RenderPauseScreen(COORD c)
 
 	c.X = 25;
 	c.Y = 20;
-	writeToBuffer(c, " Exit Game ", 0x1A);
+	writeToBuffer(c, " Exit to Main Menu ", 0x1A);
 	c.Y++;
 }

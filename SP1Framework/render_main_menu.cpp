@@ -59,6 +59,7 @@ void renderMenu(COORD c)
 	
 	c.X = 25;
 	c.Y = 20;
+    
 	writeToBuffer(c, " Exit Game ", 0x1A);
 	c.Y++;
 }
