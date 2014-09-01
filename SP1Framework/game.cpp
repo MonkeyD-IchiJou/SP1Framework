@@ -1955,7 +1955,6 @@ void storeBlock(COORD c, bool switchOrstore, int type)
 
 void blockcolorinit()
 {
-<<<<<<< 6b6f6918ec99e0cb9e4157bc837967d3701766ff
     color.l = Cyan;
     color.Z = Red;
     color.L = White; //Blue is a little hard to see with the blue buffer background
@@ -1966,15 +1965,3 @@ void blockcolorinit()
 
     color.map = Black; //Background colour of the game grid
 }
-=======
-    color.l = 0x09;
-    color.Z = 0x0C;
-    color.L = 0x0D;
-    color.Sq = 0x0E;
-    color.T = 0x0F;
-    color.RL = 0x1A;
-    color.RZ = 0x1A;
-
-    color.map = 0x00;
-}
->>>>>>> 2fef80e018b397603e49e6d5824c9bc2196695f3
