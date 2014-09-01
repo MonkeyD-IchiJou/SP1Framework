@@ -13,7 +13,7 @@ double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 
-stages gameState = HIGHSCORE_MODE;
+stages gameState = START_SCREEN;
 
 COORD consoleSize;
 
@@ -58,11 +58,14 @@ void init()
     charLocation.X = ConsoleSize.X / 2;
     charLocation.Y = ConsoleSize.Y / 2;
 
-    screen.ScLocation.X = ConsoleSize.X / 2;
-    screen.ScLocation.Y = ConsoleSize.Y / 2;
+    screen.ScLocation.X = 22;
+    screen.ScLocation.Y = 14;
 
-    screen.MmLocation.X = ConsoleSize.X / 2;
-    screen.MmLocation.Y = ConsoleSize.Y / 2;
+    screen.MmLocation.X = 23;
+    screen.MmLocation.Y = 10;
+
+	screen.PsLocation.X = 23;
+	screen.PsLocation.Y = 10;
 
     screen.BdLocation.X = 30;
     screen.BdLocation.Y = 3;
@@ -195,12 +198,26 @@ void update(double dt)
 
     case MAIN_MENU:
 
-        if (keyPressed[K_ENTER])
+		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 10)
         {
+			Sleep(100);
             gameState = HIGHSCORE_MODE;
-        }
-        break;
+		}
 
+		if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.MmLocation.Y -= 5;
+        }
+
+		if (keyPressed[K_DOWN] && screen.MmLocation.Y < 20)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.MmLocation.Y += 5; 
+        }
+		break;
     case HIGHSCORE_MODE:
 
         //if blocks reach the top of the map, game end
@@ -352,7 +369,27 @@ void update(double dt)
         break;  
 
     case PAUSE_SCREEN:
-        if (keyPressed[K_ENTER])
+
+		if (keyPressed[K_UP] && screen.PsLocation.Y > 10)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.PsLocation.Y -= 5;
+        }
+
+		if (keyPressed[K_DOWN] && screen.PsLocation.Y < 20)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.PsLocation.Y += 5; 
+        }
+
+		if(keyPressed[K_ENTER] && screen.PsLocation.Y == 10)
+		{
+			gameState = HIGHSCORE_MODE;
+		}
+
+		if (keyPressed[K_ENTER] && screen.PsLocation.Y == 15)
         {
             init();
             for(int i = 0; i < height; i++)
@@ -368,6 +405,11 @@ void update(double dt)
             score = 0;
             gameState = HIGHSCORE_MODE;
         }
+
+		if(keyPressed[K_ENTER] && screen.PsLocation.Y == 20)
+		{
+			gameState = MAIN_MENU; 
+		}
 
         if (keyPressed[K_SHIFT])
         {
@@ -410,12 +452,11 @@ void render()
     
     switch(gameState)
     {
-<<<<<<< af641be0ae46d1e3f03e21a3fabb966d0139b5df
     case START_SCREEN:
 
         renderStartScreen(screen.ScLocation);
-=======
-    case START_SCREEN: 
+		break;
+/*    case START_SCREEN: 
         // render Start screen
         renderStartScreen(screen.MmLocation); 
         break;
@@ -423,8 +464,7 @@ void render()
     case MENU_SCREEN:
         // render main menu
         renderMenu(screen.MmLocation);
->>>>>>> 9e9db701eb7626b55aa40b0c2ba974df1dfb451c
-        break;
+        break;*/
 
     case MAIN_MENU:
 
@@ -1671,14 +1711,11 @@ void initBlockLocation()
 void random()
 {
     block.orientation = FIRST;
-<<<<<<< af641be0ae46d1e3f03e21a3fabb966d0139b5df
     
     randomisation = randomblock[0+next];
-=======
 
     srand (time(NULL));
-    randomisation = 6;//rand()%5;
->>>>>>> 9e9db701eb7626b55aa40b0c2ba974df1dfb451c
+    randomisation = rand()%5;
 
     switch(randomisation)
     {

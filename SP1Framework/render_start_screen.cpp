@@ -5,42 +5,37 @@
 
 void renderStartScreen(COORD c)
 {
-<<<<<<< af641be0ae46d1e3f03e21a3fabb966d0139b5df
-    writeToBuffer(c, (char)4);
-}
-=======
-	gotoXY(13, 2);
-	colour(Yellow);
-	cout << "*******   *******  *******   ******    *******    ***** " << endl;
-	gotoXY(13, 3);
-	cout << "   *      *           *     *      *      *      *     *" << endl;
-	gotoXY(13, 4);
-	cout << "   *      *           *     *     *       *       *      " << endl;
-	gotoXY(13, 5);
-	cout << "   *      *******     *     ******        *        *     " << endl;
-	gotoXY(13, 6);
-	cout << "   *      *           *     *     *       *         *    "<< endl;
-	gotoXY(13, 7);
-	cout << "   *      *           *     *      *      *    *     * "<< endl;
-	gotoXY(13, 8);
-	cout << "   *      *******     *     *       *  *******  ***** "<< endl;
+	ifstream title;
+	string text;
+	ifstream bg;
+	string bgtext;
 
-	/*ifstream inlukris;
-	string hi;
-
-	inlukris.open ("Bg.txt");
-
-	while (!inlukris.eof())
+	title.open("title.txt");
+	c.X = 12;
+	c.Y = 3;
+	while( !title.eof() )
 	{
-		colour(Green);
-		getline (inlukris,hi);
-		cout << hi << endl;
+		getline(title, text);
+		writeToBuffer(c, text, 0x1A);
+		c.Y++;
+	}
+	title.close();
+	
+	/*bg.open("bg.txt");
+	c.X = 1;
+	c.Y = 0;
+	while( !bg.eof() )
+	{
+		getline(bg, bgtext);
+		writeToBuffer(c, bgtext, 0xA);
+		c.Y++;
 	}
 
-	inlukris.close();*/
+	bg.close();*/
 
-	colour(Magenta);
-	gotoXY(32, 15);
-	cout << "Please press ENTER";
+	std::stringstream key;
+	key << "Please Press Enter!" << endl;
+	c.X = 20;
+	c.Y = 15;
+	writeToBuffer(c, key.str(), 0x1B);
 }
->>>>>>> 9e9db701eb7626b55aa40b0c2ba974df1dfb451c
