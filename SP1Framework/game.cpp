@@ -201,7 +201,15 @@ void update(double dt)
 		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 10)
         {
 			Sleep(100);
+            Beep(1440, 30);
             gameState = HIGHSCORE_MODE;
+		}
+
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 15)
+        {
+			Sleep(100);
+            Beep(1440, 30);
+            gameState = INSTRUCTION;
 		}
 
 		if (keyPressed[K_UP] && screen.MmLocation.Y > 10)
@@ -218,6 +226,15 @@ void update(double dt)
             screen.MmLocation.Y += 5; 
         }
 		break;
+
+    case INSTRUCTION:
+        if (keyPressed[K_ENTER])
+        {
+            Sleep(100);
+            Beep(1440, 30);
+            gameState = MAIN_MENU;
+        }
+        
     case HIGHSCORE_MODE:
 
         //if blocks reach the top of the map, game end
@@ -478,7 +495,9 @@ void render()
 
         renderMenu(screen.MmLocation);
         break;
-
+    case INSTRUCTION:
+        renderInstruction(screen.ILocation);
+        break;
     case HIGHSCORE_MODE:
 
         //DrawBorder(screen.BdLocation);

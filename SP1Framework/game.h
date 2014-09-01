@@ -23,6 +23,7 @@ enum stages
 {
     START_SCREEN,
     MAIN_MENU,
+    INSTRUCTION,
     HIGHSCORE_MODE,
     PAUSE_SCREEN,
     END_GAME,

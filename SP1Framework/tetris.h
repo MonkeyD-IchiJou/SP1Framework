@@ -21,6 +21,7 @@ struct Location
 {
     COORD ScLocation;   //Start Screen 
     COORD MmLocation;   // main menu screen
+    COORD ILocation;    // Instruction screen
     COORD OptLocation;  // option screen
 	COORD PsLocation;   // pause screen
     COORD TmLocation;   // tetris map 
@@ -63,7 +64,7 @@ void renderMenu(COORD c);
 // in render_start_screen.cpp
 void renderStartScreen(COORD c);
 
-// in render_option.cpp
+// in render_instruction.cpp
 void renderInstruction(COORD c);
 
 // in render_pause.cpp
