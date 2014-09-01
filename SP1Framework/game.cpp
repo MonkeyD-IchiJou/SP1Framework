@@ -45,7 +45,16 @@ bool dunturnup = true;
 void init()
 {
     // Set precision for floating point output
+<<<<<<< af641be0ae46d1e3f03e21a3fabb966d0139b5df
     elapsedTime = 0.0;
+=======
+    std::cout << std::fixed << std::setprecision(3);
+
+    SetConsoleTitle(L"Tetris");
+
+    // Sets the console size, this is the biggest so far.
+    setConsoleSize(79, 45);
+>>>>>>> 41ca18c300f2574f98c3a154eeeb40c4994661cf
 
     initConsole(ConsoleSize, "SP1 Framework");
 
