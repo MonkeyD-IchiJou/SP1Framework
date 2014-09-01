@@ -27,6 +27,7 @@ enum stages
     HIGHSCORE_MODE,
     PAUSE_SCREEN,
     END_GAME,
+	OPTION,
     CREDIT
 };
 

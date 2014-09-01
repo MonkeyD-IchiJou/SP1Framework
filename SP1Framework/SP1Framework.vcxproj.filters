@@ -51,8 +51,13 @@
     <ClCompile Include="render_instruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< 0cec699a3ae8c2b69f0a4de117b5f1e05a4ce16c
     <ClCompile Include="Framework\sound.cpp">
       <Filter>Source Files\Framework</Filter>
+=======
+    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\render_option_screen.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> 7149ce6fa0308feb64752ec1cbc63b9cea329689
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

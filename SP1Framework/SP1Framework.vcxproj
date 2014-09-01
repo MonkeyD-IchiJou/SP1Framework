@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\render_option_screen.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\sound.cpp" />
     <ClCompile Include="Framework\timer.cpp" />

@@ -80,16 +80,19 @@ void init()
     screen.ShowScore.X = 30;
     screen.ShowScore.Y = 22;
 
+	screen.Background.X = 35;
+	screen.Background.Y = 0;
+
     screen.FinalResult.X = ConsoleSize.X / 2 - 10;
     screen.FinalResult.Y = ConsoleSize.Y / 2;
 
     // initiate block thingy here
     // will do randomisation here
-    screen.NLineLocation.X = ConsoleSize.X / 2;
-    screen.NLineLocation.Y = ConsoleSize.Y / 2;
+    screen.NLineLocation.X = ConsoleSize.X / 4 - 10;
+    screen.NLineLocation.Y = 15;
 
-    screen.StoreLineLocation.X = ConsoleSize.X / 2;
-    screen.StoreLineLocation.Y = ConsoleSize.Y / 2 - 10;
+    screen.StoreLineLocation.X = ConsoleSize.X / 4 - 9;
+    screen.StoreLineLocation.Y = 5;
 
     count.storeornot = false;
     count.storeOredi = false;
@@ -510,9 +513,18 @@ void render()
 
         renderMenu(screen.MmLocation);
         break;
+<<<<<<< 96737a36c506a977842b45d911fbee0dac4774d9
     case INSTRUCTION:
         renderInstruction(screen.ILocation);
         break;
+=======
+
+	case OPTION:
+
+		renderOption(screen.OptLocation);
+		break;
+
+>>>>>>> 9bb059b826e61a0eae4088e2c360140d85c39b05
     case HIGHSCORE_MODE:
 
         //DrawBorder(screen.BdLocation);
@@ -521,8 +533,13 @@ void render()
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
+<<<<<<< 96737a36c506a977842b45d911fbee0dac4774d9
 
         //writeToBuffer(block.location, (char)downward);
+=======
+        //writeToBuffer(block.location, (char)check.RZ);
+		Background(screen.Background);
+>>>>>>> 9bb059b826e61a0eae4088e2c360140d85c39b05
         break;
 
     case PAUSE_SCREEN:
@@ -1815,7 +1832,7 @@ void initCheck()
 
 void initBlockLocation()
 {
-    int initialX = 8;
+    int initialX = 30;
     int initialY = 1;
 
     blocks.l_shape.X = initialX;
@@ -2020,8 +2037,8 @@ void showNextBlock(COORD c, int type)
     std::ostringstream ss;
     ss.str("");
     ss << "Next Block";
-    c.X = 30;
-    c.Y = 10;
+    c.X = 3;
+    c.Y = 11;
     writeToBuffer(c, ss.str(), BlueBg);
     
 }
@@ -2143,7 +2160,7 @@ void storeBlock(COORD c, bool switchOrstore, int type)
     std::ostringstream ss;
     ss.str("");
     ss << "Store";
-    c.X = 30;
+    c.X = 5;
     c.Y = 1;
     writeToBuffer(c, ss.str(), BlueBg);
 }

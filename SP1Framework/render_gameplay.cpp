@@ -46,13 +46,31 @@ char map[height][width] =
 
 char border[borderheight][borderwidth];
 
+void Background(COORD c)
+{
+	ifstream background;
+	string ground;
+
+	background.open("background.txt");
+	c.X = 45;
+	c.Y = 0;
+	while( !background.eof() )
+	{
+		getline(background, ground);
+		writeToBuffer(c, ground, 0x1D);
+		c.Y++;
+	}
+
+	background.close();
+}
+
 void DrawMap(COORD c, int type)
 {
     for(int i = 0; i < height; i++)
     {
         for(int j = 0; j < width; j++)
         {   
-            c.X = j+3;
+            c.X = j+25;
             c.Y= i+1;
             switch(map[i][j])
             {
@@ -98,7 +116,6 @@ void DrawBorder(COORD c)
 {
     for(int i = 0; i < borderheight; i++)
     {
-        gotoXY(c.X, c.Y+i);
         for(int j = 0; j < borderwidth; j++)
         {
             switch(border[i][j])
@@ -1066,6 +1083,8 @@ void calculate(int x) //Score System
 
 void showScore(COORD c, int x)
 {
+	c.X = 4;
+	c.Y = 22;
     std::ostringstream ss;
     ss.str("");
     ss << x << " points";

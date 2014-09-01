@@ -30,6 +30,7 @@ struct Location
     COORD StoreLineLocation; // show the storing block
     COORD ShowScore; // show score
     COORD FinalResult; // show final score
+	COORD Background;
 };
 
 enum colour
@@ -66,6 +67,12 @@ void renderStartScreen(COORD c);
 
 // in render_instruction.cpp
 void renderInstruction(COORD c);
+
+// in render_option_screen.cpp
+void renderOption(COORD c);
+
+// in render_gameplay.cpp
+void Background(COORD c);
 
 // in render_pause.cpp
 void renderPause(COORD c);
