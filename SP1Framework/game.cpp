@@ -449,7 +449,7 @@ void update(double dt)
             block.location.Y++;
             downward++;
         }
-
+        
         if (keyPressed[K_DOWN])
         {
             block.location.Y++;

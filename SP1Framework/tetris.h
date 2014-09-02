@@ -36,7 +36,7 @@ struct Location
 
 enum colour
 {
-    BlueBg = 0x1A,
+    GreyBlue = 0x3,
     Black = 0x0,
     Blue = 0x1,
     DarkGreen = 0x2,
@@ -48,6 +48,7 @@ enum colour
     Yellow = 0xE,
     Grey = 0x7,
     White = 0xF
+
 };
 
 struct storeNswitch
