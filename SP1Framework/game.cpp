@@ -438,12 +438,12 @@ void update(double dt)
         }
 
         speed = static_cast<int>(elapsedTime*changeSpeed);
-
+        /*
         if (speed % divide == 0 && !keyPressed[K_DOWN])
         {
             block.location.Y++;
             downward++;
-        }
+        }*/
 
         if (keyPressed[K_DOWN])
         {
@@ -706,11 +706,18 @@ void render()
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
+<<<<<<< 5cd5ec2507d405785baef73026fce7694826c2f3
         //writeToBuffer(block.location, (char)constantmoveright);
+=======
+
+        writeToBuffer(block.location, (char)downward);
+>>>>>>> efa381de5031af5ecd4d53438f1eb2f218008090
 
         //writeToBuffer(block.location, (char)constantmove);
 
         //writeToBuffer(block.location, (char)check.RZ);
+
+        // indicator for every block 
 		Background(screen.Background);
         COORD c;
         c.X = block.location.X;
@@ -1329,7 +1336,7 @@ void updateL()
             dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.L < 7 && dungoright == true && map[downward][check.L + 3] == '0' && map[downward + 1][check.L + 1] == '0')
+        if (keyPressed[K_RIGHT] && check.L < 7 && dungoright == true && map[downward][check.L + 3] == '0' && map[downward - 1][check.L + 1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -1351,11 +1358,11 @@ void updateL()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        else if (downward >= 22 || map[downward+1][check.L] != '0' || map[downward+1][check.L+1] != '0' || map[downward+1][check.L+2] != '0')
+        else if (downward > 22 || map[downward][check.L] != '0' || map[downward][check.L+1] != '0' || map[downward][check.L+2] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward, check.L);             
-            receive (block.type, block.orientation, downward);
-            calculate (downward);
+            UpdateMap(block.type, block.orientation, downward-1, check.L);             
+            receive (block.type, block.orientation, downward-1);
+            calculate (downward-1);
 
             next++;
 
@@ -1386,8 +1393,7 @@ void updateL()
         }
 
         // check surrounding before rotate
-        else if (keyPressed[K_UP] && dunturnup == true && map[downward + 1][check.L + 2] != '0' &&  ((map[downward][check.L - 1] != '0' || map[downward - 1][check.L - 1] != '0' || map[downward + 1][check.L - 1] != '0') || 
-                                                                                                    (map[downward][check.L - 2] != '0' || map[downward - 1][check.L - 2] != '0' || map[downward + 1][check.L - 2] != '0' )))
+        else if (keyPressed[K_UP] && dunturnup == true && map[downward + 1][check.L + 2] != '0' &&  (map[downward][check.L - 1] != '0' || map[downward - 1][check.L - 1] != '0' || map[downward + 1][check.L - 1] != '0'))
         {
             dunturnup = true;
         }
@@ -1397,7 +1403,7 @@ void updateL()
             dunturnup = true;
         }
 
-        else if (keyPressed[K_UP] && dunturnup == true && ( map[downward][check.L - 1] != '0' && map[downward - 1][check.L - 1] != '0' && map[downward + 1][check.L - 1] != '0'))
+        else if (keyPressed[K_UP] && dunturnup == true && ( map[downward][check.L - 1] != '0' || map[downward - 1][check.L - 1] != '0' || map[downward + 1][check.L - 1] != '0'))
         {
             Sleep(100);
             block.location.X++;
@@ -1406,8 +1412,6 @@ void updateL()
 
             dunturnup = false;
         }
-
-        
         
         else if (keyPressed[K_UP] && dunturnup == true && check.L <1 )
         {
@@ -2228,6 +2232,7 @@ void updateREVL()
 
 void initCheck()
 {
+    random();
     check.l = 3;
     check.Z = 4;
     check.L = 4;
@@ -2236,7 +2241,15 @@ void initCheck()
 	check.RZ = 4;
 	check.RL = 4;
 
-    downward = 0;
+    if(block.type != L_TYPE && block.type != T_TYPE && block.type != L_REV_TYPE)
+    {
+        downward = 0;
+    }
+
+    else
+    {
+        downward = 1;
+    }
 }
 
 void initBlockLocation()
@@ -2248,13 +2261,13 @@ void initBlockLocation()
     blocks.l_shape.Y = initialY;
     
     blocks.L_shape.X = initialX;
-    blocks.L_shape.Y = initialY;
+    blocks.L_shape.Y = initialY + 1;
 
     blocks.Sq_shape.X = initialX;
     blocks.Sq_shape.Y = initialY;
 
     blocks.T_shape.X = initialX;
-    blocks.T_shape.Y = initialY;
+    blocks.T_shape.Y = initialY + 1;
 
     blocks.Z_shape.X = initialX;
     blocks.Z_shape.Y = initialY;
@@ -2263,15 +2276,19 @@ void initBlockLocation()
     blocks.RZ_shape.Y = initialY;
 
 	blocks.RL_shape.X = initialX;
-	blocks.RL_shape.Y = initialY;
+	blocks.RL_shape.Y = initialY+1;
 
 }
 
 void random()
 {
     block.orientation = FIRST;
+<<<<<<< 5cd5ec2507d405785baef73026fce7694826c2f3
     
     randomisation = randomblock[0+next];
+=======
+    randomisation = 2;//randomblock[0+next];
+>>>>>>> efa381de5031af5ecd4d53438f1eb2f218008090
 
     switch(randomisation)
     {
