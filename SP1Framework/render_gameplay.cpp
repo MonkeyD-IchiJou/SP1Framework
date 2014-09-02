@@ -114,31 +114,42 @@ void DrawMap(COORD c, int type)
 
 void DrawBorder(COORD c)
 {
-    for(int i = 0; i < borderheight; i++)
-    {
-        for(int j = 0; j < borderwidth; j++)
-        {
-            switch(border[i][j])
-            {
-            case '=':
-                cout << (char)205; //═
-                break;
-                border[0][j] = borderUP;
-                border[22][j] = borderUP;
+    for(int i = 0; i < borderwidth - 1; i++)
+    {	
+		for(int j = 0; j < borderheight; j++)
+		{
+			c.X = 24 + i;
+			c.Y = 5;
+			writeToBuffer(c, borderUP, color.border); // top border
 
-                border[i][0] = borderSide; 
-                border[i][12] = borderSide;
+			c.X = 24 + i;
+			c.Y = 29;
+			writeToBuffer(c, borderUP, color.border); // bottom border
 
-                border[0][0] = cornerA;
-                border[0][12] = cornerB;
-                border[22][0] = cornerC;
-                border[22][12] = cornerD;
+			c.X = 24;
+			c.Y = 5 + j;
+			writeToBuffer(c, borderSide, color.border); // left side border
 
-                cout << border[i][j];
-            }
+			c.X = 35;
+			c.Y = 5 + j;
+			writeToBuffer(c, borderSide, color.border); // right side border
 
-            cout << endl;
-        }
+			c.X = 24;
+			c.Y = 5;
+			writeToBuffer(c, cornerA, color.border); // left corner
+
+			c.X = 35;
+			c.Y = 5;
+			writeToBuffer(c, cornerB, color.border); // right corner
+
+			c.X = 24;
+			c.Y = 29;
+			writeToBuffer(c, cornerC, color.border); // bottom left corner
+
+			c.X = 35;
+			c.Y = 29;
+			writeToBuffer(c, cornerD, color.border); // bottom right corner
+		}
     }
 }
 

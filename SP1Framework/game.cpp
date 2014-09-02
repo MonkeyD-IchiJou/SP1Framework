@@ -14,7 +14,7 @@ double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 
-stages gameState = START_SCREEN;
+stages gameState = HIGHSCORE_MODE;
 
 COORD consoleSize;
 
@@ -667,14 +667,18 @@ void render()
 
     case HIGHSCORE_MODE:
 
-        //DrawBorder(screen.BdLocation);
+        DrawBorder(screen.BdLocation);
         DrawMap(screen.TmLocation, block.type);
         printBlock(block.type, block.orientation, block.color);
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
 
+<<<<<<< 92ae74169e132825b95a7b1c0eb8894a6fc7c1b0
         writeToBuffer(block.location, (char)constantmoveright);
+=======
+        //writeToBuffer(block.location, (char)constantmove);
+>>>>>>> b73474ec17819504e899e3748fdba8dbec7148ee
 
         //writeToBuffer(block.location, (char)check.RZ);
 		Background(screen.Background);
@@ -2049,7 +2053,11 @@ void random()
 {
     block.orientation = FIRST;
     
+<<<<<<< 92ae74169e132825b95a7b1c0eb8894a6fc7c1b0
     randomisation = 5;//randomblock[0+next];
+=======
+    randomisation = randomblock[0+next];
+>>>>>>> b73474ec17819504e899e3748fdba8dbec7148ee
 
     switch(randomisation)
     {
@@ -2229,10 +2237,10 @@ void showNextBlock(COORD c, int type)
     writeToBuffer(c, ss.str(), 0x0A);
 	c.X = 2;
 	c.Y = 17;
-	writeToBuffer(c, " =========== ", 0x0B);
+	writeToBuffer(c, " =========== ", 0x0A);
 	c.X = 2;
 	c.Y = 25;
-	writeToBuffer(c, " =========== ", 0x0B);
+	writeToBuffer(c, " =========== ", 0x0A);
 }
 
 void storeBlock(COORD c, bool switchOrstore, int type)
@@ -2370,9 +2378,10 @@ void blockcolorinit()
     color.Z = Red;
     color.L = Blue; //Blue is a little hard to see with the blue buffer background
     color.Sq = Yellow;
-    color.T = Magenta;
+    color.T = White;
     color.RL = Grey; // Substitute orange
     color.RZ = Green;
 
     color.map = Black; //Background colour of the game grid
+	color.border = Cyan;
 }

@@ -8,5 +8,5 @@ void renderResult(COORD c)
     std::ostringstream ss;
     ss.str("");
     ss << "Your HighScore is " << score;
-    writeToBuffer(c, ss.str(), 0x59);
+    writeToBuffer(c, ss.str(), 0x09);
 }

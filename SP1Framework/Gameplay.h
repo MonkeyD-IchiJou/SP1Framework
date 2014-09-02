@@ -89,6 +89,7 @@ struct blockcolor
 	int RL;
 
     int map;
+	int border;
 };  
 
 extern blockcolor color;
