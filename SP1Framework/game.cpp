@@ -638,7 +638,7 @@ void update(double dt)
             }
 
             score = 0;
-			Sleep(100);
+ 			Sleep(100);
 			gameState = MAIN_MENU;
 		}
 
