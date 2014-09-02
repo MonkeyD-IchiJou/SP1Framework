@@ -46,7 +46,8 @@ int next = 0;
 bool dunturnup = true;
 bool dungoright = true;
 bool dungoleft = true;
-unsigned int constantmove;
+unsigned int constantmoveright;
+unsigned int constantmoveleft;
 
 int music;
 
@@ -363,7 +364,7 @@ void update(double dt)
         }
         
     case HIGHSCORE_MODE:
-        //constantmove = 0;
+
         //if blocks reach the top of the map, game end
         for (int i = 0; i < width-1; i++)
         {
@@ -381,15 +382,31 @@ void update(double dt)
         if (!keyPressed[K_RIGHT])
         {
             dungoright = true;
-            constantmove = 0;
+            constantmoveright = 0;
         }
-
+        
         if (keyPressed[K_RIGHT])
         {
-            constantmove++;
+            constantmoveright++;
+        }
+
+        if (constantmoveright >= 6)
+        {
+            dungoright = true;
         }
 
         if (!keyPressed[K_LEFT])
+        {
+            dungoleft = true;
+            constantmoveleft = 0;
+        }
+
+        if (keyPressed[K_LEFT])
+        {
+            constantmoveleft++;
+        }
+
+        if (constantmoveleft >= 6)
         {
             dungoleft = true;
         }
@@ -654,7 +671,7 @@ void render()
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
 
-        writeToBuffer(block.location, (char)constantmove);
+        writeToBuffer(block.location, (char)constantmoveright);
 
         //writeToBuffer(block.location, (char)check.RZ);
 		Background(screen.Background);
@@ -749,13 +766,7 @@ void updateLONG(double time)
 
             check.l++;
 
-                dungoright = false;
-            
-        }
-
-        if (constantmove >= 6)
-        {
-            dungoright = true;
+            dungoright = false;
         }
 
         if (keyPressed[K_UP] && dunturnup == true &&( downward > 18 || map[downward][check.l] != '0' || map[downward][check.l + 1] != '0' || map[downward][check.l + 2] != '0' || map[downward][check.l + 3] != '0' ||
@@ -777,8 +788,6 @@ void updateLONG(double time)
 
             dunturnup = false;
         }
-
-        
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
@@ -948,20 +957,23 @@ void updateZ()
     switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.Z > 0 && map[downward][check.Z - 1] == '0' && map[downward+1][check.Z] == '0')
+        if (keyPressed[K_LEFT] && check.Z > 0 && dungoleft == true && map[downward][check.Z - 1] == '0' && map[downward+1][check.Z] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.Z--;
+
+            dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.Z < 7 && map[downward+1][check.Z + 3] == '0' && map[downward][check.Z + 2] == '0')
+        else if (keyPressed[K_RIGHT] && dungoright == true && check.Z < 7 && map[downward+1][check.Z + 3] == '0' && map[downward][check.Z + 2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.Z++;
+            dungoright = false;
         }
 
         else if (keyPressed[K_UP] && dunturnup == true)
@@ -991,20 +1003,22 @@ void updateZ()
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.Z > 0 && map[downward+1][check.Z-1] == '0' && map[downward][check.Z-1] == '0' && map[downward-1][check.Z] == '0')
+        if (keyPressed[K_LEFT] && check.Z > 0 && dungoleft == true && map[downward+1][check.Z-1] == '0' && map[downward][check.Z-1] == '0' && map[downward-1][check.Z] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.Z--;
+            dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.Z < 8 && map[downward][check.Z+2] == '0' && map[downward+1][check.Z+1] == '0' && map[downward-1][check.Z + 2] == '0')
+        else if (keyPressed[K_RIGHT] && check.Z < 8 && dungoright == true && map[downward][check.Z+2] == '0' && map[downward+1][check.Z+1] == '0' && map[downward-1][check.Z + 2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.Z++;
+            dungoright = false;
         }
 
         // if user want to rotate the block, check the surrounding whether possible for him to rotate or not
@@ -1079,20 +1093,22 @@ void updateL()
     switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.L > 0 && map[downward][check.L-1] == '0' && map[downward-1][check.L-1] == '0')
+        if (keyPressed[K_LEFT] && check.L > 0 && dungoleft == true && map[downward][check.L-1] == '0' && map[downward-1][check.L-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.L--;
+            dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.L < 7 && map[downward][check.L + 3] == '0' && map[downward + 1][check.L + 1] == '0')
+        if (keyPressed[K_RIGHT] && check.L < 7 && dungoright == true && map[downward][check.L + 3] == '0' && map[downward + 1][check.L + 1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.L++;
+            dungoright = false;
         }
 
         // check surrounding before rotate
@@ -1124,20 +1140,22 @@ void updateL()
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.L > 0 && map[downward][check.L - 1] == '0' && map[downward - 1][check.L - 1] == '0' && map[downward + 1][check.L - 1] == '0')
+        if (keyPressed[K_LEFT] && check.L > 0 && dungoleft == true && map[downward][check.L - 1] == '0' && map[downward - 1][check.L - 1] == '0' && map[downward + 1][check.L - 1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.L--;
+            dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.L < 8 && map[downward][check.L + 1] == '0' && map[downward - 1][check.L + 2] == '0' && map[downward + 1][check.L+1] == '0')
+        else if (keyPressed[K_RIGHT] && check.L < 8 && dungoright == true && map[downward][check.L + 1] == '0' && map[downward - 1][check.L + 2] == '0' && map[downward + 1][check.L+1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.L++;
+            dungoright = false;
         }
 
         // check surrounding before rotate
@@ -1203,20 +1221,22 @@ void updateL()
         break;
 
     case THIRD:
-        if (keyPressed[K_LEFT] && check.L > 0 && map[downward][check.L-1] == '0' && map[downward+1][check.L+1] == '0' )
+        if (keyPressed[K_LEFT] && check.L > 0 && dungoleft == true && map[downward][check.L-1] == '0' && map[downward+1][check.L+1] == '0' )
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.L--;
+            dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.L < 7 && map[downward+1][check.L + 3] == '0' && map[downward][check.L + 3] == '0')
+        else if (keyPressed[K_RIGHT] && check.L < 7 && dungoright == true && map[downward+1][check.L + 3] == '0' && map[downward][check.L + 3] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.L++;
+            dungoright = false;
         }
 
         else if (keyPressed[K_UP] && dunturnup == true)
@@ -1246,20 +1266,22 @@ void updateL()
         break;
 
     case FOURTH:
-        if (keyPressed[K_LEFT] && check.L > 0 && map[downward + 1][check.L - 1] == '0' && map[downward-1][check.L ] == '0' && map[downward][check.L ] == '0')
+        if (keyPressed[K_LEFT] && check.L > 0 && dungoleft == true && map[downward + 1][check.L - 1] == '0' && map[downward-1][check.L ] == '0' && map[downward][check.L ] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.L--;
+            dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.L < 8 && map[downward+1][check.L + 2] == '0' && map[downward][check.L + 2] == '0' && map[downward-1][check.L + 2] == '0')
+        else if (keyPressed[K_RIGHT] && check.L < 8 && dungoright == true && map[downward+1][check.L + 2] == '0' && map[downward][check.L + 2] == '0' && map[downward-1][check.L + 2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.L++;
+            dungoright = false;
         }
         
         // check for surrounding when rotate
@@ -1319,20 +1341,22 @@ void updateSq()
     switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.Sq > 0 && map[downward + 1][check.Sq - 1] == '0' && map[downward][check.Sq - 1] == '0')
+        if (keyPressed[K_LEFT] && check.Sq > 0 && dungoleft == true && map[downward + 1][check.Sq - 1] == '0' && map[downward][check.Sq - 1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.Sq--;
+            dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.Sq < 8 && map[downward + 1][check.Sq + 2] == '0' && map[downward][check.Sq + 2] == '0')
+        if (keyPressed[K_RIGHT] && check.Sq < 8 && dungoright == true && map[downward + 1][check.Sq + 2] == '0' && map[downward][check.Sq + 2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.Sq++;
+            dungoright = false;
         }
 
         // Update map when reach bottom or other block
@@ -1359,20 +1383,22 @@ void updateT()
     switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward-1][check.T] == '0' && map[downward][check.T-1] == '0')
+        if (keyPressed[K_LEFT] && check.T > 0 && dungoleft == true && map[downward-1][check.T] == '0' && map[downward][check.T-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.T--;
+            dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.T < 7 && map[downward-1][check.T + 2] == '0' && map[downward][check.T + 3] == '0' )
+        else if (keyPressed[K_RIGHT] && check.T < 7 && dungoright == true && map[downward-1][check.T + 2] == '0' && map[downward][check.T + 3] == '0' )
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.T++;
+            dungoright = false;
         }
 
         else if (keyPressed[K_UP] && dunturnup == true)
@@ -1403,20 +1429,22 @@ void updateT()
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] == '0' && map[downward - 1][check.T-1] == '0' && map[downward + 1][check.T-1] == '0')
+        if (keyPressed[K_LEFT] && check.T > 0 && dungoleft == true && map[downward][check.T-1] == '0' && map[downward - 1][check.T-1] == '0' && map[downward + 1][check.T-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.T--;
+            dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.T < 8 && map[downward][check.T+2] == '0' && map[downward-1][check.T+2] == '0' && map[downward+1][check.T+1] == '0')
+        else if (keyPressed[K_RIGHT] && check.T < 8 && dungoright == true && map[downward][check.T+2] == '0' && map[downward-1][check.T+2] == '0' && map[downward+1][check.T+1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.T++;
+            dungoright = false;
         }
 
         //check for surrounding if press rotate button
@@ -1474,20 +1502,22 @@ void updateT()
         break;
 
     case THIRD:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward+1][check.T] == '0' && map[downward][check.T-1] == '0')
+        if (keyPressed[K_LEFT] && check.T > 0 && dungoleft == true && map[downward+1][check.T] == '0' && map[downward][check.T-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.T--;
+            dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.T < 7 && map[downward+1][check.T + 2] == '0' && map[downward][check.T + 3] == '0')
-        {
+        if (keyPressed[K_RIGHT] && check.T < 7 && dungoright == true && map[downward+1][check.T + 2] == '0' && map[downward][check.T + 3] == '0')
+        { 
             Beep(1440, 30);
             block.location.X++;
 
             check.T++;
+            dungoright = false;
         }
 
         else if (keyPressed[K_UP] && dunturnup == true)
@@ -1517,20 +1547,22 @@ void updateT()
         break;
 
     case FOURTH:
-        if (keyPressed[K_LEFT] && check.T > 0 && map[downward][check.T-1] == '0' && map[downward - 1][check.T] == '0' && map[downward + 1][check.T] == '0')
+        if (keyPressed[K_LEFT] && check.T > 0 && dungoleft == true && map[downward][check.T-1] == '0' && map[downward - 1][check.T] == '0' && map[downward + 1][check.T] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.T--;
+            dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.T < 8 && map[downward][check.T+2] == '0' && map[downward-1][check.T+2] == '0' && map[downward+1][check.T+2] == '0')
+        else if (keyPressed[K_RIGHT] && check.T < 8 && dungoright == true && map[downward][check.T+2] == '0' && map[downward-1][check.T+2] == '0' && map[downward+1][check.T+2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.T++;
+            dungoright = false;
         }
 
         // check surrounding when hit rotate button
@@ -1600,20 +1632,22 @@ void updateREVZ()
 	switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.RZ > 0 && map[downward][check.RZ] == '0' && map[downward+1][check.RZ - 1] == '0')
+        if (keyPressed[K_LEFT] && check.RZ > 0 && dungoleft == true && map[downward][check.RZ] == '0' && map[downward+1][check.RZ - 1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.RZ--;
+            dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.RZ < 7 && map[downward][check.RZ+3] == '0' && map[downward+1][check.RZ+2] == '0')
+        if (keyPressed[K_RIGHT] && check.RZ < 7 && dungoright == true && map[downward][check.RZ+3] == '0' && map[downward+1][check.RZ+2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.RZ++;
+            dungoright = false;
         }
 
         else if (keyPressed[K_UP] && dunturnup == true)
@@ -1643,20 +1677,22 @@ void updateREVZ()
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.RZ > 0 && map[downward+1][check.RZ] == '0' && map[downward][check.RZ-1] == '0' && map[downward-1][check.RZ-1] == '0')
+        if (keyPressed[K_LEFT] && check.RZ > 0 && dungoleft == true && map[downward+1][check.RZ] == '0' && map[downward][check.RZ-1] == '0' && map[downward-1][check.RZ-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.RZ--;
+            dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.RZ < 8 && map[downward][check.RZ+2] == '0' && map[downward+1][check.RZ+2] == '0'&& map[downward-1][check.RZ+1] == '0')
+        if (keyPressed[K_RIGHT] && check.RZ < 8 && dungoright == true && map[downward][check.RZ+2] == '0' && map[downward+1][check.RZ+2] == '0'&& map[downward-1][check.RZ+1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.RZ++;
+            dungoright = false;
         }
 
         // if user want to rotate the block, check the surrounding whether possible for him to rotate or not
@@ -1731,20 +1767,22 @@ void updateREVL()
 	switch(block.orientation)
     {
     case FIRST:
-        if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL - 1] == '0' && map[downward-1][check.RL +1] == '0')
+        if (keyPressed[K_LEFT] && check.RL > 0 && dungoleft == true && map[downward][check.RL - 1] == '0' && map[downward-1][check.RL +1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.RL--;
+            dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 7 && map[downward-1][check.RL+3] == '0' && map[downward][check.RL+3] == '0')
+        if (keyPressed[K_RIGHT] && check.RL < 7 && dungoright == true && map[downward-1][check.RL+3] == '0' && map[downward][check.RL+3] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.RL++;
+            dungoright = false;
         }
 
         else if (keyPressed[K_UP] && dunturnup == true)
@@ -1776,20 +1814,22 @@ void updateREVL()
         break;
 
     case SECOND:
-        if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL-1] == '0' && map[downward-1][check.RL-1] == '0' && map[downward-2][check.RL-1] == '0')
+        if (keyPressed[K_LEFT] && check.RL > 0 && dungoleft == true && map[downward][check.RL-1] == '0' && map[downward-1][check.RL-1] == '0' && map[downward-2][check.RL-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.RL--;
+            dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 8 && map[downward][check.RL+1] == '0' && map[downward-1][check.RL+1] == '0')
+        if (keyPressed[K_RIGHT] && check.RL < 8 && dungoright == true && map[downward][check.RL+1] == '0' && map[downward-1][check.RL+2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.RL++;
+            dungoright = false;
         }
 
         // rotate after ensure the surrounding is allowed it
@@ -1847,20 +1887,22 @@ void updateREVL()
         break;
 
 	case THIRD:
-		if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL-1] == '0' && map[downward-1][check.RL-1] == '0')
+		if (keyPressed[K_LEFT] && check.RL > 0 && dungoleft == true && map[downward][check.RL-1] == '0' && map[downward-1][check.RL-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.RL--;
+            dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 7 && map[downward][check.RL+1] == '0' && map[downward-1][check.RL+3] == '0')
+        if (keyPressed[K_RIGHT] && check.RL < 7 && dungoright == true && map[downward][check.RL+1] == '0' && map[downward-1][check.RL+3] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.RL++;
+            dungoright = false;
         }
 
         else if (keyPressed[K_UP] && dunturnup == true)
@@ -1890,20 +1932,22 @@ void updateREVL()
         break;
 
 	case FOURTH:
-		if (keyPressed[K_LEFT] && check.RL > 0 && map[downward][check.RL] == '0' && map[downward+1][check.RL] == '0' && map[downward-2][check.RL-1] == '0')
+		if (keyPressed[K_LEFT] && check.RL > 0 && dungoleft == true && map[downward][check.RL] == '0' && map[downward+1][check.RL] == '0' && map[downward-2][check.RL-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
 
             check.RL--;
+            dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 8 && map[downward][check.RL+2] == '0' && map[downward-1][check.RL+2] == '0' &&  map[downward+1][check.RL+2] == '0')
+        if (keyPressed[K_RIGHT] && check.RL < 8 && dungoright == true && map[downward][check.RL+2] == '0' && map[downward-1][check.RL+2] == '0' &&  map[downward+1][check.RL+2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
 
             check.RL++;
+            dungoright = false;
         }
 
         // check surrounding before rotate
@@ -2000,7 +2044,7 @@ void random()
 {
     block.orientation = FIRST;
     
-    randomisation = 0;//randomblock[0+next];
+    randomisation = 5;//randomblock[0+next];
 
     switch(randomisation)
     {
