@@ -46,7 +46,7 @@ enum colour
     Red = 0xC,
     Magenta = 0xD,
     Yellow = 0xE,
-	Grey = 0x7,
+    Grey = 0x7,
     White = 0xF
 };
 
