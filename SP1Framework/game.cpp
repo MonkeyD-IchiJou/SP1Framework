@@ -14,7 +14,7 @@ double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 
-stages gameState = HIGHSCORE_MODE;
+stages gameState = START_SCREEN;
 
 COORD consoleSize;
 
@@ -94,8 +94,8 @@ void init()
 	screen.Background.X = 35;
 	screen.Background.Y = 0;
 
-    screen.FinalResult.X = ConsoleSize.X / 2 - 10;
-    screen.FinalResult.Y = ConsoleSize.Y / 2;
+    screen.FinalResult.X = 21;
+    screen.FinalResult.Y = 20;
 
 	/*screen.BorderShowLocation.X = 2;
 	screen.BorderShowLocation.Y = 18;*/
@@ -608,7 +608,7 @@ void update(double dt)
         break;
 
     case END_GAME:
-        if (keyPressed[K_ENTER])
+		if (keyPressed[K_ENTER] && screen.FinalResult.Y == 20)
         {
             init();
             for(int i = 0; i < height; i++)
@@ -622,6 +622,37 @@ void update(double dt)
 
             score = 0;
             gameState = HIGHSCORE_MODE;
+        }
+
+		if(keyPressed[K_ENTER] && screen.FinalResult.Y == 24)
+		{
+			init();
+            for(int i = 0; i < height; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[i][j] = '0';
+                    checkscore[i] = 0;
+                }
+            }
+
+            score = 0;
+			Sleep(100);
+			gameState = MAIN_MENU;
+		}
+
+		if (keyPressed[K_UP] && screen.FinalResult.Y > 20)
+        {
+            Beep(1440, 30);
+			Sleep(100);
+            screen.FinalResult.Y -= 4;
+        }
+
+		if (keyPressed[K_DOWN] && screen.FinalResult.Y < 24)
+        {
+            Beep(1440, 30);
+			Sleep(100);
+            screen.FinalResult.Y += 4; 
         }
     }
 }
@@ -674,11 +705,9 @@ void render()
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
 
-<<<<<<< 92ae74169e132825b95a7b1c0eb8894a6fc7c1b0
-        writeToBuffer(block.location, (char)constantmoveright);
-=======
+        //writeToBuffer(block.location, (char)constantmoveright);
+
         //writeToBuffer(block.location, (char)constantmove);
->>>>>>> b73474ec17819504e899e3748fdba8dbec7148ee
 
         //writeToBuffer(block.location, (char)check.RZ);
 		Background(screen.Background);
@@ -2052,12 +2081,7 @@ void initBlockLocation()
 void random()
 {
     block.orientation = FIRST;
-    
-<<<<<<< 92ae74169e132825b95a7b1c0eb8894a6fc7c1b0
-    randomisation = 5;//randomblock[0+next];
-=======
     randomisation = randomblock[0+next];
->>>>>>> b73474ec17819504e899e3748fdba8dbec7148ee
 
     switch(randomisation)
     {
