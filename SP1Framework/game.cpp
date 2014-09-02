@@ -14,7 +14,7 @@ double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 
-stages gameState = START_SCREEN;
+stages gameState = HIGHSCORE_MODE;
 
 COORD consoleSize;
 
@@ -50,6 +50,8 @@ unsigned int constantmoveright;
 unsigned int constantmoveleft;
 
 int music;
+
+char indicate = (char) 4;
 
 void init()
 {
@@ -417,19 +419,19 @@ void update(double dt)
         int changeSpeed;
         int divide;
         
-        if (score >= 0 && score < 999)      // beginer speed
+        if (score >= 0 && score < 499)      // beginer speed
         {
             changeSpeed = 500;
             divide = 10;
         }
 
-        else if (score >= 1000 && score < 4999)
+        else if (score >= 500 && score < 1499)
         {
             changeSpeed = 1000;
             divide = 4;
         }
 
-        else if (score >= 5000)
+        else if (score >= 1500)
         {
             changeSpeed = 1000;
             divide = 2;
@@ -705,14 +707,205 @@ void render()
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
 
+<<<<<<< b60dbf758d5719589a35684696ce8e6b2af4ed77
         //writeToBuffer(block.location, (char)constantmoveright);
 
         //writeToBuffer(block.location, (char)constantmove);
 
+=======
+>>>>>>> 6505dfe05d0856355d5cfa0f16d69cec1d6fc705
         //writeToBuffer(block.location, (char)check.RZ);
 		Background(screen.Background);
+        COORD c;
+        c.X = block.location.X;
+        c.Y = 30;
+        
+        switch (block.type)
+        {
+        case LONG_TYPE:
+            switch (block.orientation)
+            {
+            case FIRST:
+                c.X--;
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
 
-        //writeToBuffer(block.location, (char)checkscore[22]);
+            case SECOND:
+                writeToBuffer(c, indicate);
+                break;
+            }
+            break;
+            
+        case Z_TYPE:
+            switch (block.orientation)
+            {
+            case FIRST:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case SECOND:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+            }
+            break;
+
+        case L_TYPE:
+            switch (block.orientation)
+            {
+            case FIRST:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case SECOND:
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case THIRD:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case FOURTH:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+            }
+            break;
+            
+        case Sq_TYPE:
+            switch (block.orientation)
+            {
+            case FIRST:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+            }
+            break;
+            
+        case T_TYPE:
+            switch (block.orientation)
+            {
+            case FIRST:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case SECOND:
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case THIRD:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case FOURTH:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+            }
+            break;
+            
+        case L_REV_TYPE:
+            switch (block.orientation)
+            {
+            case FIRST:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case SECOND:
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case THIRD:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case FOURTH:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+            }
+            break;
+            
+        case Z_REV_TYPE:
+            switch (block.orientation)
+            {
+            case FIRST:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+
+            case SECOND:
+                c.X--;
+                writeToBuffer(c, indicate);
+                c.X++;
+                writeToBuffer(c, indicate);
+                break;
+            }
+            break;
+        }
+        
         break;
 
     case PAUSE_SCREEN:
@@ -2081,7 +2274,12 @@ void initBlockLocation()
 void random()
 {
     block.orientation = FIRST;
+<<<<<<< b60dbf758d5719589a35684696ce8e6b2af4ed77
     randomisation = randomblock[0+next];
+=======
+    
+    randomisation = 0;//randomblock[0+next];
+>>>>>>> 6505dfe05d0856355d5cfa0f16d69cec1d6fc705
 
     switch(randomisation)
     {
