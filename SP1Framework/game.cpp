@@ -2363,11 +2363,16 @@ void blockcolorinit()
 {
     color.l = Cyan;
     color.Z = Red;
-    color.L = White; //Blue is a little hard to see with the blue buffer background
+    color.L = Blue; //Blue is a little hard to see with the blue buffer background
     color.Sq = Yellow;
     color.T = Magenta;
-    color.RL = Brown; // Substitute orange
+    color.RL = Grey; // Substitute orange
     color.RZ = Green;
 
+<<<<<<< 416365043069b85dafb03b6557464232269ffc3e
     color.map = Magenta; //Background colour of the game grid
 }
+=======
+    color.map = Black; //Background colour of the game grid
+}
+>>>>>>> e5007e28c3230caa8254b6e9d54489eced52cc86

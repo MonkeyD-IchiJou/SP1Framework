@@ -19,48 +19,48 @@ void renderInstruction(COORD c)
     }
     instruction.close();
 	
-	c.X = 7;
+	c.X = 0;
 	c.Y = 7;
-	writeToBuffer(c, "*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=", 0x0C);
+	writeToBuffer(c, "*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=", 0x0C);
 
-	c.X = 7;
+	c.X = 0;
 	c.Y = 30;
-	writeToBuffer(c, "*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=", 0x0C);
+	writeToBuffer(c, "*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=", 0x0C);
 
 	c.X = 7;
-    c.Y = 8;
+    c.Y = 9;
     writeToBuffer(c, "How to play: ", 0x0A);
 	
 	c.X = 14;
-    c.Y = 10;
+    c.Y = 11;
     writeToBuffer(c,"- Score as much as you can!! ", 0x0A);
 
 	c.X = 14;
-    c.Y = 12;
+    c.Y = 13;
     writeToBuffer(c,"- More rows broken = MORE SCORE!!", 0x0A);
 
 	c.X = 14;
-    c.Y = 14;                                                 
+    c.Y = 15;                                                 
     writeToBuffer(c,"- If blocks touches the top, it's GAME OVER!!", 0x0A);
 
 	c.X = 7;
-    c.Y = 17;
-    writeToBuffer(c,"Controls : ", 0x0A);
+    c.Y = 18;
+    writeToBuffer(c,"Controls: ", 0x0A);
 
 	c.X = 14;
-    c.Y = 19;
+    c.Y = 20;
     writeToBuffer(c,"Go left - Left arrow key", 0x0A);
 
 	c.X = 14;
-    c.Y = 21;
+    c.Y = 22;
     writeToBuffer(c,"Go right - Right arrow key", 0x0A);
 
 	c.X = 14;
-    c.Y = 23;
+    c.Y = 24;
     writeToBuffer(c,"Rotate - Up arrow key", 0x0A);
 
 	c.X = 14;
-    c.Y = 25;
+    c.Y = 26;
     writeToBuffer(c,"Hold Block - Left/Right Shift", 0x0A);
 	
     
