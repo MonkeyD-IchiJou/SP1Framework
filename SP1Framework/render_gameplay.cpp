@@ -1030,7 +1030,7 @@ void calculate(int x) //Score System
                 map[x-i][j] = map[x-i-1][j];
                 checkscore[x-i] = checkscore[x-1-i];
             }
-        }
+        } 
 
         score += 10;
     }

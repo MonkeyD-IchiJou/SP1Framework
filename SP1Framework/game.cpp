@@ -40,10 +40,13 @@ int randomisation;
 
 int checkscore[height];
 
-unsigned long int randomblock[100000000];
+unsigned long int randomblock[10000000];
 int next = 0;
 
 bool dunturnup = true;
+bool dungoright = true;
+bool dungoleft = true;
+unsigned int constantmove;
 
 int music;
 
@@ -360,7 +363,7 @@ void update(double dt)
         }
         
     case HIGHSCORE_MODE:
-        
+        //constantmove = 0;
         //if blocks reach the top of the map, game end
         for (int i = 0; i < width-1; i++)
         {
@@ -373,6 +376,22 @@ void update(double dt)
         if (!keyPressed[K_UP])
         {
             dunturnup = true;
+        }
+
+        if (!keyPressed[K_RIGHT])
+        {
+            dungoright = true;
+            constantmove = 0;
+        }
+
+        if (keyPressed[K_RIGHT])
+        {
+            constantmove++;
+        }
+
+        if (!keyPressed[K_LEFT])
+        {
+            dungoleft = true;
         }
 
         int changeSpeed;
@@ -398,13 +417,13 @@ void update(double dt)
 
         speed = static_cast<int>(elapsedTime*changeSpeed);
 
-        if (speed % divide == 0 && !keyPressed[K_DOWN] )//&& !keyPressed[K_LEFT] && !keyPressed[K_RIGHT])
+        if (speed % divide == 0 && !keyPressed[K_DOWN])
         {
             block.location.Y++;
             downward++;
         }
 
-        if (keyPressed[K_DOWN] && !keyPressed[K_LEFT] && !keyPressed[K_RIGHT])
+        if (keyPressed[K_DOWN])
         {
             block.location.Y++;
             downward++;
@@ -482,7 +501,7 @@ void update(double dt)
         switch(block.type)
         {
         case LONG_TYPE:
-            updateLONG();
+            updateLONG(elapsedTime);
             break;
 
         case Z_TYPE:
@@ -635,7 +654,7 @@ void render()
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
 
-        writeToBuffer(block.location, (char)downward);
+        writeToBuffer(block.location, (char)constantmove);
 
         //writeToBuffer(block.location, (char)check.RZ);
 		Background(screen.Background);
@@ -709,24 +728,34 @@ void TIMINGInfo(COORD c)
     writeToBuffer(c, ss.str(), 0x59);
 }
 
-void updateLONG()
+void updateLONG(double time)
 {
     switch(block.orientation)
     {
     case FIRST:     // First orientation
 
-        if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l-1] == '0')
+        if (keyPressed[K_LEFT] && dungoleft == true && check.l > 0 && map[downward][check.l-1] == '0')
         {
             block.location.X--;
             
             check.l--;
-        }
 
-        else if (keyPressed[K_RIGHT] && check.l < 6 && map[downward][check.l + 4] == '0')
+            dungoleft = false;
+        }
+        
+        else if (keyPressed[K_RIGHT] && dungoright == true && check.l < 6 && map[downward][check.l + 4] == '0')
         {
             block.location.X++;
 
             check.l++;
+
+                dungoright = false;
+            
+        }
+
+        if (constantmove >= 6)
+        {
+            dungoright = true;
         }
 
         if (keyPressed[K_UP] && dunturnup == true &&( downward > 18 || map[downward][check.l] != '0' || map[downward][check.l + 1] != '0' || map[downward][check.l + 2] != '0' || map[downward][check.l + 3] != '0' ||
@@ -785,18 +814,22 @@ void updateLONG()
 
     case SECOND:    // Second orientation
 
-        if (keyPressed[K_LEFT] && check.l > 0 && map[downward][check.l - 1] == '0' && map[downward -1][check.l - 1] == '0' && map[downward - 2][check.l - 1] == '0' && map[downward + 1][check.l - 1] == '0')
+        if (keyPressed[K_LEFT] && check.l > 0 && dungoleft == true && map[downward][check.l - 1] == '0' && map[downward -1][check.l - 1] == '0' && map[downward - 2][check.l - 1] == '0' && map[downward + 1][check.l - 1] == '0')
         {
             block.location.X--;
             
             check.l--;
+
+            dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.l < 9 && map[downward][check.l + 1] == '0' && map[downward -1][check.l + 1] == '0' && map[downward - 2][check.l + 1] == '0' && map[downward + 1][check.l + 1] == '0')
+        else if (keyPressed[K_RIGHT] && dungoright == true && check.l < 9 && map[downward][check.l + 1] == '0' && map[downward -1][check.l + 1] == '0' && map[downward - 2][check.l + 1] == '0' && map[downward + 1][check.l + 1] == '0')
         {
             block.location.X++;
 
             check.l++;
+
+            dungoright = false;
         }
 
         // if user want to rotate, check the surrounding of the blocks
@@ -1967,7 +2000,7 @@ void random()
 {
     block.orientation = FIRST;
     
-    randomisation = randomblock[0+next];
+    randomisation = 0;//randomblock[0+next];
 
     switch(randomisation)
     {

@@ -104,7 +104,7 @@ void receive(int type, int orientation, int x);
 void calculate(int x);
 
 void UpdateMap(int type, int orientation, int x, int y);
-void updateLONG();
+void updateLONG(double time);
 void updateZ();
 void updateL();
 void updateSq();
