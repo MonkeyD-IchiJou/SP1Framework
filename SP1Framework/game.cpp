@@ -40,7 +40,7 @@ int randomisation;
 
 int checkscore[height];
 
-int randomblock[65535];
+unsigned long int randomblock[100000000];
 int next = 0;
 
 bool dunturnup = true;
@@ -196,7 +196,7 @@ void update(double dt)
     {
         elapsedTime += dt;
         deltaTime = dt;
-        playGameSound(S_JJ);
+        
     }
 
     initiate(block.type, block.location);
@@ -219,7 +219,7 @@ void update(double dt)
         {
 			Sleep(100);
             Beep(1440, 30);
-            gameState = HIGHSCORE_MODE;
+            gameState = HIGHSCORE_MODE;playGameSound(S_JJ);
 		}
 
         if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
@@ -256,6 +256,8 @@ void update(double dt)
 			Sleep(100);
             screen.MmLocation.Y += 6; 
         }
+        
+        
 		break;
 
     case INSTRUCTION:
@@ -388,33 +390,33 @@ void update(double dt)
             divide = 4;
         }
 
-        else if (score >= 5000 && score < 14999)
+        else if (score >= 5000)
         {
             changeSpeed = 1000;
             divide = 2;
         }
 
-        else if (score >= 15000)
+        speed = static_cast<int>(elapsedTime*changeSpeed);
+
+        if (speed % divide == 0 && !keyPressed[K_DOWN] )//&& !keyPressed[K_LEFT] && !keyPressed[K_RIGHT])
+        {
+            block.location.Y++;
+            downward++;
+        }
+
+        if (keyPressed[K_DOWN] && !keyPressed[K_LEFT] && !keyPressed[K_RIGHT])
+        {
+            block.location.Y++;
+            downward++;
+        }
+
+        if (keyPressed[K_SPACE])
         {
             changeSpeed = 1000;
             divide = 1;
         }
 
-        speed = static_cast<int>(elapsedTime*changeSpeed);
-
-        if (speed % divide == 0 && !keyPressed[K_DOWN])
-        {
-            block.location.Y++;
-            downward++;
-        }
-
-        if (keyPressed[K_DOWN])
-        {
-            block.location.Y++;
-            downward++;
-        }
-
-        if (keyPressed[K_SHIFT] && count.storeornot == false && count.switchcount % 2 == 0)
+        if (keyPressed[K_SHIFT] && count.storeornot == false && count.switchcount % 2 == 0)     // store system here
         {
             Sleep(150);
 
@@ -633,7 +635,7 @@ void render()
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
 
-        //writeToBuffer(block.location, (char)downward);
+        writeToBuffer(block.location, (char)downward);
 
         //writeToBuffer(block.location, (char)check.RZ);
 		Background(screen.Background);
@@ -727,7 +729,14 @@ void updateLONG()
             check.l++;
         }
 
-        if (keyPressed[K_UP] && dunturnup == true && (downward == 21 || map[downward+1][check.l] != '0' || map[downward+1][check.l + 1] != '0' || map[downward+1][check.l + 2] != '0' || map[downward+1][check.l + 3] != '0'))
+        if (keyPressed[K_UP] && dunturnup == true &&( downward > 18 || map[downward][check.l] != '0' || map[downward][check.l + 1] != '0' || map[downward][check.l + 2] != '0' || map[downward][check.l + 3] != '0' ||
+                                                                          map[downward + 1][check.l] != '0' || map[downward + 1][check.l + 1] != '0' || map[downward + 1][check.l + 2] != '0' || map[downward + 1][check.l + 3] != '0' || 
+                                                                          map[downward+2][check.l] != '0' || map[downward+2][check.l + 1] != '0' || map[downward+2][check.l + 2] != '0' || map[downward+2][check.l + 3] != '0'))
+        {
+            dunturnup = true;
+        }
+
+        else if (keyPressed[K_UP] && dunturnup == true && (downward == 21 || map[downward+1][check.l] != '0' || map[downward+1][check.l + 1] != '0' || map[downward+1][check.l + 2] != '0' || map[downward+1][check.l + 3] != '0'))
         {
             Sleep(100);
             check.l+=2;
@@ -740,9 +749,11 @@ void updateLONG()
             dunturnup = false;
         }
 
+        
+
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
+            Sleep(150);
             check.l+=2;
 
             block.orientation = SECOND;
@@ -767,7 +778,7 @@ void updateLONG()
             initCheck();
             random();
 
-            Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+            Sleep(150); if(count.switchcount % 2 != 0){count.switchcount++;}
         }
 
         break;
@@ -790,7 +801,7 @@ void updateLONG()
 
         // if user want to rotate, check the surrounding of the blocks
         
-        if(keyPressed[K_UP] && dunturnup == true && check.l < 2 && (map[downward - 1][check.l + 1] != '0'|| map[downward - 2][check.l + 1] != '0' || map[downward + 1][check.l + 1] != '0' ||
+        else if(keyPressed[K_UP] && dunturnup == true && check.l < 2 && (map[downward - 1][check.l + 1] != '0'|| map[downward - 2][check.l + 1] != '0' || map[downward + 1][check.l + 1] != '0' ||
                                                                     map[downward - 1][check.l + 2] != '0' || map[downward -2][check.l + 2] != '0' || map[downward + 1][check.l + 2] != '0' ||
                                                                     map[downward - 1][check.l + 3] != '0' || map[downward -2][check.l + 3] != '0' || map[downward + 1][check.l + 3] != '0'))
         {
@@ -856,7 +867,7 @@ void updateLONG()
             dunturnup = false;
         }
         
-        else if (keyPressed[K_UP] && dunturnup == true && check.l > 2 && (map[downward -1][check.l + 1] != '0' || map[downward - 2][check.l + 1] != '0' || map[downward + 1][check.l + 1] != '0'))  // check for right side obstacle
+        else if(keyPressed[K_UP] && dunturnup == true && check.l > 2 && (map[downward -1][check.l + 1] != '0' || map[downward - 2][check.l + 1] != '0' || map[downward + 1][check.l + 1] != '0'))  // check for right side obstacle
         {
             Sleep(100);
             block.location.X--;
@@ -892,7 +903,7 @@ void updateLONG()
             initCheck();
             random(); 
 
-            Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+            Sleep(150); if(count.switchcount % 2 != 0){count.switchcount++;}
         }
 
         break;
@@ -1043,7 +1054,7 @@ void updateL()
             check.L--;
         }
 
-        else if (keyPressed[K_RIGHT] && check.L < 7 && map[downward][check.L + 3] == '0' && map[downward + 1][check.L + 1] == '0')
+        if (keyPressed[K_RIGHT] && check.L < 7 && map[downward][check.L + 3] == '0' && map[downward + 1][check.L + 1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -1631,8 +1642,8 @@ void updateREVZ()
         {
             dunturnup = true;
         }
-
-        else if (keyPressed[K_UP] && dunturnup == true  && (map[downward][check.RZ+2] == '0' || map[downward+1][check.RZ+2] == '0'|| map[downward-1][check.RZ+1] == '0'))
+        
+        else if (keyPressed[K_UP] && dunturnup == true  && (map[downward][check.RZ+2] != '0' || map[downward+1][check.RZ+2] != '0'|| map[downward-1][check.RZ+1] != '0'))
         {
             Sleep(100);
             block.location.X--;
@@ -1751,11 +1762,6 @@ void updateREVL()
         // rotate after ensure the surrounding is allowed it
         else if (keyPressed[K_UP] && dunturnup == true && (map[downward][check.RL+1] != '0' || map[downward-1][check.RL+2] != '0') &&
                                                           ( map[downward][check.RL-1] != '0' || map[downward-1][check.RL-1] != '0' || map[downward-2][check.RL-1] != '0'))
-        {
-            dunturnup = true;
-        }
-
-        else if (keyPressed[K_UP] && (map[downward][check.RL+1] != '0' || map[downward-1][check.RL+2] != '0'))
         {
             dunturnup = true;
         }
@@ -1932,7 +1938,7 @@ void initCheck()
 void initBlockLocation()
 {
     int initialX = 30;
-    int initialY = 7;
+    int initialY = 6;
 
     blocks.l_shape.X = initialX;
     blocks.l_shape.Y = initialY;
