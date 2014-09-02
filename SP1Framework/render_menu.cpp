@@ -1,65 +1,84 @@
 #include "game.h"
 #include "tetris.h"
 #include "Framework\console.h"
+#include "Gameplay.h"
 
-void renderMenu (COORD c)
+void renderMenu(COORD c)
 {
-<<<<<<< 6b6f6918ec99e0cb9e4157bc837967d3701766ff
-    
-        ifstream inlukris;
-        string hi;
+	writeToBuffer(c, ">", 0x0E);
 
-        inlukris.open ("Bg.txt");
-
-        while (!inlukris.eof())
-        {
-            colour(Green);
-            getline (inlukris,hi);
-            cout << hi << endl;
-        }
-
-        inlukris.close();
-=======
-
-	ifstream inlukris;
-	string hi;
-
-	inlukris.open ("Bg.txt");
-
-	while (!inlukris.eof())
+	// for Menu title
+	ifstream menu;
+	string text;
+	menu.open("menu.txt");
+	c.X = 9;
+	c.Y = 1;
+	while( !menu.eof() )
 	{
-		colour(Green);
-		getline (inlukris,hi);
-		cout << hi << endl;
+		getline(menu, text);
+		writeToBuffer(c, text, 0x0D);
+		c.Y++;
 	}
+	menu.close();
 
-	inlukris.close();
->>>>>>> 2fef80e018b397603e49e6d5824c9bc2196695f3
+	// for start game
+	ifstream start;
+	string starttext;
 
-    gotoXY(c);
-	colour(White);
-    cout << ">>";
+	start.open("start.txt");
+	c.X = 11;
+	c.Y = 7;
+	while( !start.eof() )
+	{
+		getline(start, starttext);
+		writeToBuffer(c, starttext, 0x0A);
+		c.Y++;
+	}
+	start.close();
 
-    gotoXY(30, 10);
-    gotoXY(32, 5);
-    colour(Green);
-    cout << "Start Game";
+	// for instructions
+	ifstream instruct;
+	string intext;
 
-    gotoXY(32, 10);
-    cout << "Option";
+	instruct.open("instruct.txt");
+	c.X = 8;
+	c.Y = 14;
+	while( !instruct.eof() )
+	{
+		getline(instruct, intext);
+		writeToBuffer(c, intext, 0x0B);
+		c.Y++;
+	}
+	instruct.close();
 
-	gotoXY(32, 15);
-	colour(Cyan);
-	cout << "Return to start screen";
+	// for options
+	ifstream options;
+	string opttext;
 
-	gotoXY(32, 20);
-	colour(Magenta);
-	cout << "EXIT GAME";
+	options.open("opttext.txt");
+	c.X = 10;
+	c.Y = 21;
+	while( !options.eof() )
+	{
+		getline(options, opttext);
+		writeToBuffer(c, opttext, 0x0E);
+		c.Y++;
+	}
+	options.close();
 
-    gotoXY(58, 25);
-    cout << "*Up/Down to select";
+	// for exit game
+	ifstream exit;
+	string exittext;
 
-    gotoXY(58, 27);
-    cout << "*Enter key to confirm";
-    colour(0x1A);
+	exit.open("exit.txt");
+	c.X = 15;
+	c.Y = 28;
+	while( !exit.eof() )
+	{
+		getline(exit, exittext);
+		writeToBuffer(c, exittext, 0x0F);
+		c.Y++;
+	}
+	exit.close();
+
 }

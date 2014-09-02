@@ -33,33 +33,31 @@
     <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="render_gameplay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="render_main_menu.cpp">
+    <ClCompile Include="render_menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="render_start_screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="render_gameplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\sound.cpp">
+      <Filter>Source Files\Framework</Filter>
+    </ClCompile>
     <ClCompile Include="render_pause_screen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="render_change.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="render_end_game.cpp">
-      <Filter>Source Files\Framework</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="render_instruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< 0cec699a3ae8c2b69f0a4de117b5f1e05a4ce16c
-    <ClCompile Include="Framework\sound.cpp">
-      <Filter>Source Files\Framework</Filter>
-=======
-    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\render_option_screen.cpp">
-      <Filter>Source Files</Filter>
->>>>>>> 7149ce6fa0308feb64752ec1cbc63b9cea329689
-    </ClCompile>
-    <ClCompile Include="..\..\..\GDT%2714\SP1Framework\SP1Framework\render_change.cpp">
+    <ClCompile Include="render_option.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,10 +71,10 @@
     <ClInclude Include="game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameplay.h">
+    <ClInclude Include="tetris.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tetris.h">
+    <ClInclude Include="gameplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Framework\sound.h">
