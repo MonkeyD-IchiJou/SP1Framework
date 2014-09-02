@@ -35,6 +35,7 @@ enum stages
 enum SoundType
 {
     S_JJ,
+	S_ROTATE,
     S_COUNT
 };
 

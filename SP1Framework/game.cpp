@@ -60,7 +60,7 @@ void init()
     SetConsoleTitle(L"Tetris");
 
     // Sets the console size, this is the biggest so far.
-    setConsoleSize(79, 45);
+    setConsoleSize(60, 36);
 
     initConsole(ConsoleSize, "SP1 Framework");
 
@@ -68,6 +68,7 @@ void init()
     charLocation.Y = ConsoleSize.Y / 2;
 
     snd.loadWave("move", "Tetris.wav");
+	snd.loadWave("rotate", "rotate.wav");
     
     screen.ScLocation.X = 22;
     screen.ScLocation.Y = 14;
@@ -96,6 +97,8 @@ void init()
     screen.FinalResult.X = ConsoleSize.X / 2 - 10;
     screen.FinalResult.Y = ConsoleSize.Y / 2;
 
+	/*screen.BorderShowLocation.X = 2;
+	screen.BorderShowLocation.Y = 18;*/
     // initiate block thingy here
     // will do randomisation here
     screen.NLineLocation.X = ConsoleSize.X / 4 - 9;
@@ -699,6 +702,8 @@ void playGameSound(SoundType sound)
     {
     case S_JJ : snd.playSound("move");
         break;
+	case S_ROTATE: snd.playSound("rotate");
+		break;
     }
 }
 
@@ -2219,15 +2224,15 @@ void showNextBlock(COORD c, int type)
     std::ostringstream ss;
     ss.str("");
     ss << "Next Block";
-    c.X = 3;
+    c.X = 4;
     c.Y = 16;
     writeToBuffer(c, ss.str(), 0x0A);
 	c.X = 2;
 	c.Y = 17;
-	writeToBuffer(c, " ========== ", 0x0A);
+	writeToBuffer(c, " =========== ", 0x0B);
 	c.X = 2;
 	c.Y = 25;
-	writeToBuffer(c, " ========== ", 0x0A);
+	writeToBuffer(c, " =========== ", 0x0B);
 }
 
 void storeBlock(COORD c, bool switchOrstore, int type)
@@ -2369,10 +2374,5 @@ void blockcolorinit()
     color.RL = Grey; // Substitute orange
     color.RZ = Green;
 
-<<<<<<< 416365043069b85dafb03b6557464232269ffc3e
-    color.map = Magenta; //Background colour of the game grid
-}
-=======
     color.map = Black; //Background colour of the game grid
 }
->>>>>>> e5007e28c3230caa8254b6e9d54489eced52cc86

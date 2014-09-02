@@ -58,6 +58,7 @@ struct storeNswitch
 };
 
 void showNextBlock(COORD c, int type);
+void showNextBlockAes(COORD c);
 void storeBlock(COORD c, bool switchOrstore, int type);
 void blockcolorinit();
 
