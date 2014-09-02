@@ -706,12 +706,9 @@ void render()
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
-<<<<<<< 5cd5ec2507d405785baef73026fce7694826c2f3
         //writeToBuffer(block.location, (char)constantmoveright);
-=======
 
         writeToBuffer(block.location, (char)downward);
->>>>>>> efa381de5031af5ecd4d53438f1eb2f218008090
 
         //writeToBuffer(block.location, (char)constantmove);
 
@@ -1644,11 +1641,11 @@ void updateT()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        else if (downward >= 22 || map[downward+1][check.T] != '0' || map[downward+1][check.T+2] != '0' || map[downward+1][check.T+1] != '0')
+        else if (map[downward][check.T] != '0' || map[downward][check.T+2] != '0' || map[downward][check.T+1] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward - 1, check.T);             // bu jie zhi mi
-            receive (block.type, block.orientation, downward);
-            calculate (downward);
+            UpdateMap(block.type, block.orientation, downward-2, check.T);             // bu jie zhi mi
+            receive (block.type, block.orientation, downward - 1);
+            calculate (downward - 1);
 
             next++;
 
@@ -1669,7 +1666,7 @@ void updateT()
             dungoleft = false;
         }
 
-        else if (keyPressed[K_RIGHT] && check.T < 8 && dungoright == true && map[downward][check.T+2] == '0' && map[downward-1][check.T+2] == '0' && map[downward+1][check.T+1] == '0')
+        else if (keyPressed[K_RIGHT] && check.T < 8 && dungoright == true && map[downward][check.T+2] == '0' && map[downward-1][check.T+1] == '0' && map[downward+1][check.T+1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -1883,8 +1880,6 @@ void updateREVZ()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             block.orientation = SECOND;
 
             dunturnup = false;
@@ -1945,7 +1940,6 @@ void updateREVZ()
         
         else if (keyPressed[K_UP] && dunturnup == true  && (map[downward][check.RZ+2] != '0' || map[downward+1][check.RZ+2] != '0'|| map[downward-1][check.RZ+1] != '0'))
         {
-            Sleep(100);
             block.location.X--;
             check.RZ--;
 
@@ -2018,8 +2012,6 @@ void updateREVL()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             check.RL++;
             downward++;
             block.orientation = SECOND;
@@ -2029,11 +2021,11 @@ void updateREVL()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        else if (downward >= 22 ||  map[downward+1][check.RL] != '0' ||  map[downward+1][check.RL + 1] != '0' ||  map[downward+1][check.RL + 2] != '0')
+        else if (map[downward][check.RL] != '0' ||  map[downward][check.RL + 1] != '0' ||  map[downward][check.RL + 2] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward, check.RL+2);             
-            receive (block.type, block.orientation, downward);
-            calculate (downward);
+            UpdateMap(block.type, block.orientation, downward-1, check.RL+2);             
+            receive (block.type, block.orientation, downward-1);
+            calculate (downward-1);
 
             next++;
 
@@ -2054,7 +2046,7 @@ void updateREVL()
             dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 8 && dungoright == true && map[downward][check.RL+1] == '0' && map[downward-1][check.RL+2] == '0')
+        if (keyPressed[K_RIGHT] && check.RL < 8 && dungoright == true && map[downward][check.RL+2] == '0' && map[downward - 1][check.RL+1] == '0'  && map[downward-2][check.RL+1] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -2072,7 +2064,6 @@ void updateREVL()
 
         else if (keyPressed[K_UP] && dunturnup == true && ( map[downward][check.RL-1] != '0' || map[downward-1][check.RL-1] != '0' || map[downward-2][check.RL-1] != '0'))
         {
-            Sleep(100);
             block.location.X++;
 
             block.orientation = THIRD;
@@ -2082,7 +2073,6 @@ void updateREVL()
         
         else if (keyPressed[K_UP] && dunturnup == true && check.RL <1 )
         {
-            Sleep(100);
             block.location.X++;
 
             block.orientation = THIRD;
@@ -2092,7 +2082,6 @@ void updateREVL()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
             check.RL--;
 
             block.orientation = THIRD;
@@ -2102,18 +2091,18 @@ void updateREVL()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        else if (downward >= 22 ||  map[downward+1][check.RL] != '0' ||  map[downward+1][check.RL + 1] != '0')
+        else if (map[downward][check.RL] != '0' ||  map[downward][check.RL + 1] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward-2, check.RL);             
-            receive (block.type, block.orientation, downward);
-            calculate (downward);
+            UpdateMap(block.type, block.orientation, downward-3, check.RL);             
+            receive (block.type, block.orientation, downward-1);
+            calculate (downward-1);
 
             next++;
 
             initCheck();
             random();
 
-            Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+            Sleep(150); if(count.switchcount % 2 != 0){count.switchcount++;}
         }
         break;
 
@@ -2138,8 +2127,6 @@ void updateREVL()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             block.orientation = FOURTH;
 
             dunturnup = false;
@@ -2147,11 +2134,11 @@ void updateREVL()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        else if (downward >= 22 ||  map[downward+1][check.RL] != '0' ||  map[downward][check.RL + 1] != '0' || map[downward][check.RL + 2] != '0')
+        else if (map[downward][check.RL] != '0' ||  map[downward-1][check.RL + 1] != '0' || map[downward-1][check.RL + 2] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward, check.RL - 2);             
-            receive (block.type, block.orientation, downward);
-            calculate (downward);
+            UpdateMap(block.type, block.orientation, downward-1, check.RL - 2);             
+            receive (block.type, block.orientation, downward-1);
+            calculate (downward-1);
 
             next++;
 
@@ -2163,7 +2150,7 @@ void updateREVL()
         break;
 
 	case FOURTH:
-		if (keyPressed[K_LEFT] && check.RL > 0 && dungoleft == true && map[downward][check.RL] == '0' && map[downward+1][check.RL] == '0' && map[downward-2][check.RL-1] == '0')
+		if (keyPressed[K_LEFT] && check.RL > 0 && dungoleft == true && map[downward][check.RL] == '0' && map[downward-1][check.RL] == '0' && map[downward-2][check.RL-1] == '0')
         {
             Beep(1440, 30);
             block.location.X--;
@@ -2172,7 +2159,7 @@ void updateREVL()
             dungoleft = false;
         }
 
-        if (keyPressed[K_RIGHT] && check.RL < 8 && dungoright == true && map[downward][check.RL+2] == '0' && map[downward-1][check.RL+2] == '0' &&  map[downward+1][check.RL+2] == '0')
+        if (keyPressed[K_RIGHT] && check.RL < 8 && dungoright == true && map[downward][check.RL+2] == '0' && map[downward-1][check.RL+2] == '0' &&  map[downward-2][check.RL+2] == '0')
         {
             Beep(1440, 30);
             block.location.X++;
@@ -2182,15 +2169,15 @@ void updateREVL()
         }
 
         // check surrounding before rotate
-        else if (keyPressed[K_UP] && dunturnup == true && (map[downward][check.RL+2] != '0' && map[downward-1][check.RL+2] != '0' &&  map[downward+1][check.RL+2] != '0') && 
-                                                          (map[downward + 1][check.L - 1] != '0' || map[downward-1][check.L] != '0' || map[downward][check.L] != '0'))
+        else if (keyPressed[K_UP] && dunturnup == true && ((map[downward][check.RL+2] != '0' || map[downward-1][check.RL+2] != '0' ||  map[downward-2][check.RL+2] != '0') && 
+                                                          ((map[downward][check.RL] != '0' || map[downward-1][check.RL] != '0' || map[downward-2][check.RL-1] != '0')||
+                                                          (map[downward][check.RL-1] != '0' || map[downward-1][check.RL-1] != '0' || map[downward-2][check.RL-2] != '0'))))
         {
             dunturnup = true;
         }
 
-        else if (keyPressed[K_UP] && dunturnup == true && (check.RL > 7 || map[downward][check.RL + 2] != '0' || map[downward][check.RL+2] != '0' || map[downward-1][check.RL+2] != '0' ||  map[downward+1][check.RL+2] != '0'))
+        else if (keyPressed[K_UP] && dunturnup == true && (check.RL > 7 || map[downward][check.RL+2] != '0' && map[downward-1][check.RL+2] != '0' &&  map[downward-2][check.RL+2] != '0'))
         {
-            Sleep(100);
             block.location.X--;
 
             check.RL--;
@@ -2202,7 +2189,6 @@ void updateREVL()
         
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
             downward--;
 
             block.orientation = FIRST;
@@ -2212,11 +2198,11 @@ void updateREVL()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        if (downward >= 22 ||  map[downward+1][check.RL+1] != '0' ||  map[downward-1][check.RL] != '0')
+        if (map[downward][check.RL+1] != '0' ||  map[downward-2][check.RL] != '0')
         {
-            UpdateMap(block.type, block.orientation, downward-2, check.RL+1);             
-            receive (block.type, block.orientation, downward);
-            calculate (downward);
+            UpdateMap(block.type, block.orientation, downward-3, check.RL+1);             
+            receive (block.type, block.orientation, downward-1);
+            calculate (downward-1);
 
             next++;
 
@@ -2283,12 +2269,8 @@ void initBlockLocation()
 void random()
 {
     block.orientation = FIRST;
-<<<<<<< 5cd5ec2507d405785baef73026fce7694826c2f3
-    
-    randomisation = randomblock[0+next];
-=======
-    randomisation = 2;//randomblock[0+next];
->>>>>>> efa381de5031af5ecd4d53438f1eb2f218008090
+
+    randomisation = 6;//randomblock[0+next];
 
     switch(randomisation)
     {
