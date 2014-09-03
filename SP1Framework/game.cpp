@@ -217,7 +217,7 @@ void update(double dt)
     {
     case START_SCREEN:
         
-        playGameSound(S_JJ);
+        //playGameSound(S_JJ);
 
         if (keyPressed[K_ENTER])
         {
@@ -241,12 +241,15 @@ void update(double dt)
             Beep(1440, 30);
             gameState = INSTRUCTION;
 		}
+<<<<<<< fb5b0cddf82a2d8ad7bc8a5b2715c6c77c4daa08
 		
 		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 26)
         {
 			Sleep(100);
             Beep(1440, 30);
 		}
+=======
+>>>>>>> a476f34d3e1a3d52c35efb877523209e1ea6d6e4
 
         if (keyPressed[K_ENTER] && screen.MmLocation.Y == 32)
         {
@@ -268,8 +271,6 @@ void update(double dt)
 			Sleep(100);
             screen.MmLocation.Y += 6; 
         }
-        
-        
 		break;
 
     case INSTRUCTION:
@@ -280,6 +281,7 @@ void update(double dt)
             gameState = MAIN_MENU;
         }
 		break;
+<<<<<<< fb5b0cddf82a2d8ad7bc8a5b2715c6c77c4daa08
 <<<<<<< 7977b0077fc4f88bfc8217f3bb6fc5d1f5a59c68
 
 <<<<<<< cd6dbe0d7576968c17aecf81001209cd20ccdb60
@@ -375,6 +377,8 @@ void update(double dt)
         }
 =======
 >>>>>>> 9b964a15862e9da659ebfaf6521c1bdae773914c
+=======
+>>>>>>> a476f34d3e1a3d52c35efb877523209e1ea6d6e4
         
 >>>>>>> e9ca2430360b14fe435f951add880f18c5572769
     case HIGHSCORE_MODE:
@@ -711,20 +715,6 @@ void render()
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
-        //writeToBuffer(block.location, (char)constantmoveright);
-
-<<<<<<< 7977b0077fc4f88bfc8217f3bb6fc5d1f5a59c68
-<<<<<<< a2ff484fac4d8aa036b7af81000441990d587d6b
-        writeToBuffer(block.location, (char)downward);
-=======
-<<<<<<< 8bfb6e22ff396314ee8161fd2841f611877cd3bd
-        //writeToBuffer(block.location, (char)downward);
->>>>>>> 637d77f516a87a6e1ecceab217fcc8e98e63865a
-
-=======
->>>>>>> 1cf1d3a1841eb201e0024636d53b4c55b3811552
-=======
->>>>>>> 9b964a15862e9da659ebfaf6521c1bdae773914c
         //writeToBuffer(block.location, (char)constantmove);
 
         //writeToBuffer(block.location, (char)check.RZ);
@@ -944,24 +934,12 @@ void playGameSound(SoundType sound)
     case S_JJ : snd.playSound("move");
         break;
 	case S_ROTATE: snd.playSound("rotate");
-<<<<<<< 7977b0077fc4f88bfc8217f3bb6fc5d1f5a59c68
-<<<<<<< 60fc202650ab98076e27ff2e5779b6e786427b8a
-		break;
-<<<<<<< 84800d0c2999d79c619d9c9516b50796ee83685e
-=======
-	case S_STOP: snd.playSound("stop");
-	break;
-=======
+        break;
+    case S_STOP: snd.playSound("stop");
+        break;
         break;
     case S_LAND: snd.playSound("land");
         break;
->>>>>>> c9b3c2e45bf8e509d0f328470a50dbefaaef5c39
->>>>>>> 88ff240404d44dc018f4b255ce25403b0524657f
-=======
-        break;
-    case S_LAND: snd.playSound("land");
-        break;
->>>>>>> 9b964a15862e9da659ebfaf6521c1bdae773914c
     }
 }
 
