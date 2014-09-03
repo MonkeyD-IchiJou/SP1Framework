@@ -27,6 +27,8 @@ extern const char shape;
 
 extern unsigned int score;
 
+extern bool combo;
+
 struct Blocks
 {
     COORD Sq_shape;     // square blocks coordinate

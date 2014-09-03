@@ -41,6 +41,7 @@ int randomisation;
 int checkscore[height];
 
 unsigned long int randomblock[10000000];
+
 int next = 0;
 
 bool dunturnup = true;
@@ -225,7 +226,7 @@ void update(double dt)
         {
 			Sleep(100);
             Beep(1440, 30);
-            gameState = HIGHSCORE_MODE;playGameSound(S_JJ);
+            gameState = HIGHSCORE_MODE; playGameSound(S_JJ);
 		}
 
         if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
@@ -303,7 +304,7 @@ void update(double dt)
         
         if (keyPressed[K_RIGHT])
         {
-            constantmoveright++;
+            constantmoveright++;playGameSound(S_ROTATE);
         }
 
         if (constantmoveright >= 6)
@@ -604,8 +605,15 @@ void render()
         showScore(screen.ShowScore, score);
         //writeToBuffer(block.location, (char)constantmoveright);
 
+<<<<<<< a2ff484fac4d8aa036b7af81000441990d587d6b
         writeToBuffer(block.location, (char)downward);
+=======
+<<<<<<< 8bfb6e22ff396314ee8161fd2841f611877cd3bd
+        //writeToBuffer(block.location, (char)downward);
+>>>>>>> 637d77f516a87a6e1ecceab217fcc8e98e63865a
 
+=======
+>>>>>>> 1cf1d3a1841eb201e0024636d53b4c55b3811552
         //writeToBuffer(block.location, (char)constantmove);
 
         //writeToBuffer(block.location, (char)check.RZ);
@@ -615,7 +623,7 @@ void render()
         COORD c;
         c.X = block.location.X;
         c.Y = 30;
-        
+
         switch (block.type)
         {
         case LONG_TYPE:

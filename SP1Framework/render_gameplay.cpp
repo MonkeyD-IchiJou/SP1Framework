@@ -17,6 +17,8 @@ COORD DataBlocks[blocksType][orientation][coordinates];
 
 unsigned int score = 0;
 
+bool combo;
+
 char map[height][width] =
 {
     "0000000000",
@@ -817,7 +819,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-
+        combo = true;
         score += 110;
     }
 
@@ -834,7 +836,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-
+        combo = true;
         score += 70;
     }
 
@@ -864,6 +866,7 @@ void calculate(int x) //Score System
 
             }
         }
+        combo = true;
         score += 70;
     }
     
@@ -897,6 +900,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-i-1];
             }
         }
+        combo = true;
         score += 40;
     }
     
@@ -931,7 +935,7 @@ void calculate(int x) //Score System
 
             }
         }
-
+        combo = true;
         score += 40;
     }
 
@@ -964,7 +968,7 @@ void calculate(int x) //Score System
 
             }
         }
-
+        combo = true;
         score += 40;
     }
 
@@ -983,7 +987,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-
+        combo = true;
         score += 40;
     }
     
@@ -1001,7 +1005,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-
+        combo = true;
         score += 70;
     }
     
@@ -1019,8 +1023,8 @@ void calculate(int x) //Score System
                 }
             }
         }
-
-        score += 20;
+        combo = true;
+        score += 40;
     }
 
     else if (checkscore[x-2] == 10 && checkscore[x-3] == 10) 
@@ -1037,7 +1041,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-
+        combo = true;
         score += 40;
     }
 
@@ -1051,7 +1055,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-1-i];
             }
         } 
-
+        combo = true;
         score += 10;
     }
 
@@ -1066,7 +1070,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
-
+        combo = true;
         score += 10;
     }
 
@@ -1081,7 +1085,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
-
+        combo = true;
         score += 10;
     }
 
@@ -1096,7 +1100,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
-
+        combo = true;
         score += 10;
     }
 }
