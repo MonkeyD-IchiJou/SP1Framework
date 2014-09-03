@@ -53,7 +53,15 @@ void random();
 
 void playGameSound(SoundType sound); // play this sound type
 void playNote(char note); // play this note
-void FPSinfo(COORD c);
-void TIMINGInfo(COORD c);
+void FPSinfo(COORD c); //to show FPS
+void TIMINGInfo(COORD c); // to show running
+
+void updateLONG();      //all keypressed for long block, and then collision check
+void updateZ();         //all keypressed for Z block, and then collision check
+void updateL();         //all keypressed for L block, and then collision check
+void updateSq();        //all keypressed for Sq block, and then collision check
+void updateT();         //all keypressed for T block, and then collision check
+void updateREVZ();      //all keypressed for Reverse Z block, and then collision check
+void updateREVL();      //all keypressed for Reverse L block, and then collision check
 
 #endif // _GAME_H

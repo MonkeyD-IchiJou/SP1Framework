@@ -19,9 +19,10 @@ using std::ofstream;
 
 struct Location
 {
-    COORD ScLocation;   //Start Screen 
+    COORD ScLocation;   // Start Screen 
     COORD MmLocation;   // main menu screen
     COORD ILocation;    // Instruction screen
+    COORD CrLocation;   // Credit screen
 	COORD CLocation;	// Change shape
 	COORD PsLocation;   // pause screen
     COORD TmLocation;   // tetris map 
@@ -57,10 +58,9 @@ struct storeNswitch
     int switchcount;
 };
 
-void showNextBlock(COORD c, int type);
-void showNextBlockAes(COORD c);
-void storeBlock(COORD c, bool switchOrstore, int type);
-void blockcolorinit();
+void showNextBlock(COORD c, int type);                          //show the next blocks on the screen & aesthetic
+void storeBlock(COORD c, bool switchOrstore, int type);         
+void blockcolorinit();                                          //initiate for all the blocks color
 
 // in render_menu.cpp
 void renderMenu(COORD c);
@@ -71,11 +71,11 @@ void renderStartScreen(COORD c);
 // in render_instruction.cpp
 void renderInstruction(COORD c);
 
+// in render_credit.cpp
+void renderCredit(COORD c);
+
 // in render_change.cpp
 void renderChange(COORD c);
-
-// in render_gameplay.cpp
-void Background(COORD c);
 
 // in render_pause.cpp
 void renderPause(COORD c);

@@ -42,7 +42,7 @@ void renderMenu(COORD c)
 
 	instruct.open("instruct.txt");
 	c.X = 13;
-	c.Y = 14;
+	c.Y = 13;
 	while( !instruct.eof() )
 	{
 		getline(instruct, intext);
@@ -51,13 +51,28 @@ void renderMenu(COORD c)
 	}
 	instruct.close();
 
+    // for credits
+    ifstream credit;
+    string credittext;
+
+    credit.open("credit.txt");
+    c.X = 18;
+    c.Y = 21;
+    while( !credit.eof() )
+    {
+        getline(credit, credittext);
+        writeToBuffer(c, credittext, 0x0C);
+        c.Y++;
+    }
+    credit.close();
+
 	// for exit game
 	ifstream exit;
 	string exittext;
 
 	exit.open("exit.txt");
 	c.X = 14;
-	c.Y = 25;
+	c.Y = 28;
 	while( !exit.eof() )
 	{
 		getline(exit, exittext);

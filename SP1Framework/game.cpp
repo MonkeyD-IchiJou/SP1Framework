@@ -44,7 +44,7 @@ unsigned long int randomblock[10000000];
 
 int next = 0;
 
-bool dunturnup = true;
+bool dunturnup = true;          //prevent player from holding the up button
 bool dungoright = true;
 bool dungoleft = true;
 bool buggoaway = true;
@@ -81,7 +81,7 @@ void init()
     screen.ScLocation.Y = 14;
 
     screen.MmLocation.X = 7;
-    screen.MmLocation.Y = 14;
+    screen.MmLocation.Y = 13;
 
 	screen.PsLocation.X = 3;
 	screen.PsLocation.Y = 12;
@@ -119,7 +119,7 @@ void init()
     blockcolorinit();
     temporaryStore = &store;
 
-    srand (time(NULL));
+    srand ( (unsigned int)time(NULL) );
     for (int i = 0; i < 65535; i++)
     { 
         randomblock[i] = rand()%7;
@@ -217,7 +217,7 @@ void update(double dt)
     {
     case START_SCREEN:
         
-        //playGameSound(S_JJ);
+        playGameSound(S_JJ);
 
         if (keyPressed[K_ENTER])
         {
@@ -228,45 +228,56 @@ void update(double dt)
 
     case MAIN_MENU:
 
-		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 14)
+		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 13)
         {
 			Sleep(100);
             Beep(1440, 30);
-            gameState = HIGHSCORE_MODE;
+
+            init();                             //reset tetris
+            for(int i = 0; i < height; i++)
+            {
+                for(int j = 0; j < width-1; j++)
+                {
+                    map[i][j] = '0';
+                    checkscore[i] = 0;
+                    
+                }
+            }
+
+            score = 0;
+
+            gameState = HIGHSCORE_MODE; playGameSound(S_STOP);
 		}
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 19)
         {
 			Sleep(100);
             Beep(1440, 30);
             gameState = INSTRUCTION;
 		}
-        /*
-<<<<<<< fb5b0cddf82a2d8ad7bc8a5b2715c6c77c4daa08
-		
-		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 26)
-        {
-			Sleep(100);
-            Beep(1440, 30);
-		}
-=======
->>>>>>> a476f34d3e1a3d52c35efb877523209e1ea6d6e4*/
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 32)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 25)
+        {
+            Sleep(100);
+            Beep(1440, 30);
+            gameState = CREDIT;
+        }
+
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 31)
         {
             Sleep(100);
             Beep(1440, 30);
             g_quitGame = true;
         }
 
-		if (keyPressed[K_UP] && screen.MmLocation.Y > 14)
+		if (keyPressed[K_UP] && screen.MmLocation.Y > 13)
         {
             Beep(1440, 30);
 			Sleep(100);
             screen.MmLocation.Y -= 6;
         }
 
-		if (keyPressed[K_DOWN] && screen.MmLocation.Y < 31)
+		if (keyPressed[K_DOWN] && screen.MmLocation.Y < 28)
         {
             Beep(1440, 30);
 			Sleep(100);
@@ -282,6 +293,14 @@ void update(double dt)
             gameState = MAIN_MENU;
         }
 		break;
+
+    case CREDIT:
+        if (keyPressed[K_ENTER])
+        {
+            Sleep(100);
+            Beep(1440, 30);
+            gameState = MAIN_MENU;
+        }
 
     case HIGHSCORE_MODE:
 
@@ -502,7 +521,7 @@ void update(double dt)
 
 		if (keyPressed[K_ENTER] && screen.PsLocation.Y == 19)
         {
-            init();
+            init();                         //reset tetris
             for(int i = 0; i < height; i++)
             {
                 for(int j = 0; j < width-1; j++)
@@ -614,6 +633,9 @@ void render()
         renderInstruction(screen.ILocation);
         break;
 
+    case CREDIT:
+        renderCredit(screen.CrLocation);
+        break;
 
     case HIGHSCORE_MODE:
 
@@ -946,7 +968,6 @@ void updateLONG()
 
         else if (keyPressed[K_UP] && dunturnup == true && (downward == 21 || map[downward+1][check.l] != '0' || map[downward+1][check.l + 1] != '0' || map[downward+1][check.l + 2] != '0' || map[downward+1][check.l + 3] != '0'))
         {
-            Sleep(100);
             check.l+=2;
 
             block.location.Y--;
@@ -1055,7 +1076,6 @@ void updateLONG()
 
         else if(keyPressed[K_UP] && dunturnup == true && check.l < 2)
         {
-            Sleep(100);
             block.location.X+=2;
 
             block.orientation = FIRST;
@@ -1065,7 +1085,6 @@ void updateLONG()
         
         else if(keyPressed[K_UP] && dunturnup == true &&(map[downward + 1][check.l - 1] != '0' || map[downward -1][check.l - 1] != '0' || map[downward - 2][check.l - 1] != '0'))
         {
-            Sleep(100);
             block.location.X+=2;
 
             block.orientation = FIRST;
@@ -1075,7 +1094,6 @@ void updateLONG()
         
         else if (keyPressed[K_UP] && dunturnup == true && (map[downward + 1][check.l - 2] != '0' || map[downward -1][check.l - 2] != '0' || map[downward - 2][check.l - 2] != '0'))
         {
-            Sleep(100);
             block.location.X++;
             check.l --;
 
@@ -1086,7 +1104,6 @@ void updateLONG()
 
         else if(keyPressed[K_UP] && dunturnup == true && check.l > 8)
         {
-            Sleep(100);
             block.location.X--;
             check.l-=3;
 
@@ -1097,7 +1114,6 @@ void updateLONG()
         
         else if(keyPressed[K_UP] && dunturnup == true && check.l > 2 && (map[downward -1][check.l + 1] != '0' || map[downward - 2][check.l + 1] != '0' || map[downward + 1][check.l + 1] != '0'))  // check for right side obstacle
         {
-            Sleep(100);
             block.location.X--;
             check.l-=3;
 
@@ -1107,8 +1123,7 @@ void updateLONG()
         }
         
         else if(keyPressed[K_UP] && dunturnup == true)
-        {
-            Sleep(100); 
+        { 
             check.l-=2;
 
             block.orientation = FIRST;
@@ -1167,8 +1182,6 @@ void updateZ()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             block.orientation = SECOND;
 
             dunturnup = false;
@@ -1263,7 +1276,6 @@ void updateZ()
 
         else if (keyPressed[K_UP] && dunturnup == true  && (map[downward][check.Z+2] != '0' || map[downward+1][check.Z+1] != '0' || map[downward-1][check.Z + 3] != '0'))
         {
-            Sleep(100);
             block.location.X--;
             check.Z--;
 
@@ -1274,7 +1286,6 @@ void updateZ()
 
         else if (keyPressed[K_UP] && dunturnup == true && check.Z == 8)
         {
-            Sleep(100);
             block.location.X--;
             check.Z--;
 
@@ -1285,8 +1296,6 @@ void updateZ()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             block.orientation = FIRST;
 
             dunturnup = false;
@@ -1355,7 +1364,6 @@ void updateL()
         // check surrounding before rotate
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
             check.L++;
 
             block.orientation = SECOND;
@@ -1430,7 +1438,6 @@ void updateL()
 
         else if (keyPressed[K_UP] && dunturnup == true && ( map[downward][check.L - 1] != '0' || map[downward - 1][check.L - 1] != '0' || map[downward + 1][check.L - 1] != '0'))
         {
-            Sleep(100);
             block.location.X++;
 
             block.orientation = THIRD;
@@ -1440,7 +1447,6 @@ void updateL()
         
         else if (keyPressed[K_UP] && dunturnup == true && check.L <1 )
         {
-            Sleep(100);
             block.location.X++;
 
             block.orientation = THIRD;
@@ -1450,7 +1456,6 @@ void updateL()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
             check.L--;
 
             block.orientation = THIRD;
@@ -1515,8 +1520,6 @@ void updateL()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             block.orientation = FOURTH;
 
             dunturnup = false;
@@ -1590,7 +1593,6 @@ void updateL()
 
         else if (keyPressed[K_UP] && dunturnup == true && (check.L > 7 || map[downward][check.L + 2] != '0'))
         {
-            Sleep(100);
             block.location.X--;
 
             check.L--;
@@ -1602,8 +1604,6 @@ void updateL()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             block.orientation = FIRST;
 
             dunturnup = false;
@@ -1731,7 +1731,6 @@ void updateT()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
             check.T++;
 
             block.orientation = SECOND;
@@ -1802,7 +1801,6 @@ void updateT()
 
         else if (keyPressed[K_UP] && dunturnup == true && (map[downward][check.T-1] != '0' || map[downward - 1][check.T-1] != '0' || map[downward + 1][check.T-1] != '0'))
         {
-            Sleep(100);
             block.location.X++;
 
             block.orientation = THIRD;
@@ -1812,7 +1810,6 @@ void updateT()
 
         else if (keyPressed[K_UP] && dunturnup == true && check.T < 1)
         {
-            Sleep(100);
             block.location.X++;
 
             block.orientation = THIRD;
@@ -1822,7 +1819,6 @@ void updateT()
         
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
             check.T--;
 
             block.orientation = THIRD;
@@ -1886,8 +1882,6 @@ void updateT()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             block.orientation = FOURTH;
 
             dunturnup = false;
@@ -1961,7 +1955,6 @@ void updateT()
 
         else if (keyPressed[K_UP] && dunturnup == true && (map[downward][check.T+2] != '0' || map[downward-1][check.T+2] != '0' || map[downward+1][check.T+2] != '0'))
         {
-            Sleep(100);
             block.location.X--;
             check.T--;
 
@@ -1972,7 +1965,6 @@ void updateT()
 
         else if (keyPressed[K_UP] && dunturnup == true && check.T > 7)
         {
-            Sleep(100);
             block.location.X--;
             check.T--;
 
@@ -1983,8 +1975,6 @@ void updateT()
         
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             block.orientation = FIRST;
 
             dunturnup = false;
@@ -2140,7 +2130,6 @@ void updateREVZ()
 
         else if (keyPressed[K_UP] && dunturnup == true && check.RZ > 7)
         {
-            Sleep(100);
             block.location.X--;
             check.RZ--;
 
@@ -2151,8 +2140,6 @@ void updateREVZ()
 
         else if (keyPressed[K_UP] && dunturnup == true)
         {
-            Sleep(100);
-
             block.orientation = FIRST;
 
             dunturnup = false;

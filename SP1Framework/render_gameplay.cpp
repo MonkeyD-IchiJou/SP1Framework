@@ -806,7 +806,7 @@ void receive (int type, int orientation, int x)
 
 void calculate(int x) //Score System
 {
-    if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10)  //4 line Strike -> 110 points (40*2 + 30)
+    if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10)  //4 line Strike 
     {
         for (int k = 0; k < 4; k++)
         {
@@ -820,10 +820,10 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 110;
+        score += 550;
     }
 
-    else if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10) //3 line Strke -> 70 points (30*2 + 10)
+    else if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10) //3 line Strke
     {
         for (int k = 0; k < 3; k++)
         {
@@ -837,7 +837,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 70;
+        score += 400;
     }
 
     else if (checkscore[x] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10)  
@@ -867,7 +867,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 70;
+        score += 400;
     }
     
     else if (checkscore[x] == 10 && checkscore[x-2] == 10)  
@@ -901,7 +901,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 40;
+        score += 250;
     }
     
     else if (checkscore[x] == 10 && checkscore[x-3] == 10)  
@@ -936,7 +936,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 40;
+        score += 250;
     }
 
     /////
@@ -969,12 +969,12 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 40;
+        score += 250;
     }
 
     ////
     
-    else if (checkscore[x] == 10 && checkscore[x-1] == 10) //2 line Strike -> 40 points (20*2 + 0)
+    else if (checkscore[x] == 10 && checkscore[x-1] == 10) //2 line Strike
     {
         for (int k = 0; k < 2; k++)
         {
@@ -988,7 +988,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 40;
+        score += 250;
     }
     
     else if (checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10) 
@@ -1006,7 +1006,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 70;
+        score += 400;
     }
     
     else if (checkscore[x-1] == 10 && checkscore[x-2] == 10) 
@@ -1024,7 +1024,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 40;
+        score += 250;
     }
 
     else if (checkscore[x-2] == 10 && checkscore[x-3] == 10) 
@@ -1042,7 +1042,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 40;
+        score += 250;
     }
 
     else if (checkscore[x] == 10)
@@ -1056,7 +1056,7 @@ void calculate(int x) //Score System
             }
         } 
         playGameSound(S_CLEAR);
-        score += 10;
+        score += 100;
     }
 
     else if (checkscore[x-1] == 10)
@@ -1071,7 +1071,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 10;
+        score += 100;
     }
 
     else if (checkscore[x-2] == 10)
@@ -1086,7 +1086,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 10;
+        score += 100;
     }
 
     else if (checkscore[x-3] == 10)
@@ -1101,7 +1101,7 @@ void calculate(int x) //Score System
             }
         }
         playGameSound(S_CLEAR);
-        score += 10;
+        score += 100;
     }
 }
 

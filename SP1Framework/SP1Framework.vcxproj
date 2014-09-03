@@ -81,6 +81,7 @@
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="render_credit.cpp" />
     <ClCompile Include="render_end_game.cpp" />
     <ClCompile Include="render_gameplay.cpp" />
     <ClCompile Include="render_instruction.cpp" />

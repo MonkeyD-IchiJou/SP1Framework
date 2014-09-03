@@ -97,24 +97,18 @@ struct blockcolor
 extern blockcolor color;
 
 // in render_gameplay.cpp
-void DrawBorder(COORD c);
-void SetMap();
+void DrawBorder(COORD c);                                   //tetris map border            
 void DrawMap(COORD c, int type);
 
-void initiate(int type, COORD c);
-void printBlock(int type, int orientation, int color);
-void receive(int type, int orientation, int x);
+void initiate(int type, COORD c);                           //initiate for all the orientation and blocks coordinates here
+void printBlock(int type, int orientation, int color);      //spawn blocks on the top of the map
+void receive(int type, int orientation, int x);        
 void calculate(int x);
 
-void UpdateMap(int type, int orientation, int x, int y);
-void updateLONG();
-void updateZ();
-void updateL();
-void updateSq();
-void updateT();
-void updateREVZ();
-void updateREVL();
+void UpdateMap(int type, int orientation, int x, int y);    //update map when blocks reach the obstacle
 
-void showScore(COORD c, int x);
+void showScore(COORD c, int x);         //print out score 
+
+void Background(COORD c);               //tetris word at the background
 
 #endif // _GAMEPLAY_H
