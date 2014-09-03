@@ -75,6 +75,7 @@ void init()
 	snd.loadWave("rotate", "rotate.wav");
     snd.loadWave("land", "BlocksLanding.wav");
     snd.loadWave("clear", "ClearLine.wav");
+    snd.loadWave("over", "Gameover.wav");
     
     screen.ScLocation.X = 22;
     screen.ScLocation.Y = 14;
@@ -212,8 +213,6 @@ void update(double dt)
     initiate(block.type, block.location);
     speed = static_cast<int>(elapsedTime*500);     //500 -> 10; 1000 -> 4; 1000 -> 2; 1000 -> 1
 
-    
-
     switch(gameState)
     {
     case START_SCREEN:
@@ -292,6 +291,7 @@ void update(double dt)
             if (map[0][i] != '0')
             {
                 gameState = END_GAME;
+                break;
             }
         }
 
@@ -530,6 +530,12 @@ void update(double dt)
         break;
 
     case END_GAME:
+        speed = static_cast<int>(elapsedTime*500);
+        if(speed % 50 == 0)
+        {
+            playGameSound(S_OVER);
+        }
+
 		if (keyPressed[K_ENTER] && screen.FinalResult.Y == 20)
         {
             init();
@@ -560,7 +566,7 @@ void update(double dt)
 
             score = 0;
 			Sleep(100);
-			gameState = MAIN_MENU;
+			gameState = MAIN_MENU; playGameSound(S_STOP);
 		}
 
 		if (keyPressed[K_UP] && screen.FinalResult.Y > 20)
@@ -842,6 +848,8 @@ void playGameSound(SoundType sound)
     case S_LAND: snd.playSound("land");
         break;
     case S_CLEAR: snd.playSound("clear");
+        break;
+    case S_OVER: snd.playSound("over");
         break;
     }
 }
@@ -2526,7 +2534,7 @@ void random()
 {
     block.orientation = FIRST;
 
-    randomisation = 0;//randomblock[0+next];
+    randomisation = randomblock[0+next];
 
     switch(randomisation)
     {

@@ -37,6 +37,7 @@ enum SoundType
 	S_STOP,
     S_LAND,
     S_CLEAR,
+    S_OVER,
     S_COUNT
 };
 
