@@ -16,7 +16,7 @@ bool keyPressed[K_COUNT];
 
 stages gameState = START_SCREEN;
 
-//COORD consoleSize;
+COORD consoleSize;
 
 Sound snd;
 
@@ -61,10 +61,10 @@ void init()
     elapsedTime = 0.0;
     std::cout << std::fixed << std::setprecision(3);
 
-    //SetConsoleTitle(L"Tetris");
+    SetConsoleTitle(L"Tetris");
 
     // Sets the console size, this is the biggest so far.
-    //setConsoleSize(60, 36);
+    setConsoleSize(60, 36);
 
     initConsole(ConsoleSize, "SP1 Framework");
 
@@ -216,6 +216,7 @@ void update(double dt)
     switch(gameState)
     {
     case START_SCREEN:
+        
         playGameSound(S_JJ);
 
         if (keyPressed[K_ENTER])
@@ -279,7 +280,103 @@ void update(double dt)
             gameState = MAIN_MENU;
         }
 		break;
+<<<<<<< 7977b0077fc4f88bfc8217f3bb6fc5d1f5a59c68
 
+<<<<<<< cd6dbe0d7576968c17aecf81001209cd20ccdb60
+=======
+	case OPTION:
+		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+			gameState = CHANGESHAPE;
+		}
+
+		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+			gameState = MAIN_MENU;
+		}
+
+		if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.OptLocation.Y -= 5;
+        }
+
+		if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.OptLocation.Y += 5; 
+        }
+		break;
+
+	case CHANGESHAPE:
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 5)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+			gameState = HIGHSCORE_MODE;
+		}
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 7)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+		}
+
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 9)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+		
+		}
+
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 11)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+		
+		}
+
+		
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 13)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+		
+		}
+
+		if (keyPressed[K_ENTER] && screen.CLocation.Y == 15)
+		{
+			Sleep(100);
+			Beep(1440, 30);
+			gameState = MAIN_MENU;
+		}
+
+		if (keyPressed[K_UP] && screen.CLocation.Y > 5)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.CLocation.Y -= 2;
+        }
+
+		if (keyPressed[K_DOWN] && screen.CLocation.Y < 15)
+        {
+            Beep(1440, 30);
+			Sleep(50);
+            screen.CLocation.Y += 2; 
+        }
+=======
+>>>>>>> 9b964a15862e9da659ebfaf6521c1bdae773914c
+        
+>>>>>>> e9ca2430360b14fe435f951add880f18c5572769
     case HIGHSCORE_MODE:
 
         //if blocks reach the top of the map, game end
@@ -616,6 +713,7 @@ void render()
         showScore(screen.ShowScore, score);
         //writeToBuffer(block.location, (char)constantmoveright);
 
+<<<<<<< 7977b0077fc4f88bfc8217f3bb6fc5d1f5a59c68
 <<<<<<< a2ff484fac4d8aa036b7af81000441990d587d6b
         writeToBuffer(block.location, (char)downward);
 =======
@@ -625,6 +723,8 @@ void render()
 
 =======
 >>>>>>> 1cf1d3a1841eb201e0024636d53b4c55b3811552
+=======
+>>>>>>> 9b964a15862e9da659ebfaf6521c1bdae773914c
         //writeToBuffer(block.location, (char)constantmove);
 
         //writeToBuffer(block.location, (char)check.RZ);
@@ -844,6 +944,7 @@ void playGameSound(SoundType sound)
     case S_JJ : snd.playSound("move");
         break;
 	case S_ROTATE: snd.playSound("rotate");
+<<<<<<< 7977b0077fc4f88bfc8217f3bb6fc5d1f5a59c68
 <<<<<<< 60fc202650ab98076e27ff2e5779b6e786427b8a
 		break;
 <<<<<<< 84800d0c2999d79c619d9c9516b50796ee83685e
@@ -856,6 +957,11 @@ void playGameSound(SoundType sound)
         break;
 >>>>>>> c9b3c2e45bf8e509d0f328470a50dbefaaef5c39
 >>>>>>> 88ff240404d44dc018f4b255ce25403b0524657f
+=======
+        break;
+    case S_LAND: snd.playSound("land");
+        break;
+>>>>>>> 9b964a15862e9da659ebfaf6521c1bdae773914c
     }
 }
 
