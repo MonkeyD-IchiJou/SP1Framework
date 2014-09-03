@@ -56,4 +56,8 @@ void renderCredit(COORD c)
     c.X = 24;
     c.Y = 24;
     writeToBuffer(c, "Mr Sim Tze Jan", 0x0E);
+
+    c.X = 18;
+    c.Y = 32;
+    writeToBuffer(c, " Press ENTER to return ", 0x0A);
 }
