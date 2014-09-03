@@ -705,10 +705,7 @@ void render()
         showNextBlock(screen.NLineLocation, block.type);
         storeBlock(screen.StoreLineLocation, count.storeornot, *temporaryStore);
         showScore(screen.ShowScore, score);
-<<<<<<< e4db214bbec2c83def7c9c9be4bf7c27e2feed28
-=======
 
->>>>>>> 78b90451d4d4de83ac01211fbac1c74b1d3719ce
         //writeToBuffer(block.location, (char)constantmoveright);
 
         writeToBuffer(block.location, (char)downward);
