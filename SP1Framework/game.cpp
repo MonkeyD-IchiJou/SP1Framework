@@ -66,7 +66,7 @@ void init()
     // Sets the console size, this is the biggest so far.
     setConsoleSize(60, 36);
 
-    initConsole(ConsoleSize, "SP1 Framework");
+    initConsole(ConsoleSize, "Tetris");
 
     charLocation.X = ConsoleSize.X / 2;
     charLocation.Y = ConsoleSize.Y / 2;
@@ -538,7 +538,7 @@ void update(double dt)
 
 		if(keyPressed[K_ENTER] && screen.PsLocation.Y == 26)
 		{
-			gameState = MAIN_MENU; 
+			gameState = MAIN_MENU; playGameSound(S_JJ);
 		}
 
         if (keyPressed[K_SHIFT])
@@ -549,7 +549,7 @@ void update(double dt)
         break;
 
     case END_GAME:
-        speed = static_cast<int>(elapsedTime*500);
+        speed = static_cast<int>(elapsedTime*1500);
         if(speed % 50 == 0)
         {
             playGameSound(S_OVER);
@@ -585,7 +585,7 @@ void update(double dt)
 
             score = 0;
 			Sleep(100);
-			gameState = MAIN_MENU; playGameSound(S_STOP);
+			gameState = MAIN_MENU; playGameSound(S_STOP); playGameSound(S_JJ);
 		}
 
 		if (keyPressed[K_UP] && screen.FinalResult.Y > 20)
@@ -2521,7 +2521,7 @@ void random()
 {
     block.orientation = FIRST;
 
-    randomisation = 4;//randomblock[0+next];
+    randomisation = randomblock[0+next];
 
     switch(randomisation)
     {
