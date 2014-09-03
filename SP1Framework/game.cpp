@@ -73,6 +73,7 @@ void init()
 
     snd.loadWave("move", "Tetris.wav");
 	snd.loadWave("rotate", "rotate.wav");
+    snd.loadWave("land", "BlocksLanding.wav");
     
     screen.ScLocation.X = 22;
     screen.ScLocation.Y = 14;
@@ -204,15 +205,19 @@ void update(double dt)
     {
         elapsedTime += dt;
         deltaTime = dt;
+        
     }
 
     initiate(block.type, block.location);
     speed = static_cast<int>(elapsedTime*500);     //500 -> 10; 1000 -> 4; 1000 -> 2; 1000 -> 1
 
+    
+
     switch(gameState)
     {
     case START_SCREEN:
-        
+        playGameSound(S_JJ);
+
         if (keyPressed[K_ENTER])
         {
             Sleep(100);
@@ -226,7 +231,7 @@ void update(double dt)
         {
 			Sleep(100);
             Beep(1440, 30);
-            gameState = HIGHSCORE_MODE; playGameSound(S_JJ);
+            gameState = HIGHSCORE_MODE;
 		}
 
         if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
@@ -301,10 +306,16 @@ void update(double dt)
             dungoright = true;
             constantmoveright = 0;
         }
+
+        if (keyPressed[K_UP] && dunturnup == true)
+        {
+            playGameSound(S_ROTATE);
+        }
+
         
         if (keyPressed[K_RIGHT])
         {
-            constantmoveright++;playGameSound(S_ROTATE);
+            constantmoveright++;
         }
 
         if (constantmoveright >= 6)
@@ -833,7 +844,18 @@ void playGameSound(SoundType sound)
     case S_JJ : snd.playSound("move");
         break;
 	case S_ROTATE: snd.playSound("rotate");
+<<<<<<< 60fc202650ab98076e27ff2e5779b6e786427b8a
 		break;
+<<<<<<< 84800d0c2999d79c619d9c9516b50796ee83685e
+=======
+	case S_STOP: snd.playSound("stop");
+	break;
+=======
+        break;
+    case S_LAND: snd.playSound("land");
+        break;
+>>>>>>> c9b3c2e45bf8e509d0f328470a50dbefaaef5c39
+>>>>>>> 88ff240404d44dc018f4b255ce25403b0524657f
     }
 }
 
@@ -958,7 +980,7 @@ void updateLONG()
         else if (downward-1 >= 22 || map[downward][check.l] != '0' || map[downward][check.l + 1] != '0' || map[downward][check.l + 2] != '0' || map[downward][check.l + 3] != '0')
         {
             UpdateMap(block.type, block.orientation, downward-1, check.l);              // bu jie zhi mi
-
+            
             receive (block.type, block.orientation, downward-1);
             calculate (downward-1);
 
@@ -968,6 +990,8 @@ void updateLONG()
             random();
 
             Sleep(150); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
 
         break;
@@ -1106,13 +1130,15 @@ void updateLONG()
             UpdateMap(block.type, block.orientation, downward, check.l);              // bu jie zhi mi
             receive (block.type, block.orientation, downward);
             calculate (downward);
-
+            
             next++; 
 
             initCheck();
             random(); 
 
             Sleep(150); if(count.switchcount % 2 != 0){count.switchcount++;}
+            
+            playGameSound(S_LAND);
         }
 
         break;
@@ -1183,6 +1209,8 @@ void updateZ()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -1283,6 +1311,8 @@ void updateZ()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
     }
@@ -1352,6 +1382,8 @@ void updateL()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -1446,6 +1478,8 @@ void updateL()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -1507,6 +1541,8 @@ void updateL()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -1592,6 +1628,8 @@ void updateL()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
     }
@@ -1650,6 +1688,8 @@ void updateSq()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
     }
@@ -1718,6 +1758,8 @@ void updateT()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -1807,6 +1849,8 @@ void updateT()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -1868,6 +1912,8 @@ void updateT()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -1963,6 +2009,8 @@ void updateT()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
     }
@@ -2028,6 +2076,8 @@ void updateREVZ()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -2127,6 +2177,8 @@ void updateREVZ()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 	}
@@ -2194,6 +2246,8 @@ void updateREVL()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -2280,6 +2334,8 @@ void updateREVL()
             random();
 
             Sleep(150); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -2339,6 +2395,8 @@ void updateREVL()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -2419,6 +2477,8 @@ void updateREVL()
             random();
 
             Sleep(100); if(count.switchcount % 2 != 0){count.switchcount++;}
+
+            playGameSound(S_LAND);
         }
         break;
 
@@ -2479,7 +2539,7 @@ void random()
 {
     block.orientation = FIRST;
 
-    randomisation = randomblock[0+next];
+    randomisation = 0;//randomblock[0+next];
 
     switch(randomisation)
     {

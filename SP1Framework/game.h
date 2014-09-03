@@ -34,7 +34,11 @@ enum SoundType
 {
     S_JJ,
 	S_ROTATE,
+<<<<<<< 60fc202650ab98076e27ff2e5779b6e786427b8a
 	S_STOP,
+=======
+    S_LAND,
+>>>>>>> c9b3c2e45bf8e509d0f328470a50dbefaaef5c39
     S_COUNT
 };
 
