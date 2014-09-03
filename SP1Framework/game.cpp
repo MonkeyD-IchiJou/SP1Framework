@@ -1720,7 +1720,7 @@ void updateT()
                 block.location.Y++;
                 downward++;
 
-                if (map[downward][check.T] != '0' || map[downward][check.T+2] != '0' || map[downward][check.T+1] != '0')
+                if (map[downward+1][check.T] != '0' || map[downward+1][check.T+2] != '0' || map[downward+1][check.T+1] != '0')
                 {
                     break;
                 }
@@ -1740,7 +1740,7 @@ void updateT()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        else if (map[downward+1][check.T] != '0' || map[downward+1][check.T+2] != '0' || map[downward+1][check.T+1] != '0')
+        else if (map[downward][check.T] != '0' || map[downward][check.T+2] != '0' || map[downward][check.T+1] != '0')
         {
             UpdateMap(block.type, block.orientation, downward-2, check.T);             // bu jie zhi mi
             receive (block.type, block.orientation, downward - 1);
