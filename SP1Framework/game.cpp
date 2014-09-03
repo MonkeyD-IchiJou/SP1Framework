@@ -364,19 +364,19 @@ void update(double dt)
         int changeSpeed;
         int divide;
         
-        if (score >= 0 && score < 499)      // beginer speed
+        if (score >= 0 && score < 999)      // beginer speed
         {
             changeSpeed = 500;
             divide = 10;
         }
 
-        else if (score >= 500 && score < 1499)
+        else if (score >= 1000 && score < 2499)
         {
             changeSpeed = 1000;
             divide = 4;
         }
 
-        else if (score >= 1500)
+        else if (score >= 2500)
         {
             changeSpeed = 1000;
             divide = 2;
@@ -1740,7 +1740,7 @@ void updateT()
 
         // Update map when reach bottom or other block
         // Come down next block when reach bottom
-        else if (map[downward][check.T] != '0' || map[downward][check.T+2] != '0' || map[downward][check.T+1] != '0')
+        else if (map[downward+1][check.T] != '0' || map[downward+1][check.T+2] != '0' || map[downward+1][check.T+1] != '0')
         {
             UpdateMap(block.type, block.orientation, downward-2, check.T);             // bu jie zhi mi
             receive (block.type, block.orientation, downward - 1);
@@ -2521,7 +2521,7 @@ void random()
 {
     block.orientation = FIRST;
 
-    randomisation = randomblock[0+next];
+    randomisation = 4;//randomblock[0+next];
 
     switch(randomisation)
     {

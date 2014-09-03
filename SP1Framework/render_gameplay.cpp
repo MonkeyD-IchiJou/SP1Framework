@@ -821,6 +821,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 550;
+        combo = true;
     }
 
     else if (checkscore[x] == 10 && checkscore[x-1] == 10 && checkscore[x-2] == 10) //3 line Strke
@@ -838,6 +839,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 400;
+        combo = true;
     }
 
     else if (checkscore[x] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10)  
@@ -868,6 +870,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 400;
+        combo = true;
     }
     
     else if (checkscore[x] == 10 && checkscore[x-2] == 10)  
@@ -902,6 +905,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 250;
+        combo = true;
     }
     
     else if (checkscore[x] == 10 && checkscore[x-3] == 10)  
@@ -937,6 +941,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 250;
+        combo = true;
     }
 
     /////
@@ -970,6 +975,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 250;
+        combo = true;
     }
 
     ////
@@ -989,6 +995,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 250;
+        combo = true;
     }
     
     else if (checkscore[x-1] == 10 && checkscore[x-2] == 10 && checkscore[x-3] == 10) 
@@ -1007,6 +1014,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 400;
+        combo = true;
     }
     
     else if (checkscore[x-1] == 10 && checkscore[x-2] == 10) 
@@ -1025,6 +1033,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 250;
+        combo = true;
     }
 
     else if (checkscore[x-2] == 10 && checkscore[x-3] == 10) 
@@ -1043,6 +1052,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 250;
+        combo = true;
     }
 
     else if (checkscore[x] == 10)
@@ -1057,6 +1067,7 @@ void calculate(int x) //Score System
         } 
         playGameSound(S_CLEAR);
         score += 100;
+        combo = true;
     }
 
     else if (checkscore[x-1] == 10)
@@ -1072,6 +1083,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 100;
+        combo = true;
     }
 
     else if (checkscore[x-2] == 10)
@@ -1087,6 +1099,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 100;
+        combo = true;
     }
 
     else if (checkscore[x-3] == 10)
@@ -1102,6 +1115,7 @@ void calculate(int x) //Score System
         }
         playGameSound(S_CLEAR);
         score += 100;
+        combo = true;
     }
 }
 
