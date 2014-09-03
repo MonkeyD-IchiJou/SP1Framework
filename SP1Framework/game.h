@@ -36,6 +36,7 @@ enum SoundType
 	S_ROTATE,
 	S_STOP,
     S_LAND,
+    S_CLEAR,
     S_COUNT
 };
 

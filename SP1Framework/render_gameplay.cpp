@@ -819,7 +819,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 110;
     }
 
@@ -836,7 +836,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 70;
     }
 
@@ -866,7 +866,7 @@ void calculate(int x) //Score System
 
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 70;
     }
     
@@ -900,7 +900,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-i-1];
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 40;
     }
     
@@ -935,7 +935,7 @@ void calculate(int x) //Score System
 
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 40;
     }
 
@@ -968,7 +968,7 @@ void calculate(int x) //Score System
 
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 40;
     }
 
@@ -987,7 +987,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 40;
     }
     
@@ -1005,7 +1005,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 70;
     }
     
@@ -1023,7 +1023,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 40;
     }
 
@@ -1041,7 +1041,7 @@ void calculate(int x) //Score System
                 }
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 40;
     }
 
@@ -1055,7 +1055,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-1-i];
             }
         } 
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 10;
     }
 
@@ -1070,7 +1070,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 10;
     }
 
@@ -1085,7 +1085,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 10;
     }
 
@@ -1100,7 +1100,7 @@ void calculate(int x) //Score System
                 checkscore[x-i] = checkscore[x-1-i];
             }
         }
-        combo = true;
+        playGameSound(S_CLEAR);
         score += 10;
     }
 }

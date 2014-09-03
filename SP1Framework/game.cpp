@@ -74,6 +74,7 @@ void init()
     snd.loadWave("move", "Tetris.wav");
 	snd.loadWave("rotate", "rotate.wav");
     snd.loadWave("land", "BlocksLanding.wav");
+    snd.loadWave("clear", "ClearLine.wav");
     
     screen.ScLocation.X = 22;
     screen.ScLocation.Y = 14;
@@ -241,6 +242,7 @@ void update(double dt)
             Beep(1440, 30);
             gameState = INSTRUCTION;
 		}
+        /*
 <<<<<<< fb5b0cddf82a2d8ad7bc8a5b2715c6c77c4daa08
 		
 		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 26)
@@ -249,7 +251,7 @@ void update(double dt)
             Beep(1440, 30);
 		}
 =======
->>>>>>> a476f34d3e1a3d52c35efb877523209e1ea6d6e4
+>>>>>>> a476f34d3e1a3d52c35efb877523209e1ea6d6e4*/
 
         if (keyPressed[K_ENTER] && screen.MmLocation.Y == 32)
         {
@@ -281,106 +283,7 @@ void update(double dt)
             gameState = MAIN_MENU;
         }
 		break;
-<<<<<<< fb5b0cddf82a2d8ad7bc8a5b2715c6c77c4daa08
-<<<<<<< 7977b0077fc4f88bfc8217f3bb6fc5d1f5a59c68
 
-<<<<<<< cd6dbe0d7576968c17aecf81001209cd20ccdb60
-=======
-	case OPTION:
-		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = CHANGESHAPE;
-		}
-
-		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = MAIN_MENU;
-		}
-
-		if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.OptLocation.Y -= 5;
-        }
-
-		if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.OptLocation.Y += 5; 
-        }
-		break;
-
-	case CHANGESHAPE:
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 5)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = HIGHSCORE_MODE;
-		}
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 7)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		}
-
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 9)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		
-		}
-
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 11)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		
-		}
-
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 13)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		
-		}
-
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 15)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = MAIN_MENU;
-		}
-
-		if (keyPressed[K_UP] && screen.CLocation.Y > 5)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.CLocation.Y -= 2;
-        }
-
-		if (keyPressed[K_DOWN] && screen.CLocation.Y < 15)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.CLocation.Y += 2; 
-        }
-=======
->>>>>>> 9b964a15862e9da659ebfaf6521c1bdae773914c
-=======
->>>>>>> a476f34d3e1a3d52c35efb877523209e1ea6d6e4
-        
->>>>>>> e9ca2430360b14fe435f951add880f18c5572769
     case HIGHSCORE_MODE:
 
         //if blocks reach the top of the map, game end
@@ -412,7 +315,6 @@ void update(double dt)
         {
             playGameSound(S_ROTATE);
         }
-
         
         if (keyPressed[K_RIGHT])
         {
@@ -937,8 +839,9 @@ void playGameSound(SoundType sound)
         break;
     case S_STOP: snd.playSound("stop");
         break;
-        break;
     case S_LAND: snd.playSound("land");
+        break;
+    case S_CLEAR: snd.playSound("clear");
         break;
     }
 }
