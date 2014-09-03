@@ -239,7 +239,6 @@ void update(double dt)
         {
 			Sleep(100);
             Beep(1440, 30);
-            gameState = OPTION;
 		}
 
         if (keyPressed[K_ENTER] && screen.MmLocation.Y == 32)
@@ -275,96 +274,6 @@ void update(double dt)
         }
 		break;
 
-	case OPTION:
-		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = CHANGESHAPE;
-		}
-
-		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = MAIN_MENU;
-		}
-
-		if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.OptLocation.Y -= 5;
-        }
-
-		if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.OptLocation.Y += 5; 
-        }
-		break;
-
-	case CHANGESHAPE:
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 5)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = HIGHSCORE_MODE;
-		}
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 7)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		}
-
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 9)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		
-		}
-
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 11)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		
-		}
-
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 13)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		
-		}
-
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 15)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = MAIN_MENU;
-		}
-
-		if (keyPressed[K_UP] && screen.CLocation.Y > 5)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.CLocation.Y -= 2;
-        }
-
-		if (keyPressed[K_DOWN] && screen.CLocation.Y < 15)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.CLocation.Y += 2; 
-        }
-        
     case HIGHSCORE_MODE:
 
         //if blocks reach the top of the map, game end
