@@ -16,7 +16,7 @@ bool keyPressed[K_COUNT];
 
 stages gameState = START_SCREEN;
 
-COORD consoleSize;
+//COORD consoleSize;
 
 Sound snd;
 
@@ -60,10 +60,10 @@ void init()
     elapsedTime = 0.0;
     std::cout << std::fixed << std::setprecision(3);
 
-    SetConsoleTitle(L"Tetris");
+    //SetConsoleTitle(L"Tetris");
 
     // Sets the console size, this is the biggest so far.
-    setConsoleSize(60, 36);
+    //setConsoleSize(60, 36);
 
     initConsole(ConsoleSize, "SP1 Framework");
 
@@ -77,13 +77,10 @@ void init()
     screen.ScLocation.Y = 14;
 
     screen.MmLocation.X = 7;
-    screen.MmLocation.Y = 14;
+    screen.MmLocation.Y = 13;
 
 	screen.PsLocation.X = 3;
 	screen.PsLocation.Y = 12;
-
-	screen.OptLocation.X = 18;
-	screen.OptLocation.Y = 10;
 
 	screen.CLocation.X = 18;
 	screen.CLocation.Y = 5;
@@ -127,57 +124,6 @@ void init()
     initBlockLocation();
     initCheck();
     random();
-    /*
-    switch(gameState)
-    {
-    case START_SCREEN:
-        
-        screen.ScLocation.X = ConsoleSize.X / 2;
-        screen.ScLocation.Y = ConsoleSize.Y / 2;
-        break;
-
-    case MAIN_MENU:
-
-        screen.MmLocation.X = ConsoleSize.X / 2;
-        screen.MmLocation.Y = ConsoleSize.Y / 2;
-        break;
-
-    case HIGHSCORE_MODE:
-
-        screen.NLineLocation.X = ConsoleSize.X / 2;
-        screen.NLineLocation.Y = ConsoleSize.Y / 2;
-
-        screen.StoreLineLocation.X = ConsoleSize.X / 2;
-        screen.StoreLineLocation.Y = ConsoleSize.Y / 2 - 10;
-
-        count.storeornot = false;
-        count.storeOredi = false;
-
-        count.switchcount = 0;
-
-        blockcolorinit();
-
-        // initiate block thingy here
-        // will do randomisation here
-
-        srand (time(NULL));
-        for (int i = 0; i < 65535; i++)
-        { 
-            randomblock[i] = rand()%5;
-        }
-
-        initBlockLocation();
-        initCheck();
-        random();
-
-        break;
-
-    case PAUSE_SCREEN:
-
-        screen.PsLocation.X = ConsoleSize.X / 2;
-        screen.PsLocation.Y = ConsoleSize.Y / 2;
-        break;
-    }*/
 }
 
 void shutdown()
@@ -224,28 +170,21 @@ void update(double dt)
 
     case MAIN_MENU:
 
-		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 14)
+		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 13)
         {
 			Sleep(100);
             Beep(1440, 30);
             gameState = HIGHSCORE_MODE;playGameSound(S_JJ);
 		}
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 20)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 21)
         {
 			Sleep(100);
             Beep(1440, 30);
             gameState = INSTRUCTION;
 		}
-		
-		if (keyPressed[K_ENTER] && screen.MmLocation.Y == 26)
-        {
-			Sleep(100);
-            Beep(1440, 30);
-            gameState = OPTION;
-		}
 
-        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 32)
+        if (keyPressed[K_ENTER] && screen.MmLocation.Y == 29)
         {
             Sleep(100);
             Beep(1440, 30);
@@ -256,14 +195,14 @@ void update(double dt)
         {
             Beep(1440, 30);
 			Sleep(100);
-            screen.MmLocation.Y -= 6;
+            screen.MmLocation.Y -= 8;
         }
 
-		if (keyPressed[K_DOWN] && screen.MmLocation.Y < 31)
+		if (keyPressed[K_DOWN] && screen.MmLocation.Y < 26)
         {
             Beep(1440, 30);
 			Sleep(100);
-            screen.MmLocation.Y += 6; 
+            screen.MmLocation.Y += 8; 
         }
         
         
@@ -278,96 +217,6 @@ void update(double dt)
         }
 		break;
 
-	case OPTION:
-		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 10)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = CHANGESHAPE;
-		}
-
-		if (keyPressed[K_ENTER] && screen.OptLocation.Y == 15)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = MAIN_MENU;
-		}
-
-		if (keyPressed[K_UP] && screen.OptLocation.Y > 10)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.OptLocation.Y -= 5;
-        }
-
-		if (keyPressed[K_DOWN] && screen.OptLocation.Y < 15)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.OptLocation.Y += 5; 
-        }
-		break;
-
-	case CHANGESHAPE:
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 5)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = HIGHSCORE_MODE;
-		}
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 7)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		}
-
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 9)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		
-		}
-
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 11)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		
-		}
-
-		
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 13)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-		
-		}
-
-		if (keyPressed[K_ENTER] && screen.CLocation.Y == 15)
-		{
-			Sleep(100);
-			Beep(1440, 30);
-			gameState = MAIN_MENU;
-		}
-
-		if (keyPressed[K_UP] && screen.CLocation.Y > 5)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.CLocation.Y -= 2;
-        }
-
-		if (keyPressed[K_DOWN] && screen.CLocation.Y < 15)
-        {
-            Beep(1440, 30);
-			Sleep(50);
-            screen.CLocation.Y += 2; 
-        }
-        
     case HIGHSCORE_MODE:
 
         //if blocks reach the top of the map, game end
@@ -554,6 +403,7 @@ void update(double dt)
         {
             Sleep(100);
             gameState = PAUSE_SCREEN;
+			playGameSound(S_STOP);
         }
         break;  
 
@@ -687,16 +537,6 @@ void render()
         renderInstruction(screen.ILocation);
         break;
 
-	case OPTION:
-
-		renderOption(screen.OptLocation);
-		break;
-
-	case CHANGESHAPE:
-
-		renderChange(screen.CLocation);
-		break;
-
     case HIGHSCORE_MODE:
 
         DrawBorder(screen.BdLocation);
@@ -708,7 +548,7 @@ void render()
 
         //writeToBuffer(block.location, (char)constantmoveright);
 
-        writeToBuffer(block.location, (char)downward);
+        //writeToBuffer(block.location, (char)downward);
 
         //writeToBuffer(block.location, (char)constantmove);
 
@@ -930,6 +770,8 @@ void playGameSound(SoundType sound)
         break;
 	case S_ROTATE: snd.playSound("rotate");
 		break;
+	case S_STOP: snd.playSound("stop");
+	break;
     }
 }
 

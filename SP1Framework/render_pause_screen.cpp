@@ -5,7 +5,15 @@
 
 void RenderPauseScreen(COORD c)
 {
-	writeToBuffer(c, ">>", 0x0D);
+	writeToBuffer(c, ">>", 0x0E);
+	
+	c.X = 0;
+	c.Y = 7;
+	writeToBuffer(c, "*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=", 0x0C);
+
+	c.X = 0;
+	c.Y = 30;
+	writeToBuffer(c, "*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=*/=", 0x0C);
 
 	// pause title
 	ifstream pause;
@@ -42,7 +50,7 @@ void RenderPauseScreen(COORD c)
 	string retext;
 
 	restart.open("restart.txt");
-	c.X = 7;
+	c.X = 6;
 	c.Y = 15;
 	
 	while( !restart.eof() )
@@ -58,13 +66,13 @@ void RenderPauseScreen(COORD c)
 	string maintext;
 
 	main.open("main.txt");
-	c.X = 5;
-	c.Y = 20;
+	c.X = 9;
+	c.Y = 24;
 
 	while( !main.eof() )
 	{
 		getline(main, maintext);
-		writeToBuffer(c, maintext, 0x0C);
+		writeToBuffer(c, maintext, 0x0F);
 		c.Y++;
 	}
 	main.close();

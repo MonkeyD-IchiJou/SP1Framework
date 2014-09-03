@@ -62,8 +62,11 @@ void renderInstruction(COORD c)
 	c.X = 14;
     c.Y = 26;
     writeToBuffer(c,"Hold Block - Left/Right Shift", 0x0A);
+
+	c.X = 14;
+	c.Y = 28;
+	writeToBuffer(c,"Instant Drop - Space Bar", 0x0A);
 	
-    
     c.X = 18;
     c.Y = 32;
     writeToBuffer(c, " Press ENTER to return ", 0x0A);

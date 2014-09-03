@@ -27,8 +27,6 @@ enum stages
     HIGHSCORE_MODE,
     PAUSE_SCREEN,
     END_GAME,
-	OPTION,
-	CHANGESHAPE,
     CREDIT
 };
 
@@ -36,6 +34,7 @@ enum SoundType
 {
     S_JJ,
 	S_ROTATE,
+	S_STOP,
     S_COUNT
 };
 

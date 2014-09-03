@@ -18,11 +18,15 @@ Sound::~Sound()
 void Sound::playSound(std::string key, bool async)
 {
     std::map<std::string, char*>::iterator it = soundData.find(key);
+	DWORD flag = async? SND_MEMORY | SND_ASYNC : SND_MEMORY;
     if (it != soundData.end())
-    {
-        DWORD flag = async? SND_MEMORY | SND_ASYNC : SND_MEMORY;
+    {        
         PlaySoundA(it->second, NULL, flag );
     }
+	else
+	{
+		PlaySoundA(NULL, NULL, flag );
+	}
 }
 
 bool Sound::loadWave(std::string key, char* filename)
